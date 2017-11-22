@@ -1,5 +1,5 @@
 <template>
-<v-card lg app>
+<v-card lg app >
   <v-card-title  class="primary">
     <h2>{{endpoint.split("")[0].toUpperCase() + endpoint.substring(1)}}</h2>
   </v-card-title>
@@ -12,13 +12,12 @@
        v-on:keyup="getEndpointDataLike(endpoint, searchText)"
      ></v-text-field>
    </v-card-text>
-   <v-card-text>
+   <v-card-text offset-lg2 v-if="results.length > 0">
      <v-list two-line>
          <template v-for="item in results">
            <v-list-tile-content class="hov" v-on:click="displayIdentyfier(item);">
                <v-list-tile-title v-html="item[atr]"></v-list-tile-title>
                <v-list-tile-sub-title v-text="item[subAtr]"></v-list-tile-sub-title>
-
             </v-list-tile-content>
           </template>
        </v-list>

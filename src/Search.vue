@@ -23,7 +23,7 @@
                   <span v-text="selected.identifiers"></span>
                 </v-card-text>
                 <v-card-actions>
-                  <v-btn primary v-clipboard:copy="selected.identifiers" v-on:click="copy(selected.identifiers); $modal.hide('identifiers');" color="primary flex">Copy</v-btn>
+                  <v-btn v-clipboard:copy="selected.identifiers" v-on:click="copy(selected.identifiers); $modal.hide('identifiers');" color="primary flex">Copy</v-btn>
                   <v-btn v-on:click="$modal.hide('identifiers');" color="accent">OK</v-btn>
                 </v-card-actions>
               </v-card>
@@ -103,7 +103,7 @@ export default {
 </script>
 
 <style>
-body {
+img {
   padding-top: 64px;
 }
 </style>
