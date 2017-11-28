@@ -17,7 +17,7 @@
                   <h2>{{selected.item}}</h2>
                 </v-card-title>
                 <v-card-text>
-                  {{selected.item}} Exists in the Database with the following identifier:
+                  <span class="bold">{{selected.item}}</span> exists in the Database with the following identifier:
                 </v-card-text>
                 <v-card-text>
                   <span v-text="selected.identifiers"></span>
@@ -41,7 +41,7 @@
       </v-layout>
       <v-layout v-bind="binding">
         <v-flex>
-          <search-list class="mt-1 mr-0 ml-0" endpoint="organisations" atr="title" subAtr="altTitle"></search-list>
+          <search-list callback="" class="mt-1 mr-0 ml-0" endpoint="organisations" atr="title" subAtr="altTitle"></search-list>
         </v-flex>
         <v-flex>
           <search-list class="mt-1" endpoint="places" atr="title" subAtr="uri"></search-list>
@@ -102,7 +102,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.bold{
+  font-weight: bold;
+}
 img {
   padding-top: 64px;
 }
