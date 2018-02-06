@@ -19,7 +19,8 @@
     "vuex": "^2.2.1",
     "vuex-router-sync": "^4.1.2",
     "axios":"0.16.2",
-    "vue-axios":"2.0.2"    
+    "vue-axios":"2.0.2",
+    "n3":"0.11.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
