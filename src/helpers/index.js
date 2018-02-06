@@ -25,9 +25,10 @@ const  CONFIG = {
     },
     TIMEOUT: 5000,
     PARAMS: {
-      httpAccept: 'application/json'
     },
-    HEADERS:{}
+    HEADERS:{
+      httpAccept: 'application/json'
+    }
   }
 }
 
