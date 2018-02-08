@@ -19,15 +19,16 @@ const CONFIG = {
     HEADERS: {},
   },
   VIAF: {
-    BASEURL: 'https://www.viaf.org/viaf/search/',
+    BASEURL: 'https://www.viaf.org/viaf/',
     ENDPOINTS: {
       BASE: '',
+      SEARCH: 'search',
     },
     TIMEOUT: 5000,
     PARAMS: {
+      httpAccept: 'application/json',
     },
     HEADERS: {
-      httpAccept: 'application/json',
     },
   },
 };
@@ -87,26 +88,20 @@ export default {
     //   }
     // },
     //
-    // getViafData(id) {
-    //   this.$debug("getViafData(id)", APIS.VIAF, APIS.ARCHE);
-    //   if (id) {
-    //     return APIS.VIAF.BASE.get("",{
-    //       params: {
-    //         query: id
-    //       }
-    //     }
-    //     ).then(function(response) {
-    //         this.$debug("response", response.data.searchRetrieveResponse.records[0]);
-    //         return Promise.resolve(response.data.searchRetrieveResponse.records[0]);
-    //       }.bind(this), function(error) {
-    //         this.$debug("errortree, request failed", error);
-    //         return Promise.reject(error);
-    //       }.bind(this));
-    //     } else {
-    //       this.$debug("errortree, no id");
-    //       return Promise.reject("no ID was given");
-    //   }
-    // }
+    getViafData(id) {
+      // this.$debug('getViafData(id)', APIS.VIAF, APIS.ARCHE);
+      if (id) {
+        return APIS.VIAF.BASE.get(`${id}/`).then((response) => {
+          console.log('response', response.data.searchRetrieveResponse.records[0]);
+          return Promise.resolve(response.data.searchRetrieveResponse.records[0]);
+        }, (error) => {
+          console.log('errortree, request failed', error);
+          return Promise.reject(error);
+        });
+      }
+      console.log('errortree, no id');
+      return Promise.reject('no ID was given');
+    },
   },
   created() {
 
