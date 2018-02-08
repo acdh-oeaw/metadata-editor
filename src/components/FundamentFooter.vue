@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="footer-imprint-bar">
-      © Copyright OEAW | <a href="https://arche.acdh.oeaw.ac.at/browser/imprint">Impressum/Imprint</a>
+      © Copyright OEAW | <a href="https://www.oeaw.ac.at/die-oeaw/impressum/">Impressum/Imprint</a>
     </div>
   </footer>
 </template>
