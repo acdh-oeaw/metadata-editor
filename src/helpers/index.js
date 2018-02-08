@@ -56,8 +56,12 @@ function buildFetchers(extconf){
 APIS = buildFetchers();
 
 export default {
+  data() {
+    return {
+      APIS,
+    };
+  },
   methods: {
-
     getEndpointDataLike(endpoint, like) {
       this.$info("getEndpointDataLike(endpoint, like)", endpoint, like);
       if (like) {
