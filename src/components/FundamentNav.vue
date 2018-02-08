@@ -1,38 +1,29 @@
 <template>
-<nav class="navbar navbar-expand-md navbar-light fixed-top bg-white box-shadow">
+<b-navbar toggleable="md" type="light" class="fixed-top bg-white box-shadow">
   <div class="container">
-    <a class="navbar-brand" href="../docs/index.php">
+    <b-link class="navbar-brand" :to="{ name: 'start', params: { lang: 'en' }}">
       <img class="mr-2" src="/static/fundament_logo.svg" height="35px" alt="" />
       MetaDataEditor
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    </b-link>
+    <b-navbar-toggle target="navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation"></b-navbar-toggle>
 
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <b-link class="nav-link" :to="{ name: 'start', params: { lang: 'en' }}">Home <span class="sr-only">(current)</span></b-link>
-        </li>
-        <li class="nav-item active">
-          <b-link class="nav-link" :to="{ name: 'create', params: { lang: 'en' }}">Create <span class="sr-only">(current)</span></b-link>
-        </li>
-      </ul>
+    <b-collapse is-nav id="navbarsExampleDefault">
+      <b-navbar-nav>
+          <b-nav-item class="nav-item active">
+            <b-link class="nav-link" :to="{ name: 'start', params: { lang: 'en' }}">Home <span class="sr-only">(current)</span></b-link>
+          </b-nav-item>
+          <b-nav-item class="nav-item active">
+            <b-link class="nav-link" :to="{ name: 'create', params: { lang: 'en' }}">Create <span class="sr-only">(current)</span></b-link>
+          </b-nav-item>
+      </b-navbar-nav>
       <div class="navbar-icons">
-        <a href="https://github.com/acdh-oeaw/fundament" target="_blank" rel="noopener">
+        <a href="https://github.com/ctot-nondef/metadataeditor" target="_blank" rel="noopener">
           <i class="fab fa-github"></i>
         </a>
-        <a href="#">
-          <i class="fas fa-sign-in-alt"></i>
-        </a>
-        <a href="#">
-          <i class="fas fa-search"></i>
-        </a>
       </div>
-
-    </div>
+    </b-collapse>
   </div>
-</nav>
+</b-navbar>
 </template>
 
 <script>
