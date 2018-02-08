@@ -6,7 +6,7 @@ import { sync } from 'vuex-router-sync';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import store from './store/index';
 import router from './router';
-import './assets/fundament.css';
+import './assets/fundament.min.css';
 
 
 Vue.use(BootstrapVue);

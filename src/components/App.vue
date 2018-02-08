@@ -1,9 +1,7 @@
 <template>
   <div class="">
     <FundamentNav></FundamentNav>
-    <main>
-      <router-view name="Content"></router-view>
-    </main>
+    <router-view name="Content"></router-view>
     <FundamentFooter></FundamentFooter>
   </div>
 </template>

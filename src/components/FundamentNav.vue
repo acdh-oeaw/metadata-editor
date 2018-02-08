@@ -1,7 +1,10 @@
 <template>
-  <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white">
+<nav class="navbar navbar-expand-md navbar-light fixed-top bg-white box-shadow">
   <div class="container">
-    <a class="navbar-brand" href="../docs/index.php">MetaDataEditor</a>
+    <a class="navbar-brand" href="../docs/index.php">
+      <img class="mr-2" src="/static/fundament_logo.svg" height="35px" alt="" />
+      Fundament
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -11,18 +14,29 @@
         <li class="nav-item active">
           <a class="nav-link" href="../docs/index.php">Home <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../docs/intro.php">Documentation</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Examples</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Customizer</a>
+        </li>
       </ul>
-      <div class="acdh-nav-brand">
-        <p>A Service of Austrian Centre for Digital Humanities</p>
-        <a href="https://www.oeaw.ac.at/acdh/acdh-home/" target="_blank" rel="noopener" aria-label="ACDH">
-          <img src="/static/acdh_logo120h.png" alt="ACDH" title="Austrian Center for Digital Humanities">
+
+      <div class="navbar-icons">
+        <a href="https://github.com/acdh-oeaw/fundament" target="_blank" rel="noopener">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="#">
+          <i class="fas fa-sign-in-alt"></i>
+        </a>
+        <a href="#">
+          <i class="fas fa-search"></i>
         </a>
       </div>
-      <div class="oeaw-nav-brand">
-        <a href="https://www.oeaw.ac.at" target="_blank" rel="noopener" aria-label="ÖAW">
-          <img src="/static/oeaw_logo.png" alt="ÖAW" title="Österreichische Akademie der Wissenschaften">
-        </a>
-      </div>
+
     </div>
   </div>
 </nav>
