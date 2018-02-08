@@ -24,8 +24,9 @@
             </nav>
           </div>
           <div class="col-12 col-md-9 col-xl-10 page-content-w-sidebar">
-            <h1><a id="Cards_0"></a>Cards</h1>
+            <h1><a id="Cards_0"></a>Entities</h1>
             <p>Cards replace Bootstrap 3’s panels, wells, and thumbnails. A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
+            <Fundamententity></Fundamententity>
             <h3><a id="Basic_Card_2"></a>Basic Card</h3>
             <p>A basic card with a title, body and button:</p>
             <h3><a id="Card_with_Side_Thumbnail_4"></a>Card with Side Thumbnail</h3>
@@ -37,8 +38,12 @@
 </template>
 
 <script>
+import Fundamententity from './Fundamententity';
+
 export default {
-  name: 'HelloWorld',
+  components: {
+    Fundamententity,
+  },
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
@@ -49,18 +54,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 </style>
