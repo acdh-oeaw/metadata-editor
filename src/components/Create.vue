@@ -27,7 +27,7 @@
             <h1><a id="Cards_0"></a>Entities</h1>
             <p>Cards replace Bootstrap 3’s panels, wells, and thumbnails. A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
             <Fundamententity uri='https://id.acdh.oeaw.ac.at/paigner' type='PERSONS'></Fundamententity>
-            <Autocomplete></Autocomplete>
+            <Autocomparche></Autocomparche>
             <h3><a id="Basic_Card_2"></a>Basic Card</h3>
             <p>A basic card with a title, body and button:</p>
             <h3><a id="Card_with_Side_Thumbnail_4"></a>Card with Side Thumbnail</h3>
@@ -40,17 +40,21 @@
 
 <script>
 import Fundamententity from './Fundamententity';
-import Autocomplete from './Autocomplete';
+import Autocomparche from './Autocomparche';
+import HELPERS from '../helpers';
+/* eslint no-param-reassign: ["error", { "props": false }] */
 
 export default {
+  mixins: [HELPERS],
   components: {
     Fundamententity,
-    Autocomplete,
+    Autocomparche,
   },
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
     };
+  },
+  methods: {
   },
 };
 </script>

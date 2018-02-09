@@ -21,7 +21,8 @@
     "axios":"0.16.2",
     "vue-axios":"2.0.2",
     "n3":"0.11.2",
-    "lodash": "^4.17.4"    
+    "vue-select": "2.4.0",
+    "debounce": "1.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
