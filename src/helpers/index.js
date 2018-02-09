@@ -126,7 +126,38 @@ export default {
       return hostname;
     },
     parseFromTtl(ttl) {
-      console.log(ttl);
+      const entities = ttl.split(/_:.*\sa\s/);
+      const namespaces = this.cleanArray(entities.shift().split(/\n/));
+      let idx = entities.length - 1;
+      while (idx + 1) {
+        entities[idx] = this.cleanArray(entities[idx].split(/\n/));
+        let idy = entities[idx].length - 1;
+        const entobj = {};
+        while (idy + 1) {
+          if (entities[idx][idy].replace(/^\s+|\s+$/g, '').split(' ')[1]) {
+            if (!entobj[entities[idx][idy].replace(/^\s+|\s+$/g, '').split(' ')[0]]) {
+              entobj[entities[idx][idy].replace(/^\s+|\s+$/g, '').split(' ')[0]] = entities[idx][idy].replace(/^\s+|\s+$|<|>|"|;/g, '').split(' ')[1];
+            } else {
+              entobj[entities[idx][idy].replace(/^\s+|\s+$/g, '').split(' ')[0]] = [entobj[entities[idx][idy].replace(/^\s+|\s+$/g, '').split(' ')[0]], entities[idx][idy].replace(/^\s+|\s+$|<|>|"|;|\./g, '').split(' ')[1]];
+            }
+          } else entobj.type = entities[idx][idy].replace(/^\s+|\s+$/g, '').split(' ')[0];
+          idy -= 1;
+        }
+        entities[idx] = entobj;
+        idx -= 1;
+      }
+      console.log(entities, namespaces);
+      return entities;
+    },
+    cleanArray(actual) {
+      const newArray = [];
+      let i;
+      for (i = 0; i < actual.length; i += 1) {
+        if (actual[i]) {
+          newArray.push(actual[i]);
+        }
+      }
+      return newArray;
     },
   },
   created() {
