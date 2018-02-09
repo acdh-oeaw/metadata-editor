@@ -1,7 +1,7 @@
 <template>
     <v-select label="name" :filterable="false" :options="options" @search="onSearch">
       <template slot="no-options">
-        type to search GitHub repositories..
+        type to retrieve Options from ARCHE
       </template>
       <template slot="option" slot-scope="option">
         <div class="d-center">
@@ -24,7 +24,7 @@ import HELPERS from '../helpers';
 export default {
   mixins: [HELPERS],
   props: [
-    'type',
+    'type', 'name',
   ],
   data() {
     return {
@@ -39,11 +39,12 @@ export default {
     },
     search: debounce((loading, search, vm) => {
       fetch(
-        `https://fedora.apollo.arz.oeaw.ac.at/browser/api/persons/${escape(search)}/?_format=json`,
+        `https://fedora.apollo.arz.oeaw.ac.at/browser/api/${vm.type}/${escape(search)}/?_format=json`,
       ).then((res) => {
         res.json().then((json) => {
-          console.log(json);
-          vm.options = json;
+          /* eslint no-console: ["error", { allow: ["log"] }] */
+          if (Array.isArray(json)) vm.options = json;
+          else vm.options = [];
         });
         loading(false);
       });
