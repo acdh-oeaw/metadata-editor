@@ -26,10 +26,19 @@ export default {
   },
   created() {
     /* eslint no-console: ["error", { allow: ["log"] }] */
-    console.log(this.uri, this.format, this.APIS);
-    if (this.uri && this.uri.lastIndexOf('/')) {
-      const a = this.getViafData(this.uri.substr(this.uri.lastIndexOf('/')));
-      console.log(a);
+    if (this.uri) {
+      if (this.extractHostname(this.uri) === 'viaf.org') {
+        this.getViafByID(this.uri.substr(this.uri.lastIndexOf('/')))
+        .then((res) => {
+          this.entity.title = `${res['ns1:mainHeadings']['ns1:data'][0]['ns1:text'] ? res['ns1:mainHeadings']['ns1:data'][0]['ns1:text'] : res['ns1:mainHeadings']['ns1:data']['ns1:text']}`;
+          this.entity.desc = `Born: ${res['ns1:birthDate']},
+                              Died: ${res['ns1:deathDate']},
+                              Nationality: ${res['ns1:nationalityOfEntity']['ns1:data']['ns1:text']},`;
+        });
+      } else if (this.extractHostname(this.uri) === 'id.acdh.oeaw.ac.at') {
+        const a = this.getArcheByID(this.uri.substr(this.uri.lastIndexOf('/')));
+        console.log(a);
+      }
     }
   },
 };

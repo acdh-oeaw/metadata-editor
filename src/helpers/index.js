@@ -88,7 +88,21 @@ export default {
     //   }
     // },
     //
-    getViafData(id) {
+    getViafByID(id) {
+      // this.$debug('getViafData(id)', APIS.VIAF, APIS.ARCHE);
+      if (id) {
+        return APIS.VIAF.BASE.get(`${id}/`).then((response) => {
+          console.log('response', response.data);
+          return Promise.resolve(response.data);
+        }, (error) => {
+          console.log('errortree, request failed', error);
+          return Promise.reject(error);
+        });
+      }
+      console.log('errortree, no id');
+      return Promise.reject('no ID was given');
+    },
+    getArcheByID(id) {
       // this.$debug('getViafData(id)', APIS.VIAF, APIS.ARCHE);
       if (id) {
         return APIS.VIAF.BASE.get(`${id}/`).then((response) => {
@@ -101,6 +115,17 @@ export default {
       }
       console.log('errortree, no id');
       return Promise.reject('no ID was given');
+    },
+    extractHostname(url) {
+      let hostname;
+      if (url.indexOf('://') > -1) {
+        hostname = url.split('/')[2];
+      } else {
+        hostname = url.split('/')[0];
+      }
+      hostname = hostname.split(':')[0];
+      hostname = hostname.split('?')[0];
+      return hostname;
     },
   },
   created() {
