@@ -3,7 +3,7 @@ import axios from 'axios';
 // this could go to an external file, to be excluded from commits etc
 const CONFIG = {
   ARCHE: {
-    BASEURL: 'https://fedora.hephaistos.arz.oeaw.ac.at/browser/api/',
+    BASEURL: 'https://fedora.apollo.arz.oeaw.ac.at/browser/api/',
     ENDPOINTS: {
       PERSONS: 'persons/',
       BASE: '',
@@ -89,7 +89,6 @@ export default {
     // },
     //
     getViafByID(id) {
-      // this.$debug('getViafData(id)', APIS.VIAF, APIS.ARCHE);
       if (id) {
         return APIS.VIAF.BASE.get(`${id}/`).then((response) => {
           console.log('response', response.data);
@@ -102,19 +101,18 @@ export default {
       console.log('errortree, no id');
       return Promise.reject('no ID was given');
     },
-    getArcheByID(id) {
-      // this.$debug('getViafData(id)', APIS.VIAF, APIS.ARCHE);
-      if (id) {
-        return APIS.VIAF.BASE.get(`${id}/`).then((response) => {
-          console.log('response', response.data.searchRetrieveResponse.records[0]);
-          return Promise.resolve(response.data.searchRetrieveResponse.records[0]);
+    getArcheByID(id, type) {
+      if (id && type && APIS.ARCHE[type]) {
+        return APIS.ARCHE[type].get(`${id}`).then((response) => {
+          console.log('response', response.data);
+          return Promise.resolve(response.data);
         }, (error) => {
           console.log('errortree, request failed', error);
           return Promise.reject(error);
         });
       }
       console.log('errortree, no id');
-      return Promise.reject('no ID was given');
+      return Promise.reject('no ID or Type was given');
     },
     extractHostname(url) {
       let hostname;

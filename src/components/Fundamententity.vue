@@ -2,7 +2,7 @@
   <div class="">
     <div>
       <b-card :title="entity.title" style="max-width: 20rem;" class="flex-md-row mb-4 box-shadow">
-        <p class="card-text">{{ entity.desc }}</p>
+        <p class="card-text">{{ entity.desc }} <b-badge>{{ entity.type }}</b-badge></p>
       </b-card>
     </div>
   </div>
@@ -16,11 +16,12 @@ export default {
   name: 'Entitydisplay',
   props: [
     'uri',
+    'type',
     'format',
   ],
   data() {
     return {
-      entity: { title: 'loading', desc: 'loading' },
+      entity: { title: 'loading', desc: 'loading', type: '' },
       loading: true,
     };
   },
@@ -34,10 +35,16 @@ export default {
           this.entity.desc = `Born: ${res['ns1:birthDate']},
                               Died: ${res['ns1:deathDate']},
                               Nationality: ${res['ns1:nationalityOfEntity']['ns1:data']['ns1:text']},`;
+          this.entity.type = 'VIAF';
         });
-      } else if (this.extractHostname(this.uri) === 'id.acdh.oeaw.ac.at') {
-        const a = this.getArcheByID(this.uri.substr(this.uri.lastIndexOf('/')));
-        console.log(a);
+      } else if (this.extractHostname(this.uri) === 'id.acdh.oeaw.ac.at' && this.type) {
+        this.getArcheByID(this.uri.substr(this.uri.lastIndexOf('/')), this.type)
+        .then((res) => {
+          console.log(res);
+          this.entity.title = res[0].title;
+          this.entity.desc = '';
+          this.entity.type = 'ARCHE';
+        });
       }
     }
   },
