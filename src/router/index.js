@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Start from '@/components/Start';
 import Create from '@/components/Create';
+import Load from '@/components/Load';
 import App from '@/components/App';
 
 Vue.use(Router);
@@ -38,6 +39,13 @@ export default new Router({
           name: 'create',
           components: {
             Content: Create,
+          },
+        },
+        {
+          path: 'load',
+          name: 'load',
+          components: {
+            Content: Load,
           },
         },
         {

@@ -125,6 +125,9 @@ export default {
       hostname = hostname.split('?')[0];
       return hostname;
     },
+    parseFromTtl(ttl) {
+      console.log(ttl);
+    },
   },
   created() {
 
