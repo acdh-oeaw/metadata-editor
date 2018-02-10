@@ -28,8 +28,7 @@ const CONFIG = {
     PARAMS: {
       httpAccept: 'application/json',
     },
-    HEADERS: {
-    },
+    HEADERS: {},
   },
 };
 
