@@ -18,6 +18,9 @@
           <b-nav-item class="nav-item active">
             <b-link class="nav-link" :to="{ name: 'create', params: { lang: 'en' }}">Create <span class="sr-only">(current)</span></b-link>
           </b-nav-item>
+          <b-nav-item class="nav-item active">
+            <b-link class="nav-link" :to="{ name: 'schema', params: { lang: 'en' }}">Schema <span class="sr-only">(current)</span></b-link>
+          </b-nav-item>
       </b-navbar-nav>
       <div class="navbar-icons">
         <a href="https://github.com/ctot-nondef/metadataeditor" target="_blank" rel="noopener">

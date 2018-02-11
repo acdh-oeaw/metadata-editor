@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Start from '@/components/Start';
 import Create from '@/components/Create';
 import Load from '@/components/Load';
+import Schema from '@/components/Schema';
 import App from '@/components/App';
 
 Vue.use(Router);
@@ -15,7 +16,7 @@ export default new Router({
       redirect: (to) => {
         if (to.params.lang !== 'en' || to.params.lang !== 'de') {
           // const language = window.navigator.userLanguage || window.navigator.language;
-          return '/de';
+          return '/en';
         }
         return to.fullPath;
       },
@@ -46,6 +47,13 @@ export default new Router({
           name: 'load',
           components: {
             Content: Load,
+          },
+        },
+        {
+          path: 'schema',
+          name: 'schema',
+          components: {
+            Content: Schema,
           },
         },
         {
