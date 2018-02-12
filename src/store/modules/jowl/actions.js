@@ -5,11 +5,11 @@ const jOWL = window.jOWL;
 
 const actions = {
   setOntology({ state, commit }, path) {
-    console.log(jOWL);
-    jOWL.load(path, (a) => {
-      console.log(a);
+    commit('startProcessing', 'Loading Ontology...');
+    jOWL.load(path, () => {
       commit('setOntologyPath', path);
       commit('setOntology', jOWL);
+      commit('stopProcessing');
     });
   },
   searchProperty({ commit, state }, { name, query, propertyName, types }) {

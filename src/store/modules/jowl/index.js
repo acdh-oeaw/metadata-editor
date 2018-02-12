@@ -9,6 +9,8 @@ const state = {
   ontology: null,
   ontologyPath: '',
   processing: false,
+  processingMessage: '',
+
 };
 
 const getters = {
@@ -19,13 +21,20 @@ const getters = {
 
 const mutations = {
   setQuery(s, name, result) {
-    this.s.queries[name] = result;
+    s.queries[name] = result;
   },
   setOntologyPath(s, path) {
     s.ontologyPath = path;
   },
   setOntology(s, ontology) {
     s.ontology = ontology;
+  },
+  startProcessing(s, message) {
+    s.processing = true;
+    s.processingMessage = message || 'Processing...';
+  },
+  stopProcessing(s) {
+    s.processing = false;
   },
 };
 
