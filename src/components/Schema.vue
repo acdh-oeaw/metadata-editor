@@ -61,6 +61,9 @@ export default {
       this.file = '';
     },
   },
+  created() {
+    this.$store.dispatch('setOntology', 'https://raw.githubusercontent.com/acdh-oeaw/repo-schema/master/acdh-schema.owl');
+  },
 };
 </script>
 
