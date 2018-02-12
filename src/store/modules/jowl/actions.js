@@ -6,26 +6,39 @@ const jOWL = window.jOWL;
 const actions = {
   setOntology({ state, commit }, path) {
     commit('startProcessing', 'Loading Ontology...');
-    jOWL.load(path, () => {
+    return jOWL.load(path, () => {
       commit('setOntologyPath', path);
       commit('setOntology', jOWL);
       commit('stopProcessing');
+      return Promise.resolve(jOWL);
+    }, (error) => {
+      commit('stopProcessing');
+      return Promise.reject(error);
     });
   },
-  searchProperty({ commit, state }, { name, query, propertyName, types }) {
-    console.log('searchProperty called', name, query, propertyName, types);
-    console.log(jOWL);
-    console.log('state.stateObj.schema', state.stateObj.shema, state);
-    jOWL.load(state.stateObj.shema, () => {
-      const sparql = jOWL.SPARQL_DL(query + propertyName + types); // propVal: "PropertyValue(https://vocabs.acdh.oeaw.ac.at/schema#"  types: ", ?p, ?x)"
-      console.log('inside loaded query', sparql, this);
-      sparql.execute({ onComplete: (results) => {
-        console.log('this', this);
-        console.log('results', results);
-        commit('setQuery', { name, result: results });
-        console.log('state.stateObj', state.stateObj);
-        // this.state.stateObj.queries[name] = results;
-      } });
+  makeQuery({ commit, state }, { name, query }) {
+    const sparql = jOWL.SPARQL_DL(query);
+    commit('startProcessing', 'Executing Query...');
+    return sparql.execute((results) => {
+      commit('setQuery', name, results);
+      commit('stopProcessing');
+      return Promise.resolve(results);
+    }, (error) => {
+      commit('stopProcessing');
+      return Promise.reject(error);
+    });
+  },
+  fetchPropertiesByURI({ commit, state }, { queryname, uri }) {
+    const sparql = jOWL.SPARQL_DL(`PropertyValue(${uri}, ?p, ?x)`);
+    commit('startProcessing', 'Executing Query...');
+    return sparql.execute((results) => {
+      commit('setQuery', queryname, results);
+      commit('stopProcessing');
+      console.log(results);
+      return Promise.resolve(results);
+    }, (error) => {
+      commit('stopProcessing');
+      return Promise.reject(error);
     });
   },
 };

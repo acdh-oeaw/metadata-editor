@@ -10,12 +10,9 @@ const state = {
   ontologyPath: '',
   processing: false,
   processingMessage: '',
-
 };
 
 const getters = {
-  getOntology: s => s.ontology,
-  getQueries: s => s.queries,
   getQuery: s => name => s.queries[name],
 };
 
