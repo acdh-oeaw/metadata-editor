@@ -1,6 +1,8 @@
 /* eslint no-console: ["error", { allow: ["log"] }] */
 require('../../../assets/jOWL_1.0/scripts/jOWL.js');
 
+const jOWL = window.jOWL;
+
 const actions = {
   setOntology({ state, commit }, path) {
     console.log(jOWL);
