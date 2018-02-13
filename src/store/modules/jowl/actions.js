@@ -1,5 +1,5 @@
 /* eslint no-console: ["error", { allow: ["log"] }] */
-require('../../../assets/jOWL_1.0/scripts/jOWL.js');
+require('./jOWL.js');
 
 const jOWL = window.jOWL;
 
