@@ -25,6 +25,7 @@ const actions = {
       sparql.execute({ onComplete: (res) => {
         commit('stopProcessing');
         if (res.results) {
+          console.log(res);
           commit('setQuery', q, res.results);
           resolve(res.results);
         } else if (res.error) {
@@ -32,6 +33,14 @@ const actions = {
         }
       } });
     });
+  },
+  fetchClasses({ commit, state }, { q }) {
+    const query = 'Class(?x)';
+    return this.dispatch('makeQuery', { q, query });
+  },
+  fetchSubClassOf({ commit, state }, { q, c }) {
+    const query = `SubClassOf(?sc, ${c})`;
+    return this.dispatch('makeQuery', { q, query });
   },
   fetchPropertiesByURI({ commit, state }, { q, uri }) {
     const query = `PropertyValue(${uri}, ?p, ?x)`;
