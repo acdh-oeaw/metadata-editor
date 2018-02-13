@@ -62,8 +62,8 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('setOntology', 'static/acdh-schema.owl').then((a) => {
-      this.$store.dispatch('fetchSubClassOf', { q: 'test', c: 'https://vocabs.acdh.oeaw.ac.at/schema#Resource' }).then((res) => {
+    this.$store.dispatch('jowl/setOntology', 'static/acdh-schema.owl').then((a) => {
+      this.$store.dispatch('jowl/fetchSubClassOf', { q: 'test', c: 'https://vocabs.acdh.oeaw.ac.at/schema#Resource' }).then((res) => {
         console.log(res);
       });
     });
