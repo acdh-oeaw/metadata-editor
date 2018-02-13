@@ -5,27 +5,27 @@ const jOWL = window.jOWL;
 
 const actions = {
   setOntology({ state, commit }, path) {
-    commit('jowl/startProcessing', 'Loading Ontology...');
+    this.commit('jowl/startProcessing', 'Loading Ontology...');
     return new Promise((resolve, reject) => {
       jOWL.load(path, () => {
-        commit('jowl/setOntologyPath', path);
-        commit('jowl/setOntology', jOWL);
-        commit('jowl/stopProcessing');
+        this.commit('jowl/setOntologyPath', path);
+        this.commit('jowl/setOntology', jOWL);
+        this.commit('jowl/stopProcessing');
         resolve(jOWL);
       }, (error) => {
-        commit('jowl/stopProcessing');
+        this.commit('jowl/stopProcessing');
         reject(error);
       });
     });
   },
   makeQuery({ commit, state }, { q, query }) {
     const sparql = jOWL.SPARQL_DL(query);
-    commit('jowl/startProcessing', 'Executing Query...');
+    this.commit('jowl/startProcessing', 'Executing Query...');
     return new Promise((resolve, reject) => {
       sparql.execute({ onComplete: (res) => {
-        commit('jowl/stopProcessing');
+        this.commit('jowl/stopProcessing');
         if (res.results) {
-          commit('jowl/setQuery', q, res.results);
+          this.commit('jowl/setQuery', q, res.results);
           resolve(res.results);
         } else if (res.error) {
           reject(res.error);
