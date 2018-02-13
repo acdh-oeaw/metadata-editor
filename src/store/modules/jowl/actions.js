@@ -18,33 +18,24 @@ const actions = {
       });
     });
   },
-  makeQuery({ commit, state }, { name, query }) {
+  makeQuery({ commit, state }, { q, query }) {
     const sparql = jOWL.SPARQL_DL(query);
     commit('startProcessing', 'Executing Query...');
     return new Promise((resolve, reject) => {
-      sparql.execute((results) => {
-        commit('setQuery', name, results);
+      sparql.execute({ onComplete: (res) => {
         commit('stopProcessing');
-        resolve(results);
-      }, (error) => {
-        commit('stopProcessing');
-        reject(error);
-      });
+        if (res.results) {
+          commit('setQuery', q, res.results);
+          resolve(res.results);
+        } else if (res.error) {
+          reject(res.error);
+        }
+      } });
     });
   },
-  fetchPropertiesByURI({ commit, state }, { queryname, uri }) {
-    const sparql = jOWL.SPARQL_DL(`PropertyValue(${uri}, ?p, ?x)`);
-    console.log(sparql);
-    commit('startProcessing', 'Executing Query...');
-    return sparql.execute((results) => {
-      commit('setQuery', queryname, results);
-      commit('stopProcessing');
-      console.log(results);
-      return Promise.resolve(results);
-    }, (error) => {
-      commit('stopProcessing');
-      return Promise.reject(error);
-    });
+  fetchPropertiesByURI({ commit, state }, { q, uri }) {
+    const query = `PropertyValue(${uri}, ?p, ?x)`;
+    return this.dispatch('makeQuery', { q, query });
   },
 };
 

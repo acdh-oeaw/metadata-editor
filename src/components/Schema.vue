@@ -63,7 +63,9 @@ export default {
   },
   created() {
     this.$store.dispatch('setOntology', 'static/acdh-schema.owl').then((a) => {
-      this.$store.dispatch('fetchPropertiesByURI', 'test', 'https://vocabs.acdh.oeaw.ac.at/schema#Organisation');
+      this.$store.dispatch('fetchPropertiesByURI', { q: 'test', uri: 'https://vocabs.acdh.oeaw.ac.at/schema#Organisation' }).then((res) => {
+        console.log(res);
+      });
     });
   },
 };
