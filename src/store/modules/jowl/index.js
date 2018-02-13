@@ -2,7 +2,6 @@
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
 import actions from './actions';
-import plugins from './plugins';
 
 const state = {
   queries: {},
@@ -31,6 +30,7 @@ const mutations = {
     s.processingMessage = message || 'Processing...';
   },
   stopProcessing(s) {
+    s.processingMessage = '';
     s.processing = false;
   },
 };
@@ -40,5 +40,4 @@ export default {
   getters,
   mutations,
   actions,
-  plugins,
 };
