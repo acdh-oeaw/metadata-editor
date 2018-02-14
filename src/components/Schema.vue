@@ -8,7 +8,7 @@
                 <a class="bd-toc-link" href="#">Load Schema</a>
               </div>
               <div class="bd-toc-item" v-if="this.getOntology">
-                <button @click="removeTtl">Unload Schema</button>
+                <button @click="">Unload Schema</button>
               </div>
             </nav>
           </div>
@@ -29,6 +29,7 @@ import { mapActions, mapGetters } from 'vuex';
 import HELPERS from '../helpers';
 
 /* eslint no-unused-vars: ["error", {"args": "none"}] */
+/* eslint no-console: ["error", { allow: ["log"] }] */
 
 export default {
   mixins: [HELPERS],
@@ -57,10 +58,7 @@ export default {
   },
   created() {
     this.setOntology('static/acdh-schema.owl').then((a) => {
-      this.fetchClasses({ q: 'test' }).then((res) => {
-        /* eslint no-console: ["error", { allow: ["log"] }] */
-        console.log(res);
-      });
+      this.fetchClasses({ q: 'classes' });
     });
   },
 };

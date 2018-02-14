@@ -25,7 +25,7 @@ const actions = {
       sparql.execute({ onComplete: (res) => {
         commit('stopProcessing');
         if (res.results) {
-          commit('setQuery', q, res.results);
+          commit('setQuery', { name: q, result: res.results });
           resolve(res.results);
         } else if (res.error) {
           reject(res.error);
