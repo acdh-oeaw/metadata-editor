@@ -4,28 +4,28 @@ require('./jOWL.js');
 const jOWL = window.jOWL;
 
 const actions = {
-  setOntology({ state, commit }, path) {
-    this.commit('jowl/startProcessing', 'Loading Ontology...');
+  setOntology({ commit }, path) {
+    commit('startProcessing', 'Loading Ontology...');
     return new Promise((resolve, reject) => {
       jOWL.load(path, () => {
-        this.commit('jowl/setOntologyPath', path);
-        this.commit('jowl/setOntology', jOWL);
-        this.commit('jowl/stopProcessing');
+        commit('setOntologyPath', path);
+        commit('setOntology', jOWL);
+        commit('stopProcessing');
         resolve(jOWL);
       }, (error) => {
-        this.commit('jowl/stopProcessing');
+        commit('stopProcessing');
         reject(error);
       });
     });
   },
-  makeQuery({ commit, state }, { q, query }) {
+  makeQuery({ commit }, { q, query }) {
     const sparql = jOWL.SPARQL_DL(query);
-    this.commit('jowl/startProcessing', 'Executing Query...');
+    commit('startProcessing', 'Executing Query...');
     return new Promise((resolve, reject) => {
       sparql.execute({ onComplete: (res) => {
-        this.commit('jowl/stopProcessing');
+        commit('stopProcessing');
         if (res.results) {
-          this.commit('jowl/setQuery', q, res.results);
+          commit('setQuery', q, res.results);
           resolve(res.results);
         } else if (res.error) {
           reject(res.error);
@@ -33,17 +33,17 @@ const actions = {
       } });
     });
   },
-  fetchClasses({ commit, state }, { q }) {
+  fetchClasses({ dispatch }, { q }) {
     const query = 'Class(?x)';
-    return this.dispatch('jowl/makeQuery', { q, query });
+    return dispatch('makeQuery', { q, query });
   },
-  fetchSubClassOf({ commit, state }, { q, c }) {
+  fetchSubClassOf({ dispatch }, { q, c }) {
     const query = `SubClassOf(?sc, ${c})`;
-    return this.dispatch('jowl/makeQuery', { q, query });
+    return dispatch('makeQuery', { q, query });
   },
-  fetchPropertiesByURI({ commit, state }, { q, uri }) {
+  fetchPropertiesByURI({ dispatch }, { q, uri }) {
     const query = `PropertyValue(${uri}, ?p, ?x)`;
-    return this.dispatch('jowl/makeQuery', { q, query });
+    return dispatch('makeQuery', { q, query });
   },
 };
 

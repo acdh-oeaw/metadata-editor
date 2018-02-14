@@ -7,19 +7,15 @@
               <div class="bd-toc-item">
                 <a class="bd-toc-link" href="#">Load Schema</a>
               </div>
-              <div class="bd-toc-item" v-if="file">
+              <div class="bd-toc-item" v-if="this.getOntology">
                 <button @click="removeTtl">Unload Schema</button>
               </div>
             </nav>
           </div>
           <div class="col-12 col-md-9 col-xl-10 page-content-w-sidebar">
-            <div v-if="!file" >
+            <div v-if="!this.getOntology" >
               <h1>Load Schema from Disk</h1>
               <p>Load an existing Schema File</p>
-              <div v-if="!file">
-                <h2>Select a File</h2>
-                <input type="file" @change="onFileChange">
-              </div>
             </div>
           </div>
         </div>
@@ -28,42 +24,41 @@
 </template>
 
 <script>
-import Fundamententity from './Fundamententity';
-import Autocomparche from './Autocomparche';
+import { mapActions, mapGetters } from 'vuex';
+
 import HELPERS from '../helpers';
+
 /* eslint no-unused-vars: ["error", {"args": "none"}] */
 
 export default {
   mixins: [HELPERS],
   components: {
-    Fundamententity,
-    Autocomparche,
   },
   data() {
     return {
-      file: '',
     };
   },
   methods: {
-    onFileChange(e) {
-      const files = e.target.files || e.dataTransfer.files;
-      if (!files.length) return;
-      this.loadTtl(files[0]);
-    },
-    loadTtl(file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.file = this.parseFromTtl(e.target.result);
-      };
-      reader.readAsText(file);
-    },
-    removeTtl(e) {
-      this.file = '';
+    ...mapActions('jowl', [
+      'setOntology',
+      'fetchClasses',
+      'fetchSubClassOf',
+      'fetchPropertiesByURI',
+    ]),
+  },
+  computed: {
+    ...mapGetters('jowl', [
+      'getQuery',
+    ]),
+    getOntology() {
+      console.log(this.$store);
+      return this.$store.state.jowl.ontology;
     },
   },
   created() {
-    this.$store.dispatch('jowl/setOntology', 'static/acdh-schema.owl').then((a) => {
-      this.$store.dispatch('jowl/fetchSubClassOf', { q: 'test', c: 'https://vocabs.acdh.oeaw.ac.at/schema#Resource' }).then((res) => {
+    this.setOntology('static/acdh-schema.owl').then((a) => {
+      this.fetchClasses({ q: 'test' }).then((res) => {
+        /* eslint no-console: ["error", { allow: ["log"] }] */
         console.log(res);
       });
     });

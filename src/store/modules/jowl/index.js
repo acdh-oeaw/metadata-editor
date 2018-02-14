@@ -5,6 +5,7 @@ import actions from './actions';
 
 const state = {
   queries: {},
+  queryhistory: {},
   ontology: null,
   ontologyPath: '',
   processing: false,
