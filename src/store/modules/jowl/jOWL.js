@@ -899,6 +899,7 @@ Constructs the entire (parent) hierarchy for a class
 	@return jOWL.Array of Restrictions
 	*/
 	sourceof : function(property, target, options){
+		console.log(property, target, options);
 		options = $.extend({
 			inherited : true, // add restrictions specified on parents as well
 			transitive : true, //expand on transitive relations too
@@ -963,8 +964,7 @@ Constructs the entire (parent) hierarchy for a class
 			if(propertyMatch && targetMatch){ results.pushUnique(this);}
 		});
 
-		if(!options.inherited){ return results;}
-
+		if(!options.inherited || !property || !target){ return results;}
 		this.parents().each(function(){
 			if(this.sourceof){
 				this.sourceof(property, target, options).each(function(parentsource){
