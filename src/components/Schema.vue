@@ -56,14 +56,12 @@ export default {
     },
   },
   created() {
-    this.setOntology('static/acdh-schema.owl').then((a) => {
-      this.fetchClasses({ q: 'classes' }).then((res) => {
-        let idx = res.length - 1;
-        while (idx + 1) {
-          this.fetchPropertiesByURI({ q: res[idx]['?x'].name, uri: res[idx]['?x'].URI });
-          idx -= 1;
-        }
-      });
+    this.fetchClasses({ q: 'classes' }).then((res) => {
+      let idx = res.length - 1;
+      while (idx + 1) {
+        this.fetchPropertiesByURI({ q: res[idx]['?x'].name, uri: res[idx]['?x'].URI });
+        idx -= 1;
+      }
     });
   },
 };

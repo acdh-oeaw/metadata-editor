@@ -19,6 +19,7 @@ const getters = {
 const mutations = {
   setQuery(s, { name, result }) {
     s.queries[name] = result;
+    console.log(s.queries);
   },
   setOntologyPath(s, path) {
     s.ontologyPath = path;

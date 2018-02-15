@@ -7,9 +7,11 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex';
   import FundamentNav from './FundamentNav';
   import FundamentFooter from './FundamentFooter';
 
+  /* eslint no-console: ["error", { allow: ["log"] }] */
   export default {
     components: {
       FundamentNav,
@@ -18,6 +20,14 @@
     data() {
       return {
       };
+    },
+    methods: {
+      ...mapActions('jowl', [
+        'setOntology',
+      ]),
+    },
+    created() {
+      this.setOntology('static/acdh-schema.owl');
     },
   };
 </script>
