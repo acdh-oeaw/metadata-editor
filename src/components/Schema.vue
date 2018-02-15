@@ -5,17 +5,26 @@
           <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
             <nav class="collapse bd-links" id="bd-docs-nav">
               <div class="bd-toc-item">
-                <a class="bd-toc-link" href="#">Load Schema</a>
+                <a class="bd-toc-link" href="#">Ontology Loaded:</a>
               </div>
               <div class="bd-toc-item" v-if="this.getOntology">
-                <button @click="">Unload Schema</button>
+                {{ this.$store.state.jowl.ontologyPath }}
               </div>
             </nav>
           </div>
           <div class="col-12 col-md-9 col-xl-10 page-content-w-sidebar">
             <div v-if="!this.getOntology" >
-              <h1>Load Schema from Disk</h1>
-              <p>Load an existing Schema File</p>
+              <h1>Load Ontology from Disk</h1>
+              <p>We'll need to modify jOWL.load() for this to work properly</p>
+            </div>
+            <div v-if="this.getOntology" >
+              <h1>Explore Ontology</h1>
+              <b-form-select v-model="selectedOntology" class="mb-3">
+                <option :value="null">Please select a Class</option>
+                <option v-for="cl in getQuery('classes')" :value="cl['?x'].URI">{{ cl['?x'].name }}</option>
+              </b-form-select>
+              <div>Selected: <strong>{{ selectedOntology }}</strong></div>
+              <Propertytable :uri="selectedOntology"></Propertytable>
             </div>
           </div>
         </div>
@@ -25,6 +34,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Propertytable from './Propertytable';
 
 import HELPERS from '../helpers';
 
@@ -34,14 +44,15 @@ import HELPERS from '../helpers';
 export default {
   mixins: [HELPERS],
   components: {
+    Propertytable,
   },
   data() {
     return {
+      selectedOntology: null,
     };
   },
   methods: {
     ...mapActions('jowl', [
-      'setOntology',
       'fetchClasses',
       'fetchSubClassOf',
       'fetchPropertiesByURI',
@@ -55,14 +66,12 @@ export default {
       return this.$store.state.jowl.ontology;
     },
   },
+  watch: {
+    getOntology: function getClasses() {
+      this.fetchClasses({ q: 'classes' });
+    },
+  },
   created() {
-    this.fetchClasses({ q: 'classes' }).then((res) => {
-      let idx = res.length - 1;
-      while (idx + 1) {
-        this.fetchPropertiesByURI({ q: res[idx]['?x'].name, uri: res[idx]['?x'].URI });
-        idx -= 1;
-      }
-    });
   },
 };
 </script>
