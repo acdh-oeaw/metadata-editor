@@ -21,7 +21,7 @@
               <h1>Explore Ontology</h1>
               <b-form-select v-model="selectedOntology" class="mb-3">
                 <option :value="null">Please select a Class</option>
-                <option v-for="cl in getQuery('classes')" :value="cl['?x'].URI">{{ cl['?x'].name }}</option>
+                <option v-for="cl in getClasses()" :value="cl['?x'].URI">{{ cl['?x'].name }}</option>
               </b-form-select>
               <div>Selected: <strong>{{ selectedOntology }}</strong></div>
               <Propertytable :uri="selectedOntology"></Propertytable>
@@ -57,6 +57,14 @@ export default {
       'fetchSubClassOf',
       'fetchPropertiesByURI',
     ]),
+    // convenience method to limit options to ACDH namespace classes
+    getClasses() {
+      const classes = this.getQuery('classes').filter((cl) => {
+        if (cl['?x'].baseURI === 'https://vocabs.acdh.oeaw.ac.at/schema#') return true;
+        return false;
+      });
+      return classes;
+    },
   },
   computed: {
     ...mapGetters('jowl', [
