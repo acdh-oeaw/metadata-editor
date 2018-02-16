@@ -8,7 +8,7 @@
                 <a class="bd-toc-link" href="#">Load File</a>
               </div>
               <div class="bd-toc-item">
-                {{ tripleCount({subject: null, predicate: null, object: null, graph: null}) }}
+                {{ $store.state.n3.tripleCount }}
               </div>
             </nav>
           </div>

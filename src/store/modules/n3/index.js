@@ -6,6 +6,7 @@ const state = {
   module: N3.N3,
   store: N3.N3.Store(),
   parser: N3.N3.Parser(),
+  tripleCount: 0,
   processing: false,
   processingMessage: '',
 };
@@ -13,11 +14,12 @@ const state = {
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
 const getters = {
-  tripleCount: s => ({ subject, predicate, object, graph }) =>
-    s.store.countTriples(subject, predicate, object, graph),
 };
 
 const mutations = {
+  updateTripleCount(s) {
+    s.tripleCount = s.store.countTriples(null, null, null, null);
+  },
   startProcessing(s, message) {
     s.processing = true;
     s.processingMessage = message || 'Processing...';

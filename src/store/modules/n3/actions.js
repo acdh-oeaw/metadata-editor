@@ -9,6 +9,8 @@ const actions = {
         state.store.addTriple(triple.subject, triple.predicate, triple.object);
         c += 1;
       } else {
+        commit('updateTripleCount');
+        commit('stopProcessing');
         console.log(`Parsed ${c} triples to store.`, prefixes);
       }
     });
