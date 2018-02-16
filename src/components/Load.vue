@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
 import Fundamententity from './Fundamententity';
 import Autocomparche from './Autocomparche';
 import HELPERS from '../helpers';
@@ -53,6 +55,8 @@ export default {
     };
   },
   methods: {
+    ...mapActions('n3', [
+    ]),
     onFileChange(e) {
       const files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
@@ -68,6 +72,10 @@ export default {
     removeTtl(e) {
       this.file = '';
     },
+  },
+  computed: {
+    ...mapGetters('jowl', [
+    ]),
   },
 };
 </script>

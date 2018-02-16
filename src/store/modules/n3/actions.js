@@ -1,3 +1,4 @@
+require('./n3-browser.js');
 
 const actions = {
 };
