@@ -20,7 +20,7 @@ const actions = {
   },
   makeQuery({ commit }, { q, query }) {
     const sparql = jOWL.SPARQL_DL(query);
-    commit('startProcessing', 'Executing Query...');
+    commit('startProcessing', `Executing Query ${query}`);
     return new Promise((resolve, reject) => {
       sparql.execute({ onComplete: (res) => {
         commit('stopProcessing');

@@ -7,8 +7,8 @@
               <div class="bd-toc-item">
                 <a class="bd-toc-link" href="#">Load File</a>
               </div>
-              <div class="bd-toc-item" v-if="file">
-                <button @click="removeTtl">Unload File</button>
+              <div class="bd-toc-item">
+                {{ tripleCount({subject: null, predicate: null, object: null, graph: null}) }}
               </div>
             </nav>
           </div>
@@ -42,6 +42,7 @@ import Fundamententity from './Fundamententity';
 import Autocomparche from './Autocomparche';
 import HELPERS from '../helpers';
 /* eslint no-unused-vars: ["error", {"args": "none"}] */
+/* eslint no-console: ["error", { allow: ["log"] }] */
 
 export default {
   mixins: [HELPERS],
@@ -54,8 +55,14 @@ export default {
       file: '',
     };
   },
+  computed: {
+    ...mapGetters('n3', [
+      'tripleCount',
+    ]),
+  },
   methods: {
     ...mapActions('n3', [
+      'StringToStore',
     ]),
     onFileChange(e) {
       const files = e.target.files || e.dataTransfer.files;
@@ -65,17 +72,14 @@ export default {
     loadTtl(file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        this.file = this.parseFromTtl(e.target.result);
+        this.StringToStore(e.target.result);
+        // this.file = this.parseFromTtl(e.target.result);
       };
       reader.readAsText(file);
     },
     removeTtl(e) {
       this.file = '';
     },
-  },
-  computed: {
-    ...mapGetters('jowl', [
-    ]),
   },
 };
 </script>
