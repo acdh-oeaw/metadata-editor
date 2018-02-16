@@ -1,16 +1,8 @@
 <template>
   <div >
-    <div v-if="!file" >
-      <h1>Load File from Disk</h1>
-      <p>Load and Edit an existing ttl File</p>
-      <div v-if="!file">
-        <h2>Select a File</h2>
-        <input type="file" @change="onFileChange">
-      </div>
-    </div>
-    <div v-if="file" >
-      <h1>Edit Loaded File</h1>
-      <div v-for="entity in file">
+    <div >
+      <h3>Entities Currently Loaded to the Store:</h3>
+      <div v-for="entity in this.$store.state.n3.subjects">
         <Fundamententity v-if='entity.type == "acdh:Person;"' :uri='entity["acdh:hasIdentifier"][0]' type='PERSONS'></Fundamententity>
         <Fundamententity v-if='entity.type == "acdh:Organisation;"' :uri='entity["acdh:hasIdentifier"][0]' type='ORGANISATIONS'></Fundamententity>
         <p v-if='entity.type != "acdh:Person;" && entity.type != "acdh:Organisation;"'>{{ entity }}</p>

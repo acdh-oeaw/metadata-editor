@@ -10,6 +10,7 @@ const actions = {
         c += 1;
       } else {
         commit('updateTripleCount');
+        commit('updateSubjects');
         commit('stopProcessing');
         console.log(`Parsed ${c} triples to store.`, prefixes);
       }

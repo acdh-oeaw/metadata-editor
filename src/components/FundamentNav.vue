@@ -13,7 +13,7 @@
             <b-link class="nav-link" :to="{ name: 'start', params: { lang: 'en' }}">Home <span class="sr-only">(current)</span></b-link>
           </b-nav-item>
           <b-nav-item class="nav-item active">
-            <b-link class="nav-link" :to="{ name: 'load', params: { lang: 'en' }}">File Load <span class="sr-only">(current)</span></b-link>
+            <b-link class="nav-link" :to="{ name: 'store', params: { lang: 'en' }}"> Triple Store <span class="sr-only">(current)</span></b-link>
           </b-nav-item>
           <b-nav-item class="nav-item active">
             <b-link class="nav-link" :to="{ name: 'create', params: { lang: 'en' }}">Create <span class="sr-only">(current)</span></b-link>

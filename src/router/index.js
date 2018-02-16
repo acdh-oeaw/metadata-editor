@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Start from '@/components/Start';
 import Create from '@/components/Create';
-import Load from '@/components/Load';
+import Store from '@/components/Store';
 import Schema from '@/components/Schema';
 import App from '@/components/App';
 
@@ -43,10 +43,10 @@ export default new Router({
           },
         },
         {
-          path: 'load',
-          name: 'load',
+          path: 'store',
+          name: 'store',
           components: {
-            Content: Load,
+            Content: Store,
           },
         },
         {

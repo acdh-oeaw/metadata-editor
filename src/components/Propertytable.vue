@@ -39,10 +39,8 @@ export default {
     uri: function getProps(newClass) {
       this.tabledata = [];
       this.fetchPropertiesByURI({ q: newClass, uri: newClass }).then((res) => {
-        console.log(res);
         let idx = res.length - 1;
         while (idx + 1) {
-          console.log(idx, res[idx]);
           this.tabledata.push({
             name: res[idx]['?p'].name,
             type: res[idx]['?p'].type,
