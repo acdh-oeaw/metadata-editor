@@ -1,18 +1,21 @@
 /* eslint no-console: ['error', { allow: ['log'] }] */
 
 const actions = {
-  AddFilteredTriples(state, triple) {
-    state.store.addTriple({
-      subject: actions.RemovePrefix(triple.subject),
-      predicate: actions.RemovePrefix(triple.predicate),
-      object: actions.RemovePrefix(triple.object),
-    });
+  AddFilteredTriples({ state, dispatch }, triple) {
+    state.store.addTriple(
+      dispatch('RemovePrefix', triple.subject),
+      triple.predicate,
+      dispatch('RemovePrefix', triple.object),
+    );
+    console.log(dispatch('RemovePrefix', triple.subject));
   },
-  StringToStore({ state, commit }, string) {
+  StringToStore({ state, commit, dispatch }, string) {
     commit('startProcessing', 'Loading File to Store...');
     state.parser.parse(string, (error, triple) => {
       if (triple) {
-        actions.AddFilteredTriples(state, triple);
+        // console.log('a', triple);
+        dispatch('AddFilteredTriples', triple);
+        // actions.AddFilteredTriples(triple);
       } else {
         commit('updateTripleCount');
         commit('updateSubjects');
@@ -21,7 +24,8 @@ const actions = {
       }
     });
   },
-  RemovePrefix(str) {
+  RemovePrefix({ state }, str) {
+    console.log('a', str);
     if (str.search(/b\d/) > -1) {
       return str.replace(/b\d_/, '');
     }
