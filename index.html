@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <title>Meta Data Editor</title>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
-    <link rel="icon" type="image/png" href="public/favicon-32x32.png" sizes="32x32">
+    <title>metadataeditor</title>
+    <script
+        src="https://code.jquery.com/jquery-1.2.6.js"
+        integrity="sha256-PMXBIUcTI7Jd5F/KtIYx1KCceOdq8hwQ10c1JoJgVYc="
+        crossorigin="anonymous"></script> <!-- Jquery 1.2.6 in the future to be moved to an component-->    
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
   </head>
-  <body>
-    <div id="app"></div>
-    <script src="./dist/build.js"></script>
+  <body class="contained fixed-nav">
+    <div id="app">
+      <router-view></router-view>
+    </div>
+    <!-- built files will be auto injected -->
   </body>
 </html>

@@ -1,22 +1,24 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Search from './Search.vue'
-import SearchList from './SearchList.vue'
-import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.css'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-import VModal from 'vue-js-modal'
-import VueClipboard from 'vue-clipboard2'
+// The Vue build version to load with the `import` command
+// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+import Vue from 'vue';
+import BootstrapVue from 'bootstrap-vue';
+import vSelect from 'vue-select';
+import { sync } from 'vuex-router-sync';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+import store from './store/index';
+import router from './router';
+import './assets/fundament.min.css';
 
-Vue.component('search-list', SearchList);
-Vue.use(VueRouter)
-Vue.use(Vuetify)
-Vue.use(VueAxios, axios)
-Vue.use(VModal)
-Vue.use(VueClipboard)
 
-var vm = new Vue({
-  el: '#app',
-  render: h => h(Search)
-})
+Vue.component('v-select', vSelect);
+
+Vue.use(BootstrapVue);
+sync(store, router);
+Vue.config.productionTip = false;
+
+
+/* eslint-disable no-new */
+new Vue({
+  store,
+  router,
+}).$mount('#app');

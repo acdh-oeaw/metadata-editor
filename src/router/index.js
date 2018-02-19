@@ -1,32 +1,66 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Search from '@/components/Search'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Start from '@/components/Start';
+import Create from '@/components/Create';
+import Store from '@/components/Store';
+import Schema from '@/components/Schema';
+import App from '@/components/App';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Search',
-      component: Search
+      name: 'root',
+      redirect: (to) => {
+        if (to.params.lang !== 'en' || to.params.lang !== 'de') {
+          // const language = window.navigator.userLanguage || window.navigator.language;
+          return '/en';
+        }
+        return to.fullPath;
+      },
     },
     {
-      path: '/search',
-      name: 'Search',
-      component: Search
+      path: '/:lang',
+      components: {
+        default: App,
+      },
+      // Children to the root path '/'
+      children: [
+        {
+          path: 'start',
+          name: 'start',
+          components: {
+            Content: Start,
+          },
+        },
+        {
+          path: 'create',
+          name: 'create',
+          components: {
+            Content: Create,
+          },
+        },
+        {
+          path: 'store',
+          name: 'store',
+          components: {
+            Content: Store,
+          },
+        },
+        {
+          path: 'schema',
+          name: 'schema',
+          components: {
+            Content: Schema,
+          },
+        },
+        {
+          path: '',
+          redirect: { name: 'start' },
+        },
+      ],
     },
-
-    {
-      path: '/vueStandard',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
-    {
-      path: '/*',
-      name: 'Search',
-      component: Search
-    }
-  ]
-})
+  ],
+});

@@ -1,0 +1,33 @@
+<template>
+  <div class="">
+    <FundamentNav></FundamentNav>
+    <router-view name="Content"></router-view>
+    <FundamentFooter></FundamentFooter>
+  </div>
+</template>
+
+<script>
+  import { mapActions } from 'vuex';
+  import FundamentNav from './FundamentNav';
+  import FundamentFooter from './FundamentFooter';
+
+  /* eslint no-console: ["error", { allow: ["log"] }] */
+  export default {
+    components: {
+      FundamentNav,
+      FundamentFooter,
+    },
+    data() {
+      return {
+      };
+    },
+    methods: {
+      ...mapActions('jowl', [
+        'setOntology',
+      ]),
+    },
+    created() {
+      this.setOntology('static/acdh-schema.owl');
+    },
+  };
+</script>
