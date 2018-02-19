@@ -7,6 +7,7 @@ const actions = {
     state.parser.parse(string, (error, triple, prefixes) => {
       if (triple) {
         state.store.addTriple(triple.subject, triple.predicate, triple.object);
+        console.log(triple);
         c += 1;
       } else {
         commit('updateTripleCount');
