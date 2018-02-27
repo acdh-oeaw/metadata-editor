@@ -16,9 +16,11 @@ const actions = {
       triple.predicate,
       triple.object,
     );
+    commit('updateTripleCount');
+    commit('updateSubject');
   },
   /* special action to remove the prefixes n3.js automatically adds when parsing
-     blank namespaces before adding the triple
+     blank namespaces before adding the triple, never called directly
      see http://rubenverborgh.github.io/N3.js/docs/N3Store.html#section-124 */
   AddFilteredTriple({ state }, triple) {
     state.store.addTriple(
@@ -27,13 +29,13 @@ const actions = {
       RemovePrefix(triple.object),
     );
   },
+  /* high lvl action parsing a TTL file into triples and subsequently
+     saving it to the N3.js store   */
   StringToStore({ state, commit, dispatch }, string) {
     commit('startProcessing', 'Loading File to Store...');
     state.parser.parse(string, (error, triple) => {
       if (triple) {
-        // console.log('a', triple);
         dispatch('AddFilteredTriple', triple);
-        // actions.AddFilteredTriples(triple);
       } else {
         commit('updateTripleCount');
         commit('updateSubject');
