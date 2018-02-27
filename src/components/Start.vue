@@ -19,7 +19,7 @@
         <div class="col-md-6">
           <div class="card flex-md-row mb-4 box-shadow">
             <div class="card-body">
-              <h3 class="mb-0"><b-link :to="{ name: 'load', params: { lang: 'en' }}">Load an existing ttl File.</b-link></h3>
+              <h3 class="mb-0"><b-link :to="{ name: 'store', params: { lang: 'en' }}">Load an existing ttl File.</b-link></h3>
               <p class="card-text">Load and edit an existing file from your Disk.</p>
             </div>
           </div>
