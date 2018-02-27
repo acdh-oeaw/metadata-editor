@@ -20,7 +20,7 @@ const actions = {
   /* special action to remove the prefixes n3.js automatically adds when parsing
      blank namespaces before adding the triple
      see http://rubenverborgh.github.io/N3.js/docs/N3Store.html#section-124 */
-  AddFilteredTriple({ state, dispatch }, triple) {
+  AddFilteredTriple({ state }, triple) {
     state.store.addTriple(
       RemovePrefix(triple.subject),
       triple.predicate,
@@ -36,7 +36,7 @@ const actions = {
         // actions.AddFilteredTriples(triple);
       } else {
         commit('updateTripleCount');
-        commit('updateSubjects');
+        commit('updateSubject');
         commit('stopProcessing');
         console.log(state.store.getTriples());
       }
