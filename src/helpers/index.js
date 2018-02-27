@@ -11,7 +11,7 @@ const CONFIG = {
       PLACES: 'places/',
       CONCEPTS: 'concepts/',
       PUBLICATIONS: 'publications/',
-      METADATA: '/getMetadata/'
+      METADATA: '/getMetadata/',
     },
     TIMEOUT: 1000,
     PARAMS: {
