@@ -40,7 +40,8 @@
             "type": "string",
             "attrs": {
                 "placeholder": "First name of a Person.",
-                "title": "has first name"
+                "title": "has first name",
+                "type": "persons"
             },
             "description": "First name of a Person.",
             "range": "http://www.w3.org/2000/01/rdf-schema#Literal"
