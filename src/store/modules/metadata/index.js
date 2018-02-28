@@ -2,6 +2,7 @@ import actions from './actions';
 
 const state = {
   metaDataSchema: '',
+  entry: { test: 'tese' },
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -11,8 +12,11 @@ const getters = {
 };
 
 const mutations = {
-  setmetaDataSchema(s, schema) {
+  setMetaDataSchema(s, schema) {
     s.metaDataSchema = schema;
+  },
+  setEntry(s, entry) {
+    s.entry = entry;
   },
 };
 

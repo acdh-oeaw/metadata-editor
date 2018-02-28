@@ -1,32 +1,55 @@
 <template>
+  <div class="wrapperToBeDeleted">
   <form-schema :schema="schema" v-model="model" @submit="submit">
-    <button type="submit">Subscribe</button>
+    <b-button @click="submit">Subscribe</b-button>
   </form-schema>
+  <p class="paragraphToBeDeleted">just for testing, this paragraph will be deleted: {{ entry }}</p>
+
+  </div>
 </template>
 
 <script>
 import FormSchema from 'vue-json-schema';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
+import BootstrapVue from 'bootstrap-vue';
+
 /* eslint no-param-reassign: ["error", { "props": false }] */
+
+FormSchema.setComponent('form', 'b-form', { validated: true });
+
+FormSchema.setComponent('email', 'b-form-input', { type: 'email' });
+FormSchema.setComponent('text', 'b-form-input', { type: 'text' });
+FormSchema.setComponent('description', 'b-form-input');
+/*
+FormSchema.setComponent('checkbox', 'b-form-checkbox');
+FormSchema.setComponent('radio', 'b-form-radio');
+FormSchema.setComponent('select', 'b-form-select');
+*/
+
 export default {
   props: [
 
   ],
   components: {
     FormSchema,
+    BootstrapVue,
   },
   data: () => ({
     model: {},
   }),
   methods: {
-    submit(e) {
+    submit() {
       // console.log('submited', this.shema, e);
-      alert(e);
+      this.updateEntry(this.model);
     },
+    ...mapActions('metadata', [
+      'updateEntry',
+    ]),
   },
   computed: {
     ...mapState({
       schema: $state => $state.metadata.metaDataSchema,
+      entry: $state => $state.metadata.entry,
     }),
   },
 };

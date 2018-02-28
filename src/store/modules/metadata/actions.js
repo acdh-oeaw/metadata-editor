@@ -4,7 +4,12 @@
 const actions = {
   setMetaData({ state, commit, dispatch }, schema) {
     if (schema) {
-      commit('setmetaDataSchema', schema);
+      commit('setMetaDataSchema', schema);
+    }
+  },
+  updateEntry({ state, commit, dispatch }, entry) {
+    if (entry) {
+      commit('setEntry', entry);
     }
   },
 };
