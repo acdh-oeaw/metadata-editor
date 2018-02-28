@@ -10,6 +10,7 @@
   import { mapActions } from 'vuex';
   import FundamentNav from './FundamentNav';
   import FundamentFooter from './FundamentFooter';
+  import HELPERS from '../helpers';
 
   /* eslint no-console: ["error", { allow: ["log"] }] */
   export default {
@@ -17,6 +18,7 @@
       FundamentNav,
       FundamentFooter,
     },
+    mixins: [HELPERS],
     data() {
       return {
       };
@@ -25,9 +27,16 @@
       ...mapActions('jowl', [
         'setOntology',
       ]),
+      ...mapActions('n3', [
+        'setMetaData',
+      ]),
     },
     created() {
       this.setOntology('static/acdh-schema.owl');
+      this.getMetadataFromApi().then((response) => {
+        console.log('i am alive getMetadataFromApi');
+        this.setMetaData(response);
+      });
     },
   };
 </script>

@@ -10,6 +10,7 @@ const state = {
   subjects: {},
   processing: false,
   processingMessage: '',
+  metaDataShema: '',
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -39,6 +40,9 @@ const mutations = {
   stopProcessing(s) {
     s.processingMessage = '';
     s.processing = false;
+  },
+  setMetaDataShema(s, shema) {
+    s.metaDataShema = shema;
   },
 };
 
