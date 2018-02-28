@@ -27,7 +27,7 @@
       ...mapActions('jowl', [
         'setOntology',
       ]),
-      ...mapActions('n3', [
+      ...mapActions('metadata', [
         'setMetaData',
       ]),
     },

@@ -41,9 +41,6 @@ const mutations = {
     s.processingMessage = '';
     s.processing = false;
   },
-  setMetaDataShema(s, shema) {
-    s.metaDataShema = shema;
-  },
 };
 
 export default {
