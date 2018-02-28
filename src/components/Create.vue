@@ -7,12 +7,16 @@
             </nav>
           </div>
           <div class="col-12 col-md-9 col-xl-10 page-content-w-sidebar">
-            <h1><a id="Cards_0"></a>Resolving Identifier</h1>
+            <h1><a id="Cards_0"></a>Resolving Identifiers</h1>
             <p>Testing Autocompletes to resolve Identifiers</p>
             <h3><a id="Cards_0"></a>Persons</h3>
             <Autocomparche type='PERSONS' name='Person'></Autocomparche>
             <h3><a id="Cards_0"></a>Places</h3>
             <Autocomparche type='PLACES' name='Place'></Autocomparche>
+
+            <h1><a id="Cards_0"></a>Form from schema</h1>
+            <p>Testing Form from Schema</p>
+            <FormFromSchema></FormFromSchema>
           </div>
         </div>
       </div>
@@ -22,6 +26,7 @@
 <script>
 import Fundamententity from './Fundamententity';
 import Autocomparche from './Autocomparche';
+import FormFromSchema from './FormFromSchema';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
@@ -30,6 +35,7 @@ export default {
   components: {
     Fundamententity,
     Autocomparche,
+    FormFromSchema,
   },
   data() {
     return {

@@ -3,8 +3,8 @@
     "id": "https://vocabs.acdh.oeaw.ac.at/schema#Person",
     "type": "object",
     "title": "person",
-    "properties": [
-        {
+    "properties": {
+
             "hasAlternativeTitle": {
                 "type": "string",
                 "attrs": {
@@ -244,5 +244,5 @@
                 "hasTitle"
             ]
         }
-    ]
+
 }

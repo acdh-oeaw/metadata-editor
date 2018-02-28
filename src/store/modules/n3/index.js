@@ -10,7 +10,7 @@ const state = {
   subjects: {},
   processing: false,
   processingMessage: '',
-  metaDataShema: '',
+  metaDataSchema: '',
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */

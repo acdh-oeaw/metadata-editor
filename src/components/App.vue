@@ -34,7 +34,6 @@
     created() {
       this.setOntology('static/acdh-schema.owl');
       this.getMetadataFromApi().then((response) => {
-        console.log('i am alive getMetadataFromApi');
         this.setMetaData(response);
       });
     },

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import exampleAPI from '../../static/example_api.json';
+// import exampleAPI from '../../static/newsletter.json';
 
 /* eslint no-console: ["error", { allow: ["log"] }] */
 // this could go to an external file, to be excluded from commits etc
@@ -92,7 +93,7 @@ export default {
     //
 
 
-    /* fetches the JSON-Shema from the specified API in the config and returns it.
+    /* fetches the JSON-schema from the specified API in the config and returns it.
 
     getMetadataFromApi() {
       return APIS.ARCHE.METADATA.get().then(response => Promise.resolve(response.data));

@@ -1,7 +1,7 @@
 import actions from './actions';
 
 const state = {
-  metaDataShema: '',
+  metaDataSchema: '',
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -11,8 +11,8 @@ const getters = {
 };
 
 const mutations = {
-  setMetaDataShema(s, shema) {
-    s.metaDataShema = shema;
+  setmetaDataSchema(s, schema) {
+    s.metaDataSchema = schema;
   },
 };
 

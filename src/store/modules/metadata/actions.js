@@ -2,9 +2,9 @@
 
 
 const actions = {
-  setMetaData({ state, commit, dispatch }, shema) {
-    if (shema) {
-      commit('setMetaDataShema', shema);
+  setMetaData({ state, commit, dispatch }, schema) {
+    if (schema) {
+      commit('setmetaDataSchema', schema);
     }
   },
 };
