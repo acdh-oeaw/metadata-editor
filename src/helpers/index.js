@@ -1,4 +1,7 @@
 import axios from 'axios';
+import exampleAPI from '../../static/example_api.json';
+// import exampleAPI from '../../static/newsletter.json';
+
 /* eslint no-console: ["error", { allow: ["log"] }] */
 // this could go to an external file, to be excluded from commits etc
 const CONFIG = {
@@ -11,7 +14,7 @@ const CONFIG = {
       PLACES: 'places/',
       CONCEPTS: 'concepts/',
       PUBLICATIONS: 'publications/',
-      METADATA: '/getMetadata/',
+      METADATA: 'getMetadata/',
     },
     TIMEOUT: 1000,
     PARAMS: {
@@ -88,6 +91,21 @@ export default {
     //   }
     // },
     //
+
+
+    /* fetches the JSON-schema from the specified API in the config and returns it.
+
+    getMetadataFromApi() {
+      return APIS.ARCHE.METADATA.get().then(response => Promise.resolve(response.data));
+    },
+
+    currently the endpoint /METADATA doesn't work yet,
+    so this is a inbetween solution to build the rest of the task. once the api works,
+    just replace the function below with the one in the comment above.
+    */
+    getMetadataFromApi() {
+      return Promise.resolve(exampleAPI);
+    },
     getViafByID(id) {
       if (id) {
         return APIS.VIAF.BASE.get(`${id}/`).then((response) => {

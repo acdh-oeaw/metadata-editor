@@ -1,0 +1,250 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "id": "https://vocabs.acdh.oeaw.ac.at/schema#Person",
+    "type": "object",
+    "title": "person",
+    "properties": {
+        "hasAlternativeTitle": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Alternative title or name of Project, Collection or Resource. Can also be used as alternative name for an organisation.",
+                "title": "has alternative title"
+            },
+            "description": "Alternative title or name of Project, Collection or Resource. Can also be used as alternative name for an organisation.",
+            "range": "http://www.w3.org/2000/01/rdf-schema#Literal"
+        },
+        "hasDescription": {
+            "type": "string",
+            "title": "has description",
+            "attrs": {
+                "placeholder": "A verbose description of certain aspects (content, coverage, completeness, extent, motivation, etc.) of an entity. This is the most generic property, use more specific sub-properties where applicable.",
+                "title": "has description"
+            },
+            "description": "A verbose description of certain aspects (content, coverage, completeness, extent, motivation, etc.) of an entity. This is the most generic property, use more specific sub-properties where applicable.",
+            "range": "http://www.w3.org/2000/01/rdf-schema#Literal",
+            "minItems": 1,
+            "uniqueItems": true
+        },
+        "hasEmail": {
+            "type": "string",
+            "title": "has email",
+            "attrs": {
+                "placeholder": "E-mail associated with a Person or Organisation.",
+                "title": "has email",
+                "type": "email"
+            },
+            "description": "E-mail associated with a Person or Organisation.",
+            "range": "http://www.w3.org/2000/01/rdf-schema#Literal"
+        },
+        "hasFirstName": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "First name of a Person.",
+                "title": "has first name",
+                "type": "persons"
+            },
+            "description": "First name of a Person.",
+            "range": "http://www.w3.org/2000/01/rdf-schema#Literal"
+        },
+        "hasIdentifier": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Unique identifier given by ACDH and used in ACDH systems, as well as identifiers with a stable URL or URI assigned by other parties, e. g. a DOI, a geonames ID or an URN.\nInput has URI.\nHandles belong into acdh:hasPID and all other identifiers without URL or URI, like local assigned ones, project numbers or inventory numbers into acdh:hasNonLinkedIdentifier.",
+                "title": "has identifier"
+            },
+            "description": "Unique identifier given by ACDH and used in ACDH systems, as well as identifiers with a stable URL or URI assigned by other parties, e. g. a DOI, a geonames ID or an URN.\nInput has URI.\nHandles belong into acdh:hasPID and all other identifiers without URL or URI, like local assigned ones, project numbers or inventory numbers into acdh:hasNonLinkedIdentifier.",
+            "range": "http://www.w3.org/2000/01/rdf-schema#Literal",
+            "minItems": 1,
+            "uniqueItems": true
+        },
+        "hasLastName": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Last Name of Person.",
+                "title": "has last name"
+            },
+            "description": "Last Name of Person.",
+            "minItems": 1,
+            "uniqueItems": true,
+            "range": "http://www.w3.org/2000/01/rdf-schema#Literal"
+        },
+        "hasLifeCycleStatus": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Indication if the Project, Collection or Resource (A) still in the making or completed? A verbose status description can be added with acdh:hasCompleteness.",
+                "title": "has life cycle status"
+            },
+            "description": "Indication if the Project, Collection or Resource (A) still in the making or completed? A verbose status description can be added with acdh:hasCompleteness.",
+            "maxItems": 1,
+            "range": "http://www.w3.org/2000/01/rdf-schema#Literal"
+        },
+        "hasPersonalTitle": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Professional or academic title of a Person.",
+                "title": "has personal title"
+            },
+            "description": "Professional or academic title of a Person."
+        },
+        "hasTitle": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Title or name of Project, Collection or Resource. Is also used as name for an organisation.",
+                "title": "has title"
+            },
+            "description": "Title or name of Project, Collection or Resource. Is also used as name for an organisation.",
+            "minItems": 1,
+            "range": "http://www.w3.org/2000/01/rdf-schema#Literal"
+        },
+        "hasVersion": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Number of name of the version of Collection or Resource.",
+                "title": "has version"
+            },
+            "description": "Number of name of the version of Collection or Resource.",
+            "maxItems": 1
+        },
+        "isActor": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Any person or institution (A) which the given resource (B) mentions or is about.",
+                "title": "is actor"
+            },
+            "description": "Any person or institution (A) which the given resource (B) mentions or is about."
+        },
+        "isAuthor": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Author of resource, who will appear in the citation of it. The author is used to indicate the originator of any written work. For any other types of work use 'Creator'.",
+                "title": "is author"
+            },
+            "description": "Author of resource, who will appear in the citation of it. The author is used to indicate the originator of any written work. For any other types of work use 'Creator'."
+        },
+        "isContact": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Person with knowledge of how to access, troubleshoot, or otherwise field issues related to the resource. (DataCite: ContactPerson),Person or Organisation that can be contacted regarding information about a Resource or a Project.",
+                "title": "is contact"
+            },
+            "description": "Person with knowledge of how to access, troubleshoot, or otherwise field issues related to the resource. (DataCite: ContactPerson),Person or Organisation that can be contacted regarding information about a Resource or a Project."
+        },
+        "isContributor": {
+            "type": "string",
+            "attrs": {
+                "placeholder": ",Agent (person, group, organisation) (A) who was actively involved in creating/curating/editing a Resource, a Collection or in a Project (B). Any person or institution making a significant contribution to the development and/or maintenance of the resource, but whose contribution does not “fit” to another already defined role. (cf. DataCite: Other)\nThis is a generic property. Use one of the more specific sub-properties where possible.",
+                "title": "is contributor"
+            },
+            "description": ",Agent (person, group, organisation) (A) who was actively involved in creating/curating/editing a Resource, a Collection or in a Project (B). Any person or institution making a significant contribution to the development and/or maintenance of the resource, but whose contribution does not “fit” to another already defined role. (cf. DataCite: Other)\nThis is a generic property. Use one of the more specific sub-properties where possible."
+        },
+        "isCreator": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Person involved in the creation of a resource.",
+                "title": "is creator"
+            },
+            "description": "Person involved in the creation of a resource."
+        },
+        "isCurator": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Person tasked with reviewing, enhancing, cleaning, or standardizing metadata and the associated data submitted for storage, use, and maintenance within a data centre or repository. (DataCite: DataCurator)",
+                "title": "is curator"
+            },
+            "description": "Person tasked with reviewing, enhancing, cleaning, or standardizing metadata and the associated data submitted for storage, use, and maintenance within a data centre or repository. (DataCite: DataCurator)",
+            "range": "https://vocabs.acdh.oeaw.ac.at/schema#RepoObject"
+        },
+        "isDepositor": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Person or organisation (A) responsible for submitting a Resource or Collection (B) for hosting to the repository.",
+                "title": "is depositor"
+            },
+            "description": "Person or organisation (A) responsible for submitting a Resource or Collection (B) for hosting to the repository.",
+            "range": "https://vocabs.acdh.oeaw.ac.at/schema#RepoObject"
+        },
+        "isEditor": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "A person who oversees the details related to the publication format of the resource. (DataCite: Editor)",
+                "title": "is editor"
+            },
+            "description": "A person who oversees the details related to the publication format of the resource. (DataCite: Editor)"
+        },
+        "isFunder": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Person or organisation that issued a contract or under the auspices of which a work has been written, printed, published, developed, etc. (DataCite: Sponsor),Person or Organisation which provided funding for the project.",
+                "title": "is funder"
+            },
+            "description": "Person or organisation that issued a contract or under the auspices of which a work has been written, printed, published, developed, etc. (DataCite: Sponsor),Person or Organisation which provided funding for the project."
+        },
+        "isHosting": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Institution (A) responsible for preservation of a resource (B).,Typically, the organisation allowing the resource to be available on the internet through the provision of its hardware/software/operating support. (DataCite: HostingInstitution) ",
+                "title": "is hosting"
+            },
+            "description": "Institution (A) responsible for preservation of a resource (B).,Typically, the organisation allowing the resource to be available on the internet through the provision of its hardware/software/operating support. (DataCite: HostingInstitution) ",
+            "range": "https://vocabs.acdh.oeaw.ac.at/schema#RepoObject"
+        },
+        "isLicensor": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Person or Organisation (A) responsible for choosing a license for the Collection or Resource (B).",
+                "title": "is licensor"
+            },
+            "description": "Person or Organisation (A) responsible for choosing a license for the Collection or Resource (B).",
+            "range": "https://vocabs.acdh.oeaw.ac.at/schema#RepoObject"
+        },
+        "isMember": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Used to link a Person to an Organisation or an Organisation (e.g. department) to another Organisation (institution)",
+                "title": "is member"
+            },
+            "description": "Used to link a Person to an Organisation or an Organisation (e.g. department) to another Organisation (institution)",
+            "range": "https://vocabs.acdh.oeaw.ac.at/schema#Organisation"
+        },
+        "isMetadataCreator": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Person responsible for creating metadata.",
+                "title": "is metadata creator"
+            },
+            "description": "Person responsible for creating metadata."
+        },
+        "isOwner": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "A Person or Organisation (A) owning a Collection or Resource (B).",
+                "title": "is owner"
+            },
+            "description": "A Person or Organisation (A) owning a Collection or Resource (B).",
+            "range": "https://vocabs.acdh.oeaw.ac.at/schema#RepoObject"
+        },
+        "isPrincipalInvestigator": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Person officially designated as head of project team or subproject team instrumental in the work necessary to development of the resource. (DataCite: ProjectLeader)",
+                "title": "is principal investigator"
+            },
+            "description": "Person officially designated as head of project team or subproject team instrumental in the work necessary to development of the resource. (DataCite: ProjectLeader)"
+        },
+        "isRightsHolder": {
+            "type": "string",
+            "attrs": {
+                "placeholder": "Person or institution owning or managing property rights, including intellectual property rights over the resource. (DataCite: RightsHolder)",
+                "title": "is rights holder"
+            },
+            "description": "Person or institution owning or managing property rights, including intellectual property rights over the resource. (DataCite: RightsHolder)",
+            "range": "https://vocabs.acdh.oeaw.ac.at/schema#RepoObject"
+        },
+        "required": [
+            "hasDescription",
+            "hasIdentifier",
+            "hasLastName",
+            "hasTitle"
+        ]
+    }
+}
