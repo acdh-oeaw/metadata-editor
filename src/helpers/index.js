@@ -71,28 +71,6 @@ export default {
     };
   },
   methods: {
-    // getEndpointDataLike(endpoint, like) {
-    //   this.$info("getEndpointDataLike(endpoint, like)", endpoint, like);
-    //   if (like) {
-    //     return APIS.ARCHE.BASE.get(endpoint + "/" + like)
-    //       .then(function(response) {
-    //         var results = {};
-    //         if (typeof(response.data) === 'object') {
-    //           results = response.data;
-    //         } else {
-    //           results = false;
-    //         }
-    //         return results;
-    //       }.bind(this), function(response) {
-    //         return false;
-    //       });
-    //   } else {
-    //     return Promise.resolve({});
-    //   }
-    // },
-    //
-
-
     /* fetches the JSON-schema from the specified API in the config and returns it.
 
     getMetadataFromApi() {
@@ -120,6 +98,7 @@ export default {
       return Promise.reject('no ID was given');
     },
     getArcheByID(id, type) {
+      console.log(id, type, APIS.ARCHE[type]);
       if (id && type && APIS.ARCHE[type]) {
         return APIS.ARCHE[type].get(`${id}`).then((response) => {
           console.log('response', response.data);
@@ -129,7 +108,6 @@ export default {
           return Promise.reject(error);
         });
       }
-      console.log('errortree, no id');
       return Promise.reject('no ID or Type was given');
     },
   },

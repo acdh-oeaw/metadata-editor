@@ -10,7 +10,7 @@ function RemovePrefix(str) {
 }
 
 const actions = {
-  AddTriple({ state, dispatch }, triple) {
+  AddTriple({ state, commit }, triple) {
     state.store.addTriple(
       triple.subject,
       triple.predicate,

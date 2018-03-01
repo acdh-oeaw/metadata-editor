@@ -38,14 +38,12 @@ export default {
       this.search(loading, search, this);
     },
     search: debounce((loading, search, vm) => {
-      fetch(
-        `https://fedora.apollo.arz.oeaw.ac.at/browser/api/${vm.type}/${escape(search)}/?_format=json`,
-      ).then((res) => {
-        res.json().then((json) => {
-          /* eslint no-console: ["error", { allow: ["log"] }] */
-          if (Array.isArray(json)) vm.options = json;
-          else vm.options = [];
-        });
+      console.log(vm);
+      vm.getArcheByID(escape(search), vm.type)
+      .then((res) => {
+        /* eslint no-console: ["error", { allow: ["log"] }] */
+        if (Array.isArray(res)) vm.options = res;
+        else vm.options = [];
         loading(false);
       });
     }, 350),
