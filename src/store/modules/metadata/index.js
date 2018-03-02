@@ -1,7 +1,7 @@
 import actions from './actions';
 
 const state = {
-  metaDataSchema: '',
+  metaDataSchema: {},
   entry: { test: 'tese' },
 };
 

@@ -51,9 +51,17 @@ export default {
   },
   computed: {
     ...mapState({
+      // this needs to be replaced, see l60ff
       schema: $state => $state.metadata.metaDataSchema,
       entry: $state => $state.metadata.entry,
     }),
+  },
+  beforeRouteEnter (to, from, next) {
+    // since form-schema expects either a definite schema or
+    // a promise we need to check for this beforeRouteEnter
+    // getPost(to.params.id, (err, post) => {
+    //   next(vm => vm.setData(err, post))
+    // })
   },
 };
 </script>
