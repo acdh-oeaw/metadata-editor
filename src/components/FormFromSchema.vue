@@ -56,7 +56,7 @@ export default {
       entry: $state => $state.metadata.entry,
     }),
   },
-  beforeRouteEnter (to, from, next) {
+  beforeRouteEnter(/* to, from, next */) {
     // since form-schema expects either a definite schema or
     // a promise we need to check for this beforeRouteEnter
     // getPost(to.params.id, (err, post) => {

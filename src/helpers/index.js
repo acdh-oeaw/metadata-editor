@@ -110,13 +110,13 @@ export default {
       }
       return Promise.reject('no ID or Type was given');
     },
-    setInitialData (err, key, post) {
+    setInitialData(err, key, post) {
       if (err) {
-        this.error = err.toString()
+        this.error = err.toString();
       } else {
         this[key] = post;
       }
-    }
+    },
   },
   created() {
 
