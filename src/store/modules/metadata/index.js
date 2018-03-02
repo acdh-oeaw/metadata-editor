@@ -13,6 +13,7 @@ const getters = {
 
 const mutations = {
   setMetaDataSchema(s, schema) {
+    console.log(schema);
     s.metaDataSchema = schema;
   },
   setEntry(s, entry) {

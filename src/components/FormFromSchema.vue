@@ -11,7 +11,7 @@
 <script>
 import FormSchema from 'vue-json-schema';
 import { mapState, mapActions } from 'vuex';
-import BootstrapVue from 'bootstrap-vue';
+import { FormInput } from 'bootstrap-vue';
 import Autocomparche from './Autocomparche';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
@@ -19,7 +19,7 @@ FormSchema.setComponent('form', 'b-form', { validated: true });
 
 FormSchema.setComponent('email', 'b-form-input', { type: 'email' });
 FormSchema.setComponent('text', 'b-form-input', { type: 'text' });
-FormSchema.setComponent('persons', 'Autocomparche', { type: 'PERSONS', name: 'Person' });
+FormSchema.setComponent('persons', Autocomparche, { type: 'PERSONS', name: 'Person' });
 
 // FormSchema.setComponent('description', 'b-form-input');
 /*
@@ -34,7 +34,7 @@ export default {
   ],
   components: {
     FormSchema,
-    BootstrapVue,
+    FormInput,
     Autocomparche,
   },
   data: () => ({
