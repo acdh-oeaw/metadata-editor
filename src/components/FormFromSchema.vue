@@ -1,9 +1,9 @@
 <template>
-  <div class="wrapperToBeDeleted">
-  <form-schema :schema="schema" v-model="model" @submit="submit">
-    <b-button variant="primary" @click="submit">Subscribe</b-button>
-    <b-button type="reset">Reset</b-button>
-  </form-schema>
+  <div class="" v-if="!loading">
+    <form-schema :schema="schema" v-model="model" @submit="submit">
+      <b-button variant="primary" @click="submit">Subscribe</b-button>
+      <b-button type="reset">Reset</b-button>
+    </form-schema>
   <p class="paragraphToBeDeleted">just for testing, this paragraph will be deleted: {{ entry }}</p>
 
   </div>
@@ -13,6 +13,7 @@
 import FormSchema from 'vue-json-schema';
 import { mapState, mapActions } from 'vuex';
 import Autocomparche from './Autocomparche';
+import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
 FormSchema.setComponent('form', 'b-form', { validated: true });
@@ -21,14 +22,10 @@ FormSchema.setComponent('email', 'b-form-input', { type: 'email' });
 FormSchema.setComponent('text', 'b-form-input', { type: 'text' });
 FormSchema.setComponent('persons', Autocomparche, { type: 'PERSONS', name: 'Person' });
 
-// FormSchema.setComponent('description', 'b-form-input');
-/*
-FormSchema.setComponent('checkbox', 'b-form-checkbox');
-FormSchema.setComponent('radio', 'b-form-radio');
-FormSchema.setComponent('select', 'b-form-select');
-*/
+/* eslint no-console: ['error', { allow: ['log'] }] */
 
 export default {
+  mixins: [HELPERS],
   props: [
 
   ],
@@ -38,6 +35,7 @@ export default {
   },
   data: () => ({
     model: {},
+    loading: true,
   }),
   methods: {
     submit() {
@@ -55,12 +53,11 @@ export default {
       entry: $state => $state.metadata.entry,
     }),
   },
-  beforeRouteEnter(/* to, from, next */) {
-    // since form-schema expects either a definite schema or
-    // a promise we need to check for this beforeRouteEnter
-    // getPost(to.params.id, (err, post) => {
-    //   next(vm => vm.setData(err, post))
-    // })
+  created() {
+    this.getMetadataFromApi().then((res) => {
+      console.log(res);
+      this.loading = false;
+    });
   },
 };
 </script>
