@@ -1,7 +1,8 @@
 <template>
   <div class="wrapperToBeDeleted">
   <form-schema :schema="schema" v-model="model" @submit="submit">
-    <b-button @click="submit">Subscribe</b-button>
+    <b-button variant="primary" @click="submit">Subscribe</b-button>
+    <b-button type="reset">Reset</b-button>
   </form-schema>
   <p class="paragraphToBeDeleted">just for testing, this paragraph will be deleted: {{ entry }}</p>
 
@@ -66,7 +67,7 @@ export default {
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 img {
   height: auto;
   max-width: 2.5rem;
@@ -101,5 +102,13 @@ img {
 
 .v-select .dropdown-menu .active > a {
   color: #fff;
+}
+
+small {
+  display: none;
+}
+
+label span {
+  width: 200px;
 }
 </style>
