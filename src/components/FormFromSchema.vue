@@ -12,7 +12,6 @@
 <script>
 import FormSchema from 'vue-json-schema';
 import { mapState, mapActions } from 'vuex';
-import { FormInput } from 'bootstrap-vue';
 import Autocomparche from './Autocomparche';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
@@ -35,7 +34,6 @@ export default {
   ],
   components: {
     FormSchema,
-    FormInput,
     Autocomparche,
   },
   data: () => ({
