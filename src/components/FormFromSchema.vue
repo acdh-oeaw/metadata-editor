@@ -35,6 +35,7 @@ export default {
   },
   data: () => ({
     model: {},
+    schema: {},
     loading: true,
   }),
   methods: {
@@ -49,13 +50,13 @@ export default {
   computed: {
     ...mapState({
       // this needs to be replaced, see l60ff
-      schema: $state => $state.metadata.metaDataSchema,
+      // schema: $state => $state.metadata.metaDataSchema,
       entry: $state => $state.metadata.entry,
     }),
   },
   created() {
-    this.getMetadataFromApi().then((res) => {
-      console.log(res);
+    this.getMetadataByType('person').then((res) => {
+      this.schema = res;
       this.loading = false;
     });
   },
