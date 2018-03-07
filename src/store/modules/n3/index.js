@@ -10,6 +10,7 @@ const state = {
   subjects: {},
   processing: false,
   processingMessage: '',
+  counter: 0,
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -21,6 +22,9 @@ const getters = {
 const mutations = {
   updateTripleCount(s) {
     s.tripleCount = s.store.countTriples(null, null, null, null);
+  },
+  increaseCounter(s) {
+    s.counter += 1;
   },
   /*
     fetch all subjects and corresponding objects for wich the predicate is

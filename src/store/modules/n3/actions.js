@@ -47,19 +47,30 @@ const actions = {
   },
   /*  high level action parsing an JS-Object into triples and subsequently
      saving it to the N3.js store */
-  objectToStore({ state, commit, dispatch }, obj) {
+  objectToStore({ state, commit, dispatch }, { schema, obj }) {
     commit('startProcessing', 'Parsing Object to Store...');
+    // first triple for type
+    // console.log(schema);
+    const first = {
+      subject: '_:cool',
+      predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+      object: schema.id,
+    };
+    dispatch('AddTriple', first);
     const keys = Object.keys(obj);
     const values = Object.values(obj);
     for (let k = 0; k < keys.length; k += 1) {
-      const triple = {
-        subject: '_',
-        predicate: keys[k],
-        object: values[k],
-      };
-      dispatch('AddFilteredTriple', triple);
-      console.log(triple);
+      if (values[k]) {
+        const triple = {
+          subject: `_:b${state.counter}_manual`,
+          predicate: keys[k],
+          object: values[k],
+        };
+        dispatch('AddTriple', triple);
+        // console.log(triple);
+      }
     }
+    commit('increaseCounter');
     commit('stopProcessing');
     commit('updateTripleCount');
     commit('updateSubject');

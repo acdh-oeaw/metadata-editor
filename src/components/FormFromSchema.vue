@@ -4,8 +4,6 @@
       <b-button variant="primary" @click="submit">Subscribe</b-button>
       <b-button type="reset">Reset</b-button>
     </form-schema>
-  <p class="paragraphToBeDeleted">just for testing, this paragraph will be deleted: {{ entry }}</p>
-
   </div>
 </template>
 
@@ -48,7 +46,7 @@ export default {
     submit() {
       // here everything -> n3 store. this.model should hold everything needed for that
       console.log(this.model);
-      this.objectToStore(this.model);
+      this.objectToStore({ obj: this.model, schema: this.schema[this.type] });
     },
   },
   computed: {
@@ -60,6 +58,7 @@ export default {
   },
   created() {
     this.getMetadataByType(this.type).then((res) => {
+      console.log('schema', res);
       this.setSchema({ name: this.type, schema: res });
       this.loading = false;
     });
