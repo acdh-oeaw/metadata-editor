@@ -11,7 +11,7 @@
 
 <script>
 import FormSchema from 'vue-json-schema';
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import Autocomparche from './Autocomparche';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -35,7 +35,6 @@ export default {
   },
   data: () => ({
     model: {},
-    schema: {},
     loading: true,
   }),
   methods: {
@@ -43,20 +42,20 @@ export default {
       // console.log('submited', this.shema, e);
       this.updateEntry(this.model);
     },
-    ...mapActions('metadata', [
-      'updateEntry',
+    ...mapMutations('JSONschema', [
+      'setSchema',
     ]),
   },
   computed: {
     ...mapState({
       // this needs to be replaced, see l60ff
-      // schema: $state => $state.metadata.metaDataSchema,
+      schema: $state => $state.metadata.metaDataSchema,
       entry: $state => $state.metadata.entry,
     }),
   },
   created() {
     this.getMetadataByType('person').then((res) => {
-      this.schema = res;
+      this.setSchema('person', res);
       this.loading = false;
     });
   },

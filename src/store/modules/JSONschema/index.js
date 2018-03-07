@@ -1,7 +1,7 @@
 import actions from './actions';
 
 const state = {
-  metaDataSchema: {},
+  schemas: [],
   entry: { test: 'tese' },
 };
 
@@ -9,12 +9,15 @@ const state = {
 /* eslint no-console: ["error", { allow: ["log"] }] */
 
 const getters = {
+  getQuery: s => name => s.schemas[name],
 };
 
 const mutations = {
-  setMetaDataSchema(s, schema) {
-    console.log(schema);
-    s.metaDataSchema = schema;
+  setSchema(s, name, schema) {
+    // there should be some basic validation before commit
+    if (name && schema) {
+      s.schemas[name] = schema;
+    }
   },
   setEntry(s, entry) {
     s.entry = entry;

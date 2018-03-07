@@ -33,9 +33,6 @@
     },
     created() {
       this.setOntology('static/acdh-schema.owl');
-      this.getMetadataFromApi().then((response) => {
-        this.setMetaData(response);
-      });
     },
   };
 </script>

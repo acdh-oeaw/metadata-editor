@@ -5,7 +5,7 @@ import VueAxios from 'vue-axios';
 import createLogger from 'vuex/dist/logger';
 import jowl from './modules/jowl/index';
 import n3 from './modules/n3/index';
-import metadata from './modules/metadata/index';
+import JSONschema from './modules/JSONschema/index';
 
 
 Vue.use(Vuex);
@@ -19,7 +19,7 @@ export default new Vuex.Store({
   modules: {
     jowl,
     n3,
-    metadata,
+    JSONschema,
   },
   strict: false,
   middlewares: debug ? [createLogger()] : [],

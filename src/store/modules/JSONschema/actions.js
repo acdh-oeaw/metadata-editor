@@ -2,11 +2,8 @@
 
 
 const actions = {
-  setMetaData({ state, commit, dispatch }, schema) {
-    if (schema) {
-      commit('setMetaDataSchema', schema);
-    }
-  },
+  // actions only make sense if we need to bundle commits with async props
+  // -> this should be a commit
   updateEntry({ state, commit, dispatch }, entry) {
     if (entry) {
       commit('setEntry', entry);
