@@ -14,9 +14,9 @@
             <h3><a id="Cards_0"></a>Places</h3>
             <Autocomparche type='PLACES' name='Place'></Autocomparche>
 
-            <h1><a id="Cards_0"></a>Form from schema</h1>
+            <h1><a id="Cards_0"></a>Form From Schema</h1>
             <p>Testing Form from Schema</p>
-            <FormFromSchema></FormFromSchema>
+            <FormFromSchema type="person"></FormFromSchema>
           </div>
         </div>
       </div>

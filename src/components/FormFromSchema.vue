@@ -1,6 +1,6 @@
 <template>
   <div class="" v-if="!loading">
-    <form-schema :schema="schema" v-model="model" @submit="submit">
+    <form-schema :schema="schema[type]" v-model="model" @submit="submit">
       <b-button variant="primary" @click="submit">Subscribe</b-button>
       <b-button type="reset">Reset</b-button>
     </form-schema>
@@ -27,7 +27,7 @@ FormSchema.setComponent('persons', Autocomparche, { type: 'PERSONS', name: 'Pers
 export default {
   mixins: [HELPERS],
   props: [
-
+    'type',
   ],
   components: {
     FormSchema,
@@ -40,22 +40,24 @@ export default {
   methods: {
     submit() {
       // console.log('submited', this.shema, e);
-      this.updateEntry(this.model);
+      this.setEntry({ name: this.type, entry: this.model });
     },
     ...mapMutations('JSONschema', [
       'setSchema',
+      'setEntry',
     ]),
   },
   computed: {
     ...mapState({
       // this needs to be replaced, see l60ff
-      schema: $state => $state.metadata.metaDataSchema,
-      entry: $state => $state.metadata.entry,
+      schema: $state => $state.JSONschema.schemas,
+      entry: $state => $state.JSONschema.entries,
     }),
   },
   created() {
-    this.getMetadataByType('person').then((res) => {
-      this.setSchema('person', res);
+    this.getMetadataByType(this.type).then((res) => {
+      console.log('called it', res);
+      this.setSchema({ name: this.type, schema: res });
       this.loading = false;
     });
   },

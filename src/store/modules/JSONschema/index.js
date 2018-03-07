@@ -1,8 +1,8 @@
 import actions from './actions';
 
 const state = {
-  schemas: [],
-  entry: { test: 'tese' },
+  schemas: {},
+  entries: {},
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -13,14 +13,16 @@ const getters = {
 };
 
 const mutations = {
-  setSchema(s, name, schema) {
+  setSchema(s, { name, schema }) {
     // there should be some basic validation before commit
     if (name && schema) {
       s.schemas[name] = schema;
     }
   },
-  setEntry(s, entry) {
-    s.entry = entry;
+  setEntry(s, { name, entry }) {
+    if (name && entry) {
+      s.entries[name] = entry;
+    }
   },
 };
 
