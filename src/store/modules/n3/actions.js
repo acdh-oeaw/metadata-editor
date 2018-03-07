@@ -36,6 +36,7 @@ const actions = {
     state.parser.parse(string, (error, triple) => {
       if (triple) {
         dispatch('AddFilteredTriple', triple);
+        console.log(triple);
       } else {
         commit('updateTripleCount');
         commit('updateSubject');
@@ -44,6 +45,27 @@ const actions = {
       }
     });
   },
+  /*  high level action parsing an JS-Object into triples and subsequently
+     saving it to the N3.js store */
+  objectToStore({ state, commit, dispatch }, obj) {
+    commit('startProcessing', 'Parsing Object to Store...');
+    const keys = Object.keys(obj);
+    const values = Object.values(obj);
+    for (let k = 0; k < keys.length; k += 1) {
+      const triple = {
+        subject: '_',
+        predicate: keys[k],
+        object: values[k],
+      };
+      dispatch('AddFilteredTriple', triple);
+      console.log(triple);
+    }
+    commit('stopProcessing');
+    commit('updateTripleCount');
+    commit('updateSubject');
+    commit('stopProcessing');
+  },
+
 };
 
 export default actions;

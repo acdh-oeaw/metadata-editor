@@ -1,5 +1,9 @@
 import actions from './actions';
 
+/*
+Entries will be deleted from here.
+*/
+
 const state = {
   schemas: {},
   entries: {},

@@ -11,7 +11,7 @@
 
 <script>
 import FormSchema from 'vue-json-schema';
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapActions } from 'vuex';
 import Autocomparche from './Autocomparche';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -38,14 +38,18 @@ export default {
     loading: true,
   }),
   methods: {
-    submit() {
-      // console.log('submited', this.shema, e);
-      this.setEntry({ name: this.type, entry: this.model });
-    },
     ...mapMutations('JSONschema', [
       'setSchema',
       'setEntry',
     ]),
+    ...mapActions('n3', [
+      'objectToStore',
+    ]),
+    submit() {
+      // here everything -> n3 store. this.model should hold everything needed for that
+      console.log(this.model);
+      this.objectToStore(this.model);
+    },
   },
   computed: {
     ...mapState({
@@ -56,7 +60,6 @@ export default {
   },
   created() {
     this.getMetadataByType(this.type).then((res) => {
-      console.log('called it', res);
       this.setSchema({ name: this.type, schema: res });
       this.loading = false;
     });
