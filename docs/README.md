@@ -20,8 +20,6 @@ npm run build --report
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-[technical](technicalDescritption)
-
 
 # Components
 
@@ -113,7 +111,7 @@ this.search(loading, search, this);
 
 ## Create
 
-A content-level component cointaining the functionallity to write new meta data entries to the triple store of the application and in the future to also upload those to the server. for that it contains the FormFromSchema-component. 
+A content-level component cointaining the functionallity to write new meta data entries to the triple store of the application and in the future to also upload those to the server. for that reason it contains the [FormFromSchema](#FormFromSchema)-component.
 
 ### Imports
 
@@ -124,28 +122,136 @@ A content-level component cointaining the functionallity to write new meta data 
 
 
 
-## DummyComponent
+## Entities
+
+Display-component to show the entities that are in the [n3-store-module](#n3).
 
 ### Imports
 
-* [FundamentNav](#fundamentnav)
-* [FundamentFooter](#fundamentfooter)
 * [HELPERS](#helpers)
 
-### Description
-
-This is the main Component. It is used to add the three parts of the visible site to the application: the navbar, the content and the footer. As well as setting the owl ontollogy statically via [setOntology](#setOntology).
 
 ### Methods
 
-#### Dummy
+
+### Uses Foreign Methods
+* [onFileChange](#onFileChange)
+* [loadTtl](#loadTtl)
+* [tripleCount](#tripleCount)
+* [StringToStore](#StringToStore)
+
+
+## Entitytable
+
+Displays a reactive table of search results from jowl-data.
+Currently not in use, so it is uncertain if described behavior is correct.
+
+### Props
+
+| Props | Type | Description |
+| --- | --- | --- |
+| uri | <code>String</code>| the query that is searched for. each time it changes, the table is updated. |
+
+### Imports
+
+* [HELPERS](#helpers)
+
+### Data
+
+* <code>tabledata: []</code> -> array of objects in form of <code>{name: '', type: '', range: ''}</code>.
+Its content gets displayed in the table.
+
+### Methods
+
+#### getProps
+
+This is a watcher-function of the uri-prop.
+it clears the tabledata-object, then calls [fetchPropertiesByURI](#fetchPropertiesByURI) and pushes the returned data with proper attribute names to the tabledata-object.  
 
 ##### Parameters
 
 | Param | Type | Description |
 | --- | --- | --- |
-| lorem | <code>String</code> &#124; <code>Array</code> | does stuff |
+| newClass | <code>String</code> | uri to be fetched from |
 
-##### Description
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+### Uses Foreign Methods
+
+* [fetchClasses](#fetchClasses)
+* [fetchSubClassOf](#fetchSubClassOf)
+* [fetchPropertiesByURI](#fetchPropertiesByURI)
+* [getQuery](#getQuery)
+
+
+## FormFromSchema
+
+This component renders a full form from a given type.
+On created it calls [getMetadataByType](#getMetadataByType) with the as a param specified type. The returned schema is  stored in the [JSONschema module](JSONschema), which is also mapped to the state of this component. the schema is used as the param schema for form-schema, which is the imported component that actually does the rendering of the form.
+
+Validation rules and specific mappings of schema-elements to form-elements can be described in the sript part. (in the future, when the api returns typing, we will improve the current version to support other types then String.)
+
+
+### Used in
+
+* [Create](#create)
+
+### Imports
+
+
+* [FormSchema](https://github.com/formschema) (external component)
+* [Autocomparche](#Autocomparche)
+* [HELPERS](#HELPERS)
+
+
+### Props
+
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| type | <code>String</code> | type of the form you want to render. this is directly used as a parameter for calling [getMetadataByType](#getMetadataByType) |
+
+
+#### Possible types
+* person
+* organisation
+* place
+* concept
+* publication
+
+### Components
+
+* [FormSchema]((https://github.com/formschema)
+* [Autocomparche](#Autocomparche)
+
+
+
+### Uses Foreign Stuff
+
+#### Methods
+* [setSchema](#setSchema)
+* [setEntry](#setEntry)
+* [objectToStore](#objectToStore)
+* [getMetadataByType](#getMetadataByType)
+
+#### Data
+* schema from [JSONschema](JSONschema) -> in combination with [type] the correct schema is received.
+
+
+### Methods
+
+#### submit
+
+called without parameters after the submit-button at the end of the form is clicked.
+it calls [objectToStore](#objectToStore) with the model from [FormSchema]((https://github.com/formschema) and shema of from the
+
+##### Parameters
+
+none
+
+### How to call it
+
+``` template
+<FormFromSchema type="person"></FormFromSchema>
+```
+instead of person you can type any other of the possible [types](#Possible-types).

@@ -2,7 +2,7 @@
   <div >
     <div >
       <h3>Entities Currently Loaded to the Store:</h3>
-      <div v-for="entity in this.$store.state.n3.subjects">
+      <div v-for="entity in $store.state.n3.subjects">
         <Fundamententity v-if='entity.type == "acdh:Person;"' :uri='entity["acdh:hasIdentifier"][0]' type='PERSONS'></Fundamententity>
         <Fundamententity v-if='entity.type == "acdh:Organisation;"' :uri='entity["acdh:hasIdentifier"][0]' type='ORGANISATIONS'></Fundamententity>
         <p v-if='entity.type != "acdh:Person;" && entity.type != "acdh:Organisation;"'>{{ entity }}</p>
