@@ -17,6 +17,7 @@
             <h1><a id="Cards_0"></a>Form From Schema</h1>
             <p>Testing Form from Schema</p>
             <FormFromSchema type="person"></FormFromSchema>
+            <FormFromSchema type="concept"></FormFromSchema>
           </div>
         </div>
       </div>

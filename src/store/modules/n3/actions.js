@@ -71,7 +71,6 @@ const actions = {
       }
     }
     commit('increaseCounter');
-    commit('stopProcessing');
     commit('updateTripleCount');
     commit('updateSubject');
     commit('stopProcessing');
