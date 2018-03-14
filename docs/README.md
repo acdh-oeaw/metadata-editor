@@ -111,8 +111,16 @@ This function calls (350 milliseconds after it was last called) the [getArcheByI
 this.search(loading, search, this);
 ```
 
+## Create
 
+A content-level component cointaining the functionallity to write new meta data entries to the triple store of the application and in the future to also upload those to the server. for that it contains the FormFromSchema-component. 
 
+### Imports
+
+* [Fundamententity](#fundamentnav) (never called)
+* [Autocomparche](#Autocomparche)
+* [FormFromSchema](#FormFromSchema)
+* [HELPERS](#helpers)
 
 
 
