@@ -27,9 +27,6 @@
       ...mapActions('jowl', [
         'setOntology',
       ]),
-      ...mapActions('metadata', [
-        'setMetaData',
-      ]),
     },
     created() {
       this.setOntology('static/acdh-schema.owl');
