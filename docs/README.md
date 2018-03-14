@@ -41,7 +41,60 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
 ## Store
+This component is used to load external .ttl files into the store. You can upload any .ttl file as long as it's structure is supported. The assigned methods will automatically called upon selecting your file and the content of it will be stored.
 ### Imports
 * [Load](#load)
 * [Entities](#entities)
 * [HELPERS](#helpers)
+ * [tripleCount](#tripleCount)
+ * [StringToStore](#StringToStore)
+
+### Components
+* [Load](#load)
+* [Entities](#entities)
+
+### Methods
+#### onFileChange
+This function is called as soon as a file gets selected, it checks if the used file is valid and then calls [loadTtl](#loadTtl).
+#### loadTtl
+Loads and reads valid .ttl files, then loads them into the store.
+#### removeTtl
+Removes the .ttl file from your scope.
+
+## Start
+Acts as the landing page of the MetaDataEditor. You can use it to navigate through the whole Website.
+
+## Schema
+Schema helps you explore your ontology by showing you the properties of every class in your schema.
+### Imports
+* [Propertytable](#Propertytable)
+* [HELPERS](#helpers)
+ * [fetchClasses](#fetchClasses)
+ * [fetchSubClassOf](#fetchSubClassOf)
+ * [fetchPropertiesByURI](#fetchPropertiesByURI)
+
+### Components
+* [Propertytable](#Propertytable)
+
+### Methods
+#### getClasses
+Returns the classes from your ontology if the Base URI matches 'https://vocabs.acdh.oeaw.ac.at/schema#'
+#### getOntology
+Retrieves the ontology out of the store, fetches the classes if your store is not read yet.
+## Propertytable
+A simple table which shows all properties of a given ontology.
+### Imports
+* [HELPERS](#helpers)
+ * [fetchClasses](#fetchClasses)
+ * [fetchSubClassOf](#fetchSubClassOf)
+ * [fetchPropertiesByURI](#fetchPropertiesByURI)
+ * [getQuery](#getQuery)
+
+### Watchers
+#### getProps
+Loops through all given properties and adds them to the table.
+## Load
+### Imports
+* [HELPERS](#helpers)
+ * [tripleCount](#tripleCount)
+ * [StringToStore](#StringToStore)
