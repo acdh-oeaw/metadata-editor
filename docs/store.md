@@ -49,3 +49,26 @@ High level action parsing a JS-object into triples and subsequently saving them 
 
 ##### Dispatches
 * [AddTriple](#AddTriple)
+
+### Mutations
+#### updateTripleCount
+Updates the triple counter with the current triple count.
+#### increaseCounter
+Increases the counter used to give subjects unique IDs by one.
+#### updateSubject
+Fetches all subjects and corresponding objects for which the predicate is http://www.w3.org/1999/02/22-rdf-syntax-ns#type and caches them. Should be committed every time a modification is made to the N3 store.
+#### startProcessing
+Changes the <code>processing</code> variable in the store to <code>true</code>, displays a processing message if given.
+##### Parameters
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | Message which is displayed in the store as processing message |
+#### stopProcessing
+Changes the code>processing</code> back to <code>false</code> and deletes any processing Message.
+### Others
+#### RemovePrefix
+Checks and removes prefixes from triples which are automatically added by n3.js when parsing blank namespaces.
+##### Parameters
+| Param | Type | Description |
+| --- | --- | --- |
+| str | <code>String</code> | String with potential prefix |
