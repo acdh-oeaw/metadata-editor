@@ -39,6 +39,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 
 ##### Description
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+<<<<<<< RobinDocs
 
 ## Store
 This component is used to load external .ttl files into the store. You can upload any .ttl file as long as it's structure is supported. The assigned methods will automatically called upon selecting your file and the content of it will be stored.
@@ -123,3 +124,6 @@ The header of the website, you can use it to navigate between different pages.
 ## FundamentFooter
 Located at the bottom of every page, the FundamentFooter component contains some legal information as well as some links.
 ## Fundamententity
+=======
+Located at the bottom of every page, the FundamentFooter component contains some legal information as well as some links.
+>>>>>>> local
