@@ -255,3 +255,65 @@ none
 <FormFromSchema type="person"></FormFromSchema>
 ```
 instead of person you can type any other of the possible [types](#Possible-types).
+
+
+## Fundamententity
+
+Dispalys a bootstrap card of an entity from a given uri, type and format.
+TODO: I think it is relevant for searching the api and instantly loading data from eg. viaf.
+
+It does all it's functionallity in created, so it is not reactive after the content has loaded.
+
+!!!! ------------------------------- More info is needed---------------------------------!!!
+
+
+### Used in
+
+* [Create](#create) (only imported, never called)
+* [Entities](#Entities)
+* [Load](#load)
+
+### Imports
+
+* [HELPERS](#HELPERS)
+
+
+### Props
+
+
+
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| uri | <code>String</code> | the address from where you want to display additional data. eg (https://viaf.org/something). posible uris are (viaf.org and id.acdh.oeaw.ac.at)  |
+|type | <code>String</code> | as far as I can tell only relevant, if the address is (https://id.acdh.oeaw.ac.at). then it is one of the types shown [here](#possible-types-1).  |
+|format | <code>String</code> | is not used in the code. |
+
+
+### Components
+
+none
+
+
+
+### Uses Foreign Stuff
+
+#### Methods
+* [setSchema](#setSchema)
+* [extractHostname](#extractHostname)
+* [getViafByID](#getViafByID)
+* [getArcheByID](#getArcheByID)
+
+### Data
+* <Code>entity: { title: 'loading', desc: 'loading', type: '' }</Code>
+* <Code>loading: true</Code>
+
+### How to call it
+
+``` exampleFromEnteties
+<Fundamententity v-if='entity.type == "acdh:Person;"'
+  :uri='entity["acdh:hasIdentifier"][0]'
+  type='PERSONS'>
+ </Fundamententity>
+```
+instead of acdh:Person you can use any other of the possible [types](#Possible-types) similarly as well as <Code>type='PERSON'</Code>.
