@@ -76,10 +76,6 @@ export default {
     getMetadataByType(type) {
       return APIS.ARCHE.METADATA.get(`${type}/`).then(response => Promise.resolve(response.data));
     },
-    //
-    // getMetadataFromApi() {
-    //   return Promise.resolve(exampleAPI);
-    // },
     getViafByID(id) {
       if (id) {
         return APIS.VIAF.BASE.get(`${id}/`).then((response) => {
@@ -115,6 +111,5 @@ export default {
     },
   },
   created() {
-
   },
 };

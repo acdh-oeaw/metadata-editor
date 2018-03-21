@@ -235,7 +235,7 @@ Validation rules and specific mappings of schema-elements to form-elements can b
 * [getMetadataByType](#getMetadataByType)
 
 #### Data
-* schema from [JSONschema](JSONschema) -> in combination with [type] the correct schema is received.
+* schema from [JSONschema](#JSONschema) -> in combination with [type] the correct schema is received.
 
 
 ### Methods
