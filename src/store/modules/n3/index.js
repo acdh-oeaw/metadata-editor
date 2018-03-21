@@ -1,3 +1,4 @@
+
 import actions from './actions';
 import mutations from './mutations';
 
@@ -18,4 +19,13 @@ const state = {
 /* eslint no-console: ["error", { allow: ["log"] }] */
 
 const getters = {
+};
+
+
+export default {
+  namespaced: true,
+  state,
+  getters,
+  mutations,
+  actions,
 };
