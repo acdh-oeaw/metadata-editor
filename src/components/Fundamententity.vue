@@ -3,7 +3,7 @@
     <div>
       <b-card :title="entity.title" style="max-width: 20rem;" class="flex-md-row mb-4 box-shadow">
         <p class="card-text">{{ entity.desc }} <b-badge>{{ entity.type }}</b-badge></p>
-      </b-card>
+      </b-card> sdf
     </div>
   </div>
 </template>
