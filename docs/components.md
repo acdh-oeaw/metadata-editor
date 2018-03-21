@@ -1,26 +1,3 @@
-# Metadataeditor
-
-> A Vue.js project
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
-
 # Components
 
 ## App
@@ -33,7 +10,7 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 ### Description
 
-This is the main Component. It is used to add the three parts of the visible site to the application: the navbar, the content and the footer. As well as setting the owl ontollogy statically via [setOntology](#setOntology).
+This is the main Component. It is used to add the three parts of the visible site to the application: the navbar, the content and the footer. As well as setting the owl ontology statically via [setOntology](#setOntology).
 
 
 
@@ -74,7 +51,7 @@ METADATA: 'getMetadata/',
 
 calls the search-function and is from the setup pretty similar to the documentation of v-select found [here](https://sagalbot.github.io/vue-select/docs/Advanced/Ajax.html). It is called in the v-Select.
 
-the function sets loadung(true) and then just calls this.search(loading, search, this);
+the function sets loading(true) and then just calls this.search(loading, search, this);
 
 ##### Parameters
 
