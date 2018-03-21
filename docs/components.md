@@ -1,26 +1,3 @@
-# Metadataeditor
-
-> A Vue.js project
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
-
 # Components
 
 ## App
@@ -33,7 +10,7 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 ### Description
 
-This is the main Component. It is used to add the three parts of the visible site to the application: the navbar, the content and the footer. As well as setting the owl ontollogy statically via [setOntology](#setOntology).
+This is the main Component. It is used to add the three parts of the visible site to the application: the navbar, the content and the footer. As well as setting the owl ontology statically via [setOntology](#setOntology).
 
 
 
@@ -74,7 +51,7 @@ METADATA: 'getMetadata/',
 
 calls the search-function and is from the setup pretty similar to the documentation of v-select found [here](https://sagalbot.github.io/vue-select/docs/Advanced/Ajax.html). It is called in the v-Select.
 
-the function sets loadung(true) and then just calls this.search(loading, search, this);
+the function sets loading(true) and then just calls this.search(loading, search, this);
 
 ##### Parameters
 
@@ -317,3 +294,85 @@ none
  </Fundamententity>
 ```
 instead of acdh:Person you can use any other of the possible [types](#Possible-types) similarly as well as <Code>type='PERSON'</Code>.
+## FundamentFooter
+Located at the bottom of every page, the FundamentFooter component contains some legal information as well as some links.
+## FundamentNav
+The header of the website, you can use it to navigate between different pages.
+## Load
+This Component is used to load .ttl files into the scope. Once you select a file, it is auto loaded and you can immediately select a new file to be loaded into the scope.
+### Imports
+* [HELPERS](#helpers)
+ * [tripleCount](#tripleCount)
+ * [StringToStore](#StringToStore)
+
+## Propertytable
+A simple table which shows all properties of a given ontology.
+### Imports
+* [HELPERS](#helpers)
+* [fetchClasses](#fetchClasses)
+* [fetchSubClassOf](#fetchSubClassOf)
+* [fetchPropertiesByURI](#fetchPropertiesByURI)
+* [getQuery](#getQuery)
+### Watchers
+#### getProps
+Loops through all given properties and adds them to the table.
+##### Parameters
+| Param | Type | Description |
+| --- | --- | --- |
+| newClass | <code>String</code> | URI of the new Ontolgy you want to load into the store |
+
+## Schema
+Schema helps you explore your ontology by showing you the properties of every class in your schema.
+### Imports
+* [Propertytable](#Propertytable)
+* [HELPERS](#helpers)
+ * [fetchClasses](#fetchClasses)
+ * [fetchSubClassOf](#fetchSubClassOf)
+ * [fetchPropertiesByURI](#fetchPropertiesByURI)
+
+### Props
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| uri | <code>String</code> | URI of the ontology that is to be used. |
+
+### Components
+* [Propertytable](#Propertytable)
+
+### Methods
+#### getClasses
+Returns the classes from your ontology if the Base URI matches 'https://vocabs.acdh.oeaw.ac.at/schema#'
+##### How to call it
+``` template
+<option v-for="cl in getClasses()" :value="cl['?x'].URI">{{ cl['?x'].name }}</option>...
+```
+### Computed
+#### getOntology
+Retrieves the ontology out of the store, fetches the classes if your store is not read yet.
+
+## Start
+Acts as the landing page of the MetaDataEditor. You can use it to navigate through
+## Store
+This component is used to load external .ttl files into the store. You can upload any .ttl file as long as it's structure is supported. The assigned methods will automatically called upon selecting your file and the content of it will be stored.
+### Imports
+* [Load](#load)
+* [Entities](#entities)
+* [HELPERS](#helpers)
+ * [tripleCount](#tripleCount)
+ * [StringToStore](#StringToStore)
+
+### Components
+* [Load](#load)
+* [Entities](#entities)
+
+### Methods
+#### onFileChange
+This function is called as soon as a file gets selected, it checks if the used file is valid and then calls [loadTtl](#loadTtl).
+#### loadTtl
+Loads and reads valid .ttl files, then loads them into the store.
+##### Parameters
+| Param | Type | Description |
+| --- | --- | --- |
+| file | <code>file</code> | The file loaded into the scope. |
+#### removeTtl
+Removes the .ttl file from your scope.the whole Website.
