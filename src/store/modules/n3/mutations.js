@@ -1,6 +1,5 @@
 /* eslint no-console: ['error', { allow: ['log'] }] */
 
-
 const mutations = {
   updateTripleCount(s) {
     s.tripleCount = s.store.countTriples(null, null, null, null);

@@ -1,4 +1,19 @@
 # Store
+## Jowl
+### Actions
+#### setOntology
+Sets the store ontology to jOwl and the ontology path to a specified path.
+##### Parameters
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>String</code> | Path where the ontology is located |
+##### Commits
+* [startProcessing](#startProcessing)
+* [setOntologyPath](#setOntologyPath)
+* [setOntology](#setOntology)
+* [stopProcessing](#stopProcessing)
+
+#### makeQuery
 
 ## N3
 ### Actions
