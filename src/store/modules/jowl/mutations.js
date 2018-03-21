@@ -20,3 +20,5 @@ const mutations = {
     s.processing = false;
   },
 };
+
+export default mutations;
