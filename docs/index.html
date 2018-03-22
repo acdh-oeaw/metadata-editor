@@ -7,15 +7,27 @@
   <meta name="description" content="A Vue.js project">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <style media="screen">
+    a.section-link {
+      font-weight: bold;
+    }
+    ul.children li a {
+      font-weight: normal;
+    }
+  </style>
 </head>
 <body>
   <div id="app"></div>
   <script>
     window.$docsify = {
       name: 'metadataeditor',
-      repo: ''
+      repo: '',
+      maxLevel: 4,
+      subMaxLevel:4,
+      loadSidebar: true
     }
-  </script>
-  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+</script>
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+<script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
 </body>
 </html>

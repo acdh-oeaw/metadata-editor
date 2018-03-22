@@ -18,7 +18,6 @@ const getters = {
 
 const mutations = {
   setSchema(s, { name, schema }) {
-    // there should be some basic validation before commit
     if (name && schema) {
       s.schemas[name] = schema;
     }
