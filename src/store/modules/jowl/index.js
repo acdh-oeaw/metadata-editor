@@ -2,7 +2,7 @@
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
 import actions from './actions';
-import Mutations from './mutations';
+import mutations from './mutations';
 
 const state = {
   queries: {},

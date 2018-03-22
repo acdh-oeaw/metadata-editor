@@ -9,7 +9,7 @@ function RemovePrefix(str) {
   return str;
 }
 
-export const actions = {
+const actions = {
   AddTriple({ state, commit }, triple) {
     state.store.addTriple(
       triple.subject,
