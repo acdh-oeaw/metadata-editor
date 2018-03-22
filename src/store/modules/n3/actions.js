@@ -52,6 +52,8 @@ const actions = {
     // first triple for type
     // console.log(schema);
     const first = {
+      // in order guarantee uniqueness across editing sessions
+      // these should be unique IDs of some sort
       subject: `_:b${state.counter}_manual`,
       predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
       object: schema.id,
@@ -75,7 +77,7 @@ const actions = {
     commit('updateSubject');
     commit('stopProcessing');
   },
-
+  // TODO: add persistence
 };
 
 export default actions;
