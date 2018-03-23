@@ -1,4 +1,5 @@
 /* eslint no-console: ["error", { allow: ["log"] }] */
+/* eslint no-param-reassign: ["error", { "props": false }] */
 
 const mutations = {
   setQuery(s, { name, result }) {
