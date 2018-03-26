@@ -143,7 +143,7 @@ Its content gets displayed in the table.
 #### getProps
 
 This is a watcher-function of the uri-prop.
-it clears the tabledata-object, then calls [fetchPropertiesByURI](#fetchPropertiesByURI) and pushes the returned data with proper attribute names to the tabledata-object.  
+it clears the tabledata-object, then calls [fetchPropertiesByURI](/store#fetchPropertiesByURI) and pushes the returned data with proper attribute names to the tabledata-object.  
 
 ##### Parameters
 
@@ -154,11 +154,11 @@ it clears the tabledata-object, then calls [fetchPropertiesByURI](#fetchProperti
 
 
 ### Uses Foreign Methods
-
-* [fetchClasses](#fetchClasses)
-* [fetchSubClassOf](#fetchSubClassOf)
-* [fetchPropertiesByURI](#fetchPropertiesByURI)
-* [getQuery](#getQuery)
+* from [JOWL store module](/store#JOWL)
+  * [fetchClasses](/store#fetchClasses)
+  * [fetchSubClassOf](/store#fetchSubClassOf)
+  * [fetchPropertiesByURI](/store#fetchPropertiesByURI)
+  * [getQuery](/store#getQuery)
 
 
 ## FormFromSchema
@@ -186,7 +186,7 @@ Validation rules and specific mappings of schema-elements to form-elements can b
 
 | Prop | Type | Description |
 | --- | --- | --- |
-| type | <code>String</code> | type of the form you want to render. this is directly used as a parameter for calling [getMetadataByType](#getMetadataByType) |
+| type | <code>String</code> | type of the form you want to render. this is directly used as a parameter for calling [getMetadataByType](/helpers#getMetadataByType) |
 
 
 #### Possible types

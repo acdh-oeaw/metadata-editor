@@ -5,12 +5,13 @@ Helper mixin for functions completing multiple tasks throughout the application 
 
 ## Config
 
-The Config-object contains information for the different APIs used in this application. the Full object is found below.
+The config-object contains information for the different APIs used in this application. the full object is found below.
 
 The method <code>buildFetchers</code> builds an object using `axios.create` to create callable functions for each of the endpoints.
 this Object is then saved as APIS in data.
 So the call:
-APIS.ARCHE.ORGANISATIONS.get('OEAW') is like calling a get on: https://fedora.hephaistos.arz.oeaw.ac.at/browser/api/organisations/OEAW?_format=json
+<code>APIS.ARCHE.ORGANISATIONS.get('OEAW')</code> is like calling a get on: https://fedora.hephaistos.arz.oeaw.ac.at/browser/api/organisations/OEAW?_format=json.
+This is only used inside this helper index. Outside of it, the functions of this Mixin should be used. If a functionality is needed but not provided by any of the functions, just write a new function.
 
 ``` config
 const CONFIG = {
@@ -112,7 +113,7 @@ this.getViafByID(this.uri.substr(this.uri.lastIndexOf('/')))
   this.entity.type = 'VIAF';
 });
 ```
-real example from [Fundamententity](/#Fundamententity) where it is used to receive viaf-data of a received viaf-url from arche, in order to create a card for better display for the user.
+real example from [Fundamententity](/#Fundamententity), where it is used to receive viaf-data of a received viaf-url from arche. This data is displayed as a bootstrap card (currently doesn't render).
 
 
 

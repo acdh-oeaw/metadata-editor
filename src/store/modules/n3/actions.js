@@ -48,7 +48,7 @@ const actions = {
   /*  high level action parsing an JS-Object into triples and subsequently
      saving it to the N3.js store */
   objectToStore({ state, commit, dispatch }, { schema, obj }) {
-    commit('startProcessing', 'Parsing Object to Store...');
+    commit('startProcessing', 'Loading Object to Store...');
     // first triple for type
     // console.log(schema);
     const first = {
