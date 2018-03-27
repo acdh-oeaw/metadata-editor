@@ -1,4 +1,3 @@
-import actions from './actions';
 
 /*
 Entries will be deleted from here.
@@ -34,5 +33,4 @@ export default {
   state,
   getters,
   mutations,
-  actions,
 };

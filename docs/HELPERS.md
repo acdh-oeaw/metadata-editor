@@ -74,7 +74,8 @@ this.getMetadataByType(this.type).then((res) => {
   this.loading = false;
 });
 ```
-real example from [FormFromSchema](/#FormFromSchema) where it is used on create to get the corresponding schema to build a form for it.
+Real example from [FormFromSchema](/components#FormFromSchema) where it is used on create to get the corresponding schema to build a form for it.
+The [setSchema]()
 
 
 ### getViafByID

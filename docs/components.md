@@ -198,7 +198,7 @@ Validation rules and specific mappings of schema-elements to form-elements can b
 
 ### Components
 
-* [FormSchema]((https://github.com/formschema)
+* [FormSchema](https://github.com/formschema)
 * [Autocomparche](#Autocomparche)
 
 
@@ -206,21 +206,27 @@ Validation rules and specific mappings of schema-elements to form-elements can b
 ### Uses Foreign Stuff
 
 #### Methods
-* [setSchema](#setSchema)
-* [setEntry](#setEntry)
-* [objectToStore](#objectToStore)
-* [getMetadataByType](#getMetadataByType)
+* [setSchema](/store#setSchema)
+* [setEntry](/store#setEntry)
+* [objectToStore](/store#objectToStore)
+* [getMetadataByType](/store#getMetadataByType)
 
 #### Data
-* schema from [JSONschema](#JSONschema) -> in combination with [type] the correct schema is received.
 
+| Name | Type  | Description |
+|--|--|--|
+| model | `Object` | bound to the model-prop of [FormSchema](https://github.com/formschema/native#props) |
+| loading | `Boolean`| set to true only after [getMetadataByType](/helpers#getMetadataByType) receives a valid schema. |
+
+#### Mapped State
+* [schema](/store#JSONschema)
 
 ### Methods
 
 #### submit
 
 called without parameters after the submit-button at the end of the form is clicked.
-it calls [objectToStore](#objectToStore) with the model from [FormSchema]((https://github.com/formschema) and shema of from the
+it calls [objectToStore](#objectToStore) with the model from [FormSchema](https://github.com/formschema) and schema of from the
 
 ##### Parameters
 
@@ -262,8 +268,8 @@ It does all it's functionallity in created, so it is not reactive after the cont
 
 | Prop | Type | Description |
 | --- | --- | --- |
-| uri | <code>String</code> | the address from where you want to display additional data. eg (https://viaf.org/something). posible uris are (viaf.org and id.acdh.oeaw.ac.at)  |
-|type | <code>String</code> | as far as I can tell only relevant, if the address is (https://id.acdh.oeaw.ac.at). then it is one of the types shown [here](#possible-types-1).  |
+| uri | <code>String</code> | the address from where you want to display additional data. eg (viaf.org/something). posible uris are (viaf.org and id.acdh.oeaw.ac.at)  |
+|type | <code>String</code> | as far as I can tell only relevant, if the address is (id.acdh.oeaw.ac.at). then it is one of the types shown [here](#possible-types-1).  |
 |format | <code>String</code> | is not used in the code. |
 
 

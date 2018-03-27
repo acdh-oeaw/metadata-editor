@@ -44,7 +44,7 @@ export default {
       'objectToStore',
     ]),
     submit() {
-      // here everything -> n3 store. this.model should hold everything needed for that
+      // here everything -> n3 store.
       console.log(this.model);
       this.objectToStore({ obj: this.model, schema: this.schema[this.type] });
     },

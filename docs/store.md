@@ -158,7 +158,7 @@ Store module for wrapping [n3.js](https://github.com/RubenVerborgh/N3.js/) and u
 
 ### Actions
 #### AddTriple
-Adds a triple object to the store using N3s addTriple function via [state.store.addTriple](state.store.addTriple)
+Adds a triple object to the store using N3s addTriple function via [state.store.addTriple](https://github.com/RubenVerborgh/N3.js/#writing) (which is just the n3.js function of adding triples)
 after that [updateTripleCount](#updateTripleCount) and [updateSubject](#updateSubject) are committed.
 
 ##### Parameters
@@ -178,6 +178,8 @@ Calls the [RemovePrefix](#RemovePrefix) function on the subject and object of th
 
 #### StringToStore
 High level action parsing a .ttl file into triples and subsequently saving them to the store.
+for that it uses n3s parse function via [state.parser.parse](https://github.com/RubenVerborgh/N3.js/#parsing).
+
 after there are no triples, [updateTripleCount](#updateTripleCount-1) and [updateSubject](#updateSubject) are trigered as well as [stopProcessing](#stopProcessing-1) (before fetching triples [startProcessing](#startProcessing-1) is called).
 ##### Parameters
 | Param | Type | Description |
@@ -196,9 +198,13 @@ after there are no triples, [updateTripleCount](#updateTripleCount-1) and [updat
 High level action parsing a JS-object into triples and subsequently saving them to the store.
 used to insert data from [FormFromSchema](/components#FormFromSchema) to manually insert them to the store.
 
-After committing [startProcessing](#startProcessing-1) a first triple is manually added using AddTriple. this is necessary, because the type is not written as a hasType, but is stored on a mata level.
+After committing [startProcessing](#startProcessing-1) a first triple for the type is manually added using AddTriple. this is necessary, because the [ARCHE-API](https://fedora.hephaistos.arz.oeaw.ac.at/browser/api/getMetadata/person/?_format=json) returns the type of a schema at an extra attribute ID.
+
+the first triple's predicate is: http://www.w3.org/1999/02/22-rdf-syntax-ns#type
+
 
 Then in a loop each predicate-object pair is added with the unique id of '\_\:b\$\{state.counter\}_manual' as subject.
+NOTE: Only pairs, which values is equal to true (=not empty or null) are added, other are ignored.
 
 after everything is done, the 4 updates are committed:
 ##### Commits
@@ -207,22 +213,40 @@ after everything is done, the 4 updates are committed:
 * [updateSubject](#updateSubject)
 * [stopProcessing](#stopProcessing-1)
 
+
 ##### Parameters
 | Param | Type | Description |
 | --- | --- | --- |
-| schema | <code>Object</code> | Schema object containing the type of the subject |
-| obj | <code>Object</code> | Object containing the keys and values of the triple to be added |
+| schema | <code>Object</code> | Schema object containing the type of the subject (the returned data from a request to [/metadata](https://fedora.hephaistos.arz.oeaw.ac.at/browser/api/getMetadata/person/?_format=json) using [getMetadataByType](/helpers#getMetadataByType)) |
+| obj | <code>Object</code> | Object containing the key (=predicates) and value(=objects) pairs to be added to a new subject. A sample object can be found below. |
+
+
+###### Example obj parameter
+
+``` Example
+{"hasAddress":"Sonnenfelsgasse 19","hasAddressLine1":"","hasAddressLine2":"",
+"hasAlternativeTitle":"","hasCity":"","hasCountry":"",
+"hasDescription":"Lorem ipsum dolor sit amet, consectetur adipisicing elit...",
+"hasEmail":"","hasFirstName":"","hasIdentifier":"","hasLastName":"","hasLifeCycleStatus":"",
+"hasPersonalTitle":"","hasPostcode":"","hasRegion":"","hasTitle":"",
+"hasVersion":"","isActor":"","isAuthor":"","isContact":"","isContributor":"",
+"isCreator":"","isCurator":"","isDepositor":"","isEditor":"","isFunder":"",
+"isHosting":"","isLicensor":"","isMember":"","isMetadataCreator":"","isOwner":"",
+"isPrincipalInvestigator":"","isRightsHolder":""}
+```
+Since everything except address and description are empty only 3 triples would be added.
+All with the same unique subject name. the first triple would be about the type.
 
 ##### Dispatches
 * [AddTriple](#AddTriple)
 
 ### Mutations
 #### updateTripleCount
-Updates the triple counter with the current triple count.
+Updates the triple counter with the current triple count using n3s [store.countTriples function](https://github.com/RubenVerborgh/N3.js/#searching-triplesquads-or-entities).
 #### increaseCounter
 Increases the counter used to give subjects unique IDs by one.
 #### updateSubject
-Fetches all subjects and corresponding objects for which the predicate is http://www.w3.org/1999/02/22-rdf-syntax-ns#type and caches them. Should be committed every time a modification is made to the N3 store.
+Fetches all subjects and corresponding objects for which the predicate is http://www.w3.org/1999/02/22-rdf-syntax-ns#type and stores them in .subjects. Is committed every time a modification is made to the N3 store. Uses N3s functions: forSubjects and store.getObjects.
 #### startProcessing
 Changes the <code>processing</code> variable in the store to <code>true</code>, displays a processing message if given.
 ##### Parameters
@@ -238,3 +262,51 @@ Checks and removes prefixes from triples which are automatically added by n3.js 
 | Param | Type | Description |
 | --- | --- | --- |
 | str | <code>String</code> | String with potential prefix |
+
+## JSONschema
+
+
+Small store module for storing different meta data schemas by their type.
+
+### Requirements
+
+none
+
+### State
+
+
+|Name | Type | What Is Stored | Mutated by |
+|--|--|--|--|
+| schemas | <code>Object</code>| Object for storing schemas received via [getMetadataByType](/helpers#getMetadataByType) | [setSchema](#setSchema) |
+|entries | <code>Object</code> | the idea of this object is to store different models (data) for different schemas as well as for the same schema (To keep persistence, this object could easily be thrown in the local storage). However currently this setup is flawed and not used in any component. | [setEntry](setEntry) |
+
+
+### Actions
+
+none
+
+### Mutations
+
+
+#### setSchema
+stores a given schema in store mapping it to the given name (only if both exist)
+
+##### Parameters
+Since a mutation can only have one payload an object containing the following params as keys is required:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| name | <code>String</code> | the name you want your schema to be mapped to. can be anything, but schould be unique to other names if you have different types, but multiple calls of this function, since the content would be overwritten.  |
+| schema | <code>Object</code> | meta data schema received from [getMetadataByType](/helpers#getMetadataByType) |
+
+#### setEntry
+
+stores a given entry (an object looking like [this](#example-obj-parameter)) in store mapping it to the given name (only if both exist)
+
+##### Parameters
+Since a mutation can only have one payload an object containing the following params as keys is required:
+
+| Param | Type | Description |
+| --- | --- | --- |
+| name | <code>String</code> | the name you want your schema to be mapped to. can be anything, but schould be unique to other names if you have different types, but multiple calls of this function, since the content would be overwritten.  |
+| entry | <code>Object</code> | model of the FormSchema |
