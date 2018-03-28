@@ -1,5 +1,12 @@
 <template>
-    <v-select label="name" :filterable="false" :options="options" @search="onSearch">
+    <v-select
+      label="name"
+      :filterable="false"
+      :options="options"
+      v-model="selectedValue"
+      @search="onSearch"
+      @input="$emit('input', selectedValue)">
+
       <template slot="no-options">
         type to retrieve Options from ARCHE
       </template>
@@ -24,7 +31,7 @@ import HELPERS from '../helpers';
 export default {
   mixins: [HELPERS],
   props: [
-    'type', 'name',
+    'type', 'name', 'value',
   ],
   data() {
     return {

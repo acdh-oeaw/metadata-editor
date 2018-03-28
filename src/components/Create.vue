@@ -10,7 +10,8 @@
             <h1><a id="Cards_0"></a>Resolving Identifiers</h1>
             <p>Testing Autocompletes to resolve Identifiers</p>
             <h3><a id="Cards_0"></a>Persons</h3>
-            <Autocomparche type='PERSONS' name='Person'></Autocomparche>
+            <Autocomparche type='PERSONS' name='Person' v-model="testModel"></Autocomparche>
+            {{testModel}}
             <h3><a id="Cards_0"></a>Places</h3>
             <Autocomparche type='PLACES' name='Place'></Autocomparche>
 
@@ -40,6 +41,7 @@ export default {
   },
   data() {
     return {
+      testModel: '',
     };
   },
   methods: {
