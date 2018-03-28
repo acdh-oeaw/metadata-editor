@@ -45,10 +45,9 @@ export default {
       this.search(loading, search, this);
     },
     search: debounce((loading, search, vm) => {
-      console.log(vm);
+      vm.$log(vm);
       vm.getArcheByID(escape(search), vm.type)
       .then((res) => {
-        /* eslint no-console: ["error", { allow: ["log"] }] */
         if (Array.isArray(res)) vm.options = res;
         else vm.options = [];
         loading(false);

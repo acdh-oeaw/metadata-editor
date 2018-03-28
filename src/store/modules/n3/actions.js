@@ -1,5 +1,4 @@
-/* eslint no-console: ['error', { allow: ['log'] }] */
-
+/* eslint-disable no-underscore-dangle */
 
 // some helper functions iso mixin
 function RemovePrefix(str) {
@@ -31,27 +30,27 @@ const actions = {
   },
   /* high lvl action parsing a TTL file into triples and subsequently
      saving it to the N3.js store   */
-  StringToStore({ state, commit, dispatch }, string) {
+  StringToStore({ state, commit, dispatch, vue }, string) {
     commit('startProcessing', 'Loading File to Store...');
     state.parser.parse(string, (error, triple) => {
       if (triple) {
         dispatch('AddFilteredTriple', triple);
-        console.log(triple);
+        this._vm.$log(triple);
       } else {
         commit('updateTripleCount');
         commit('updateSubject');
         commit('stopProcessing');
-        console.log(state.store.getTriples());
+        this._vm.$log(state);
       }
     });
   },
   /*  high level action parsing an JS-Object into triples and subsequently
      saving it to the N3.js store */
   objectToStore({ state, commit, dispatch }, { schema, obj }) {
-    console.log('objectToStore', schema, JSON.stringify(obj));
+    this._vm.$log('objectToStore', schema, JSON.stringify(obj));
     commit('startProcessing', 'Loading Object to Store...');
     // first triple for type
-    // console.log(schema);
+    // this._vm.$log(schema);
     const first = {
       subject: `_:b${state.counter}_manual`,
       predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
@@ -68,7 +67,7 @@ const actions = {
           object: values[k],
         };
         dispatch('AddTriple', triple);
-        // console.log(triple);
+        // this._vm.$log(triple);
       }
     }
     commit('increaseCounter');

@@ -79,24 +79,24 @@ export default {
     getViafByID(id) {
       if (id) {
         return APIS.VIAF.BASE.get(`${id}/`).then((response) => {
-          console.log('response', response.data);
+          this.$log('response', response.data);
           return Promise.resolve(response.data);
         }, (error) => {
-          console.log('errortree, request failed', error);
+          this.$log('errortree, request failed', error);
           return Promise.reject(error);
         });
       }
-      console.log('errortree, no id');
+      this.$log('errortree, no id');
       return Promise.reject('no ID was given');
     },
     getArcheByID(id, type) {
-      console.log(id, type, APIS.ARCHE[type]);
+      this.$log(id, type, APIS.ARCHE[type]);
       if (id && type && APIS.ARCHE[type]) {
         return APIS.ARCHE[type].get(`${id}`).then((response) => {
-          console.log('response', response.data);
+          this.$log('response', response.data);
           return Promise.resolve(response.data);
         }, (error) => {
-          console.log('errortree, request failed', error);
+          this.$log('errortree, request failed', error);
           return Promise.reject(error);
         });
       }
@@ -110,11 +110,11 @@ export default {
       }
     },
     filterModelForObjects(model) {
-      console.log('filterModelForObjects(model)', model);
+      this.$log('filterModelForObjects(model)', model);
       const m = JSON.parse(JSON.stringify(model));
       const keys = Object.keys(model);
       const vals = Object.values(model);
-      console.log(keys, vals, m);
+      this.$log(keys, vals, m);
       for (let i = 0; i < keys.length; i += 1) {
         if ((typeof vals[i]).toLowerCase() === 'object') {
           m[keys[i]] = this.filterForArcheID(vals[i]);

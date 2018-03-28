@@ -10,7 +10,7 @@
 <script>
 import FormSchema from 'vue-json-schema';
 import { mapState, mapMutations, mapActions } from 'vuex';
-import Autocomparche from './Autocomparche';
+import AutocompArche from './AutocompArche';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
@@ -19,7 +19,7 @@ FormSchema.setComponent('form', 'b-form', { validated: true });
 FormSchema.setComponent('email', 'b-form-input', { type: 'email' });
 FormSchema.setComponent('text', 'b-form-input', { type: 'text' });
 
-// FormSchema.setComponent('text', Autocomparche, { type: 'PERSONS', name: 'Person' });
+// FormSchema.setComponent('text', AutocompArche, { type: 'PERSONS', name: 'Person' });
 
 /* eslint no-console: ['error', { allow: ['log'] }] */
 
@@ -30,7 +30,7 @@ export default {
   ],
   components: {
     FormSchema,
-    Autocomparche,
+    AutocompArche,
   },
   data: () => ({
     model: {},
@@ -62,7 +62,7 @@ export default {
   },
   created() {
     this.getMetadataByType(this.type).then((res) => {
-      console.log('schema', res);
+      this.$log('schema', res);
       this.setSchema({ name: this.type, schema: res });
       this.loading = false;
     });

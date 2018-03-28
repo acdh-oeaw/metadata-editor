@@ -22,7 +22,8 @@
     "vue-router": "^3.0.1",
     "vue-select": "2.4.0",
     "vuex": "^2.2.1",
-    "vuex-router-sync": "^4.1.2"
+    "vuex-router-sync": "^4.1.2",
+    "vue-logger": "^0.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

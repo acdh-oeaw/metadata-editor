@@ -10,10 +10,10 @@
             <h1><a id="Cards_0"></a>Resolving Identifiers</h1>
             <p>Testing Autocompletes to resolve Identifiers</p>
             <h3><a id="Cards_0"></a>Persons</h3>
-            <Autocomparche type='PERSONS' name='Person' v-model="testModel"></Autocomparche>
+            <AutocompArche type='PERSONS' name='Person' v-model="testModel"></AutocompArche>
             {{testModel}}
             <h3><a id="Cards_0"></a>Places</h3>
-            <Autocomparche type='PLACES' name='Place'></Autocomparche>
+            <AutocompArche type='PLACES' name='Place'></AutocompArche>
 
             <h1><a id="Cards_0"></a>Form From Schema</h1>
             <p>Testing Form from Schema</p>
@@ -27,7 +27,7 @@
 
 <script>
 import Fundamententity from './Fundamententity';
-import Autocomparche from './Autocomparche';
+import AutocompArche from './AutocompArche';
 import FormFromSchema from './FormFromSchema';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -36,7 +36,7 @@ export default {
   mixins: [HELPERS],
   components: {
     Fundamententity,
-    Autocomparche,
+    AutocompArche,
     FormFromSchema,
   },
   data() {

@@ -11,6 +11,7 @@ import JSONschema from './modules/JSONschema/index';
 Vue.use(Vuex);
 Vue.use(VueAxios, Axios);
 
+
 Vue.config.debug = true;
 
 const debug = process.env.NODE_ENV !== 'production';

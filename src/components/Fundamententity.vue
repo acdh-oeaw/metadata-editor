@@ -40,7 +40,7 @@ export default {
       } else if (this.extractHostname(this.uri) === 'id.acdh.oeaw.ac.at' && this.type) {
         this.getArcheByID(this.uri.substr(this.uri.lastIndexOf('/')), this.type)
         .then((res) => {
-          console.log(res);
+          this.$log(res);
           this.entity.title = res[0].title;
           this.entity.desc = '';
           this.entity.type = 'ARCHE';

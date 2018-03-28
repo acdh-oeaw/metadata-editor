@@ -130,7 +130,7 @@ for that it calls `APIS.ARCHE.[type].get(id)`.
 #### Used by
 
 * [Fundamententity](/#Fundamententity)
-* [Autocomparche](/#Autocomparche)
+* [AutocompArche](/#AutocompArche)
 
 
 #### Parameters
@@ -142,7 +142,7 @@ for that it calls `APIS.ARCHE.[type].get(id)`.
 
 #### How to call it
 
-``` Autocomparche
+``` AutocompArche
 vm.getArcheByID(escape(search), vm.type)
 .then((res) => {
   /* eslint no-console: ["error", { allow: ["log"] }] */
@@ -151,7 +151,7 @@ vm.getArcheByID(escape(search), vm.type)
   loading(false);
 });
 ```
-real example from [Autocomparche](/#Autocomparche) where it is used to update the selectable options using the typed input from the user. (Note: in this example 'vm' is, what usually will be 'this'. Here it is 'vm' because the code-section is wrapped in a debounce function to only update when the user stops typing.)
+real example from [AutocompArche](/#AutocompArche) where it is used to update the selectable options using the typed input from the user. (Note: in this example 'vm' is, what usually will be 'this'. Here it is 'vm' because the code-section is wrapped in a debounce function to only update when the user stops typing.)
 
 
 

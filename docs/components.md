@@ -18,7 +18,7 @@ This is the main Component. It is used to add the three visible parts of the sit
 It also commits [setOntology](/store#setOntology) to set the owl ontology.
 
 
-## Autocomparche
+## AutocompArche
 
 This component is used to create an autocomplete form for searching entries in the [ARCHE Repository](https://arche.acdh.oeaw.ac.at).
 You can specify which endpoint in the api you want to search and also the label standing before the select.
@@ -94,10 +94,10 @@ this.search(loading, search, this);
 ### How to use the Component
 
 ``` template
-<Autocomparche type='PERSONS' name='Person'></Autocomparche>
+<AutocompArche type='PERSONS' name='Person'></AutocompArche>
 ```
 ``` script
-import Autocomparche from './Autocomparche';
+import AutocompArche from './AutocompArche';
 ```
 
 
@@ -108,7 +108,7 @@ A content-level component containing the functionality to write new meta data en
 ### Imports
 
 * [Fundamententity](#fundamentnav) (never called)
-* [Autocomparche](#Autocomparche) (currently for testing, won't be needed here in the future)
+* [AutocompArche](#AutocompArche) (currently for testing, won't be needed here in the future)
 * [FormFromSchema](#FormFromSchema)
 * [HELPERS](/helpers#helpers)
 
@@ -190,7 +190,7 @@ Validation rules and specific mappings of schema-elements to form-elements can b
 
 
 * [FormSchema](https://github.com/formschema) (external component)
-* [Autocomparche](#Autocomparche)
+* [AutocompArche](#AutocompArche)
 * [HELPERS](/helpers#HELPERS)
 
 
@@ -212,7 +212,7 @@ Validation rules and specific mappings of schema-elements to form-elements can b
 ### Components
 
 * [FormSchema](https://github.com/formschema)
-* [Autocomparche](#Autocomparche)
+* [AutocompArche](#AutocompArche)
 
 
 

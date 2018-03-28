@@ -1,10 +1,10 @@
-/* eslint no-console: ["error", { allow: ["log"] }] */
+/* eslint-disable no-underscore-dangle */
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
 const mutations = {
   setQuery(s, { name, result }) {
     s.queries[name] = result;
-    console.log(s.queries);
+    this._vm.$log(s.queries);
   },
   setOntologyPath(s, path) {
     s.ontologyPath = path;

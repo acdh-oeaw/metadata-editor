@@ -1,6 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
+import vueLogger from 'vue-logger';
 import BootstrapVue from 'bootstrap-vue';
 import vSelect from 'vue-select';
 import { sync } from 'vuex-router-sync';
@@ -12,10 +13,15 @@ import './assets/fundament.min.css';
 
 Vue.component('v-select', vSelect);
 
+Vue.use(vueLogger, {
+  dev: true,
+  shortname: true,
+  levels: ['log', 'warn', 'debug', 'error', 'dir', 'info'],
+});
 Vue.use(BootstrapVue);
-sync(store, router);
-Vue.config.productionTip = false;
 
+sync(store, router);
+// Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
