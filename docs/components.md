@@ -6,36 +6,41 @@
 
 * [FundamentNav](#fundamentnav)
 * [FundamentFooter](#fundamentfooter)
-* [HELPERS](#helpers)
+* [HELPERS](/helpers#helpers)
 
 ### Description
 
-This is the main Component. It is used to add the three parts of the visible site to the application: the navbar, the content and the footer. As well as setting the owl ontology statically via [setOntology](#setOntology).
+This is the main Component. It is used to add the three visible parts of the site to the application:
+* the navbar
+* the content
+* the footer.
 
-
+It also commits [setOntology](/store#setOntology) to set the owl ontology.
 
 
 ## Autocomparche
 
-This component is used to create an autocomplete form for searching entries in the Arche Repository on  [getArcheByID](#getArcheByID).
-You can specify which endpoint in the api you want to search and also the label. uppon selection an input event is fired (it is not yet bound to v-model! only way to recieve is to listen for events on it. Issue is already filed).
+This component is used to create an autocomplete form for searching entries in the [ARCHE Repository](https://arche.acdh.oeaw.ac.at).
+You can specify which endpoint in the api you want to search and also the label standing before the select.
+The user can type and every time he stops, a request to ARCHE using [getArcheByID](/helpers#getarchebyid) is made.
+The received options are seen as selectable option in the select. Upon selecting an item an input event is fired. (it is not yet bound to v-model! only way to receive is to listen for events on it. Issue is already filed).
 
 ### Imports
 
 * debounce (for handeling a delay of actions)
-* [HELPERS](#HELPERS)
+* [HELPERS](/helpers#HELPERS)
 
 ### Props
 
 
 | Prop | Type | Description |
 | --- | --- | --- |
-| type | <code>String</code> | type of what is looked for. needs to be Capslock valid types and mappings are listed below   |
+| type | <code>String</code> | type of what is looked for. needs to be in Capslock. Valid types and mappings are listed below   |
 | name | <code>String</code> | label of v-Select |
 
 
-type to endpoint Mappings:
-``` tobase:https://fedora.hephaistos.arz.oeaw.ac.at/browser/api/
+#### type to endpoint Mappings
+``` https://fedora.hephaistos.arz.oeaw.ac.at/browser/api/
 PERSONS: 'persons/',
 BASE: '',
 ORGANISATIONS: 'organisations/',
@@ -49,7 +54,7 @@ METADATA: 'getMetadata/',
 
 #### onSearch
 
-calls the search-function and is from the setup pretty similar to the documentation of v-select found [here](https://sagalbot.github.io/vue-select/docs/Advanced/Ajax.html). It is called in the v-Select.
+calls the [search-function](#search) and is from the setup pretty similar to the documentation of v-select found [here](https://sagalbot.github.io/vue-select/docs/Advanced/Ajax.html). It is called in the v-Select.
 
 the function sets loading(true) and then just calls this.search(loading, search, this);
 
@@ -69,7 +74,7 @@ The params come directly from the v-select, no need to write them manually.
 
 #### search
 
-This function calls (350 milliseconds after it was last called) the [getArcheByID](#getArcheByID)-function with the given search and the specified type-prop. on a positve result, the returned search-results are saved to the options-array that is also displayed an the select's options.
+This function calls (350 milliseconds after it was last called) the [getArcheByID](/helpers#getArcheByID)-function with the given search and the specified type-prop. on a positve result, the returned search-results are saved to the options-array that is also displayed an the select's options.
 
 
 ##### Parameters
@@ -86,36 +91,44 @@ This function calls (350 milliseconds after it was last called) the [getArcheByI
 this.search(loading, search, this);
 ```
 
+### How to use the Component
+
+``` template
+<Autocomparche type='PERSONS' name='Person'></Autocomparche>
+```
+``` script
+import Autocomparche from './Autocomparche';
+```
+
+
 ## Create
 
-A content-level component cointaining the functionallity to write new meta data entries to the triple store of the application and in the future to also upload those to the server. for that reason it contains the [FormFromSchema](#FormFromSchema)-component.
+A content-level component containing the functionality to write new meta data entries to the triple store of the application and in the future to also upload those to the server. for that reason it contains the [FormFromSchema](#FormFromSchema)-component.
 
 ### Imports
 
 * [Fundamententity](#fundamentnav) (never called)
-* [Autocomparche](#Autocomparche)
+* [Autocomparche](#Autocomparche) (currently for testing, won't be needed here in the future)
 * [FormFromSchema](#FormFromSchema)
-* [HELPERS](#helpers)
+* [HELPERS](/helpers#helpers)
 
 
 
 ## Entities
 
-Display-component to show the entities that are in the [n3-store-module](#n3).
+Display-component to show the entities that are in the [n3-store-module](/store#n3).
 
 ### Imports
 
-* [HELPERS](#helpers)
+* [HELPERS](/helpers#helpers)
 
 
 ### Methods
-
-
-### Uses Foreign Methods
 * [onFileChange](#onFileChange)
 * [loadTtl](#loadTtl)
-* [tripleCount](#tripleCount)
-* [StringToStore](#StringToStore)
+
+### Uses Foreign Methods
+* [StringToStore](store#StringToStore)
 
 
 ## Entitytable
@@ -131,7 +144,7 @@ Currently not in use, so it is uncertain if described behavior is correct.
 
 ### Imports
 
-* [HELPERS](#helpers)
+* [HELPERS](/helpers#helpers)
 
 ### Data
 
@@ -164,7 +177,7 @@ it clears the tabledata-object, then calls [fetchPropertiesByURI](/store#fetchPr
 ## FormFromSchema
 
 This component renders a full form from a given type.
-On created it calls [getMetadataByType](#getMetadataByType) with the as a param specified type. The returned schema is  stored in the [JSONschema module](JSONschema), which is also mapped to the state of this component. the schema is used as the param schema for form-schema, which is the imported component that actually does the rendering of the form.
+On created it calls [getMetadataByType](/helpers#getMetadataByType) with the as a param specified type. The returned schema is  stored in the [JSONschema module](/store#JSONschema), which is also mapped to the state of this component. the schema is used as the param schema for form-schema, which is the imported component that actually does the rendering of the form.
 
 Validation rules and specific mappings of schema-elements to form-elements can be described in the sript part. (in the future, when the api returns typing, we will improve the current version to support other types then String.)
 
@@ -178,7 +191,7 @@ Validation rules and specific mappings of schema-elements to form-elements can b
 
 * [FormSchema](https://github.com/formschema) (external component)
 * [Autocomparche](#Autocomparche)
-* [HELPERS](#HELPERS)
+* [HELPERS](/helpers#HELPERS)
 
 
 ### Props
@@ -258,7 +271,7 @@ It does all it's functionallity in created, so it is not reactive after the cont
 
 ### Imports
 
-* [HELPERS](#HELPERS)
+* [HELPERS](/helpers#HELPERS)
 
 
 ### Props
@@ -282,10 +295,10 @@ none
 ### Uses Foreign Stuff
 
 #### Methods
-* [setSchema](#setSchema)
+* [setSchema](/store#setSchema)
 * [extractHostname](#extractHostname)
-* [getViafByID](#getViafByID)
-* [getArcheByID](#getArcheByID)
+* [getViafByID](/helpers#getViafByID)
+* [getArcheByID](/helpers#getArcheByID)
 
 ### Data
 * <Code>entity: { title: 'loading', desc: 'loading', type: '' }</Code>
@@ -311,7 +324,7 @@ The header of the website, you can use it to navigate between different pages.
 This Component is used to load .ttl files into the scope. Once you select a file, it is auto loaded and you can immediately select a new file to be loaded into the scope.
 
 ### Imports
-* [HELPERS](#helpers)
+* [HELPERS](/helpers#helpers)
 * [tripleCount](#tripleCount)
 * [StringToStore](#StringToStore)
 
@@ -319,7 +332,7 @@ This Component is used to load .ttl files into the scope. Once you select a file
 A simple table which shows all properties of a given ontology.
 
 ### Imports
-* [HELPERS](#helpers)
+* [HELPERS](/helpers#helpers)
 * [fetchClasses](#fetchClasses)
 * [fetchSubClassOf](#fetchSubClassOf)
 * [fetchPropertiesByURI](#fetchPropertiesByURI)
@@ -351,7 +364,7 @@ TODO: how is the Component called?
 
 ### Imports
 * [Propertytable](#Propertytable)
-* [HELPERS](#helpers)
+* [HELPERS](/helpers#helpers)
 * [fetchClasses](#fetchClasses)
 * [fetchSubClassOf](#fetchSubClassOf)
 * [fetchPropertiesByURI](#fetchPropertiesByURI)
@@ -395,7 +408,7 @@ This component is used to load external .ttl files into the store. You can uploa
 ### Imports
 * [Load](#load)
 * [Entities](#entities)
-* [HELPERS](#helpers)
+* [HELPERS](/helpers#helpers)
 * [tripleCount](#tripleCount)
 * [StringToStore](#StringToStore)
 

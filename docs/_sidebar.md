@@ -1,4 +1,4 @@
 * [Build Setup](readme.md)
-* [Components](components.md)
-* [Helpers](helpers.md)
-* [Store](store.md)
+* [Components](components.md#components)
+* [Helpers](helpers.md#helpers)
+* [Store](store.md#store)

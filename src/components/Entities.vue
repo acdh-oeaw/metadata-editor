@@ -13,7 +13,7 @@ asd
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
 import HELPERS from '../helpers';
 /* eslint no-unused-vars: ["error", {"args": "none"}] */
@@ -27,9 +27,6 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('n3', [
-      'tripleCount',
-    ]),
   },
   methods: {
     ...mapActions('n3', [

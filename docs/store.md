@@ -29,14 +29,18 @@ A Wrapper for [jowl.js](http://jowl.ontologyonline.org), which main functionalit
 #### setOntology
 
 Sets up the functionality of jowl.js with a given OWL-ontology.
-it calls [jOWL.load](http://jowl.ontologyonline.org/documentation.html?owlClass=load) which inizializes jOWL.
+it calls [jOWL.load](http://jowl.ontologyonline.org/documentation.html?owlClass=load) which initializes jOWL.
 Once the loading was successful, the path to the document, as well as the jOWL-object is commited to the store. While this process takes place, a processing message appears in the store as well as the boolean loading being set to true. So this message is displayable, if loading is true.
+
+##### Committed by
+* [App](/components#App)
 
 
 ##### Parameters
 | Param | Type | Description |
 | --- | --- | --- |
 | path | <code>String</code> | Path where the ontology is located |
+
 ##### Commits
 * [startProcessing](#startProcessing)
 * [setOntologyPath](#setOntologyPath)
@@ -309,4 +313,4 @@ Since a mutation can only have one payload an object containing the following pa
 | Param | Type | Description |
 | --- | --- | --- |
 | name | <code>String</code> | the name you want your schema to be mapped to. can be anything, but schould be unique to other names if you have different types, but multiple calls of this function, since the content would be overwritten.  |
-| entry | <code>Object</code> | model of the FormSchema |
+| entry | <code>Object</code> | model of the FormSchema, see [FormFromSchema](/components#FormFromSchema) |
