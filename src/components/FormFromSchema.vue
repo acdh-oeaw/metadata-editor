@@ -18,7 +18,8 @@ FormSchema.setComponent('form', 'b-form', { validated: true });
 
 FormSchema.setComponent('email', 'b-form-input', { type: 'email' });
 FormSchema.setComponent('text', 'b-form-input', { type: 'text' });
-FormSchema.setComponent('persons', Autocomparche, { type: 'PERSONS', name: 'Person' });
+
+// FormSchema.setComponent('text', Autocomparche, { type: 'PERSONS', name: 'Person' });
 
 /* eslint no-console: ['error', { allow: ['log'] }] */
 
@@ -45,8 +46,11 @@ export default {
     ]),
     submit() {
       // here everything -> n3 store.
-      console.log(this.model);
-      this.objectToStore({ obj: this.model, schema: this.schema[this.type] });
+      /* before calling objectToStore,
+      we need to filter out objects and split them further into triples
+      */
+      this.objectToStore({ obj: this.filterModelForObjects(this.model),
+        schema: this.schema[this.type] });
     },
   },
   computed: {

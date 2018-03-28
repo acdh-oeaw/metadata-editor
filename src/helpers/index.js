@@ -16,7 +16,7 @@ const CONFIG = {
       PUBLICATIONS: 'publications/',
       METADATA: 'getMetadata/',
     },
-    TIMEOUT: 1000,
+    TIMEOUT: 5000,
     PARAMS: {
       _format: 'json',
     },
@@ -108,6 +108,22 @@ export default {
       } else {
         this[key] = post;
       }
+    },
+    filterModelForObjects(model) {
+      console.log('filterModelForObjects(model)', model);
+      const m = JSON.parse(JSON.stringify(model));
+      const keys = Object.keys(model);
+      const vals = Object.values(model);
+      console.log(keys, vals, m);
+      for (let i = 0; i < keys.length; i += 1) {
+        if ((typeof vals[i]).toLowerCase() === 'object') {
+          m[keys[i]] = this.filterForArcheID(vals[i]);
+        }
+      }
+      return m;
+    },
+    filterForArcheID(obj) {
+      return obj.identifiers.filter(str => str.indexOf('https://id.acdh.oeaw.ac.at') > -1)[0];
     },
   },
   created() {

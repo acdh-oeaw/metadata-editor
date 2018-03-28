@@ -31,11 +31,12 @@ import HELPERS from '../helpers';
 export default {
   mixins: [HELPERS],
   props: [
-    'type', 'name', 'value',
+    'type', 'name',
   ],
   data() {
     return {
       options: [],
+      selectedValue: '',
     };
   },
   methods: {
