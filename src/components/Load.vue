@@ -43,11 +43,13 @@ export default {
       'StringToStore',
     ]),
     onFileChange(e) {
+      this.$info('Load', 'onFileChange(e)', e);
       const files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       this.loadTtl(files[0]);
     },
     loadTtl(file) {
+      this.$info('Load', 'loadTtl(file)', file);
       const reader = new FileReader();
       reader.onload = (e) => {
         this.StringToStore(e.target.result);

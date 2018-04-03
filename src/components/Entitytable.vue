@@ -37,6 +37,7 @@ export default {
   },
   watch: {
     uri: function getProps(newClass) {
+      this.$info('Entitytable', 'getProps(newClass)', newClass);
       this.tabledata = [];
       this.fetchPropertiesByURI({ q: newClass, uri: newClass }).then((res) => {
         let idx = res.length - 1;
@@ -52,6 +53,7 @@ export default {
     },
   },
   created() {
+    this.$info('Entitytable', 'created');
   },
 };
 </script>

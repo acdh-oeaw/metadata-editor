@@ -59,6 +59,7 @@ export default {
     ]),
     // convenience method to limit options to ACDH namespace classes
     getClasses() {
+      this.$info('Schema', 'getClasses()');
       const classes = this.getQuery('classes').filter((cl) => {
         if (cl['?x'].baseURI === 'https://vocabs.acdh.oeaw.ac.at/schema#') return true;
         return false;
@@ -71,16 +72,19 @@ export default {
       'getQuery',
     ]),
     getOntology() {
+      this.$info('Schema', 'getOntology() ->', this.$store.state.jowl.ontology);
       return this.$store.state.jowl.ontology;
     },
   },
   watch: {
     // in case the store is not yet read on created
     getOntology: function getClasses() {
+      this.$info('Schema', 'getClasses()');
       this.fetchClasses({ q: 'classes' });
     },
   },
   created() {
+    this.$info('Schema', 'created');
     if (this.getOntology) this.fetchClasses({ q: 'classes' });
   },
 };

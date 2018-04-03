@@ -39,6 +39,7 @@ const CONFIG = {
 let APIS = {};
 
 function buildFetchers(extconf) {
+  // this.$info('Helpers', 'buildFetchers(extconf)', extconf);
   const fetchers = {};
   // let ep = [];
   if (extconf) Object.assign(CONFIG, extconf);
@@ -74,9 +75,11 @@ export default {
     /* fetches the JSON-schema from the specified API in the config and returns it.
       */
     getMetadataByType(type) {
+      this.$info('Helpers', 'getMetadataByType(type)', type);
       return APIS.ARCHE.METADATA.get(`${type}/`).then(response => Promise.resolve(response.data));
     },
     getViafByID(id) {
+      this.$info('Helpers', 'getViafByID(id)', id);
       if (id) {
         return APIS.VIAF.BASE.get(`${id}/`).then((response) => {
           this.$log('response', response.data);
@@ -90,7 +93,7 @@ export default {
       return Promise.reject('no ID was given');
     },
     getArcheByID(id, type) {
-      this.$log(id, type, APIS.ARCHE[type]);
+      this.$info('Helpers', 'getArcheByID(id, type)', id, type);
       if (id && type && APIS.ARCHE[type]) {
         return APIS.ARCHE[type].get(`${id}`).then((response) => {
           this.$log('response', response.data);
@@ -103,6 +106,7 @@ export default {
       return Promise.reject('no ID or Type was given');
     },
     setInitialData(err, key, post) {
+      this.$info('Helpers', 'setInitialData(err, key, post)', err, key, post);
       if (err) {
         this.error = err.toString();
       } else {
@@ -110,7 +114,7 @@ export default {
       }
     },
     filterModelForArcheObjects(model) {
-      this.$log('filterModelForArcheObjects(model)', model);
+      this.$info('Helpers', 'filterModelForArcheObjects(model)', model);
       const m = JSON.parse(JSON.stringify(model));
       const keys = Object.keys(model);
       const vals = Object.values(model);
@@ -123,9 +127,11 @@ export default {
       return m;
     },
     filterForArcheID(obj) {
+      this.$info('Helpers', 'filterForArcheID(obj)', obj);
       return obj.identifiers.filter(str => str.indexOf('https://id.acdh.oeaw.ac.at') > -1)[0];
     },
   },
   created() {
+    this.$info('Helpers', 'created');
   },
 };

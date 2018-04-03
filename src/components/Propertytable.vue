@@ -37,6 +37,7 @@ export default {
   },
   watch: {
     uri: function getProps(newClass) {
+      this.$info('Propertytable', 'getProps(newClass)', newClass);
       this.tabledata = [];
       this.fetchPropertiesByURI({ q: newClass, uri: newClass }).then((res) => {
         let idx = res.length - 1;

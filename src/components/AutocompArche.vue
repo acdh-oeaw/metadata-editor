@@ -41,6 +41,7 @@ export default {
   },
   methods: {
     onSearch(search, loading) {
+      this.$info('AutocompArche', 'onSearch(search, loading)', search, loading);
       loading(true);
       this.search(loading, search, this);
     },

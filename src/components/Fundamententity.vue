@@ -26,6 +26,7 @@ export default {
     };
   },
   created() {
+    this.$info('Fundamententity', 'created');
     /* eslint no-console: ["error", { allow: ["log"] }] */
     if (this.uri) {
       if (this.extractHostname(this.uri) === 'viaf.org') {

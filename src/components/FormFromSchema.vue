@@ -45,6 +45,7 @@ export default {
       'objectToStore',
     ]),
     submit() {
+      this.$info('FormFromSchema', 'submit()');
       // here everything -> n3 store.
       /* before calling objectToStore,
       we need to filter out objects and split them further into triples
@@ -61,6 +62,7 @@ export default {
     }),
   },
   created() {
+    this.$info('FormFromSchema', 'created');
     this.getMetadataByType(this.type).then((res) => {
       this.$log('schema', res);
       this.setSchema({ name: this.type, schema: res });
