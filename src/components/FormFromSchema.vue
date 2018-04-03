@@ -49,7 +49,7 @@ export default {
       /* before calling objectToStore,
       we need to filter out objects and split them further into triples
       */
-      this.objectToStore({ obj: this.filterModelForObjects(this.model),
+      this.objectToStore({ obj: this.filterModelForArcheObjects(this.model),
         schema: this.schema[this.type] });
     },
   },

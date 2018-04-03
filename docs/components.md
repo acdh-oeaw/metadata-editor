@@ -239,7 +239,7 @@ Validation rules and specific mappings of schema-elements to form-elements can b
 #### submit
 
 called without parameters after the submit-button at the end of the form is clicked.
-it calls [objectToStore](#objectToStore) with the model from [FormSchema](https://github.com/formschema) and schema of from the
+it calls [objectToStore](/store#objectToStore) with the model from [FormSchema](https://github.com/formschema) and schema of from the [JSONschema](/store#JSONschema) of the specified type.
 
 ##### Parameters
 

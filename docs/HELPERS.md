@@ -178,3 +178,46 @@ this.setInitialData(null, 'hello', 'Hello World!');
 //now this.hello -> 'hello World!''
 
 ```
+
+### filterModelForArcheObjects
+
+This function is for cleaning up models before they can be used in [objectToStore](/store#objectToStore)
+It is specific for Objects from [FormFromSchema](/components#FormFromSchema) that use any component, which v-model returns an object. In our case it is the [AutocompArche-component](/components#AutocompArche).
+
+it loops through all the key value pairs and if it finds an object it redefines the key to only the ARCHE identifier of the object using [filterForArcheID](#filterForArcheID)
+
+
+#### Params
+
+| Param | Type | Description |
+| --- | --- | --- |
+| model | `Object` [from FormFromSchema]  | looks like this: [Example obj parameter](/store#Example-obj-parameter) |
+
+#### How it is called
+``` FormFromSchema
+this.objectToStore({ obj: this.filterModelForArcheObjects(this.model),
+  schema: this.schema[this.type] });
+```
+Real Example from FormFromSchema's [submit](/components#submit) function  
+
+
+### filterForArcheID
+
+Short helper function to find an Arche-Identifier inside an Object.
+used in [filterModelForArcheObjects](#filterModelForArcheObjects).
+
+since it only a one liner, here is the code:
+
+ ``` helpers
+ filterForArcheID(obj) {
+   return obj.identifiers.filter(str => str.indexOf('https://id.acdh.oeaw.ac.at') > -1)[0];
+ },
+ ```
+
+
+
+#### Params
+
+| Param | Type | Description |
+| --- | --- | --- |
+| obj | Object | Object returned from an [getArcheByID](#getArcheByID) |

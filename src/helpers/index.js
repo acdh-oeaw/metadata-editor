@@ -109,8 +109,8 @@ export default {
         this[key] = post;
       }
     },
-    filterModelForObjects(model) {
-      this.$log('filterModelForObjects(model)', model);
+    filterModelForArcheObjects(model) {
+      this.$log('filterModelForArcheObjects(model)', model);
       const m = JSON.parse(JSON.stringify(model));
       const keys = Object.keys(model);
       const vals = Object.values(model);
