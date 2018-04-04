@@ -1,28 +1,30 @@
 <template>
-    <main class="grid-col" role="main">
-      <div class="container">
-        <div class="main-content row flex-xl-nowrap bg-white box-shadow element-border">
-          <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
-            <nav class="collapse bd-links" id="bd-docs-nav">
-            </nav>
-          </div>
-          <div class="col-12 col-md-9 col-xl-10 page-content-w-sidebar">
-            <h1><a id="Cards_0"></a>Resolving Identifiers</h1>
-            <p>Testing Autocompletes to resolve Identifiers</p>
-            <h3><a id="Cards_0"></a>Persons</h3>
-            <AutocompArche type='PERSONS' name='Person' v-model="testModel"></AutocompArche>
+<main class="grid-col" role="main">
+  <div class="container">
+    <div class="main-content row flex-xl-nowrap bg-white box-shadow element-border">
+      <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+        <nav class="collapse bd-links" id="bd-docs-nav">
+        </nav>
+      </div>
+      <div class="col-12 col-md-9 col-xl-10 page-content-w-sidebar">
+        <h1><a id="Cards_0"></a>Resolving Identifiers</h1>
+        <p>Testing Autocompletes to resolve Identifiers</p>
+        <b-tabs>
+          <b-tab v-for="val in endpoints" :title="val">
+            <h3><a id="Cards_0"></a>{{val}}</h3>
+            <AutocompArche :type='val.toUpperCase()' :name='val' v-model="testModel" v-if="val === 'Metadata'"></AutocompArche>
+            <AutocompArche :type='val.toUpperCase()+"S"' :name='val' v-model="testModel" v-else></AutocompArche>
             {{testModel}}
-            <h3><a id="Cards_0"></a>Places</h3>
-            <AutocompArche type='PLACES' name='Place'></AutocompArche>
 
             <h1><a id="Cards_0"></a>Form From Schema</h1>
             <p>Testing Form from Schema</p>
-            <FormFromSchema type="person"></FormFromSchema>
-            <FormFromSchema type="concept"></FormFromSchema>
-          </div>
-        </div>
+            <FormFromSchema :type="val"></FormFromSchema>
+          </b-tab>
+        </b-tabs>
       </div>
-    </main>
+    </div>
+  </div>
+</main>
 </template>
 
 <script>
@@ -42,10 +44,10 @@ export default {
   data() {
     return {
       testModel: '',
+      endpoints: ['Person', 'Organisation', 'Place', 'Concept', 'Publication', 'Metadata'],
     };
   },
-  methods: {
-  },
+  methods: {},
 };
 </script>
 
