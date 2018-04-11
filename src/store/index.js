@@ -6,6 +6,7 @@ import createLogger from 'vuex/dist/logger';
 import jowl from './modules/jowl/index';
 import n3 from './modules/n3/index';
 import JSONschema from './modules/JSONschema/index';
+import plugins from './plugins';
 
 
 Vue.use(Vuex);
@@ -22,6 +23,10 @@ export default new Vuex.Store({
     n3,
     JSONschema,
   },
+  plugins,
   strict: false,
   middlewares: debug ? [createLogger()] : [],
 });
+
+
+export const STORAGE_KEY = 'MetaData€ditor';
