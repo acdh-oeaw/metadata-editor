@@ -6,7 +6,7 @@ import axios from 'axios';
 // this could go to an external file, to be excluded from commits etc
 const CONFIG = {
   ARCHE: {
-    BASEURL: 'https://fedora.hephaistos.arz.oeaw.ac.at/browser/api/',
+    BASEURL: 'https://fedora.minerva.arz.oeaw.ac.at/browser/api/',
     ENDPOINTS: {
       PERSONS: 'persons/',
       BASE: '',
