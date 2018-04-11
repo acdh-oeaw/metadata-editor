@@ -158,6 +158,7 @@ Store module for wrapping [n3.js](https://github.com/RubenVerborgh/N3.js/) and u
 | processing | <code>Boolean</code> | showing if something is being processed right now. | [startProcessing](#startProcessing-1)<br>[stopProcessing](#stopProcessing-1) |
 | processingMessage | <code>String</code>  | A message containing information about what is being processed right now. Can be shown to user. | [startProcessing](#startProcessing-1)<br>[stopProcessing](#stopProcessing-1)|
 | counter | <code>Int</code>  | An internal counter to ensure that new inserts can be grouped to one and the same name, gets increased after each manual add of triples via [FormFromSchema](/components#FormFromSchema) | [increaseCounter](#increaseCounter)|
+| auid | <code>String</code>  | Short for "almost unique identifier", creates a unique id at the beginning of your session to use for your subjects and avoid overlapping | initialized at the beginning from n3.js. after that it doesn't require changes.|
 
 
 ### Actions
