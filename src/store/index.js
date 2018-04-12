@@ -30,3 +30,4 @@ export default new Vuex.Store({
 
 
 export const STORAGE_KEY = 'MetaDataEditor';
+export const SESSION_ID = `SESSION_${Date.now().valueOf().toString(36)}`;
