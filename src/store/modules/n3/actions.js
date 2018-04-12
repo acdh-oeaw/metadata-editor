@@ -1,5 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 
+// const d = new Date();
+
 // some helper functions iso mixin
 function RemovePrefix(str) {
   if (str.search(/b\d/) > -1) {
@@ -48,12 +50,13 @@ const actions = {
   /*  high level action parsing an JS-Object into triples and subsequently
      saving it to the N3.js store */
   objectToStore({ state, commit, dispatch }, { schema, obj }) {
+    const ID = Date.now();
     this._vm.$info('n3', 'objectToStore', schema, obj);
     commit('startProcessing', 'Loading Object to Store...');
     // first triple for type
     // this._vm.$log(schema);
     const first = {
-      subject: `_:b${state.auid}_manual`,
+      subject: `_:b${ID.valueOf().toString(36)}_manual`,
       predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
       object: schema.id,
     };
@@ -63,7 +66,7 @@ const actions = {
     for (let k = 0; k < keys.length; k += 1) {
       if (values[k]) {
         const triple = {
-          subject: `_:b${state.auid}_manual`,
+          subject: `_:b${ID.valueOf().toString(36)}_manual`,
           predicate: keys[k],
           object: values[k],
         };

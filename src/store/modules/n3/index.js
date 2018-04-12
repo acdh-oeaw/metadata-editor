@@ -3,8 +3,6 @@ import mutations from './mutations';
 
 const N3 = require('./n3-browser.js');
 
-const d = new Date();
-
 const state = {
   module: N3.N3,
   store: N3.N3.Store(),
@@ -14,7 +12,6 @@ const state = {
   processing: false,
   processingMessage: '',
   counter: 0,
-  auid: d.valueOf().toString(36),
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
