@@ -29,4 +29,4 @@ export default new Vuex.Store({
 });
 
 
-export const STORAGE_KEY = 'MetaData€ditor';
+export const STORAGE_KEY = 'MetaDataEditor';
