@@ -15,7 +15,9 @@ Vue.use(VueAxios, Axios);
 
 Vue.config.debug = true;
 
-const debug = process.env.NODE_ENV !== 'production';
+if (process.env.NODE_ENV !== 'production') {
+  plugins.push(createLogger());
+}
 
 export default new Vuex.Store({
   modules: {
@@ -25,7 +27,6 @@ export default new Vuex.Store({
   },
   plugins,
   strict: false,
-  middlewares: debug ? [createLogger()] : [],
 });
 
 

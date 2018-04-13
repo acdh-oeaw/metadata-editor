@@ -69,10 +69,9 @@ const actions = {
           predicate: keys[k],
           object: values[k],
         };
-        dispatch('AddTriple', triple);       
+        dispatch('AddTriple', triple);
       }
     }
-    commit('increaseCounter');
     commit('updateTripleCount');
     commit('updateSubject');
     commit('stopProcessing');

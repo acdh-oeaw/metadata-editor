@@ -11,7 +11,6 @@ const state = {
   subjects: {},
   processing: false,
   processingMessage: '',
-  counter: 0,
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */

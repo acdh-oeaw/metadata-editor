@@ -7,10 +7,6 @@ const mutations = {
     this._vm.$info('n3', 'updateTripleCount', s);
     s.tripleCount = s.store.countTriples(null, null, null, null);
   },
-  increaseCounter(s) {
-    this._vm.$info('n3', 'increaseCounter', s);
-    s.counter += 1;
-  },
   /*
     fetch all subjects and corresponding objects for wich the predicate is
     http://www.w3.org/1999/02/22-rdf-syntax-ns#type and cache them
