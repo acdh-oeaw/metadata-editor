@@ -7,10 +7,13 @@ const state = {
   module: N3.N3,
   store: N3.N3.Store(),
   parser: N3.N3.Parser(),
+  writer: N3.N3.Writer(null, {}),
   tripleCount: 0,
   subjects: {},
   processing: false,
   processingMessage: '',
+  ttlString: '',
+  p: ['ttlString'],
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */

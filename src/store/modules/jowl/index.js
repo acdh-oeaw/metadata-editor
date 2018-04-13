@@ -11,6 +11,7 @@ const state = {
   ontologyPath: '',
   processing: false,
   processingMessage: '',
+  p: [],
 };
 
 const getters = {

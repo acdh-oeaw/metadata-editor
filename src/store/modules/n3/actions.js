@@ -38,6 +38,7 @@ const actions = {
       if (triple) {
         dispatch('AddFilteredTriple', triple);
       } else {
+        dispatch('writeTTL');
         commit('updateTripleCount');
         commit('updateSubject');
         commit('stopProcessing');
@@ -68,11 +69,19 @@ const actions = {
         dispatch('AddTriple', triple);
       }
     }
+    dispatch('writeTTL');
     commit('updateTripleCount');
     commit('updateSubject');
     commit('stopProcessing');
   },
-
+  writeTTL({ state, commit }) {
+    const triples = state.store.getTriples();
+    state.writer.addTriples(triples);
+    state.writer.end((error, result) => {
+      commit('updateTtlString', result);
+      commit('resetWriter');
+    });
+  },
 };
 
 export default actions;

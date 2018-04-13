@@ -24,6 +24,12 @@ const mutations = {
     s.processingMessage = '';
     s.processing = false;
   },
+  updateTtlString(s, ttlString) {
+    s.ttlString = ttlString;
+  },
+  resetWriter(s) {
+    s.writer = s.module.Writer(null, {});
+  },
 };
 
 export default mutations;

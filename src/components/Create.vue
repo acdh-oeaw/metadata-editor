@@ -33,7 +33,6 @@ import AutocompArche from './AutocompArche';
 import FormFromSchema from './FormFromSchema';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
-
 export default {
   mixins: [HELPERS],
   components: {
@@ -50,7 +49,6 @@ export default {
   methods: {},
 };
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>

@@ -10,7 +10,6 @@ import store from './store/index';
 import router from './router';
 import './assets/fundament.min.css';
 
-
 Vue.component('v-select', vSelect);
 
 Vue.use(vueLogger, {

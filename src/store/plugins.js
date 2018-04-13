@@ -4,7 +4,6 @@ import {
   SESSION_ID,
 } from './index';
 
-
 const localStoragePlugin = store => {
   store.subscribe((mutation, state) => {
     const currentStore = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '{}');
