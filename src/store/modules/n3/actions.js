@@ -50,13 +50,12 @@ const actions = {
   /*  high level action parsing an JS-Object into triples and subsequently
      saving it to the N3.js store */
   objectToStore({ state, commit, dispatch }, { schema, obj }) {
-    const ID = Date.now().valueOf().toString(36);
+    const subject = `_:${schema.title}_${Date.now().valueOf().toString(36)}`;
     this._vm.$info('n3', 'objectToStore', schema, obj);
     commit('startProcessing', 'Loading Object to Store...');
     // first triple for type
-    // this._vm.$log(schema);
     const first = {
-      subject: `_:b${ID}_manual`,
+      subject,
       predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
       object: schema.id,
     };
@@ -66,12 +65,11 @@ const actions = {
     for (let k = 0; k < keys.length; k += 1) {
       if (values[k]) {
         const triple = {
-          subject: `_:b${ID}_manual`,
+          subject,
           predicate: keys[k],
           object: values[k],
         };
-        dispatch('AddTriple', triple);
-        // this._vm.$log(triple);
+        dispatch('AddTriple', triple);       
       }
     }
     commit('increaseCounter');
