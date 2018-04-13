@@ -17,13 +17,11 @@ const getters = {
 
 const mutations = {
   setSchema(s, { name, schema }) {
-    this._vm.$info('JSONschema', 'setSchema', name, schema);
     if (name && schema) {
       s.schemas[name] = schema;
     }
   },
   setEntry(s, { name, entry }) {
-    this._vm.$info('JSONschema', 'setEntry', name, entry);
     if (name && entry) {
       s.entries[name] = entry;
     }

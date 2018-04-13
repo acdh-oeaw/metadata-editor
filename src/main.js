@@ -14,7 +14,7 @@ import './assets/fundament.min.css';
 Vue.component('v-select', vSelect);
 
 Vue.use(vueLogger, {
-  dev: true,
+  dev: process.env.NODE_ENV !== 'production',
   shortname: true,
   levels: ['log', 'warn', 'debug', 'error', 'dir', 'info'],
 });

@@ -13,8 +13,6 @@ Vue.use(Vuex);
 Vue.use(VueAxios, Axios);
 
 
-Vue.config.debug = true;
-
 if (process.env.NODE_ENV !== 'production') {
   plugins.push(createLogger());
 }

@@ -12,7 +12,6 @@ function RemovePrefix(str) {
 
 const actions = {
   AddTriple({ state, commit }, triple) {
-    this._vm.$info('n3', 'AddTriple', triple);
     state.store.addTriple(
       triple.subject,
       triple.predicate,
@@ -25,7 +24,6 @@ const actions = {
      blank namespaces before adding the triple, never called directly
      see http://rubenverborgh.github.io/N3.js/docs/N3Store.html#section-124 */
   AddFilteredTriple({ state }, triple) {
-    this._vm.$info('n3', 'AddFilteredTriple', triple);
     state.store.addTriple(
       RemovePrefix(triple.subject),
       triple.predicate,
@@ -35,7 +33,6 @@ const actions = {
   /* high lvl action parsing a TTL file into triples and subsequently
      saving it to the N3.js store   */
   StringToStore({ state, commit, dispatch, vue }, string) {
-    this._vm.$info('n3', 'StringToStore', string);
     commit('startProcessing', 'Loading File to Store...');
     state.parser.parse(string, (error, triple) => {
       if (triple) {
@@ -51,7 +48,6 @@ const actions = {
      saving it to the N3.js store */
   objectToStore({ state, commit, dispatch }, { schema, obj }) {
     const subject = `_:${schema.title}_${Date.now().valueOf().toString(36)}`;
-    this._vm.$info('n3', 'objectToStore', schema, obj);
     commit('startProcessing', 'Loading Object to Store...');
     // first triple for type
     const first = {
