@@ -130,6 +130,9 @@ export default {
       this.$info('Helpers', 'filterForArcheID(obj)', obj);
       return obj.identifiers.filter(str => str.indexOf('https://id.acdh.oeaw.ac.at') > -1)[0];
     },
+    stringToBlob(str) {
+      return new Blob([str], { type: 'text/ttl;' });
+    },
   },
   created() {
     this.$info('Helpers', 'created');
