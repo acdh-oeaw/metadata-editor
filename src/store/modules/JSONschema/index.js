@@ -6,7 +6,7 @@ Entries will be deleted from here.
 const state = {
   schemas: {},
   entries: {},
-  p: [],
+  p: ['schemas'],
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
