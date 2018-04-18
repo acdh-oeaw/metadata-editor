@@ -86,6 +86,7 @@ export default {
   created() {
     this.$info('Schema', 'created');
     if (this.getOntology) this.fetchClasses({ q: 'classes' });
+    this.$log('last session', this.getLatestSession());
   },
 };
 </script>
