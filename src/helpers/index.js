@@ -130,7 +130,6 @@ export default {
       this.$info('Helpers', 'filterForArcheID(obj)', obj);
       return obj.identifiers.filter(str => str.indexOf('https://id.acdh.oeaw.ac.at') > -1)[0];
     },
-<<<<<<< HEAD
     // Store Functions
     getLatestSession() {
       let localStorage;
@@ -142,7 +141,7 @@ export default {
       }
       let latest = { date: -1 };
       const sessions = Object.keys(localStorage);
-      const sessionVals = Object.vals(localStorage);
+      const sessionVals = Object.values(localStorage);
       for (let i = 0; i < sessions.length; i += 1) {
         if (sessionVals[i].date > latest.date) {
           latest = sessionVals[i];
@@ -154,11 +153,10 @@ export default {
       return latest;
     },
     deleteAllSessions() {
+    },
 
-=======
     stringToBlob(str) {
       return new Blob([str], { type: 'text/ttl;' });
->>>>>>> 2da921aa97c4c52d25fcfe5c43c77c412f29beb3
     },
   },
   created() {

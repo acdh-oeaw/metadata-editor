@@ -60,6 +60,7 @@ export default {
     // convenience method to limit options to ACDH namespace classes
     getClasses() {
       this.$info('Schema', 'getClasses()');
+      this.$log('latest session:', this.getLatestSession());
       const classes = this.getQuery('classes').filter((cl) => {
         if (cl['?x'].baseURI === 'https://vocabs.acdh.oeaw.ac.at/schema#') return true;
         return false;
