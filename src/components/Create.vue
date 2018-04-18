@@ -3,8 +3,7 @@
   <div class="container">
     <div class="main-content row flex-xl-nowrap bg-white box-shadow element-border">
       <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
-        <nav class="collapse bd-links" id="bd-docs-nav">
-        </nav>
+        <Storestats></Storestats>
       </div>
       <div class="col-12 col-md-9 col-xl-10 page-content-w-sidebar">
         <h1><a id="Cards_0"></a>Resolving Identifiers</h1>
@@ -29,6 +28,7 @@
 
 <script>
 import Fundamententity from './Fundamententity';
+import Storestats from './StoreStats';
 import AutocompArche from './AutocompArche';
 import FormFromSchema from './FormFromSchema';
 import HELPERS from '../helpers';
@@ -39,6 +39,7 @@ export default {
     Fundamententity,
     AutocompArche,
     FormFromSchema,
+    Storestats,
   },
   data() {
     return {

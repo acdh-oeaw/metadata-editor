@@ -3,17 +3,7 @@
       <div class="container">
         <div class="main-content row flex-xl-nowrap bg-white box-shadow element-border">
           <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
-            <nav class="collapse bd-links" id="bd-docs-nav">
-              <div class="bd-toc-item">
-                <a class="bd-toc-link" href="#">Store Stats</a>
-              </div>
-              <div class="bd-toc-item">
-                {{ $store.state.n3.tripleCount }} Triples
-              </div>
-              <div class="bd-toc-item">
-                {{ Object.keys($store.state.n3.subjects).length }} Subjects
-              </div>
-            </nav>
+            <Storestats></Storestats>
           </div>
           <div class="col-12 col-md-9 col-xl-10 page-content-w-sidebar">
             <b-tabs>
@@ -36,6 +26,7 @@
 import { mapActions, mapGetters } from 'vuex';
 
 import Load from './Load';
+import Storestats from './StoreStats';
 import Entities from './Entities';
 import HELPERS from '../helpers';
 /* eslint no-unused-vars: ["error", {"args": "none"}] */
@@ -46,6 +37,7 @@ export default {
   components: {
     Load,
     Entities,
+    Storestats,
   },
   data() {
     return {

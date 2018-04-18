@@ -1,0 +1,46 @@
+<template>
+  <nav class="collapse bd-links" id="bd-docs-nav">
+    <div class="bd-toc-item">
+      <a class="bd-toc-link" href="#">Store Stats</a>
+    </div>
+    <div class="bd-toc-item">
+      {{ $store.state.n3.tripleCount }} Triples
+    </div>
+    <div class="bd-toc-item">
+      {{ Object.keys($store.state.n3.subjects).length }} Subjects
+    </div>
+    <div class="bd-toc-item">
+      <b-button @click="downloadBlob" variant="primary">Download</b-button>
+    </div>
+  </nav>
+</template>
+
+<script>
+
+import HELPERS from '../helpers';
+
+export default {
+  mixins: [HELPERS],
+  components: {
+  },
+  data() {
+    return {
+      blob: '',
+    };
+  },
+  methods: {
+    downloadBlob() {
+      this.blob = (window.URL || window.webkitURL)
+        .createObjectURL(this.stringToBlob(this.$store.state.n3.ttlString));
+
+      const downloadLink = document.createElement('A');
+      downloadLink.setAttribute('href', this.blob);
+      downloadLink.setAttribute('download', 'store.ttl');
+      downloadLink.click();
+    },
+  },
+};
+</script>
+
+<style scoped>
+</style>
