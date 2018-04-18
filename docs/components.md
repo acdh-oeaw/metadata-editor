@@ -213,6 +213,7 @@ Validation rules and specific mappings of schema-elements to form-elements can b
 
 * [FormSchema](https://github.com/formschema)
 * [AutocompArche](#AutocompArche)
+* [StoreStats](#StoreStats)
 
 
 
@@ -415,6 +416,7 @@ This component is used to load external .ttl files into the store. You can uploa
 ### Components
 * [Load](#load)
 * [Entities](#entities)
+* [StoreStats](#StoreStats)
 
 ### Methods
 #### onFileChange
@@ -435,6 +437,22 @@ TODO: PARAMS, HOW TO CALL.
 #### removeTtl
 Removes the .ttl file from your scope. the whole Website.
 
+## StoreStats
 
+StoreStats displays how many triples and subjects have been loaded into the store. It also provides a helpful download button, used to convert the whole store into a single .ttl file.
+
+### Imports
+* [HELPERS](/helpers#helpers)
+
+### Methods
+#### downloadBlob
+
+Since there is no clean way to create and download a file in Vue, this function creates a new DOM 'a' element, sets its attributes to the ones needed and simulates a click, triggering the download Sequence.
+
+### Data
+
+| Name | Type  | Description |
+|--|--|--|
+| blob | `blob` | The blob to be downloaded, every time the download button is pressed it gets updated |
 
 Continue reading with [Helpers](/Helpers#helpers)
