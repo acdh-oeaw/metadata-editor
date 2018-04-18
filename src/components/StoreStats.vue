@@ -36,6 +36,10 @@ export default {
       const downloadLink = document.createElement('A');
       downloadLink.setAttribute('href', this.blob);
       downloadLink.setAttribute('download', 'store.ttl');
+      downloadLink.setAttribute('v-show', 'false');
+
+      document.body.appendChild(downloadLink);
+
       downloadLink.click();
     },
   },
