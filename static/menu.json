@@ -1,0 +1,42 @@
+[
+	{
+		"caption":"Search & Browse",
+		"arialabel":"",
+		"mdicon":"search",
+		"abstract":"",
+		"startpage":"gl.search",
+		"items":""
+	},
+	{
+		"caption":"Archeological Sites",
+		"arialabel":"",
+		"mdicon":"map",
+		"abstract":"",
+		"startpage":"gl.map({placeID: 0})",
+		"items":""
+	},
+	{
+		"caption":"Bibliography",
+		"arialabel":"",
+		"mdicon":"local_library",
+		"abstract":"",
+		"startpage":"gl.bibliography",
+		"items":""
+	},
+	{
+		"caption":"TEI Encodings (beta)",
+		"arialabel":"",
+		"mdicon":"code",
+		"abstract":"",
+		"startpage":"gl.tei({id: \"1110000031\"})",
+		"items":""
+	},
+	{
+		"caption":"About the Project",
+		"arialabel":"",
+		"mdicon":"info_outline",
+		"abstract":"",
+		"startpage":"gl.about",
+		"items":""
+	}
+]
