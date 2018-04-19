@@ -1,0 +1,40 @@
+{
+	"logo":"",
+	"title":"",
+	"menu":
+		[
+			{
+				"caption":"Home",
+				"arialabel":"",
+				"icon":"fas fa-home",
+				"abstract":"",
+				"startpage":"{ name: 'start', params: { lang: 'en' }}",
+				"items":""
+			},
+			{
+				"caption":"Data",
+				"arialabel":"",
+				"icon":"fas fa-share-alt",
+				"abstract":"",
+				"startpage":"{ name: 'store', params: { lang: 'en' }}",
+				"items":""
+			},
+			{
+				"caption":"Edit",
+				"arialabel":"",
+				"icon":"fas fa-edit",
+				"abstract":"",
+				"startpage":"{ name: 'start', params: { lang: 'en' }}",
+				"items":""
+			},
+			{
+				"caption":"Ontology",
+				"arialabel":"",
+				"icon":"fas fa-sitemap",
+				"abstract":"",
+				"startpage":"{ name: 'start', params: { lang: 'en' }}",
+				"items":""
+			},
+		],
+	"repo":"",
+}
