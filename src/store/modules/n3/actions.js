@@ -82,6 +82,10 @@ const actions = {
       commit('resetWriter');
     });
   },
+  constructN3({ state, commit, dispatch }, { pState }) {
+    const ttlString = pState.n3.ttlString;
+    dispatch('StringToStore', ttlString);
+  },
 };
 
 export default actions;

@@ -140,23 +140,51 @@ export default {
         return e;
       }
       let latest = { date: -1 };
-      const sessions = Object.keys(localStorage);
-      const sessionVals = Object.values(localStorage);
+      let sessions = {};
+      let sessionVals = {};
+      try {
+        sessions = Object.keys(JSON.parse(localStorage.MetaDataEditor));
+        sessionVals = Object.values(JSON.parse(localStorage.MetaDataEditor));
+      } catch (e) {
+        return null;
+      }
       for (let i = 0; i < sessions.length; i += 1) {
-        if (sessionVals[i].date > latest.date) {
+        console.log(Date.now() - sessionVals[i].date);
+        // second contition is to catch the newly made session.
+        if (sessionVals[i].date > latest.date && Date.now() - sessionVals[i].date > 50) {
           latest = sessionVals[i];
         }
       }
       if (latest.date === -1) {
-        return null;
+        latest = null;
       }
       return latest;
     },
-    deleteAllSessions() {
+    deleteOldSessions() {
+      let localStorage;
+      try {
+        localStorage = window.localStorage;
+      } catch (e) {
+        // Access denied :-(
+        return e;
+      }
+      try {
+        localStorage.setItem('MetaDataEditor', '');
+      } catch (e) {
+        return null;
+      }
+      return null;
     },
-
     stringToBlob(str) {
       return new Blob([str], { type: 'text/ttl;' });
+    },
+    dateToString(date) {
+      const datum = date.toISOString().slice(0, 10).replace(/-/g, '');
+      const y = datum.substring(0, 4);
+      console.log('year', y);
+      const m = datum.substring(4, 6);
+      const d = datum.substring(6);
+      return `${d}/${m}/${y}`;
     },
   },
   created() {
