@@ -78,6 +78,7 @@ const actions = {
     const triples = state.store.getTriples();
     state.writer.addTriples(triples);
     state.writer.end((error, result) => {
+      console.log('allbac');
       commit('updateTtlString', result);
       commit('resetWriter');
     });

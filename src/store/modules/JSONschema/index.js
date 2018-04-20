@@ -17,6 +17,11 @@ const getters = {
 };
 
 const mutations = {
+  constructJSONschema(s, { pState }) {
+    for (let i = 0; i < s.p.length; i += 1) {
+      s[s.p[i]] = pState.JSONschema[s.p[i]];
+    }
+  },
   setSchema(s, { name, schema }) {
     if (name && schema) {
       s.schemas[name] = schema;

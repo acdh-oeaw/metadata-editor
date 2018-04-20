@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex';
+  import { mapActions, mapMutations } from 'vuex';
   import FundamentNav from './FundamentNav';
   import FundamentFooter from './FundamentFooter';
   import HELPERS from '../helpers';
@@ -42,7 +42,7 @@
         'setOntology',
         'constructJOWL',
       ]),
-      ...mapActions('JSONschema', [
+      ...mapMutations('JSONschema', [
         'constructJSONschema',
       ]),
       ...mapActions('n3', [
@@ -50,13 +50,14 @@
       ]),
       restore() {
         // this.constructJOWL(this.latestSession);
-        // this.constructJSONschema(this.latestSession);
+        this.constructJSONschema(this.latestSession);
         this.constructN3(this.latestSession);
         this.modalShow = false;
         this.deleteOldSessions();
       },
       discard() {
         this.modalShow = false;
+        this.deleteOldSessions();
       },
     },
     created() {
