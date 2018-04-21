@@ -48,12 +48,15 @@
       ...mapActions('n3', [
         'constructN3',
       ]),
-      restore() {
+      restore(reload = true) {
         // this.constructJOWL(this.latestSession);
         this.constructJSONschema(this.latestSession);
         this.constructN3(this.latestSession);
         this.modalShow = false;
         this.deleteOldSessions();
+        if (reload) {
+          this.$router.push({ name: 'start', params: { lang: 'en' } });
+        }
       },
       discard() {
         this.modalShow = false;
@@ -63,9 +66,15 @@
     created() {
       this.setOntology('static/acdh-schema.owl');
       this.latestSession = this.getLatestSession();
-      this.$log('latestSession', this.latestSession);
-      this.date = this.dateToString(new Date(this.latestSession.date));
-      this.modalShow = true;
+      if (this.latestSession) {
+        this.$log('latestSession', this.latestSession);
+        this.date = this.dateToString(new Date(this.latestSession.date));
+        if (Date.now() - this.latestSession.date < 30000) {
+          this.restore(false);
+        } else {
+          this.modalShow = true;
+        }
+      }
     },
   };
 </script>

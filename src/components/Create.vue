@@ -17,7 +17,7 @@
 
             <h1><a id="Cards_0"></a>Form From Schema</h1>
             <p>Testing Form from Schema</p>
-            <FormFromSchema :type="val"></FormFromSchema>
+            <FormFromSchema uniqueName="mainSchema" :type="val"></FormFromSchema>
           </b-tab>
         </b-tabs>
       </div>

@@ -1,8 +1,8 @@
 <template>
   <div class="" v-if="!loading">
-    <form-schema :schema="schema[type]" v-model="model" @submit="submit">
+    <form-schema v-if="model" @input="saveEntry" :schema="schema[type]" v-model="model" @submit="submit">
       <b-button variant="primary" @click="submit">Subscribe</b-button>
-      <b-button type="reset">Reset</b-button>
+      <b-button @click="resetForm();" variant="secondary">Reset</b-button>
     </form-schema>
   </div>
 </template>
@@ -27,13 +27,14 @@ export default {
   mixins: [HELPERS],
   props: [
     'type',
+    'uniqueName',
   ],
   components: {
     FormSchema,
     AutocompArche,
   },
   data: () => ({
-    model: {},
+    model: false,
     loading: true,
   }),
   methods: {
@@ -44,6 +45,18 @@ export default {
     ...mapActions('n3', [
       'objectToStore',
     ]),
+    saveEntry() {
+      this.$info('FormFromSchema', 'saveEntry');
+      this.setEntry({ name: this.uniqueName, entry: this.model });
+    },
+    resetForm() {
+      this.$info('FormFromSchema', 'resetForm');
+      const keys = Object.keys(this.model);
+      for (let i = 0; i < keys.length; i += 1) {
+        this.$debug(keys[i]);
+        this.model[keys[i]] = '';
+      }
+    },
     submit() {
       this.$info('FormFromSchema', 'submit()');
       // here everything -> n3 store.
@@ -54,11 +67,12 @@ export default {
         schema: this.schema[this.type] });
     },
   },
+  watch: {
+  },
   computed: {
     ...mapState({
       // this needs to be replaced, see l60ff
       schema: $state => $state.JSONschema.schemas,
-      entry: $state => $state.JSONschema.entries,
     }),
   },
   created() {
@@ -68,6 +82,10 @@ export default {
       this.setSchema({ name: this.type, schema: res });
       this.loading = false;
     });
+    if (!this.$store.state.JSONschema.entries[this.uniqueName]) {
+      this.$store.state.JSONschema.entries[this.uniqueName] = {};
+    }
+    this.model = this.$store.state.JSONschema.entries[this.uniqueName];
   },
 };
 </script>

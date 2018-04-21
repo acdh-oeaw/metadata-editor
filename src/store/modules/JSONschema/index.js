@@ -1,12 +1,8 @@
 
-/*
-Entries will be deleted from here.
-*/
-
 const state = {
   schemas: {},
   entries: {},
-  p: ['schemas', 'entries'],
+  p: ['entries'],
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -31,6 +27,7 @@ const mutations = {
     if (name && entry) {
       s.entries[name] = entry;
     }
+    // s.entries = JSON.parse(JSON.stringify(s.entries));
   },
 };
 
