@@ -1,8 +1,8 @@
 <template>
   <div class="" v-if="!loading">
     <form-schema v-if="model" @input="saveEntry" :schema="schema[type]" v-model="model" @submit="submit">
-      <b-button variant="primary" @click="submit">Subscribe</b-button>
-      <b-button @click="resetForm();" variant="secondary">Reset</b-button>
+      <b-button variant="primary" @click="submit">Load into Store</b-button>
+      <b-button @click="resetForm();" variant="secondary">Reset Form</b-button>
     </form-schema>
   </div>
 </template>
