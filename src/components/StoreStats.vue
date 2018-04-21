@@ -10,7 +10,11 @@
       {{ Object.keys($store.state.n3.subjects).length }} Subjects
     </div>
     <div class="bd-toc-item">
-      <b-button @click="downloadBlob" variant="primary">Download</b-button>
+      <b-button-group vertical>
+        <b-button  @click="downloadBlob" variant="primary">Download</b-button>
+        <b-button  disabled variant="light"></b-button>
+        <b-button  v-b-modal="'clearCacheModal'" variant="danger">Clear Store</b-button>
+      </b-button-group>
     </div>
   </nav>
 </template>

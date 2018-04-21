@@ -3,8 +3,9 @@
     <FundamentNav></FundamentNav>
     <router-view name="Content"></router-view>
     <FundamentFooter></FundamentFooter>
-    <!-- Modal Component -->
-    <b-modal v-model="modalShow" hide-footer id="askForStore" title="Session Recovery">
+    <!-- Modals -->
+    <!-- store recovery -->
+    <b-modal @ok="clearStore()" v-model="modalShow" hide-footer id="askForStore" title="Session Recovery">
       <p class="my-4">Hey! you have an old session. It is from {{date}} (dd/mm/yy). Do you want to restore it?</p>
       <b-button @click="restore" size="lg" variant="primary">
         Recover
@@ -13,6 +14,20 @@
         Discard
       </b-button>
 
+    </b-modal>
+    <!-- store deletion -->
+    <b-modal  id="clearCacheModal"
+              title="Clear Cache"
+              ok-variant="danger"
+              @ok="clearStore()">
+      <p class="my-4">Are you Sure to delete  {{ $store.state.n3.tripleCount }} Triples containing
+{{ Object.keys($store.state.n3.subjects).length }} Subjects from your Store? This can not be undone!</p>
+      <div slot="modal-ok" size="lg" variant="danger">
+        Clear
+      </div>
+      <div slot="modal-cancel" size="lg" variant="secondary">
+        Cancel
+      </div>
     </b-modal>
   </div>
 </template>
@@ -48,6 +63,10 @@
       ...mapActions('n3', [
         'constructN3',
       ]),
+      clearStore() {
+        this.$info('clearStore');
+        this.clearCache();
+      },
       restore(reload = true) {
         // this.constructJOWL(this.latestSession);
         this.constructJSONschema(this.latestSession);
@@ -55,7 +74,7 @@
         this.modalShow = false;
         this.deleteOldSessions();
         if (reload) {
-          this.$router.push({ name: 'start', params: { lang: 'en' } });
+          this.$router.go(this.$router.currentRoute);
         }
       },
       discard() {
@@ -69,7 +88,7 @@
       if (this.latestSession) {
         this.$log('latestSession', this.latestSession);
         this.date = this.dateToString(new Date(this.latestSession.date));
-        if (Date.now() - this.latestSession.date < 30000) {
+        if (Date.now() - this.latestSession.date < 300000) {
           this.restore(false);
         } else {
           this.modalShow = true;

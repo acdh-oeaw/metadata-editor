@@ -175,6 +175,10 @@ export default {
       }
       return null;
     },
+    clearCache() {
+      this.deleteOldSessions();
+      this.$router.go(this.$router.currentRoute);
+    },
     stringToBlob(str) {
       return new Blob([str], { type: 'text/ttl;' });
     },
