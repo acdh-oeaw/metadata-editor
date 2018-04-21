@@ -4,10 +4,7 @@ import {
   STORAGE_KEY,
   SESSION_ID,
 } from './index';
-
-
 // helper for checking error code for full storage
-
 function isQuotaExceeded(e) {
   let quotaExceeded = false;
   if (e) {
@@ -33,7 +30,7 @@ function isQuotaExceeded(e) {
 
 
 // helper function for filtering for üroperties that need to be persistent.
-const filterForPersistantProperties = function (stateObj) {
+function filterForPersistantProperties(stateObj) {
   const result = {};
 
   const modules = Object.keys(stateObj);
@@ -47,7 +44,16 @@ const filterForPersistantProperties = function (stateObj) {
     }
   }
   return result;
-};
+}
+
+function dateToString(date) {
+  const datum = date.toISOString().slice(0, 10).replace(/-/g, '');
+  const y = datum.substring(0, 4);
+  const m = datum.substring(4, 6);
+  const d = datum.substring(6);
+  return `${d}/${m}/${y}`;
+}
+
 
 const localStoragePlugin = store => {
   let localStorage;
@@ -61,8 +67,10 @@ const localStoragePlugin = store => {
     store.subscribe((mutation, state) => {
       const pState = filterForPersistantProperties(state);
       const currentStore = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '{}');
+      const now = Date.now();
       currentStore[SESSION_ID] = { pState,
-        date: Date.now(),
+        date: now,
+        dateString: dateToString(new Date(now)),
       };
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(currentStore));
