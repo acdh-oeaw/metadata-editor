@@ -34,10 +34,10 @@ In definitions of properties, &quot;resource A&quot; refers to the subject resou
 When reusing definitions from other vocabularies (esp. DataCite), the reference is given in brackets: (DataCite: ContactPerson). When the source definition was changed slightly the reference is marked with &quot;cf.&quot;</rdfs:comment>
         <rdfs:label>ACDH Schema</rdfs:label>
     </owl:Ontology>
+    
 
 
-
-    <!--
+    <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
     // Annotation properties
@@ -45,7 +45,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-
+    
 
 
     <!-- http://www.w3.org/2000/01/rdf-schema#label -->
@@ -53,19 +53,19 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
     <rdf:Description rdf:about="http://www.w3.org/2000/01/rdf-schema#label">
         <rdfs:label>rdfs:label</rdfs:label>
     </rdf:Description>
-
+    
 
 
     <!-- http://www.w3.org/2002/07/owl#inverseOf -->
 
     <owl:AnnotationProperty rdf:about="http://www.w3.org/2002/07/owl#inverseOf"/>
-
+    
 
 
     <!-- http://www.w3.org/2004/02/skos/core#altLabel -->
 
     <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#altLabel"/>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#ordinality -->
@@ -75,7 +75,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
         <rdfs:label>ordinality</rdfs:label>
         <skos:altLabel xml:lang="en">Ordinality</skos:altLabel>
     </owl:AnnotationProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#vocabs -->
@@ -86,10 +86,10 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
         <skos:altLabel xml:lang="en">List with allowed values</skos:altLabel>
         <skos:altLabel xml:lang="de">Liste mit erlaubten Werten</skos:altLabel>
     </owl:AnnotationProperty>
+    
 
 
-
-    <!--
+    <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
     // Datatypes
@@ -97,16 +97,16 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-
+    
 
 
     <!-- http://www.w3.org/2001/XMLSchema#date -->
 
     <rdfs:Datatype rdf:about="http://www.w3.org/2001/XMLSchema#date"/>
+    
 
 
-
-    <!--
+    <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
     // Object Properties
@@ -114,7 +114,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-
+    
 
 
     <!-- http://purl.org/dc/elements/1.1/contributor -->
@@ -122,7 +122,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
     <owl:ObjectProperty rdf:about="http://purl.org/dc/elements/1.1/contributor">
         <owl:equivalentProperty rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#hasContributor"/>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- http://purl.org/dc/elements/1.1/coverage -->
@@ -130,7 +130,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
     <owl:ObjectProperty rdf:about="http://purl.org/dc/elements/1.1/coverage">
         <owl:equivalentProperty rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#hasSpatialCoverage"/>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- http://purl.org/dc/elements/1.1/creator -->
@@ -138,7 +138,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
     <owl:ObjectProperty rdf:about="http://purl.org/dc/elements/1.1/creator">
         <owl:equivalentProperty rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#hasCreator"/>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- http://purl.org/dc/elements/1.1/format -->
@@ -146,7 +146,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
     <owl:ObjectProperty rdf:about="http://purl.org/dc/elements/1.1/format">
         <owl:equivalentProperty rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#hasFormat"/>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- http://purl.org/dc/elements/1.1/publisher -->
@@ -154,7 +154,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
     <owl:ObjectProperty rdf:about="http://purl.org/dc/elements/1.1/publisher">
         <owl:equivalentProperty rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#hasHosting"/>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- http://purl.org/dc/elements/1.1/relation -->
@@ -163,7 +163,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
         <owl:equivalentProperty rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#hasRelatedProject"/>
         <owl:equivalentProperty rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#relation"/>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- http://purl.org/dc/elements/1.1/rights -->
@@ -171,7 +171,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
     <owl:ObjectProperty rdf:about="http://purl.org/dc/elements/1.1/rights">
         <owl:equivalentProperty rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#hasLicense"/>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- http://purl.org/dc/elements/1.1/source -->
@@ -179,7 +179,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
     <owl:ObjectProperty rdf:about="http://purl.org/dc/elements/1.1/source">
         <owl:equivalentProperty rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#hasSource"/>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- http://purl.org/dc/elements/1.1/subject -->
@@ -187,7 +187,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
     <owl:ObjectProperty rdf:about="http://purl.org/dc/elements/1.1/subject">
         <owl:equivalentProperty rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#hasSubject"/>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#cites -->
@@ -202,7 +202,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
         <skos:altLabel xml:lang="en">Cites</skos:altLabel>
         <skos:altLabel xml:lang="de">Zitiert</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#compiles -->
@@ -217,7 +217,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
         <skos:altLabel xml:lang="en">Compiles</skos:altLabel>
         <skos:altLabel xml:lang="de">Stellt zusammen</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#continues -->
@@ -239,7 +239,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
         <skos:altLabel xml:lang="en">Continues</skos:altLabel>
         <skos:altLabel xml:lang="de">Setzt fort</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#documents -->
@@ -254,7 +254,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
         <skos:altLabel xml:lang="en">Documents</skos:altLabel>
         <skos:altLabel xml:lang="de">Dokumentiert</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasActor -->
@@ -269,7 +269,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
         <skos:altLabel xml:lang="en">Has actor</skos:altLabel>
         <skos:altLabel xml:lang="de">Hat Akteur</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasAppliedMethod -->
@@ -284,7 +284,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
         <skos:altLabel xml:lang="de">Angewandte Methode</skos:altLabel>
         <skos:altLabel xml:lang="en">Applied method</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasAuthor -->
@@ -299,7 +299,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
         <skos:altLabel xml:lang="en">Author</skos:altLabel>
         <skos:altLabel xml:lang="de">Autor</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasContact -->
@@ -315,7 +315,7 @@ When reusing definitions from other vocabularies (esp. DataCite), the reference 
         <skos:altLabel xml:lang="en">Contact</skos:altLabel>
         <skos:altLabel xml:lang="de">Kontakt</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasContributor -->
@@ -331,7 +331,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Contributor</skos:altLabel>
         <skos:altLabel xml:lang="de">Mitarbeiter oder Beitragender</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasCoverage -->
@@ -347,7 +347,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Coverage</skos:altLabel>
         <skos:altLabel xml:lang="de">Deckt ab</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasCreator -->
@@ -362,7 +362,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Creator</skos:altLabel>
         <skos:altLabel xml:lang="de">Urheber</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasCurator -->
@@ -377,7 +377,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Data curator</skos:altLabel>
         <skos:altLabel xml:lang="de">Datenkurator</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasDepositor -->
@@ -392,7 +392,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Datengeber</skos:altLabel>
         <skos:altLabel xml:lang="en">Depositor</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasDerivedPublication -->
@@ -407,7 +407,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Has derived publication</skos:altLabel>
         <skos:altLabel xml:lang="de">Hat abgeleitete Publikation</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasEditor -->
@@ -422,7 +422,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Editor</skos:altLabel>
         <skos:altLabel xml:lang="de">Herausgeber</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasFormat -->
@@ -436,7 +436,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Format</skos:altLabel>
         <skos:altLabel xml:lang="en">Format</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasFunder -->
@@ -451,7 +451,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Funder</skos:altLabel>
         <skos:altLabel xml:lang="de">Geldgeber</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasHosting -->
@@ -466,7 +466,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Hosted by</skos:altLabel>
         <skos:altLabel xml:lang="de">Wird erhalten/bereitgestellt von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasLicense -->
@@ -480,7 +480,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Licence</skos:altLabel>
         <skos:altLabel xml:lang="de">Lizenz</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasLicensor -->
@@ -495,7 +495,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Licensor</skos:altLabel>
         <skos:altLabel xml:lang="de">Lizenzgeber</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasMember -->
@@ -509,7 +509,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Has member</skos:altLabel>
         <skos:altLabel xml:lang="de">Hat Mitglied</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasMetadata -->
@@ -524,7 +524,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Has metadata</skos:altLabel>
         <skos:altLabel xml:lang="de">Hat Metadaten</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasMetadataCreator -->
@@ -539,7 +539,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Metadata creator</skos:altLabel>
         <skos:altLabel xml:lang="de">Metadatenersteller</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasOwner -->
@@ -554,7 +554,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Besitzer</skos:altLabel>
         <skos:altLabel xml:lang="en">Owner</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasPart -->
@@ -569,7 +569,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Has part</skos:altLabel>
         <skos:altLabel xml:lang="de">Hat Teil</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasPrincipalInvestigator -->
@@ -584,7 +584,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Primärforscher</skos:altLabel>
         <skos:altLabel xml:lang="en">Principal investigator</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasRelatedCollection -->
@@ -599,7 +599,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Related collection</skos:altLabel>
         <skos:altLabel xml:lang="de">Zugehörige Sammlung</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasRelatedDiscipline -->
@@ -614,7 +614,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Related research discipline</skos:altLabel>
         <skos:altLabel xml:lang="de">Zugehörige Fachdisziplin</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasRelatedProject -->
@@ -628,7 +628,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Related project</skos:altLabel>
         <skos:altLabel xml:lang="de">Zugehöriges Projekt</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasRightsHolder -->
@@ -643,7 +643,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Rechteinhaber</skos:altLabel>
         <skos:altLabel xml:lang="en">Rights holder</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasSchema -->
@@ -658,7 +658,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Has schema</skos:altLabel>
         <skos:altLabel xml:lang="de">Hat Schema</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasSource -->
@@ -673,7 +673,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Has source</skos:altLabel>
         <skos:altLabel xml:lang="de">Hat Quelle</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasSpatialCoverage -->
@@ -688,7 +688,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Geografische Abdeckung</skos:altLabel>
         <skos:altLabel xml:lang="en">Spatial coverage</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasSubject -->
@@ -703,7 +703,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Gegenstand</skos:altLabel>
         <skos:altLabel xml:lang="en">Subject</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasTitleImage -->
@@ -718,7 +718,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Has title image</skos:altLabel>
         <skos:altLabel xml:lang="de">Hat Titelbild</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasTransferMethod -->
@@ -733,7 +733,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Transfer method</skos:altLabel>
         <skos:altLabel xml:lang="de">Transfermethode</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isActor -->
@@ -754,7 +754,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is actor</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Akteur</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isAppliedMethod -->
@@ -767,7 +767,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is method applied in</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Methode angewendet in</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isAuthor -->
@@ -788,7 +788,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Author</skos:altLabel>
         <skos:altLabel xml:lang="de">Verfasser</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isCitedBy -->
@@ -802,7 +802,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is cited by</skos:altLabel>
         <skos:altLabel xml:lang="de">Wird zitiert von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isCompiledBy -->
@@ -816,7 +816,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is compiled by</skos:altLabel>
         <skos:altLabel xml:lang="de">Wird zusammengestellt von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isContact -->
@@ -838,7 +838,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is contact</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Kontakt</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isContinuedBy -->
@@ -852,7 +852,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is continued by</skos:altLabel>
         <skos:altLabel xml:lang="de">Wird fortgesetzt durch</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isContributor -->
@@ -875,7 +875,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Contributed to</skos:altLabel>
         <skos:altLabel xml:lang="de">Hat beigetragen zu</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isCoverage -->
@@ -888,7 +888,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is covered in</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist abgedeckt in</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isCreator -->
@@ -909,7 +909,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is creator</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Ersteller</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isCurator -->
@@ -923,7 +923,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is data curator</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Datenkurator</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isDepositor -->
@@ -937,7 +937,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is depositor</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Datengeber (hat eingereicht)</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isDerivedFrom -->
@@ -952,7 +952,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is derived from</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist abgeleitet von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isDerivedPublication -->
@@ -965,7 +965,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is derived publication</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist abgeleitete Publikation</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isDocumentedBy -->
@@ -979,7 +979,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is documented by</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist dokumentiert durch</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isEditor -->
@@ -1000,7 +1000,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is editor</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Herausgeber</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isFormat -->
@@ -1012,7 +1012,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is format</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Format</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isFunder -->
@@ -1034,7 +1034,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Hat gefördert</skos:altLabel>
         <skos:altLabel xml:lang="en">Is funder</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isHosting -->
@@ -1049,7 +1049,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Erhält und stellt bereit</skos:altLabel>
         <skos:altLabel xml:lang="en">Is hosting</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isIdenticalTo -->
@@ -1064,7 +1064,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is identical to</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist identisch mit</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isLicense -->
@@ -1076,7 +1076,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Licensed</skos:altLabel>
         <skos:altLabel xml:lang="de">Lizensiert durch</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isLicensor -->
@@ -1090,7 +1090,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is licensor</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Lizenzgeber</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isMember -->
@@ -1104,7 +1104,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is member of</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Mitglied von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isMetadataCreator -->
@@ -1125,7 +1125,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Created metadata</skos:altLabel>
         <skos:altLabel xml:lang="de">Hat Metadaten erstellt</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isMetadataFor -->
@@ -1139,7 +1139,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Enthält Metadaten für</skos:altLabel>
         <skos:altLabel xml:lang="en">Is metadata for</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isNewVersionOf -->
@@ -1154,7 +1154,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is new version of</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist neue Version von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isOriginalFormOf -->
@@ -1169,7 +1169,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is original form of</skos:altLabel>
         <skos:altLabel xml:lang="de">Originale Form von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isOwner -->
@@ -1183,7 +1183,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is owner</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Besitzer von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isPartOf -->
@@ -1197,7 +1197,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is part of</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Teil von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isPreviousVersionOf -->
@@ -1211,7 +1211,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is previous version of</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist vorhergehende Version von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isPrincipalInvestigator -->
@@ -1232,7 +1232,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is principal investigator</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Primärforscher</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isReferencedBy -->
@@ -1247,7 +1247,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is referenced by</skos:altLabel>
         <skos:altLabel xml:lang="de">Wird referenziert von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isRelatedDiscipline -->
@@ -1260,7 +1260,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is related discipline of</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist zugehörige Disziplin von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isReviewedBy -->
@@ -1275,7 +1275,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is reviewed by</skos:altLabel>
         <skos:altLabel xml:lang="de">Wird reviewed durch</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isRightsHolder -->
@@ -1289,7 +1289,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is rights holder</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Rechteinhaber</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isSchema -->
@@ -1303,7 +1303,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is schema of</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Schema von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isSourceOf -->
@@ -1317,7 +1317,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is source of</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Quelle von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isSpatialCoverage -->
@@ -1338,7 +1338,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Geografisch behandelt in</skos:altLabel>
         <skos:altLabel xml:lang="en">Spatially covered in</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isSubject -->
@@ -1359,7 +1359,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is subject of</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Gegenstand von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isSupplementTo -->
@@ -1374,7 +1374,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is supplement to</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Ergänzung zu</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isSupplementedBy -->
@@ -1388,7 +1388,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is supplemented by</skos:altLabel>
         <skos:altLabel xml:lang="de">Wird ergänzt von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isTitleImageOf -->
@@ -1402,7 +1402,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is title image of</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Titelbild von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isTransferMethod -->
@@ -1416,7 +1416,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is transfer method</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Transfermethode</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#isVariantFormOf -->
@@ -1430,7 +1430,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Is variant form of</skos:altLabel>
         <skos:altLabel xml:lang="de">Ist Variante von</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#references -->
@@ -1444,7 +1444,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">References</skos:altLabel>
         <skos:altLabel xml:lang="de">Referenziert</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#relation -->
@@ -1458,7 +1458,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Relation</skos:altLabel>
         <skos:altLabel xml:lang="en">Relation</skos:altLabel>
     </owl:ObjectProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#reviews -->
@@ -1472,10 +1472,10 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Ist ein Review von</skos:altLabel>
         <skos:altLabel xml:lang="en">Reviews</skos:altLabel>
     </owl:ObjectProperty>
+    
 
 
-
-    <!--
+    <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
     // Data properties
@@ -1483,7 +1483,7 @@ This is a generic property. Use one of the more specific sub-properties where po
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-
+    
 
 
     <!-- http://purl.org/dc/elements/1.1/date -->
@@ -1491,7 +1491,7 @@ This is a generic property. Use one of the more specific sub-properties where po
     <owl:DatatypeProperty rdf:about="http://purl.org/dc/elements/1.1/date">
         <owl:equivalentProperty rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#hasDate"/>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- http://purl.org/dc/elements/1.1/description -->
@@ -1499,7 +1499,7 @@ This is a generic property. Use one of the more specific sub-properties where po
     <owl:DatatypeProperty rdf:about="http://purl.org/dc/elements/1.1/description">
         <owl:equivalentProperty rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#hasDescription"/>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- http://purl.org/dc/elements/1.1/identifier -->
@@ -1508,7 +1508,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <owl:equivalentProperty rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier"/>
         <owl:equivalentProperty rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#hasPid"/>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- http://purl.org/dc/elements/1.1/language -->
@@ -1516,7 +1516,7 @@ This is a generic property. Use one of the more specific sub-properties where po
     <owl:DatatypeProperty rdf:about="http://purl.org/dc/elements/1.1/language">
         <owl:equivalentProperty rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#hasLanguage"/>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- http://purl.org/dc/elements/1.1/title -->
@@ -1524,7 +1524,7 @@ This is a generic property. Use one of the more specific sub-properties where po
     <owl:DatatypeProperty rdf:about="http://purl.org/dc/elements/1.1/title">
         <owl:equivalentProperty rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#hasTitle"/>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- http://purl.org/dc/elements/1.1/type -->
@@ -1532,7 +1532,7 @@ This is a generic property. Use one of the more specific sub-properties where po
     <owl:DatatypeProperty rdf:about="http://purl.org/dc/elements/1.1/type">
         <owl:equivalentProperty rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#hasCategory"/>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasAcceptedDate -->
@@ -1547,7 +1547,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Annahmedatum</skos:altLabel>
         <skos:altLabel xml:lang="en">Date of acceptance</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasAccessRestriction -->
@@ -1561,7 +1561,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Zugriffsbeschränkung</skos:altLabel>
         <acdh:vocabs>https://vocabs.acdh.oeaw.ac.at/archeaccessrestrictions/en/</acdh:vocabs>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasAddress -->
@@ -1574,7 +1574,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Address</skos:altLabel>
         <skos:altLabel xml:lang="de">Adresse</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasAddressLine1 -->
@@ -1588,7 +1588,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Addresszeile 1</skos:altLabel>
         <skos:altLabel xml:lang="en">Adresse Line 1</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasAddressLine2 -->
@@ -1602,7 +1602,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Addresszeile 2</skos:altLabel>
         <skos:altLabel xml:lang="en">Adresse Line 2</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasAlternativeTitle -->
@@ -1615,7 +1615,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Alternative title</skos:altLabel>
         <skos:altLabel xml:lang="de">Alternativtitel</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasAppliedMethodDescription -->
@@ -1630,7 +1630,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Beschreibung der angewandten Methoden</skos:altLabel>
         <skos:altLabel xml:lang="en">Description of applied method</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasArrangement -->
@@ -1644,7 +1644,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Description of arrangement</skos:altLabel>
         <skos:altLabel xml:lang="de">Strukturbeschreibung</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasAvailableDate -->
@@ -1659,7 +1659,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Available since</skos:altLabel>
         <skos:altLabel xml:lang="de">Verfügbar seit</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasBinarySize -->
@@ -1673,7 +1673,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="en">Größe</skos:altLabel>
         <skos:altLabel xml:lang="de">Size</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasCategory -->
@@ -1687,7 +1687,7 @@ This is a generic property. Use one of the more specific sub-properties where po
         <skos:altLabel xml:lang="de">Kategorie</skos:altLabel>
         <acdh:vocabs>https://vocabs.acdh.oeaw.ac.at/archecategory/en/</acdh:vocabs>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasCharacterEncoding -->
@@ -1702,7 +1702,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="en">Character encoding</skos:altLabel>
         <skos:altLabel xml:lang="de">Zeichenkodierung</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasCity -->
@@ -1716,7 +1716,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="en">City/Town</skos:altLabel>
         <skos:altLabel xml:lang="de">Stadt</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasCollectedEndDate -->
@@ -1731,7 +1731,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="en">Date of data collection (end)</skos:altLabel>
         <skos:altLabel xml:lang="de">Datum der Zusammenstellung (Ende)</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasCollectedStartDate -->
@@ -1746,7 +1746,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="en">Date of data collection (start)</skos:altLabel>
         <skos:altLabel xml:lang="de">Datum der Zusammenstellung (Start)</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasCompleteness -->
@@ -1761,7 +1761,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="de">Angaben zur Vollständigkeit</skos:altLabel>
         <skos:altLabel xml:lang="en">Completeness statement</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasCountry -->
@@ -1775,7 +1775,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="en">Country</skos:altLabel>
         <skos:altLabel xml:lang="de">Land</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasCoverageEndDate -->
@@ -1789,7 +1789,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="en">Coverage end date</skos:altLabel>
         <skos:altLabel xml:lang="de">Ende der abgedeckten Zeitperiode</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasCoverageStartDate -->
@@ -1803,7 +1803,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="de">Anfang der abgedeckten Periode</skos:altLabel>
         <skos:altLabel xml:lang="en">Coverage start date</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasCreatedDate -->
@@ -1818,7 +1818,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="en">Date of creation</skos:altLabel>
         <skos:altLabel xml:lang="de">Erstellungsdatum</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasCreatedEndDate -->
@@ -1833,7 +1833,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="en">Date of creation (end)</skos:altLabel>
         <skos:altLabel xml:lang="de">Erstellungsdatum (Ende)</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasCreatedStartDate -->
@@ -1848,7 +1848,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="en">Date of creation (start)</skos:altLabel>
         <skos:altLabel xml:lang="de">Erstellungsdatum (Start)</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasDate -->
@@ -1862,7 +1862,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="en">Date</skos:altLabel>
         <skos:altLabel xml:lang="de">Datum</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasDescription -->
@@ -1876,7 +1876,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="de">Beschreibung</skos:altLabel>
         <skos:altLabel xml:lang="en">Description</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasEditorialPractice -->
@@ -1890,7 +1890,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="de">Angewendete editorische Praxis</skos:altLabel>
         <skos:altLabel xml:lang="en">Editorial practice used</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasEmail -->
@@ -1904,7 +1904,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="de">E-Mail</skos:altLabel>
         <skos:altLabel xml:lang="en">E-mail</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasEndDate -->
@@ -1918,7 +1918,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="en">End date</skos:altLabel>
         <skos:altLabel xml:lang="de">Enddatum</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasEndpoint -->
@@ -1932,7 +1932,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="de">Endpoint</skos:altLabel>
         <skos:altLabel xml:lang="en">Endpoint</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasExtent -->
@@ -1946,7 +1946,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="de">Extent</skos:altLabel>
         <skos:altLabel xml:lang="en">Umfang</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasFirstName -->
@@ -1960,7 +1960,7 @@ Indicate character encoding according to the overview of Character Sets by IANA:
         <skos:altLabel xml:lang="de">First name</skos:altLabel>
         <skos:altLabel xml:lang="en">Vorname</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier -->
@@ -1976,7 +1976,7 @@ Handles belong into acdh:hasPID and all other identifiers without URL or URI, li
         <skos:altLabel xml:lang="en">Identifier</skos:altLabel>
         <skos:altLabel xml:lang="de">Identifikator</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasLanguage -->
@@ -1989,7 +1989,7 @@ Handles belong into acdh:hasPID and all other identifiers without URL or URI, li
         <skos:altLabel xml:lang="de">Language</skos:altLabel>
         <skos:altLabel xml:lang="en">Sprache</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasLastName -->
@@ -2003,7 +2003,7 @@ Handles belong into acdh:hasPID and all other identifiers without URL or URI, li
         <skos:altLabel xml:lang="de">Last name</skos:altLabel>
         <skos:altLabel xml:lang="en">Nachname</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasLatitude -->
@@ -2015,7 +2015,7 @@ Handles belong into acdh:hasPID and all other identifiers without URL or URI, li
         <skos:altLabel xml:lang="de">Breitengrad</skos:altLabel>
         <skos:altLabel xml:lang="en">Latitude</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasLifeCycleStatus -->
@@ -2029,7 +2029,7 @@ Handles belong into acdh:hasPID and all other identifiers without URL or URI, li
         <skos:altLabel xml:lang="en">Life cycle status</skos:altLabel>
         <acdh:vocabs>https://vocabs.acdh.oeaw.ac.at/archelifecyclestatus/en/</acdh:vocabs>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasLocationPath -->
@@ -2043,7 +2043,7 @@ Handles belong into acdh:hasPID and all other identifiers without URL or URI, li
         <skos:altLabel xml:lang="de">Dateipfad</skos:altLabel>
         <skos:altLabel xml:lang="en">File path</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasLongitude -->
@@ -2055,7 +2055,7 @@ Handles belong into acdh:hasPID and all other identifiers without URL or URI, li
         <skos:altLabel xml:lang="en">Longitude</skos:altLabel>
         <skos:altLabel xml:lang="de">Längengrad</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasNamingScheme -->
@@ -2069,7 +2069,7 @@ Handles belong into acdh:hasPID and all other identifiers without URL or URI, li
         <skos:altLabel xml:lang="de">Beschreibung der verwendeten Namenskonventionen</skos:altLabel>
         <skos:altLabel xml:lang="en">Description of naming scheme used</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasNonLinkedIdentifier -->
@@ -2084,7 +2084,7 @@ Handles belong into acdh:hasPID and identifiers with stable URL or URI into achd
         <skos:altLabel xml:lang="en">Identifier without link</skos:altLabel>
         <skos:altLabel xml:lang="de">Identifikator ohne Link</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasNote -->
@@ -2098,7 +2098,7 @@ Handles belong into acdh:hasPID and identifiers with stable URL or URI into achd
         <skos:altLabel xml:lang="en">Note</skos:altLabel>
         <skos:altLabel xml:lang="de">Notiz</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasNumberOfItems -->
@@ -2112,7 +2112,7 @@ Handles belong into acdh:hasPID and identifiers with stable URL or URI into achd
         <skos:altLabel xml:lang="en">Anzahl der Elemente</skos:altLabel>
         <skos:altLabel xml:lang="de">Number of items</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasPages -->
@@ -2126,7 +2126,7 @@ Handles belong into acdh:hasPID and identifiers with stable URL or URI into achd
         <skos:altLabel xml:lang="en">Pages</skos:altLabel>
         <skos:altLabel xml:lang="de">Seiten</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasPersonalTitle -->
@@ -2138,7 +2138,7 @@ Handles belong into acdh:hasPID and identifiers with stable URL or URI into achd
         <skos:altLabel xml:lang="en">Titel</skos:altLabel>
         <skos:altLabel xml:lang="de">Title</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasPid -->
@@ -2152,7 +2152,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="en">Persistent Identifier</skos:altLabel>
         <skos:altLabel xml:lang="de">Persistenter Identifikator</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasPostcode -->
@@ -2166,7 +2166,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="en">Postcode/zip code</skos:altLabel>
         <skos:altLabel xml:lang="de">Postleitzahl</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasPublisher -->
@@ -2178,7 +2178,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="en">Publisher</skos:altLabel>
         <skos:altLabel xml:lang="de">Verlag</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasRegion -->
@@ -2192,7 +2192,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="de">Staat/Region/Provinz</skos:altLabel>
         <skos:altLabel xml:lang="en">State/region/province</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasRestrictionRole -->
@@ -2205,7 +2205,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="en">Role with access rights</skos:altLabel>
         <skos:altLabel xml:lang="de">Rolle mit Zugriffserlaubnis</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasSeriesInformation -->
@@ -2219,7 +2219,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="de">Informationen zur Reihe</skos:altLabel>
         <skos:altLabel xml:lang="en">Series information</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasStartDate -->
@@ -2233,7 +2233,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="de">Start date</skos:altLabel>
         <skos:altLabel xml:lang="de">Startdatum</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasSubmissionDate -->
@@ -2248,7 +2248,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="en">Date of submission</skos:altLabel>
         <skos:altLabel xml:lang="de">Einreichungsdatum</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasTableOfContents -->
@@ -2262,7 +2262,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="de">Inhaltsverzeichnis</skos:altLabel>
         <skos:altLabel xml:lang="en">Table of contents</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasTechnicalInfo -->
@@ -2276,7 +2276,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="en">Technical information</skos:altLabel>
         <skos:altLabel xml:lang="de">Technische Informationen</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasTemporalCoverage -->
@@ -2288,7 +2288,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="en">Temporal coverage</skos:altLabel>
         <skos:altLabel xml:lang="de">Zeitliche Abdeckung</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasTitle -->
@@ -2302,7 +2302,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="de">Titel</skos:altLabel>
         <skos:altLabel xml:lang="en">Title</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasTransferDate -->
@@ -2316,7 +2316,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="en">Date of transfer</skos:altLabel>
         <skos:altLabel xml:lang="de">Transferdatum</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasUpdatedDate -->
@@ -2331,7 +2331,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="en">Date of last update</skos:altLabel>
         <skos:altLabel xml:lang="de">Datum der letzten Aktualisierung</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasUrl -->
@@ -2345,7 +2345,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="de">URL</skos:altLabel>
         <skos:altLabel xml:lang="en">URL</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasUsedHardware -->
@@ -2357,7 +2357,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="de">Hardware</skos:altLabel>
         <skos:altLabel xml:lang="en">Hardware</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasUsedSoftware -->
@@ -2369,7 +2369,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="de">Software</skos:altLabel>
         <skos:altLabel xml:lang="en">Software</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasValidEndDate -->
@@ -2384,7 +2384,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="en">Date of validity (end)</skos:altLabel>
         <skos:altLabel xml:lang="de">Gültigkeitsdatum (Ende)</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasValidStartDate -->
@@ -2399,7 +2399,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="en">Date of validity (start)</skos:altLabel>
         <skos:altLabel xml:lang="de">Gültigkeitsdatum (Start)</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasVersion -->
@@ -2412,7 +2412,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="de">Version</skos:altLabel>
         <skos:altLabel xml:lang="en">Version</skos:altLabel>
     </owl:DatatypeProperty>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#hasWKT -->
@@ -2424,10 +2424,10 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <skos:altLabel xml:lang="de">WKT</skos:altLabel>
         <skos:altLabel xml:lang="en">WKT</skos:altLabel>
     </owl:DatatypeProperty>
+    
 
 
-
-    <!--
+    <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
     // Classes
@@ -2435,7 +2435,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-
+    
 
 
     <!-- http://www.w3.org/2004/02/skos/core#Concept -->
@@ -2443,13 +2443,13 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
     <owl:Class rdf:about="http://www.w3.org/2004/02/skos/core#Concept">
         <owl:equivalentClass rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#Concept"/>
     </owl:Class>
-
+    
 
 
     <!-- http://xmlns.com/foaf/0.1/Agent -->
 
     <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Agent"/>
-
+    
 
 
     <!-- http://xmlns.com/foaf/0.1/Organization -->
@@ -2458,7 +2458,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <owl:equivalentClass rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#Organisation"/>
         <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
     </owl:Class>
-
+    
 
 
     <!-- http://xmlns.com/foaf/0.1/Person -->
@@ -2467,7 +2467,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
         <owl:equivalentClass rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#Person"/>
         <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
     </owl:Class>
-
+    
 
 
     <!-- http://xmlns.com/foaf/0.1/Project -->
@@ -2475,7 +2475,7 @@ All other identifiers, like local assigned ones, project numbers or inventory nu
     <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Project">
         <owl:equivalentClass rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#Project"/>
     </owl:Class>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#Agent -->
@@ -2544,7 +2544,7 @@ The different roles an Agent can assume with respect to a Project, Collection, R
         <skos:altLabel xml:lang="en">Agent</skos:altLabel>
         <skos:altLabel xml:lang="de">Akteur</skos:altLabel>
     </owl:Class>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#BinaryContent -->
@@ -2553,7 +2553,7 @@ The different roles an Agent can assume with respect to a Project, Collection, R
         <rdfs:subClassOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/schema#RepoObject"/>
         <rdfs:comment xml:lang="en">Generic entity representing the items in the repository that may contain actual binary payload.</rdfs:comment>
     </owl:Class>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#Collection -->
@@ -4162,7 +4162,7 @@ The different roles an Agent can assume with respect to a Project, Collection, R
         </owl:annotatedTarget>
         <acdh:ordinality>recommended</acdh:ordinality>
     </owl:Axiom>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#Concept -->
@@ -4187,7 +4187,7 @@ This class is used to link controlled lists stored in SKOS format to object or d
         <skos:altLabel xml:lang="en">Concept</skos:altLabel>
         <skos:altLabel xml:lang="de">Konzept</skos:altLabel>
     </owl:Class>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#Image -->
@@ -4425,7 +4425,7 @@ This class is used to link controlled lists stored in SKOS format to object or d
         <skos:altLabel xml:lang="de">Bild</skos:altLabel>
         <skos:altLabel xml:lang="en">Image</skos:altLabel>
     </owl:Class>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#Metadata -->
@@ -4475,14 +4475,14 @@ This class is used to link controlled lists stored in SKOS format to object or d
                 <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">Structured information in form of a separate binary file ABOUT another Repo Object.
+        <rdfs:comment xml:lang="en">Structured information in form of a separate binary file ABOUT another Repo Object. 
 The Metadata object is linked to the RepoObject it describes with the relation acdh:hasMetadata.
 The default example is a CMDI file that describes other resources.</rdfs:comment>
         <rdfs:label xml:lang="en">Metadata</rdfs:label>
         <skos:altLabel xml:lang="en">Metadata</skos:altLabel>
         <skos:altLabel xml:lang="de">Metadaten</skos:altLabel>
     </owl:Class>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#Organisation -->
@@ -4533,7 +4533,7 @@ The default example is a CMDI file that describes other resources.</rdfs:comment
         <skos:altLabel xml:lang="de">Organisation oder Institution</skos:altLabel>
         <skos:altLabel xml:lang="en">Organisation or Institution</skos:altLabel>
     </owl:Class>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#Person -->
@@ -4571,14 +4571,14 @@ The default example is a CMDI file that describes other resources.</rdfs:comment
                 <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">An individual related in some way to a Project, Collection or Resource.
+        <rdfs:comment xml:lang="en">An individual related in some way to a Project, Collection or Resource. 
 The nature of the relation is specified by designated object properties as described in the super-class acdh:Agent.
 A Person can be linked to an Organisation by using isMember.</rdfs:comment>
         <rdfs:label xml:lang="en">Person</rdfs:label>
         <skos:altLabel xml:lang="de">Person</skos:altLabel>
         <skos:altLabel xml:lang="en">Person</skos:altLabel>
     </owl:Class>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#Place -->
@@ -4699,7 +4699,7 @@ A Person can be linked to an Organisation by using isMember.</rdfs:comment>
         <skos:altLabel xml:lang="de">Ort</skos:altLabel>
         <skos:altLabel xml:lang="en">Place</skos:altLabel>
     </owl:Class>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#Project -->
@@ -4980,7 +4980,7 @@ Note that though a Project might (and usually will) use or produce data, it is N
         <skos:altLabel xml:lang="en">Project</skos:altLabel>
         <skos:altLabel xml:lang="de">Projekt</skos:altLabel>
     </owl:Class>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#Publication -->
@@ -5127,7 +5127,7 @@ Note that though a Project might (and usually will) use or produce data, it is N
         <skos:altLabel xml:lang="en">Publication</skos:altLabel>
         <skos:altLabel xml:lang="de">Publikation</skos:altLabel>
     </owl:Class>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#RepoObject -->
@@ -5137,7 +5137,7 @@ Note that though a Project might (and usually will) use or produce data, it is N
         <rdfs:comment xml:lang="en">Note that other classes, especially Project, are not considered subclasses of Repo Object.</rdfs:comment>
         <rdfs:label>Repo Object</rdfs:label>
     </owl:Class>
-
+    
 
 
     <!-- https://vocabs.acdh.oeaw.ac.at/schema#Resource -->
@@ -5695,3 +5695,4 @@ Note that though a Project might (and usually will) use or produce data, it is N
 
 
 <!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

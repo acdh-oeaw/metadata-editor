@@ -21,7 +21,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .AppBar {
-  position: fixed;
+  position: absolute;
   top: 0px;
   left: 0px;
   height: 100vh;
