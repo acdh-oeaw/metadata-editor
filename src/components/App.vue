@@ -1,19 +1,24 @@
 <template>
   <div class="">
-    <transition :duration="200" name="slideLeft" >
-      <FundamentAppBar :menu="menu" v-if="appbar"></FundamentAppBar>
-    </transition>
-    <transition :duration="500" name="slideUp" >
-      <FundamentNav :menu="menu" v-if="!appbar"></FundamentNav>
-    </transition>
     <div class="appbartoggle" v-on:click="appbar = !appbar">
       <i class="fas fa-arrow-right"  style="color:#000000" v-if="!appbar"></i>
       <i class="fas fa-arrow-left" style="color:#ffffff" v-if="appbar"></i>
     </div>
-    <transition :duration="500" name="fadeUp">
-      <router-view name="Content"></router-view>
-    </transition>
-    <FundamentFooter></FundamentFooter>
+    <div style="display: flex; flex-direction: row; ">
+      <transition :duration="200" name="slideLeft" >
+        <FundamentAppBar :menu="menu" v-if="appbar"></FundamentAppBar>
+      </transition>
+      <div style="display: flex; flex-direction: column;width:100%;">
+        <transition :duration="500" name="slideUp" >
+          <FundamentNav :menu="menu" v-if="!appbar"></FundamentNav>
+        </transition>
+        <transition :duration="500" name="fadeUp">
+          <router-view name="Content"></router-view>
+          <router-view name="ToolBar"></router-view>
+        </transition>
+        <FundamentFooter></FundamentFooter>
+      </div>
+    </div>
     <!-- Modals -->
     <!-- store recovery -->
     <b-modal @ok="clearStore()" v-model="modalShow" hide-footer id="askForStore" title="Session Recovery">
@@ -122,8 +127,8 @@
 <style scoped>
   .appbartoggle {
     position: fixed;
-    top:10px;
-    left: 10px;
+    top:20px;
+    left: 20px;
     z-index: 1000000;
     font-size: xx-large;
     cursor: pointer;

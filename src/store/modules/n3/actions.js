@@ -23,12 +23,14 @@ const actions = {
   /* special action to remove the prefixes n3.js automatically adds when parsing
      blank namespaces before adding the triple, never called directly
      see http://rubenverborgh.github.io/N3.js/docs/N3Store.html#section-124 */
-  AddFilteredTriple({ state }, triple) {
+  AddFilteredTriple({ state, commit }, triple) {
     state.store.addTriple(
       RemovePrefix(triple.subject),
       triple.predicate,
       RemovePrefix(triple.object),
     );
+    commit('updateTripleCount');
+    commit('updateSubject');
   },
   /* high lvl action parsing a TTL file into triples and subsequently
      saving it to the N3.js store   */
@@ -56,17 +58,19 @@ const actions = {
       predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
       object: schema.id,
     };
-    dispatch('AddTriple', first);
+    console.log(first);
+    dispatch('AddFilteredTriple', first);
     const keys = Object.keys(obj);
     const values = Object.values(obj);
     for (let k = 0; k < keys.length; k += 1) {
       if (values[k]) {
         const triple = {
           subject,
-          predicate: keys[k],
-          object: values[k],
+          predicate: `https://vocabs.acdh.oeaw.ac.at/schema#${keys[k]}`,
+          object: `"${values[k]}"`,
         };
-        dispatch('AddTriple', triple);
+        console.log(triple);
+        dispatch('AddFilteredTriple', triple);
       }
     }
     dispatch('writeTTL');
@@ -76,9 +80,10 @@ const actions = {
   },
   writeTTL({ state, commit }) {
     const triples = state.store.getTriples();
+    console.log(triples);
     state.writer.addTriples(triples);
     state.writer.end((error, result) => {
-      console.log('allbac');
+      console.log('allbac', result);
       commit('updateTtlString', result);
       commit('resetWriter');
     });

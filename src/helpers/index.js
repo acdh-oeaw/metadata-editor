@@ -16,7 +16,7 @@ const CONFIG = {
       PUBLICATIONS: 'publications/',
       METADATA: 'getMetadata/',
     },
-    TIMEOUT: 5000,
+    TIMEOUT: 15000,
     PARAMS: {
       _format: 'json',
     },

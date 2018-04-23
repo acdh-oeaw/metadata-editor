@@ -1,11 +1,7 @@
 <template>
-  <div class="AppBar">
-    <b-nav vertical class="w-25" type="light">
-      <b-nav-item class="nav-item active" v-for="item in menu.menu" :key="item.caption">
-        <b-link class="nav-link" :to="item.startpage"><i :class="item.icon"></i></b-link>
-      </b-nav-item>
-    </b-nav>
-  </div>
+<div class="AppBar">
+
+</div>
 </template>
 
 <script>
@@ -25,9 +21,6 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .AppBar {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;  
   top: 0px;
   left: 0px;
   height: 100vh;
