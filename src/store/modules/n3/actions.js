@@ -1,4 +1,6 @@
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable no-useless-escape */
+/* eslint-disable comma-spacing */
 
 // const d = new Date();
 
@@ -9,6 +11,10 @@ function RemovePrefix(str) {
   }
   return str;
 }
+
+const urlpattern = /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
+const newobjpattern = /_:.*/;
+
 
 const actions = {
   AddTriple({ state, commit }, triple) {
@@ -67,9 +73,10 @@ const actions = {
         const triple = {
           subject,
           predicate: `https://vocabs.acdh.oeaw.ac.at/schema#${keys[k]}`,
-          object: `"${values[k]}"`,
         };
-        console.log(triple);
+        if (urlpattern.test(values[k]) || newobjpattern.test(values[k])) {
+          triple.object = values[k];
+        } else triple.object = `"${values[k]}"`;
         dispatch('AddFilteredTriple', triple);
       }
     }
@@ -80,10 +87,8 @@ const actions = {
   },
   writeTTL({ state, commit }) {
     const triples = state.store.getTriples();
-    console.log(triples);
     state.writer.addTriples(triples);
     state.writer.end((error, result) => {
-      console.log('allbac', result);
       commit('updateTtlString', result);
       commit('resetWriter');
     });
