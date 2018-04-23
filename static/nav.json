@@ -1,6 +1,6 @@
 {
-	"logo":"",
-	"title":"",
+	"logo":"/static/fundament_logo.svg",
+	"title":"MetaDataEditor",
 	"menu":
 		[
 			{
@@ -8,7 +8,11 @@
 				"arialabel":"",
 				"icon":"fas fa-home",
 				"abstract":"",
-				"startpage":"{ name: 'start', params: { lang: 'en' }}",
+				"startpage":{
+					"name": "start",
+					"params": {
+						"lang": "en" }
+					},
 				"items":""
 			},
 			{
@@ -16,7 +20,11 @@
 				"arialabel":"",
 				"icon":"fas fa-share-alt",
 				"abstract":"",
-				"startpage":"{ name: 'store', params: { lang: 'en' }}",
+				"startpage":{
+					"name": "store",
+					"params": {
+						"lang": "en" }
+					},
 				"items":""
 			},
 			{
@@ -24,7 +32,11 @@
 				"arialabel":"",
 				"icon":"fas fa-edit",
 				"abstract":"",
-				"startpage":"{ name: 'start', params: { lang: 'en' }}",
+				"startpage":{
+					"name": "create",
+					"params": {
+						"lang": "en" }
+					},
 				"items":""
 			},
 			{
@@ -32,9 +44,13 @@
 				"arialabel":"",
 				"icon":"fas fa-sitemap",
 				"abstract":"",
-				"startpage":"{ name: 'start', params: { lang: 'en' }}",
+				"startpage":{
+					"name": "schema",
+					"params": {
+						"lang": "en" }
+					},
 				"items":""
-			},
+			}
 		],
-	"repo":"",
+	"repo":""
 }

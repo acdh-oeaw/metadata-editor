@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <FundamentNav></FundamentNav>
+    <FundamentNav :menu="menu"></FundamentNav>
     <router-view name="Content"></router-view>
     <FundamentFooter></FundamentFooter>
     <!-- Modals -->
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+  import axios from 'axios';
   import { mapActions, mapMutations } from 'vuex';
   import FundamentNav from './FundamentNav';
   import FundamentFooter from './FundamentFooter';
@@ -47,6 +48,7 @@
     mixins: [HELPERS],
     data() {
       return {
+        menu: {},
         date: '',
         modalShow: false,
         latestSession: null,
@@ -83,6 +85,13 @@
       },
     },
     created() {
+      axios.get('/static/nav.json')
+        .then((response) => {
+          this.menu = response.data;
+        })
+        .catch((error) => {
+          this.$log(error);
+        });
       this.setOntology('static/acdh-schema.owl');
       this.latestSession = this.getLatestSession();
       if (this.latestSession) {

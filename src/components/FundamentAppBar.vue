@@ -33,7 +33,12 @@
 </template>
 
 <script>
+  import HELPERS from '../helpers';
   export default {
+    mixins: [HELPERS],
+    props: [
+      'menu',
+    ],
     data() {
       return {
         menu: '',
