@@ -1,6 +1,11 @@
 {
 	"logo":"/static/fundament_logo.svg",
 	"title":"MetaDataEditor",
+	"homestate":{
+		"name": "start",
+		"params": {
+			"lang": "en" }
+		},
 	"menu":
 		[
 			{
