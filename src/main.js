@@ -6,6 +6,7 @@ import BootstrapVue from 'bootstrap-vue';
 import vSelect from 'vue-select';
 import { sync } from 'vuex-router-sync';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'vue2-animate/dist/vue2-animate.min.css';
 import store from './store/index';
 import router from './router';
 import './assets/fundament.min.css';

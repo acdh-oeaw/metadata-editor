@@ -1,12 +1,18 @@
 <template>
   <div class="">
-    <FundamentAppBar :menu="menu" v-if="appbar"></FundamentAppBar>
-    <FundamentNav :menu="menu" v-if="!appbar"></FundamentNav>
+    <transition :duration="200" name="slideLeft" >
+      <FundamentAppBar :menu="menu" v-if="appbar"></FundamentAppBar>
+    </transition>
+    <transition :duration="500" name="slideUp" >
+      <FundamentNav :menu="menu" v-if="!appbar"></FundamentNav>
+    </transition>
     <div class="appbartoggle" v-on:click="appbar = !appbar">
       <i class="fas fa-arrow-right"  style="color:#000000" v-if="!appbar"></i>
       <i class="fas fa-arrow-left" style="color:#ffffff" v-if="appbar"></i>
     </div>
-    <router-view name="Content"></router-view>
+    <transition :duration="500" name="fadeUp">
+      <router-view name="Content"></router-view>
+    </transition>
     <FundamentFooter></FundamentFooter>
     <!-- Modals -->
     <!-- store recovery -->

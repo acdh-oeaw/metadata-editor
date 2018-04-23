@@ -25,7 +25,7 @@
   top: 0px;
   left: 0px;
   height: 100vh;
-  width: 75px;
+  width: 100px;
   background-color: #88dbdf;
   z-index: 10000;
 }
