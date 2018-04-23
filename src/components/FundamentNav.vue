@@ -1,5 +1,5 @@
 <template>
-<b-navbar toggleable="md" type="light" class="fixed-top bg-white box-shadow" v-if="menu">
+<b-navbar toggleable="md" type="light" sticky class="bg-white box-shadow" v-if="menu">
   <div class="container">
     <b-link class="navbar-brand" :to="menu.homestate">
       <img class="mr-2" :src="menu.logo" height="35px" alt="" />

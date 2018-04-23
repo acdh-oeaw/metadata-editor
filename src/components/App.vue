@@ -1,6 +1,11 @@
 <template>
   <div class="">
-    <FundamentNav :menu="menu"></FundamentNav>
+    <FundamentAppBar :menu="menu" v-if="appbar"></FundamentAppBar>
+    <FundamentNav :menu="menu" v-if="!appbar"></FundamentNav>
+    <div class="appbartoggle" v-on:click="appbar = !appbar">
+      <i class="fas fa-arrow-right"  style="color:#000000" v-if="!appbar"></i>
+      <i class="fas fa-arrow-left" style="color:#ffffff" v-if="appbar"></i>
+    </div>
     <router-view name="Content"></router-view>
     <FundamentFooter></FundamentFooter>
     <!-- Modals -->
@@ -37,6 +42,7 @@
   import { mapActions, mapMutations } from 'vuex';
   import FundamentNav from './FundamentNav';
   import FundamentFooter from './FundamentFooter';
+  import FundamentAppBar from './FundamentAppBar';
   import HELPERS from '../helpers';
 
   /* eslint no-console: ["error", { allow: ["log"] }] */
@@ -46,12 +52,14 @@
     components: {
       FundamentNav,
       FundamentFooter,
+      FundamentAppBar,
     },
     mixins: [HELPERS],
     data() {
       return {
         menu: {},
         date: '',
+        appbar: false,
         modalShow: false,
         latestSession: null,
       };
@@ -104,3 +112,14 @@
     },
   };
 </script>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+  .appbartoggle {
+    position: fixed;
+    top:10px;
+    left: 10px;
+    z-index: 1000000;
+    font-size: xx-large;
+    cursor: pointer;
+  }
+</style>
