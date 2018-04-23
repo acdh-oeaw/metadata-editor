@@ -40,6 +40,8 @@
   import HELPERS from '../helpers';
 
   /* eslint no-console: ["error", { allow: ["log"] }] */
+  /* eslint no-return-assign: "off" */
+
   export default {
     components: {
       FundamentNav,
@@ -86,12 +88,8 @@
     },
     created() {
       axios.get('/static/nav.json')
-        .then((response) => {
-          this.menu = response.data;
-        })
-        .catch((error) => {
-          this.$log(error);
-        });
+        .then(res => (this.menu = res.data))
+        .catch(error => this.$log(error));
       this.setOntology('static/acdh-schema.owl');
       this.latestSession = this.getLatestSession();
       if (this.latestSession) {
