@@ -9,12 +9,9 @@
         <FundamentAppBar :menu="menu" v-if="appbar"></FundamentAppBar>
       </transition>
       <div style="display: flex; flex-direction: column;width:100%;">
-        <transition :duration="500" name="slideUp" >
-          <FundamentNav :menu="menu" v-if="!appbar"></FundamentNav>
-        </transition>
-        <transition :duration="500" name="fadeUp">
+        <FundamentNav :menu="menu" v-if="!appbar"></FundamentNav>
+        <transition :duration="1000" name="slideUp" >
           <router-view name="Content"></router-view>
-          <router-view name="ToolBar"></router-view>
         </transition>
         <FundamentFooter></FundamentFooter>
       </div>
