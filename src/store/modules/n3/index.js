@@ -3,11 +3,18 @@ import mutations from './mutations';
 
 const N3 = require('./n3-browser.js');
 
+const prefixes = {
+  acdh: 'https://vocabs.acdh.oeaw.ac.at/schema#',
+  acdhi: 'https://id.acdh.oeaw.ac.at/',
+};
+
+
 const state = {
   module: N3.N3,
   store: N3.N3.Store(),
   parser: N3.N3.Parser(),
-  writer: N3.N3.Writer(null, {}),
+  prefixes,
+  writer: N3.N3.Writer(null, { prefixes }),
   tripleCount: 0,
   subjects: {},
   processing: false,

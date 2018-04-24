@@ -11,7 +11,7 @@
       <div style="display: flex; flex-direction: column;width:100%;">
         <FundamentNav :menu="menu" v-if="!appbar"></FundamentNav>
         <div class="mt-3">
-          <transition :duration="500" name="fadeUp" mode="out-in">
+          <transition :duration="250" name="fadeUp" mode="out-in">
             <router-view name="Content"></router-view>
           </transition>
         </div>

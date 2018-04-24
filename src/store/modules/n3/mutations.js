@@ -34,7 +34,7 @@ const mutations = {
     dispatch('StringToStore', state.ttlString);
   }, */
   resetWriter(s) {
-    s.writer = s.module.Writer(null, {});
+    s.writer = s.module.Writer(null, { prefixes: { acdh: 'https://vocabs.acdh.oeaw.ac.at/schema#' } });
   },
 };
 

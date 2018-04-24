@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Axios from 'axios';
 import VueAxios from 'vue-axios';
-import createLogger from 'vuex/dist/logger';
+// import createLogger from 'vuex/dist/logger';
 import jowl from './modules/jowl/index';
 import n3 from './modules/n3/index';
 import JSONschema from './modules/JSONschema/index';
@@ -14,7 +14,7 @@ Vue.use(VueAxios, Axios);
 
 
 if (process.env.NODE_ENV !== 'production') {
-  plugins.push(createLogger());
+  // plugins.push(createLogger());
 }
 
 export default new Vuex.Store({

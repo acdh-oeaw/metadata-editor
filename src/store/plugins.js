@@ -29,10 +29,9 @@ function isQuotaExceeded(e) {
 }
 
 
-// helper function for filtering for üroperties that need to be persistent.
+// helper function for filtering for properties that need to be persistent.
 function filterForPersistantProperties(stateObj) {
   const result = {};
-
   const modules = Object.keys(stateObj);
   // const values = Object.values(stateObj); // obj: {name: value }
   for (let k = 0; k < modules.length; k += 1) {
@@ -62,22 +61,23 @@ const localStoragePlugin = store => {
   } catch (e) {
     // Access denied :-(
   }
-
   if (localStorage) {
     store.subscribe((mutation, state) => {
-      const pState = filterForPersistantProperties(state);
-      const currentStore = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '{}');
-      const now = Date.now();
-      currentStore[SESSION_ID] = { pState,
-        date: now,
-        dateString: dateToString(new Date(now)),
-      };
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(currentStore));
-      } catch (e) {
-        if (isQuotaExceeded(e)) {
-          // Storage full, maybe notify user or do some clean-up
-
+      if (mutation.type === 'n3/stopProcessing') {
+        const pState = filterForPersistantProperties(state);
+        const currentStore = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '{}');
+        const now = Date.now();
+        currentStore[SESSION_ID] = { pState,
+          date: now,
+          dateString: dateToString(new Date(now)),
+        };
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(currentStore));
+        } catch (e) {
+          console.log(e);
+          if (isQuotaExceeded(e)) {
+            // Storage full, maybe notify user or do some clean-up
+          }
         }
       }
     });
