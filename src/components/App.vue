@@ -5,15 +5,16 @@
       <i class="fas fa-arrow-left" style="color:#ffffff" v-if="appbar"></i>
     </div>
     <div style="display: flex; flex-direction: row; ">
-      <transition :duration="200" name="slideLeft" >
+      <transition :duration="200" name="slideLeft" mode="out-in">
         <FundamentAppBar :menu="menu" v-if="appbar"></FundamentAppBar>
       </transition>
       <div style="display: flex; flex-direction: column;width:100%;">
         <FundamentNav :menu="menu" v-if="!appbar"></FundamentNav>
-        <transition :duration="1000" name="slideUp" >
-          <router-view name="Content"></router-view>
-        </transition>
-        <FundamentFooter></FundamentFooter>
+        <div class="mt-3">
+          <transition :duration="500" name="fadeUp" mode="out-in">
+            <router-view name="Content"></router-view>
+          </transition>
+        </div>
       </div>
     </div>
     <!-- Modals -->
@@ -49,7 +50,6 @@
   import axios from 'axios';
   import { mapActions, mapMutations } from 'vuex';
   import FundamentNav from './FundamentNav';
-  import FundamentFooter from './FundamentFooter';
   import FundamentAppBar from './FundamentAppBar';
   import HELPERS from '../helpers';
 
@@ -59,7 +59,6 @@
   export default {
     components: {
       FundamentNav,
-      FundamentFooter,
       FundamentAppBar,
     },
     mixins: [HELPERS],
