@@ -1,5 +1,5 @@
 <template>
-<div class="AppBar">
+<div class="ToolBar">
 
 </div>
 </template>
@@ -22,10 +22,9 @@
 <style scoped>
 .AppBar {
   top: 0px;
-  left: 0px;
+  right: 0px;
   height: 100vh;
-  width: 100px;
-  background-color: #88dbdf;
+  width: 300px;  
   z-index: 10000;
 }
 </style>
