@@ -27,14 +27,11 @@ const mutations = {
   updateTtlString(s, ttlString) {
     s.ttlString = ttlString;
   },
-  /* constructN3(s, { pState }) {
-    for (let i = 0; i < state.p.length; i += 1) {
-      state[state.p[i]] = pState.n3[state.p[i]];
-    }
-    dispatch('StringToStore', state.ttlString);
-  }, */
   resetWriter(s) {
     s.writer = s.module.Writer(null, { prefixes: { acdh: 'https://vocabs.acdh.oeaw.ac.at/schema#' } });
+  },
+  updateStorageStatus(s) {
+    s.stored = false;
   },
 };
 

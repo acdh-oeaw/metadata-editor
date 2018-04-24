@@ -21,6 +21,7 @@ const state = {
   processingMessage: '',
   ttlString: '',
   p: ['ttlString'],
+  stored: true,
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */

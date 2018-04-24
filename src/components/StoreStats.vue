@@ -9,6 +9,8 @@
     <div class="bd-toc-item">
       {{ Object.keys($store.state.n3.subjects).length }} Subjects
     </div>
+    <b-alert variant="success" show v-if="$store.state.n3.stored">All Stored</b-alert>
+    <b-alert variant="danger" show v-if="!$store.state.n3.stored">Quota Exceeded</b-alert>
     <div class="bd-toc-item">
       <b-button-group vertical>
         <b-button  @click="downloadBlob" variant="primary">Download</b-button>
