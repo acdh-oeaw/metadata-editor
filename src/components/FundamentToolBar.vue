@@ -1,6 +1,6 @@
 <template>
 <div class="AppBar bg-white box-shadow">
-  <Storetree></Storetree>
+  <Storetree :model="tree"></Storetree>
   <Storestats></Storestats>
 </div>
 </template>
@@ -21,6 +21,34 @@
     ],
     data() {
       return {
+        tree: {
+          name: 'My Tree',
+          children: [
+            { name: 'hello' },
+            { name: 'wat' },
+            {
+              name: 'child folder',
+              children: [
+                {
+                  name: 'child folder',
+                  children: [
+                    { name: 'hello' },
+                    { name: 'wat' },
+                  ],
+                },
+                { name: 'hello' },
+                { name: 'wat' },
+                {
+                  name: 'child folder',
+                  children: [
+                    { name: 'hello' },
+                    { name: 'wat' },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
       };
     },
   };
