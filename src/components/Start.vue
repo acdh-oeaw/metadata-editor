@@ -12,11 +12,9 @@
       </div>
       <div class="container">
         <div class="row">
-
           <div class="col-md-12">
             <h5 class="row-heading pb-2 mb-3 border-bottom"><i class="fas fa-plug"></i> Get Started</h5>
           </div>
-
           <div class="col-md-6">
             <div class="card flex-md-row mb-4 box-shadow">
               <div class="card-body">

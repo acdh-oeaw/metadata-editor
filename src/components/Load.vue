@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import HELPERS from '../helpers';
 /* eslint no-unused-vars: ["error", {"args": "none"}] */
@@ -42,6 +42,9 @@ export default {
     ...mapActions('n3', [
       'StringToStore',
     ]),
+    ...mapMutations('app', [
+      'toggleMode',
+    ]),
     onFileChange(e) {
       this.$info('Load', 'onFileChange(e)', e);
       const files = e.target.files || e.dataTransfer.files;
@@ -53,7 +56,7 @@ export default {
       const reader = new FileReader();
       reader.onload = (e) => {
         this.StringToStore(e.target.result);
-        // this.file = this.parseFromTtl(e.target.result);
+        this.toggleMode();
       };
       reader.readAsText(file);
     },

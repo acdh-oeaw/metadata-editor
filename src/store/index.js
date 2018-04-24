@@ -6,6 +6,7 @@ import VueAxios from 'vue-axios';
 import jowl from './modules/jowl/index';
 import n3 from './modules/n3/index';
 import JSONschema from './modules/JSONschema/index';
+import app from './modules/app/index';
 import plugins from './plugins';
 
 
@@ -22,6 +23,7 @@ export default new Vuex.Store({
     jowl,
     n3,
     JSONschema,
+    app,
   },
   plugins,
   strict: false,

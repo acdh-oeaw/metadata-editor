@@ -1,25 +1,30 @@
 <template>
-    <main class="grid-col" role="main">
-      <div class="container">
-        <div class="main-content row flex-xl-nowrap bg-white box-shadow element-border">
-          <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
-            <Storestats></Storestats>
-          </div>
-          <div class="col-12 col-md-9 col-xl-10 page-content-w-sidebar">
-            <b-tabs>
-              <b-tab title="Load File" active>
-                <br>
-                <Load></Load>
-              </b-tab>
-              <b-tab title="Entities" :disabled="$store.state.n3.subjects.length <= 0">
-                <Entities></Entities>
-                <br>
-              </b-tab>
-            </b-tabs>
+    <div style="display: flex; flex-direction: row;">
+      <main class="grid-col" role="main">
+        <div class="container">
+          <div class="main-content row flex-xl-nowrap bg-white box-shadow element-border">
+            <div class="col-12 col-md-9 col-xl-10 page-content-w-sidebar">
+              <b-tabs>
+                <b-tab title="Load File" active>
+                  <br>
+                  <Load></Load>
+                </b-tab>
+                <b-tab title="Entities" :disabled="$store.state.n3.subjects.length <= 0">
+                  <Entities></Entities>
+                  <br>
+                </b-tab>
+              </b-tabs>
+            </div>
           </div>
         </div>
+      </main>
+      <div >
+        <transition :duration="200" name="slideRight" mode="out-in">
+          <FundamentToolBar v-if="$store.state.app.toolbar"></FundamentToolBar>
+        </transition>
       </div>
-    </main>
+    </div>
+
 </template>
 
 <script>
@@ -28,6 +33,7 @@ import { mapActions, mapGetters } from 'vuex';
 import Load from './Load';
 import Storestats from './StoreStats';
 import Entities from './Entities';
+import FundamentToolBar from './FundamentToolBar';
 import HELPERS from '../helpers';
 /* eslint no-unused-vars: ["error", {"args": "none"}] */
 /* eslint no-console: ["error", { allow: ["log"] }] */
@@ -38,6 +44,7 @@ export default {
     Load,
     Entities,
     Storestats,
+    FundamentToolBar,
   },
   data() {
     return {
@@ -78,4 +85,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .grid-col {
+    width: calc(100% - 300px);
+  }
 </style>

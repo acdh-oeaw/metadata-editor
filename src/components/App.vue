@@ -1,15 +1,15 @@
 <template>
   <div class="">
-    <div class="appbartoggle" v-on:click="appbar = !appbar">
-      <i class="fas fa-arrow-right"  style="color:#000000" v-if="!appbar"></i>
-      <i class="fas fa-arrow-left" style="color:#ffffff" v-if="appbar"></i>
+    <div class="appbartoggle" v-on:click="toggleMode">
+      <i class="fas fa-arrow-right"  style="color:#000000" v-if="!$store.state.app.appbar"></i>
+      <i class="fas fa-arrow-left" style="color:#ffffff" v-if="$store.state.app.appbar"></i>
     </div>
     <div style="display: flex; flex-direction: row; ">
       <transition :duration="200" name="slideLeft" mode="out-in">
-        <FundamentAppBar :menu="menu" v-if="appbar"></FundamentAppBar>
+        <FundamentAppBar :menu="menu" v-if="$store.state.app.appbar"></FundamentAppBar>
       </transition>
       <div style="display: flex; flex-direction: column;width:100%;">
-        <FundamentNav :menu="menu" v-if="!appbar"></FundamentNav>
+        <FundamentNav :menu="menu" v-if="!$store.state.app.appbar"></FundamentNav>
         <div class="mt-3">
           <transition :duration="250" name="fadeUp" mode="out-in">
             <router-view name="Content"></router-view>
@@ -81,6 +81,9 @@
       ]),
       ...mapActions('n3', [
         'constructN3',
+      ]),
+      ...mapMutations('app', [
+        'toggleMode',
       ]),
       clearStore() {
         this.$info('clearStore');

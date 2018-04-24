@@ -1,24 +1,26 @@
 <template>
-  <nav class="collapse bd-links" id="bd-docs-nav">
-    <div class="bd-toc-item">
-      <a class="bd-toc-link" href="#">Store Stats</a>
-    </div>
-    <div class="bd-toc-item">
-      {{ $store.state.n3.tripleCount }} Triples
-    </div>
-    <div class="bd-toc-item">
-      {{ Object.keys($store.state.n3.subjects).length }} Subjects
-    </div>
-    <b-alert variant="success" show v-if="$store.state.n3.stored">All Stored</b-alert>
-    <b-alert variant="danger" show v-if="!$store.state.n3.stored">Quota Exceeded</b-alert>
-    <div class="bd-toc-item">
-      <b-button-group vertical>
-        <b-button  @click="downloadBlob" variant="primary">Download</b-button>
-        <b-button  disabled variant="light"></b-button>
-        <b-button  v-b-modal="'clearCacheModal'" variant="danger">Clear Store</b-button>
-      </b-button-group>
-    </div>
-  </nav>
+  <div style="height: 50%;overflow: auto;">
+    <nav class="collapse bd-links" id="bd-docs-nav">
+      <div class="bd-toc-item">
+        <a class="bd-toc-link" href="#">Store Stats</a>
+      </div>
+      <div class="bd-toc-item">
+        {{ $store.state.n3.tripleCount }} Triples
+      </div>
+      <div class="bd-toc-item">
+        {{ Object.keys($store.state.n3.subjects).length }} Subjects
+      </div>
+      <b-alert variant="success" show v-if="$store.state.n3.stored">All Stored</b-alert>
+      <b-alert variant="danger" show v-if="!$store.state.n3.stored">Quota Exceeded</b-alert>
+      <div class="bd-toc-item">
+        <b-button-group vertical>
+          <b-button  @click="downloadBlob" variant="primary">Download</b-button>
+          <b-button  disabled variant="light"></b-button>
+          <b-button  v-b-modal="'clearCacheModal'" variant="danger">Clear Store</b-button>
+        </b-button-group>
+      </div>
+    </nav>
+  </div>
 </template>
 
 <script>
@@ -53,4 +55,7 @@ export default {
 </script>
 
 <style scoped>
+  .bd-links {
+    margin: 15px;
+  }
 </style>
