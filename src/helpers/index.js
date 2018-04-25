@@ -190,6 +190,10 @@ export default {
       const d = datum.substring(6);
       return `${d}/${m}/${y}`;
     },
+    clearStore() {
+      this.$info('clearStore');
+      this.clearCache();
+    },
   },
   created() {
     this.$info('Helpers', 'created');
