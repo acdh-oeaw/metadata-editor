@@ -73,9 +73,10 @@ const localStoragePlugin = store => {
         };
         try {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(currentStore));
+          store.commit('n3/updateStorageStatus', false);
         } catch (e) {
           if (isQuotaExceeded(e)) {
-            store.commit('n3/updateStorageStatus');
+            store.commit('n3/updateStorageStatus', false);
             // Storage full, maybe notify user or do some clean-up
           }
         }

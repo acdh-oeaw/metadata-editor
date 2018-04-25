@@ -30,8 +30,8 @@ const mutations = {
   resetWriter(s) {
     s.writer = s.module.Writer(null, { prefixes: { acdh: 'https://vocabs.acdh.oeaw.ac.at/schema#' } });
   },
-  updateStorageStatus(s) {
-    s.stored = false;
+  updateStorageStatus(s, bool) {
+    s.stored = bool;
   },
 };
 
