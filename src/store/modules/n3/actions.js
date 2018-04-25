@@ -60,7 +60,7 @@ const actions = {
       predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
       object: schema.id,
     };
-    console.log(first);
+    this._vm.$log(first);
     dispatch('AddFilteredTriple', first);
     const keys = Object.keys(obj);
     const values = Object.values(obj);
