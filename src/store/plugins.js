@@ -73,7 +73,7 @@ const localStoragePlugin = store => {
         };
         try {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(currentStore));
-          store.commit('n3/updateStorageStatus', false);
+          store.commit('n3/updateStorageStatus', true);
         } catch (e) {
           if (isQuotaExceeded(e)) {
             store.commit('n3/updateStorageStatus', false);
