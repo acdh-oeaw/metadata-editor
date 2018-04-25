@@ -1,6 +1,6 @@
 <template lang="html">
     <b-modal @ok="clearStore()" v-model="modalShow" hide-footer id="askForStore" title="Session Recovery">
-      <p class="my-4">Hey! you have an old session. It is from {{date}} (dd/mm/yy). Do you want to restore it?</p>
+      <p class="my-4">Hey! you have an old session. It is from {{date}} (DD/MM/YY hh:mm:ss). Do you want to restore it?</p>
       <b-button @click="restore" size="lg" variant="primary">
         Recover
       </b-button>
