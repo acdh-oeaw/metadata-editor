@@ -10,6 +10,14 @@
       <div class="bd-toc-item">
         {{ Object.keys($store.state.n3.subjects).length }} Subjects
       </div>
+
+      <div class="bd-toc-item">
+        {{ $store.state.localStorageInfo.localStorageLimit }}: Storage Capacity
+        <b-progress :value="$store.state.localStorageInfo.currentStoreLength/$store.state.localStorageInfo.localStorageLimit" max="1" show-progress animated></b-progress>
+      </div>
+      <div class="bd-toc-item">
+        {{ (""+($store.state.localStorageInfo.currentStoreLength *100/ $store.state.localStorageInfo.localStorageLimit)).substring(0,4) }}% Capacity used
+      </div>
       <b-alert variant="success" show v-if="$store.state.n3.stored">All Stored</b-alert>
       <b-alert variant="danger" show v-if="!$store.state.n3.stored">Quota Exceeded</b-alert>
       <div class="bd-toc-item">
@@ -17,6 +25,8 @@
           <b-button  @click="downloadBlob" variant="primary">Download</b-button>
           <b-button  disabled variant="light"></b-button>
           <b-button  v-b-modal="'clearCacheModal'" variant="danger">Clear Store</b-button>
+          <b-button  disabled variant="light"></b-button>
+          <b-button @click="safeLimitTest()">testStoreLimit</b-button>
         </b-button-group>
       </div>
     </nav>
@@ -24,7 +34,7 @@
 </template>
 
 <script>
-
+import { mapActions } from 'vuex';
 import HELPERS from '../helpers';
 
 export default {
@@ -50,6 +60,10 @@ export default {
 
       downloadLink.click();
     },
+    ...mapActions([
+      'safeLimitTest',
+      'testLimit',
+    ]),
   },
 };
 </script>
@@ -57,5 +71,8 @@ export default {
 <style scoped>
   .bd-links {
     margin: 15px;
+  }
+  b-progress {
+    width: 100px;
   }
 </style>

@@ -14,7 +14,6 @@
             <AutocompArche :type='val.toUpperCase()' :name='val' v-model="testModel" v-if="val === 'Metadata'"></AutocompArche>
             <AutocompArche :type='val.toUpperCase()+"S"' :name='val' v-model="testModel" v-else></AutocompArche>
             {{testModel}}
-
             <h1><a id="Cards_0"></a>Form From Schema</h1>
             <p>Testing Form from Schema</p>
             <FormFromSchema :uniqueName="val" :type="val"></FormFromSchema>
@@ -47,7 +46,8 @@ export default {
       endpoints: ['Person', 'Organisation', 'Place', 'Concept', 'Publication', 'Metadata'],
     };
   },
-  methods: {},
+  methods: {
+  },
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

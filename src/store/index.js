@@ -7,6 +7,7 @@ import jowl from './modules/jowl/index';
 import n3 from './modules/n3/index';
 import JSONschema from './modules/JSONschema/index';
 import app from './modules/app/index';
+import localStorageInfo from './modules/localStorageInfo/index';
 import plugins from './plugins';
 
 
@@ -24,6 +25,7 @@ export default new Vuex.Store({
     n3,
     JSONschema,
     app,
+    localStorageInfo,
   },
   plugins,
   strict: false,

@@ -17,9 +17,10 @@
         </div>
       </div>
     </div>
-    <!-- Modals -->
+
+    <!-- Modals to be moved to own components.-->
     <!-- store recovery -->
-    <b-modal @ok="clearStore()" v-model="modalShow" hide-footer id="askForStore" title="Session Recovery">
+    <b-modal v-model="modalShow" hide-footer id="askForStore" title="Session Recovery">
       <p class="my-4">Hey! you have an old session. It is from {{date}} (dd/mm/yy). Do you want to restore it?</p>
       <b-button @click="restore" size="lg" variant="primary">
         Recover
@@ -29,6 +30,7 @@
       </b-button>
 
     </b-modal>
+
     <!-- store deletion -->
     <b-modal  id="clearCacheModal"
               title="Clear Cache"
@@ -82,6 +84,13 @@
       ...mapActions('n3', [
         'constructN3',
       ]),
+      ...mapMutations('localStorageInfo', [
+        'constructLocalStorageInfo',
+      ]),
+      ...mapActions('localStorageInfo', [
+        'safeLimitTest',
+        'testLimit',
+      ]),
       ...mapMutations('app', [
         'toggleMode',
       ]),
@@ -92,6 +101,7 @@
       restore(reload = true) {
         // this.constructJOWL(this.latestSession);
         this.constructJSONschema(this.latestSession);
+        this.constructLocalStorageInfo(this.latestSession);
         this.constructN3(this.latestSession);
         this.modalShow = false;
         this.deleteOldSessions();
@@ -109,6 +119,7 @@
         .then(res => (this.menu = res.data))
         .catch(error => this.$log(error));
       this.setOntology('static/acdh-schema.owl');
+      // Persistence
       this.latestSession = this.getLatestSession();
       if (this.latestSession) {
         this.$log('latestSession', this.latestSession);
