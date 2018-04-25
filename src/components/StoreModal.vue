@@ -38,8 +38,7 @@ export default {
       // this.constructJOWL(this.latestSession);
       this.constructJSONschema(this.latestSession);
       this.constructN3(this.latestSession);
-      this.modalShow = false;
-      this.deleteOldSessions();
+      this.discard();
       if (reload) {
         this.$router.go(this.$router.currentRoute);
       }
