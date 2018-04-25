@@ -90,7 +90,7 @@ Note: this function might currently not work. See issue [10823](https://redmine.
 
 #### Used by
 
-* [Fundamententity](/#Fundamententity)
+* [FundamentEntity](/#FundamentEntity)
 
 
 #### Parameters
@@ -102,7 +102,7 @@ Note: this function might currently not work. See issue [10823](https://redmine.
 
 #### How to call it
 
-``` Fundamententity
+``` FundamentEntity
 this.getViafByID(this.uri.substr(this.uri.lastIndexOf('/')))
 .then((res) => {
   this.entity.title = `${res['ns1:mainHeadings']['ns1:data'][0]['ns1:text'] ?
@@ -114,7 +114,7 @@ this.getViafByID(this.uri.substr(this.uri.lastIndexOf('/')))
   this.entity.type = 'VIAF';
 });
 ```
-real example from [Fundamententity](/#Fundamententity), where it is used to receive viaf-data of a received viaf-url from arche. This data is displayed as a bootstrap card (currently doesn't render).
+real example from [FundamentEntity](/#FundamentEntity), where it is used to receive viaf-data of a received viaf-url from arche. This data is displayed as a bootstrap card (currently doesn't render).
 
 
 
@@ -129,7 +129,7 @@ for that it calls `APIS.ARCHE.[type].get(id)`.
 
 #### Used by
 
-* [Fundamententity](/#Fundamententity)
+* [FundamentEntity](/#FundamentEntity)
 * [AutocompArche](/#AutocompArche)
 
 

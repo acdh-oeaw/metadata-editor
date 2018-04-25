@@ -116,7 +116,7 @@ A content-level component containing the functionality to write new meta data en
 
 ### Imports
 
-* [Fundamententity](#fundamentnav) (never called)
+* [FundamentEntity](#fundamentnav) (never called)
 * [AutocompArche](#AutocompArche) (currently for testing, won't be needed here in the future)
 * [FormFromSchema](#FormFromSchema)
 * [HELPERS](/helpers#helpers)
@@ -263,7 +263,7 @@ none
 instead of person you can type any other of the possible [types](#Possible-types).
 
 
-## Fundamententity
+## FundamentEntity
 
 Dispalys a bootstrap card of an entity from a given uri, type and format.
 TODO: I think it is relevant for searching the api and instantly loading data from eg. viaf.
@@ -317,10 +317,10 @@ none
 ### How to call it
 
 ``` exampleFromEnteties
-<Fundamententity v-if='entity.type == "acdh:Person;"'
+<FundamentEntity v-if='entity.type == "acdh:Person;"'
   :uri='entity["acdh:hasIdentifier"][0]'
   type='PERSONS'>
- </Fundamententity>
+ </FundamentEntity>
 ```
 instead of acdh:Person you can use any other of the possible [types](#Possible-types) similarly as well as <Code>type='PERSON'</Code>.
 
