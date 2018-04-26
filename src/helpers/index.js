@@ -183,12 +183,25 @@ export default {
       return new Blob([str], { type: 'text/ttl;' });
     },
     dateToString(date) {
-      const datum = date.toISOString().slice(0, 10).replace(/-/g, '');
-      const y = datum.substring(0, 4);
-      console.log('year', y);
-      const m = datum.substring(4, 6);
-      const d = datum.substring(6);
-      return `${d}/${m}/${y}`;
+      const y = date.getFullYear() - 2000;
+      let m;
+      if (date.getMonth() < 10) {
+        m = '0'.toString() + (date.getMonth() + 1);
+      } else {
+        m = date.getMonth() + 1;
+      }
+      let d;
+      if (date.getDate() < 10) {
+        d = '0'.toString() + date.getDate();
+      } else {
+        d = date.getDate();
+      }
+      console.log('month', m);
+      return `${d}/${m}/${y} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    },
+    clearStore() {
+      this.$info('clearStore');
+      this.clearCache();
     },
   },
   created() {

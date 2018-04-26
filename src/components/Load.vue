@@ -11,8 +11,8 @@
     <div v-if="file" >
       <h1>Edit Loaded File</h1>
       <div v-for="entity in file">
-        <Fundamententity v-if='entity.type == "acdh:Person;"' :uri='entity["acdh:hasIdentifier"][0]' type='PERSONS'></Fundamententity>
-        <Fundamententity v-if='entity.type == "acdh:Organisation;"' :uri='entity["acdh:hasIdentifier"][0]' type='ORGANISATIONS'></Fundamententity>
+        <FundamentEntity v-if='entity.type == "acdh:Person;"' :uri='entity["acdh:hasIdentifier"][0]' type='PERSONS'></FundamentEntity>
+        <FundamentEntity v-if='entity.type == "acdh:Organisation;"' :uri='entity["acdh:hasIdentifier"][0]' type='ORGANISATIONS'></FundamentEntity>
         <p v-if='entity.type != "acdh:Person;" && entity.type != "acdh:Organisation;"'>{{ entity }}</p>
       </div>
     </div>
