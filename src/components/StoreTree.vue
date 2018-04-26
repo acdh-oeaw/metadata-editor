@@ -5,16 +5,16 @@
         :class="{bold: isFolder}"
         @click="toggle"
         @dblclick="changeType">
-        {{ model.name }}
+        {{ title }}
         <span v-if="isFolder">[{{ open ? '-' : '+' }}]</span>
       </div>
       <ul v-show="open" v-if="isFolder">
-        <li
+        <storetreeitem
           class="item"
-          v-for="(model, index) in model.children"
+          v-for="(uri, index) in children"
           :key="index"
-          :model="model">
-        </li>
+          :uri="uri">
+        </Storetreeitem>
         <li class="add" @click="addChild">+</li>
       </ul>
     </li>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex';
 import HELPERS from '../helpers';
 import storetreeitem from './StoreTreeItem';
 
@@ -62,6 +62,8 @@ export default {
           },
         ],
       },
+      children: [],
+      title: '',
     };
   },
   computed: {
@@ -69,6 +71,13 @@ export default {
       return this.model.children &&
         this.model.children.length;
     },
+    count() {
+      return this.$store.state.n3.tripleCount;
+    },
+    ...mapGetters('n3', [
+      'getTriples',
+      'getTitle',
+    ]),
   },
   methods: {
     toggle() {
@@ -88,6 +97,29 @@ export default {
         name: 'new stuff',
       });
     },
+    getRoot() {
+      const root = this.getTriples({ predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitleImage' });
+      const children = this.getTriples(
+        { predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
+          object: root[0].subject,
+        });
+      if (children.length > 0) {
+        let idx = children.length - 1;
+        while (idx + 1) {
+          this.children.push(children[idx].subject);
+          idx -= 1;
+        }
+        this.title = this.getTitle(root[0].subject)[0].object;
+      }
+    },
+  },
+  watch: {
+    count: function update() {
+      this.getRoot();
+    },
+  },
+  created() {
+    this.getRoot();
   },
 };
 </script>
