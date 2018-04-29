@@ -14,17 +14,20 @@
     "axios": "0.16.2",
     "bootstrap": "^4.0.0-beta.2",
     "bootstrap-vue": "^1.2.0",
+    "bower": "^1.8.4",
     "debounce": "1.1.0",
+    "nodemon": "^1.17.3",
+    "npm": "^6.0.0",
     "popper.js": "^1.12.9",
     "vue": "^2.5.2",
     "vue-axios": "2.0.2",
     "vue-json-schema": "^1.1.0",
+    "vue-logger": "^0.0.3",
     "vue-router": "^3.0.1",
     "vue-select": "2.4.0",
+    "vue2-animate": "2.0.0",
     "vuex": "^2.2.1",
-    "vuex-router-sync": "^4.1.2",
-    "vue-logger": "^0.0.3",
-    "vue2-animate": "2.0.0"
+    "vuex-router-sync": "^4.1.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
