@@ -17,34 +17,7 @@
         </div>
       </div>
     </div>
-
-    <!-- Modals to be moved to own components.-->
-    <!-- store recovery -->
-    <b-modal v-model="modalShow" hide-footer id="askForStore" title="Session Recovery">
-      <p class="my-4">Hey! you have an old session. It is from {{date}} (dd/mm/yy). Do you want to restore it?</p>
-      <b-button @click="restore" size="lg" variant="primary">
-        Recover
-      </b-button>
-      <b-button @click="discard" size="lg" variant="secondary">
-        Discard
-      </b-button>
-
-    </b-modal>
-
-    <!-- store deletion -->
-    <b-modal  id="clearCacheModal"
-              title="Clear Cache"
-              ok-variant="danger"
-              @ok="clearStore()">
-      <p class="my-4">Are you Sure to delete  {{ $store.state.n3.tripleCount }} Triples containing
-{{ Object.keys($store.state.n3.subjects).length }} Subjects from your Store? This can not be undone!</p>
-      <div slot="modal-ok" size="lg" variant="danger">
-        Clear
-      </div>
-      <div slot="modal-cancel" size="lg" variant="secondary">
-        Cancel
-      </div>
-    </b-modal>
+    <modals></modals>
   </div>
 </template>
 
@@ -53,6 +26,7 @@
   import { mapActions, mapMutations } from 'vuex';
   import FundamentNav from './FundamentNav';
   import FundamentAppBar from './FundamentAppBar';
+  import Modals from './Modals';
   import HELPERS from '../helpers';
 
   /* eslint no-console: ["error", { allow: ["log"] }] */
@@ -62,15 +36,13 @@
     components: {
       FundamentNav,
       FundamentAppBar,
+      Modals,
     },
     mixins: [HELPERS],
     data() {
       return {
         menu: {},
-        date: '',
         appbar: false,
-        modalShow: false,
-        latestSession: null,
       };
     },
     methods: {
@@ -94,42 +66,12 @@
       ...mapMutations('app', [
         'toggleMode',
       ]),
-      clearStore() {
-        this.$info('clearStore');
-        this.clearCache();
-      },
-      restore(reload = true) {
-        // this.constructJOWL(this.latestSession);
-        this.constructJSONschema(this.latestSession);
-        this.constructLocalStorageInfo(this.latestSession);
-        this.constructN3(this.latestSession);
-        this.modalShow = false;
-        this.deleteOldSessions();
-        if (reload) {
-          this.$router.go(this.$router.currentRoute);
-        }
-      },
-      discard() {
-        this.modalShow = false;
-        this.deleteOldSessions();
-      },
     },
     created() {
       axios.get('/static/nav.json')
         .then(res => (this.menu = res.data))
         .catch(error => this.$log(error));
       this.setOntology('static/acdh-schema.owl');
-      // Persistence
-      this.latestSession = this.getLatestSession();
-      if (this.latestSession) {
-        this.$log('latestSession', this.latestSession);
-        this.date = this.dateToString(new Date(this.latestSession.date));
-        if (Date.now() - this.latestSession.date < 300000) {
-          this.restore(false);
-        } else {
-          this.modalShow = true;
-        }
-      }
     },
   };
 </script>

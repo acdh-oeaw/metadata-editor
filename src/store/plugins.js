@@ -5,6 +5,8 @@ import {
   STORAGE_KEY,
   SESSION_ID,
 } from './index';
+import HELPERS from '../helpers';
+
 // helper for checking error code for full storage
 function isQuotaExceeded(e) {
   let quotaExceeded = false;
@@ -46,15 +48,6 @@ function filterForPersistantProperties(stateObj) {
   return result;
 }
 
-function dateToString(date) {
-  const datum = date.toISOString().slice(0, 10).replace(/-/g, '');
-  const y = datum.substring(0, 4);
-  const m = datum.substring(4, 6);
-  const d = datum.substring(6);
-  return `${d}/${m}/${y}`;
-}
-
-
 const localStoragePlugin = store => {
   let localStorage;
   try {
@@ -70,7 +63,7 @@ const localStoragePlugin = store => {
         const now = Date.now();
         currentStore[SESSION_ID] = { pState,
           date: now,
-          dateString: dateToString(new Date(now)),
+          dateString: HELPERS.methods.dateToString(new Date(now)),
         };
         try {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(currentStore));

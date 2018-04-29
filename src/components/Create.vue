@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import Fundamententity from './Fundamententity';
+import FundamentEntity from './FundamentEntity';
 import Storestats from './StoreStats';
 import AutocompArche from './AutocompArche';
 import FormFromSchema from './FormFromSchema';
@@ -35,7 +35,7 @@ import HELPERS from '../helpers';
 export default {
   mixins: [HELPERS],
   components: {
-    Fundamententity,
+    FundamentEntity,
     AutocompArche,
     FormFromSchema,
     Storestats,

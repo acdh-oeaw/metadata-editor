@@ -1,6 +1,5 @@
 <template>
 <div class="AppBar bg-white box-shadow">
-  <Storetree></Storetree>
   <Storestats></Storestats>
 </div>
 </template>

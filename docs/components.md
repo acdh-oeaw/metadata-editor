@@ -100,6 +100,15 @@ this.search(loading, search, this);
 import AutocompArche from './AutocompArche';
 ```
 
+## ClearCacheModal
+
+A Modal which gives you the option to clear your local store, it is opened by pressing the 'Clear Store' Button.
+
+### Imports
+* [HELPERS](/helpers#helpers)
+
+### Used In
+* [Modals](#Modals)
 
 ## Create
 
@@ -107,7 +116,7 @@ A content-level component containing the functionality to write new meta data en
 
 ### Imports
 
-* [Fundamententity](#fundamentnav) (never called)
+* [FundamentEntity](#fundamentnav) (never called)
 * [AutocompArche](#AutocompArche) (currently for testing, won't be needed here in the future)
 * [FormFromSchema](#FormFromSchema)
 * [HELPERS](/helpers#helpers)
@@ -254,7 +263,7 @@ none
 instead of person you can type any other of the possible [types](#Possible-types).
 
 
-## Fundamententity
+## FundamentEntity
 
 Dispalys a bootstrap card of an entity from a given uri, type and format.
 TODO: I think it is relevant for searching the api and instantly loading data from eg. viaf.
@@ -308,10 +317,10 @@ none
 ### How to call it
 
 ``` exampleFromEnteties
-<Fundamententity v-if='entity.type == "acdh:Person;"'
+<FundamentEntity v-if='entity.type == "acdh:Person;"'
   :uri='entity["acdh:hasIdentifier"][0]'
   type='PERSONS'>
- </Fundamententity>
+ </FundamentEntity>
 ```
 instead of acdh:Person you can use any other of the possible [types](#Possible-types) similarly as well as <Code>type='PERSON'</Code>.
 
@@ -328,6 +337,16 @@ This Component is used to load .ttl files into the scope. Once you select a file
 * [HELPERS](/helpers#helpers)
 * [tripleCount](#tripleCount)
 * [StringToStore](#StringToStore)
+
+## Modals
+A component which contains all the used modals.
+
+### Imports
+* [ClearCacheModal](#ClearCacheModal)
+* [StoreModal](#StoreModal)
+
+### Used in
+* [App](#App)
 
 ## Propertytable
 A simple table which shows all properties of a given ontology.
@@ -401,7 +420,7 @@ TODO: copy what it receives and also what exactly happens in the 'fetches the cl
 
 ## Start
 
-Acts as the landing page of the MetaDataEditor. You can use it to navigate through
+Acts as the landing page of the MetaDataEditor. You can use it to navigate through the whole website.
 
 ## Store
 
@@ -436,6 +455,29 @@ TODO: PARAMS, HOW TO CALL.
 | file | <code>file</code> | The file loaded into the scope. |
 #### removeTtl
 Removes the .ttl file from your scope. the whole Website.
+
+## StoreModal
+
+This Modal can be used to restore your previous session. You can also choose to discard all changes to the store made in your local store.
+
+### Imports
+* [HELPERS](/helpers#helpers)
+
+### Data
+
+| Name | Type  | Description |
+|--|--|--|
+| modalShow | `Boolean` | Shows and hides the modal |
+| latestSession | `Object`| On creation, if there is an old session in your local store, it will get loaded into this object |
+| date | `string`| Used to tell the user when the last session was created |
+
+### Methods
+
+#### discard
+Deletes old session, which might be in your local store. Closes the modal.
+
+#### restore
+Loads the store of an old session to your current store, deletes the old session and closes the modal. Reloads the scope.
 
 ## StoreStats
 

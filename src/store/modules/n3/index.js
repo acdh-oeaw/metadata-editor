@@ -28,8 +28,9 @@ const state = {
 /* eslint no-console: ["error", { allow: ["log"] }] */
 
 const getters = {
+  getTriples: s => p => s.store.getTriples(p.subject, p.predicate, p.object),
+  getTitle: s => subject => s.store.getTriples(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle'),
 };
-
 
 export default {
   namespaced: true,

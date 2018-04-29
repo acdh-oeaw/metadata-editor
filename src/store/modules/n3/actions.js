@@ -18,7 +18,7 @@ const newobjpattern = /_:.*/;
 
 
 const actions = {
-  AddTriple({ state, commit }, triple) {
+  AddTriple({ state }, triple) {
     state.store.addTriple(
       triple.subject,
       triple.predicate,
@@ -28,7 +28,7 @@ const actions = {
   /* special action to remove the prefixes n3.js automatically adds when parsing
      blank namespaces before adding the triple, never called directly
      see http://rubenverborgh.github.io/N3.js/docs/N3Store.html#section-124 */
-  AddFilteredTriple({ state, commit }, triple) {
+  AddFilteredTriple({ state }, triple) {
     state.store.addTriple(
       RemovePrefix(triple.subject),
       triple.predicate,
@@ -62,7 +62,6 @@ const actions = {
       predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
       object: schema.id,
     };
-    // this._vm.$log(first);
     dispatch('AddFilteredTriple', first);
     const keys = Object.keys(obj);
     const values = Object.values(obj);
