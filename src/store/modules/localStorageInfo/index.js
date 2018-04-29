@@ -15,7 +15,7 @@ const state = {
   status: true,
   currentStoreLength: null,
   testKey: 'testStorageCapacity',
-  p: ['localStorageLimit', 'tested'],
+  p: ['localStorageLimit', 'tested', 'currentStoreLength'],
 };
 
 const mutations = {
@@ -31,6 +31,7 @@ const mutations = {
     s.tested = value;
   },
   getCurrentStoreLength(s) {
+    this._vm.$info('getCurrentStoreLength called', s);
     let localStorage = null;
     try {
       localStorage = window.localStorage;
@@ -56,7 +57,7 @@ const actions = {
   },
   testLimit({ state, commit }) {
     this._vm.$info('localStorageInfo', 'testLimit');
-    let localStorage;
+    let localStorage = false;
     commit('getCurrentStoreLength');
     const cSL = state.currentStoreLength;
     try {
@@ -100,7 +101,7 @@ const actions = {
 
 
 export default {
-  namespaced: false,
+  namespaced: true,
   state,
   actions,
   mutations,

@@ -1,5 +1,6 @@
 /* eslint-disable arrow-parens */
 /* eslint-disable default-case */
+/* eslint-disable no-underscore-dangle */
 import {
   STORAGE_KEY,
   SESSION_ID,
@@ -63,7 +64,7 @@ const localStoragePlugin = store => {
   }
   if (localStorage) {
     store.subscribe((mutation, state) => {
-      if (mutation.type === 'n3/stopProcessing') {
+      if (mutation.type === 'n3/stopProcessing' || mutation.type === 'localStorageInfo/setLocalStorageLimit') {
         const pState = filterForPersistantProperties(state);
         const currentStore = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '{}');
         const now = Date.now();
@@ -75,6 +76,7 @@ const localStoragePlugin = store => {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(currentStore));
           store.commit('n3/updateStorageStatus', true);
         } catch (e) {
+          this._vm.$debug('saving to Storage failed: ', e);
           if (isQuotaExceeded(e)) {
             store.commit('n3/updateStorageStatus', false);
             // Storage full, maybe notify user or do some clean-up

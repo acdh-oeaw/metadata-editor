@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-useless-escape */
 /* eslint-disable comma-spacing */
+/* eslint-disable no-underscore-dangle */
 
 // const d = new Date();
 
@@ -36,7 +37,7 @@ const actions = {
   },
   /* high lvl action parsing a TTL file into triples and subsequently
      saving it to the N3.js store   */
-  StringToStore({ state, commit, dispatch, vue }, string) {
+  StringToStore({ state, commit, dispatch }, string) {
     commit('startProcessing', 'Loading File to Store...');
     state.parser.parse(string, (error, triple) => {
       if (triple) {
@@ -45,7 +46,7 @@ const actions = {
         dispatch('writeTTL');
         commit('updateTripleCount');
         commit('updateSubject');
-        commit('getCurrentStoreLength', { root: true });
+        commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
         commit('stopProcessing');
       }
     });
@@ -61,7 +62,7 @@ const actions = {
       predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
       object: schema.id,
     };
-    console.log(first);
+    // this._vm.$log(first);
     dispatch('AddFilteredTriple', first);
     const keys = Object.keys(obj);
     const values = Object.values(obj);
@@ -80,7 +81,6 @@ const actions = {
     dispatch('writeTTL');
     commit('updateTripleCount');
     commit('updateSubject');
-    commit('getCurrentStoreLength', { root: true });
     commit('stopProcessing');
   },
   writeTTL({ state, commit }) {
@@ -89,7 +89,7 @@ const actions = {
     state.writer.end((error, result) => {
       commit('updateTtlString', result);
       commit('resetWriter');
-      commit('getCurrentStoreLength', { root: true });
+      commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
     });
   },
   constructN3({ state, commit, dispatch }, { pState }) {
