@@ -46,8 +46,8 @@ const actions = {
         dispatch('writeTTL');
         commit('updateTripleCount');
         commit('updateSubject');
-        commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
         commit('stopProcessing');
+        commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
       }
     });
   },
@@ -81,6 +81,7 @@ const actions = {
     dispatch('writeTTL');
     commit('updateTripleCount');
     commit('updateSubject');
+    commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
     commit('stopProcessing');
   },
   writeTTL({ state, commit }) {
@@ -89,7 +90,6 @@ const actions = {
     state.writer.end((error, result) => {
       commit('updateTtlString', result);
       commit('resetWriter');
-      commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
     });
   },
   constructN3({ state, commit, dispatch }, { pState }) {
