@@ -30,6 +30,9 @@ export default {
     ...mapActions('n3', [
       'constructN3',
     ]),
+    ...mapMutations('localStorageInfo', [
+      'constructLocalStorageInfo',
+    ]),
     discard() {
       this.modalShow = false;
       this.deleteOldSessions();
@@ -38,6 +41,7 @@ export default {
       // this.constructJOWL(this.latestSession);
       this.constructJSONschema(this.latestSession);
       this.constructN3(this.latestSession);
+      this.constructLocalStorageInfo(this.latestSession);
       this.discard();
       if (reload) {
         this.$router.go(this.$router.currentRoute);
