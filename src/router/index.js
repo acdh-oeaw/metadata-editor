@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Start from '@/components/Start';
-import Create from '@/components/Create';
-import Store from '@/components/Store';
-import Schema from '@/components/Schema';
-import App from '@/components/App';
+import Start from '../components/Start';
+import Create from '../components/Create';
+import Store from '../components/Store';
+import Schema from '../components/Schema';
+import App from '../components/App';
 
 Vue.use(Router);
 
@@ -63,4 +63,8 @@ export default new Router({
       ],
     },
   ],
+  scrollBehavior (to, from, savedPosition) {
+    console.log(savedPosition);
+    return { x: 0, y: 0 }
+  },
 });

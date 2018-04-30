@@ -1,6 +1,7 @@
 {
 	"logo":"/static/fundament_logo.svg",
 	"title":"MetaDataEditor",
+	"color":"teal lighten-3",
 	"homestate":{
 		"name": "start",
 		"params": {
@@ -11,7 +12,7 @@
 			{
 				"caption":"Home",
 				"arialabel":"",
-				"icon":"fas fa-home",
+				"icon":"home",
 				"abstract":"",
 				"startpage":{
 					"name": "start",
@@ -23,7 +24,7 @@
 			{
 				"caption":"Data",
 				"arialabel":"",
-				"icon":"fas fa-share-alt",
+				"icon":"share",
 				"abstract":"",
 				"startpage":{
 					"name": "store",
@@ -35,7 +36,7 @@
 			{
 				"caption":"Edit",
 				"arialabel":"",
-				"icon":"fas fa-edit",
+				"icon":"edit",
 				"abstract":"",
 				"startpage":{
 					"name": "create",
@@ -47,7 +48,7 @@
 			{
 				"caption":"Ontology",
 				"arialabel":"",
-				"icon":"fas fa-sitemap",
+				"icon":"device_hub",
 				"abstract":"",
 				"startpage":{
 					"name": "schema",

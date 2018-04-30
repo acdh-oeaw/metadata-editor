@@ -34,7 +34,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Propertytable from './Propertytable';
+// import Propertytable from './Propertytable';
 
 import HELPERS from '../helpers';
 
@@ -44,7 +44,7 @@ import HELPERS from '../helpers';
 export default {
   mixins: [HELPERS],
   components: {
-    Propertytable,
+    // Propertytable,
   },
   data() {
     return {

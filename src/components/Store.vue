@@ -30,9 +30,9 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
-import Load from './Load';
-import Storetree from './StoreTree';
-import FundamentToolBar from './FundamentToolBar';
+// import Load from './Load';
+// import Storetree from './StoreTree';
+// import FundamentToolBar from './FundamentToolBar';
 import HELPERS from '../helpers';
 /* eslint no-unused-vars: ["error", {"args": "none"}] */
 /* eslint no-console: ["error", { allow: ["log"] }] */
@@ -40,9 +40,9 @@ import HELPERS from '../helpers';
 export default {
   mixins: [HELPERS],
   components: {
-    Load,
-    Storetree,
-    FundamentToolBar,
+    // Load,
+    // Storetree,
+    // FundamentToolBar,
   },
   data() {
     return {

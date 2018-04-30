@@ -14,6 +14,7 @@
             <AutocompArche :type='val.toUpperCase()' :name='val' v-model="testModel" v-if="val === 'Metadata'"></AutocompArche>
             <AutocompArche :type='val.toUpperCase()+"S"' :name='val' v-model="testModel" v-else></AutocompArche>
             {{testModel}}
+
             <h1><a id="Cards_0"></a>Form From Schema</h1>
             <p>Testing Form from Schema</p>
             <FormFromSchema :uniqueName="val" :type="val"></FormFromSchema>
@@ -26,19 +27,19 @@
 </template>
 
 <script>
-import FundamentEntity from './FundamentEntity';
-import Storestats from './StoreStats';
-import AutocompArche from './AutocompArche';
-import FormFromSchema from './FormFromSchema';
+// import FundamentEntity from './FundamentEntity';
+// import Storestats from './StoreStats';
+// import AutocompArche from './AutocompArche';
+// import FormFromSchema from './FormFromSchema';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 export default {
   mixins: [HELPERS],
   components: {
-    FundamentEntity,
-    AutocompArche,
-    FormFromSchema,
-    Storestats,
+    // FundamentEntity,
+    // AutocompArche,
+    // FormFromSchema,
+    // Storestats,
   },
   data() {
     return {
@@ -46,8 +47,7 @@ export default {
       endpoints: ['Person', 'Organisation', 'Place', 'Concept', 'Publication', 'Metadata'],
     };
   },
-  methods: {
-  },
+  methods: {},
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
