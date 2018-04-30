@@ -1,5 +1,5 @@
 <template>
-  <v-parallax :src="src" height="250" class="mt-4 border-top">
+  <v-parallax :src="src" height="250" class="mt-4 mb-3 border-top">
     <v-layout column align-center justify-center>
       <h1>{{caption}}</h1>
       <p>{{subtitle}}</p>

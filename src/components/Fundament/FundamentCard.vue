@@ -1,6 +1,6 @@
 <template>
   <transition appear :duration="250" name="fadeLeft">
-    <v-card class="border-top">
+    <v-card class="border-top mb-3">
       <v-card-media :src="src" v-if="src" height="200px">
       </v-card-media>
       <v-card-title primary-title>

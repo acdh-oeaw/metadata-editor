@@ -8,7 +8,8 @@
       </fundamentjumbo>
       <v-container grid-list-md>
         <v-layout justify-space-around row wrap>
-          <v-flex xs11 sm6>
+          <fundamentsectiondiv icon="stars" caption="Getting Started"></fundamentsectiondiv>
+          <v-flex xs12 sm6>
             <fundamentcard
               caption="Load an existing ttl File."
               :link="{ name: 'store', params: { lang: 'en' }}"
@@ -16,7 +17,32 @@
               <p class="card-text">Load and edit an existing file from your Disk.</p>
             </fundamentcard>
           </v-flex>
-          <v-flex xs11 sm6>
+          <v-flex xs12 sm6>
+            <fundamentcard
+              caption="Create a new Project"
+              :link="{ name: 'create', params: { lang: 'en' }}"
+            >
+              <p class="card-text">Create a new Project for archival in Arche.</p>
+            </fundamentcard>
+          </v-flex>
+          <fundamentsectiondiv icon="description" caption="Documentation"></fundamentsectiondiv>
+          <v-flex xs12 sm4>
+            <fundamentcard
+              caption="Load an existing ttl File."
+              :link="{ name: 'store', params: { lang: 'en' }}"
+            >
+              <p class="card-text">Load and edit an existing file from your Disk.</p>
+            </fundamentcard>
+          </v-flex>
+          <v-flex xs12 sm4>
+            <fundamentcard
+              caption="Create a new Project"
+              :link="{ name: 'create', params: { lang: 'en' }}"
+            >
+              <p class="card-text">Create a new Project for archival in Arche.</p>
+            </fundamentcard>
+          </v-flex>
+          <v-flex xs12 sm4>
             <fundamentcard
               caption="Create a new Project"
               :link="{ name: 'create', params: { lang: 'en' }}"
@@ -32,11 +58,13 @@
 <script>
 import fundamentjumbo from './Fundament/FundamentJumbo';
 import fundamentcard from './Fundament/FundamentCard';
+import fundamentsectiondiv from './Fundament/FundamentSectionDiv';
 
 export default {
   components: {
     fundamentjumbo,
     fundamentcard,
+    fundamentsectiondiv,
   },
   name: 'start',
   data() {
