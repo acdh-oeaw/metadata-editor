@@ -9,7 +9,7 @@
       :class="$store.state.app.config.color"
       dark
       app
-    >
+      >
       <v-container
          fill-height
          @mouseover.stop="setNavDrawerMaxi()"
@@ -53,7 +53,9 @@
     <v-toolbar
       v-if="!$store.state.app.drawer"
       app
-    >
+      height="90"
+      class="border-bottom"
+      >
       <v-btn icon @click.stop="toggleAppMode()">
         <v-icon>view_quilt</v-icon>
       </v-btn>
@@ -123,3 +125,7 @@ export default {
   },
 };
 </script>
+<style scoped>
+
+
+</style>

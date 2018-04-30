@@ -4,12 +4,14 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import 'vue2-animate/dist/vue2-animate.min.css';
+
+
 import { sync } from 'vuex-router-sync';
 import vueLogger from 'vue-logger';
 
 import store from './store/index';
 import router from './router';
-
+import './components/Fundament/Fundament.css';
 
 Vue.use(vueLogger, {
   dev: process.env.NODE_ENV !== 'production',

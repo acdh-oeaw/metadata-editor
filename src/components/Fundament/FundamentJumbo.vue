@@ -23,17 +23,7 @@
   };
 </script>
 <style scoped>
-h1:after {
-  content: '';
-  display: block;
-  width: 60px;
-  margin-left: calc(50% - 30px);
-  border-top: 4px solid #80cbc4!important;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
 
-.border-top {
-  border-top: 4px solid #80cbc4!important;
-}
+
+
 </style>

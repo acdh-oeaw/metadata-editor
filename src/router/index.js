@@ -63,8 +63,8 @@ export default new Router({
       ],
     },
   ],
-  scrollBehavior (to, from, savedPosition) {
-    console.log(savedPosition);
-    return { x: 0, y: 0 }
+  scrollBehavior() {
+    // always scroll back to the top
+    return { x: 0, y: 0 };
   },
 });
