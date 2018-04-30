@@ -1,6 +1,6 @@
 <template>
   <transition appear :duration="250" name="fadeLeft">
-    <v-card class="border-top mb-3">
+    <v-card class="border-top mb-3 mt-1">
       <v-card-media :src="src" v-if="src" height="200px">
       </v-card-media>
       <v-card-title primary-title>
@@ -9,7 +9,7 @@
           <slot></slot>
         </div>
       </v-card-title>
-      <v-card-actions>
+      <v-card-actions v-if="link">
         <v-btn
           flat
           class="teak lighten-3"

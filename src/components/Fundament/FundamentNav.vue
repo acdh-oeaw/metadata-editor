@@ -32,13 +32,13 @@
                 v-for="(item, i) in $store.state.app.config.menu"
                 :key="i"
                 :to="item.startpage"
-              >
+                >
                   <v-btn icon>
                     <v-icon v-html="item.icon"></v-icon>
                   </v-btn>
-                <v-list-tile-content >
-                  <v-list-tile-title color="white">{{item.caption}}</v-list-tile-title>
-                </v-list-tile-content>
+                  <v-list-tile-content >
+                    <v-list-tile-title class="toolbarcaption">{{item.caption}}</v-list-tile-title>
+                  </v-list-tile-content>
               </v-list-tile>
             </v-list>
             <v-list>
@@ -101,14 +101,8 @@
       enable-resize-watcher
       app
       >
-      <v-list>
-        <v-list-tile @click="right = !right">
-          <v-list-tile-action>
-            <v-icon>compare_arrows</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
+      <router-view name="rightdrawertop"></router-view>
+      <router-view name="rightdrawerbottom"></router-view>
     </v-navigation-drawer>
   </div>
 </template>
@@ -158,6 +152,9 @@ export default {
 .compensation {
   margin-left: -15px;
   margin-right: -15px;
+}
+.toolbarcaption {
+  color:white;
 }
 
 </style>

@@ -5,6 +5,7 @@ import Create from '../components/Create';
 import Store from '../components/Store';
 import Schema from '../components/Schema';
 import App from '../components/App';
+import Storestats from '../components/StoreStats';
 
 Vue.use(Router);
 
@@ -47,6 +48,7 @@ export default new Router({
           name: 'store',
           components: {
             Content: Store,
+            rightdrawertop: Storestats,
           },
         },
         {
