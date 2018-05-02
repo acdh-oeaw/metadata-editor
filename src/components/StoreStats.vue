@@ -13,7 +13,7 @@
 
       <div class="bd-toc-item" v-if="$store.state.localStorageInfo.tested">
         {{ $store.state.localStorageInfo.localStorageLimit }} Chars Storage Capacity
-        <b-progress :value="$store.state.localStorageInfo.currentStoreLength/$store.state.localStorageInfo.localStorageLimit" :max="1" show-progress></b-progress>
+        <b-progress :value="$store.state.localStorageInfo.currentStoreLength/$store.state.localStorageInfo.localStorageLimit" :max="1"></b-progress>
       </div>
 
       <div class="bd-toc-item" v-if="$store.state.localStorageInfo.tested">
