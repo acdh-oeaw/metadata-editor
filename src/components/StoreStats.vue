@@ -11,20 +11,23 @@
         {{ Object.keys($store.state.n3.subjects).length }} Subjects
       </div>
 
-      <div class="bd-toc-item" v-if="$store.state.localStorageInfo.tested">
+      <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
         {{ $store.state.localStorageInfo.localStorageLimit }} Chars Storage Capacity
         <b-progress :value="$store.state.localStorageInfo.currentStoreLength/$store.state.localStorageInfo.localStorageLimit" :max="1"></b-progress>
       </div>
 
-      <div class="bd-toc-item" v-if="$store.state.localStorageInfo.tested">
+      <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
         {{ (""+($store.state.localStorageInfo.currentStoreLength *100/ $store.state.localStorageInfo.localStorageLimit)).substring(0,4) }}% Capacity used
       </div>
-      <div class="bd-toc-item" v-if="$store.state.localStorageInfo.tested">
+      <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
       Space for ~{{ Math.floor(($store.state.localStorageInfo.localStorageLimit - $store.state.localStorageInfo.currentStoreLength)
       *($store.state.n3.tripleCount/$store.state.localStorageInfo.currentStoreLength) ) }} Triples left.
       </div>
       <b-alert variant="success" show v-if="$store.state.n3.stored">All Stored</b-alert>
-      <b-alert variant="danger" show v-if="!$store.state.n3.stored">Quota Exceeded</b-alert>
+      <b-alert variant="danger" show v-if="!$store.state.n3.stored">
+        <h5>Quota Exceeded!</h5>
+        <p>To save your work, make sure to download it by clicking the button below before closing or reloading this page</p>
+      </b-alert>
       <div class="bd-toc-item">
         <b-button-group vertical>
           <b-button  @click="downloadBlob" variant="primary">Download</b-button>

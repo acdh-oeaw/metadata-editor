@@ -53,7 +53,7 @@ const localStoragePlugin = store => {
   try {
     localStorage = window.localStorage;
   } catch (e) {
-    // Access denied :-(
+    store.commit('n3/updateStorageStatus', false);
   }
   if (localStorage) {
     store.subscribe((mutation, state) => {
@@ -69,11 +69,11 @@ const localStoragePlugin = store => {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(currentStore));
           store.commit('n3/updateStorageStatus', true);
         } catch (e) {
-          this._vm.$debug('saving to Storage failed: ', e);
           if (isQuotaExceeded(e)) {
             store.commit('n3/updateStorageStatus', false);
             // Storage full, maybe notify user or do some clean-up
           }
+          store.commit('n3/updateStorageStatus', false);
         }
       }
     });
