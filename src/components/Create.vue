@@ -9,8 +9,8 @@
         <h1><a id="Cards_0"></a>Resolving Identifiers</h1>
         <p>Testing Autocompletes to resolve Identifiers</p>
         <v-tabs>
-          <v-tab v-for="val in endpoints">
-            {{ val }}
+          <v-tab v-for="title in endpoints">
+            {{ title }}
           </v-tab>
           <v-tab-item v-for="val in endpoints">
             <h3><a id="Cards_0"></a>{{val}}</h3>

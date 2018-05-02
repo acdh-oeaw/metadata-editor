@@ -30,7 +30,8 @@
           <v-btn block @click="downloadBlob" color="primary">Download</v-btn>
         </div>
         <div>
-          <v-btn block @click.stop="showDialog" color="error">Clear Store</v-btn>
+          <v-btn block @click.stop="dialog = true" color="error">Clear Store</v-btn>
+          <clear-cache-dialog :dialog.sync="dialog"></clear-cache-dialog>
         </div>
         <div>
           <v-btn block @click="testLimit()">testStoreLimit</v-btn>
@@ -43,14 +44,17 @@
 <script>
 import { mapActions } from 'vuex';
 import HELPERS from '../helpers';
+import ClearCacheDialog from './Dialogs/ClearCacheDialog';
 
 export default {
   mixins: [HELPERS],
   components: {
+    ClearCacheDialog,
   },
   data() {
     return {
       blob: '',
+      dialog: false,
     };
   },
   methods: {
@@ -66,9 +70,6 @@ export default {
       document.body.appendChild(downloadLink);
 
       downloadLink.click();
-    },
-    showDialog() {
-      clearDialog = true;
     },
     ...mapActions('localStorageInfo', [
       'safeLimitTest',
