@@ -1,6 +1,6 @@
 <template lang="html">
   <!-- store deletion -->
-  <v-dialog v-model="dialog">
+  <v-dialog v-model="dialog" max-width="500px">
     <v-card>
       <v-card-title>
         Clear Cache

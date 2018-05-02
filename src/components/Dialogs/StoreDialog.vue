@@ -1,5 +1,5 @@
 <template lang="html">
-    <v-dialog v-model="dialogShow" id="askForStore">
+    <v-dialog v-model="dialogShow" id="askForStore" max-width="500px">
       <v-card>
         <v-card-title>
           Session Recovery
