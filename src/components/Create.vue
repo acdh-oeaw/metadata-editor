@@ -18,9 +18,16 @@
             <p>Testing Form from Schema</p>
             <FormFromSchema :uniqueName="val" :type="val"></FormFromSchema>
           </b-tab>
+          <div id="testing">
+            <div id="testing">
+              <AutocompVocabs type='ARCHE_CATEGORY' name='Test Vocabs' v-model="testVocabs"></AutocompVocabs>
+            </div>{{ testVocabs }}
+          </div>
         </b-tabs>
       </div>
+
     </div>
+
   </div>
 </main>
 </template>
@@ -29,6 +36,7 @@
 import FundamentEntity from './FundamentEntity';
 import Storestats from './StoreStats';
 import AutocompArche from './AutocompArche';
+import AutocompVocabs from './AutocompVocabs';
 import FormFromSchema from './FormFromSchema';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -37,12 +45,14 @@ export default {
   components: {
     FundamentEntity,
     AutocompArche,
+    AutocompVocabs,
     FormFromSchema,
     Storestats,
   },
   data() {
     return {
       testModel: '',
+      testVocabs: '',
       endpoints: ['Person', 'Organisation', 'Place', 'Concept', 'Publication', 'Metadata'],
     };
   },
