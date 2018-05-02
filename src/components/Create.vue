@@ -8,8 +8,11 @@
       <div class="col-12 col-md-9 col-xl-10 page-content-w-sidebar">
         <h1><a id="Cards_0"></a>Resolving Identifiers</h1>
         <p>Testing Autocompletes to resolve Identifiers</p>
-        <b-tabs>
-          <b-tab v-for="val in endpoints" :title="val">
+        <v-tabs>
+          <v-tab v-for="val in endpoints">
+            {{ val }}
+          </v-tab>
+          <v-tab-item v-for="val in endpoints">
             <h3><a id="Cards_0"></a>{{val}}</h3>
             <AutocompArche :type='val.toUpperCase()' :name='val' v-model="testModel" v-if="val === 'Metadata'"></AutocompArche>
             <AutocompArche :type='val.toUpperCase()+"S"' :name='val' v-model="testModel" v-else></AutocompArche>
@@ -18,8 +21,8 @@
             <h1><a id="Cards_0"></a>Form From Schema</h1>
             <p>Testing Form from Schema</p>
             <FormFromSchema :uniqueName="val" :type="val"></FormFromSchema>
-          </b-tab>
-        </b-tabs>
+          </v-tab-item>
+        </v-tabs>
       </div>
     </div>
   </div>

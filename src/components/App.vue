@@ -7,6 +7,7 @@
       </transition>
       <fundamentfooter></fundamentfooter>
     </v-content>
+    <dialogs></dialogs>
   </v-app>
 </template>
 
@@ -15,6 +16,7 @@ import axios from 'axios';
 import { mapActions, mapMutations } from 'vuex';
 import fundamentnav from './Fundament/FundamentNav';
 import fundamentfooter from './Fundament/FundamentFooter';
+import dialogs from './Dialogs/Dialogs';
 /* eslint no-console: ["error", { allow: ["log"] }] */
 /* eslint no-return-assign: "off" */
 
@@ -27,6 +29,7 @@ export default {
   components: {
     fundamentnav,
     fundamentfooter,
+    dialogs,
   },
   methods: {
     ...mapActions('jowl', [

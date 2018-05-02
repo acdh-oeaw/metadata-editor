@@ -13,7 +13,7 @@
 
       <div class="bd-toc-item" v-if="$store.state.localStorageInfo.tested">
         {{ $store.state.localStorageInfo.localStorageLimit }} Chars Storage Capacity
-        <b-progress :value="$store.state.localStorageInfo.currentStoreLength/$store.state.localStorageInfo.localStorageLimit" :max="1" show-progress></b-progress>
+        <v-progress-linear :value="$store.state.localStorageInfo.currentStoreLength/$store.state.localStorageInfo.localStorageLimit*100"></v-progress-linear>
       </div>
 
       <div class="bd-toc-item" v-if="$store.state.localStorageInfo.tested">
@@ -23,16 +23,18 @@
       Space for ~{{ Math.floor(($store.state.localStorageInfo.localStorageLimit - $store.state.localStorageInfo.currentStoreLength)
       *($store.state.n3.tripleCount/$store.state.localStorageInfo.currentStoreLength) ) }} Triples left.
       </div>
-      <b-alert variant="success" show v-if="$store.state.n3.stored">All Stored</b-alert>
-      <b-alert variant="danger" show v-if="!$store.state.n3.stored">Quota Exceeded</b-alert>
+      <v-alert color="success" show v-if="$store.state.n3.stored">All Stored</v-alert>
+      <v-alert color="error" show v-if="!$store.state.n3.stored">Quota Exceeded</v-alert>
       <div class="bd-toc-item">
-        <b-button-group vertical>
-          <b-button  @click="downloadBlob" variant="primary">Download</b-button>
-          <b-button  disabled variant="light"></b-button>
-          <b-button  v-b-modal="'clearCacheModal'" variant="danger">Clear Store</b-button>
-          <b-button  disabled variant="light"></b-button>
-          <b-button @click="testLimit()">testStoreLimit</b-button>
-        </b-button-group>
+        <div>
+          <v-btn block @click="downloadBlob" color="primary">Download</v-btn>
+        </div>
+        <div>
+          <v-btn block @click.stop="showDialog" color="error">Clear Store</v-btn>
+        </div>
+        <div>
+          <v-btn block @click="testLimit()">testStoreLimit</v-btn>
+        </div>
       </div>
     </nav>
   </div>
@@ -65,6 +67,9 @@ export default {
 
       downloadLink.click();
     },
+    showDialog() {
+      clearDialog = true;
+    },
     ...mapActions('localStorageInfo', [
       'safeLimitTest',
       'testLimit',
@@ -77,7 +82,8 @@ export default {
   .bd-links {
     margin: 15px;
   }
-  b-progress {
-    width: 100px;
+  .bd-toc-item {
+    margin: auto;
+    width: 60%;
   }
 </style>
