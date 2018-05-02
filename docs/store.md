@@ -315,3 +315,79 @@ Since a mutation can only have one payload an object containing the following pa
 | --- | --- | --- |
 | name | <code>String</code> | the name you want your schema to be mapped to. can be anything, but schould be unique to other names if you have different types, but multiple calls of this function, since the content would be overwritten.  |
 | entry | <code>Object</code> | model of the FormSchema, see [FormFromSchema](/components#FormFromSchema) |
+
+## localStorageInfo
+this store module keeps track of the current length of what is saved to the local storage, as well as the capacity of the local storage.   
+
+
+
+### State
+
+|Name | Type | What Is Stored | Mutated by |
+|--|--|--|--|
+| localStorageLimit | <code>Int</code>| Contains the tested localStorage capacity. if never set, it is null | [setLocalStorageLimit](#setLocalStorageLimit) |
+| currentStoreLength | <code>Int</code> | contains the length of the String that is currently saved to the store | [getCurrentStoreLength](#getCurrentStoreLength) |
+| testKey | <code>String</code> | used as key for the local storage. | hardcoded |
+| p | <code>Array of String</code>  | specifies all persistent properties: localStorageLimit, currentStoreLength  | hardcoded |
+
+### Mutations
+#### setLocalStorageLimit
+sets localStorageLimit to the given value.
+
+#### constructLocalStorageInfo
+
+Constructs the module by iterating through the persistent properties and sets them to the stored values.  
+
+#### getCurrentStoreLength
+
+trys to load the current localStorage-length via ```JSON.stringify(localStorage.getItem(STORAGE_KEY)).length```
+and set the value of currentStoreLength to it.
+
+### actions
+
+#### safeLimitTest
+calls [testLimit](#testLimit) only if there is localStorageLimit does not have a value yet.
+
+#### testLimit
+
+This function is designed to test the limit of the local storage with an accuracy of 1000 chars.
+this is to give the user a rough estimate of how many triples he will be able to store in the localStorage. after that he/she has to download the progress and readd it via the file upload functionality.
+
+##### functionality
+
+It starts by committing [getCurrentStoreLength](#getCurrentStoreLength) to ensure that currentStoreLength is accurate and saves the it to a variable (cLS).
+
+it tries to access the local storage. if unsuccessfully , nothing else happens.
+after that in a while(true)-loop it adds 100.000 Characters of PI to a String and tries to save it to the local storage (using the hardcoded [testKey](#state-3)) until it fails.
+
+then it reduces the 100.000 characters to 10.000 and tries again to find an even more accurate limit. Once that fails it reduces the length to 1.000 and finds the limit a final time.
+
+Now that the Limit is accurate to 1.000 chars, [setLocalStorageLimit](#setLocalStorageLimit) is committed with the found limit (+ the current Store length, so testing is even possible when there already is something in the local storage.) and that value is also returned. Before that, it is tried to delete the testKey from the local storage to free the space the testing took up. This is obviously a crucial step.
+
+## Local Storage
+This page describes how persistence using the local storage is achieved:
+
+Each Module should have a p attribute standing for (persistent properties), which specifies all the attributes that need to be kept persistent.
+
+Also each module should have a constructModule function (instead of Module, they user their names: eg.: `constructN3`).
+this function is given a stateObject and has to reestablish the state of the saved session. in the easiest case, this is just a loop through all persistent properties (all in the p-attribute). However sometimes more needs to be done (as in the case of n3, the persistent ttl-String has to be loaded into the n3-store using [StringToStore](#StringToStore) method).
+
+### StoreModal
+
+this modal pops up and asks the user if he/she wants to reuse their old session.
+however this only happens when there is an old session and that old session is older than 5 minutes. So if the user just reloads the page, he/she is not asked if the old session should be continued, instead it is an assumed yes to the question and the old session is loaded without notifications.
+
+On the Modal the user has the option to reload their old session or discard them, which in turn deletes all sessions left in the local storage.
+
+
+### ClearCacheModal
+
+This modal provides the functionality to delete all the cached information, including  information about how many triples will be deleted.
+
+If the user clicks the 'Clear Everything' button, the local storage entry is deleted and the page is reloaded which leads to a fresh start of the application.
+
+### LocalStoragePlugin
+
+this plugin is responsible for saving to the local storage.
+
+It looks through all store modules and filters for persistent properties (each module species the attributes that are to be kept persistent by writing their name in the p array --> Each module should have a p property, otherwise nothing of the module will be saved.) and checks for full local storage in which case n3/updateStorageStatus is changed to false and the user is informed that their data is no longer stored correctly.

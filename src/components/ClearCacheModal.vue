@@ -1,13 +1,14 @@
 <template lang="html">
   <!-- store deletion -->
   <b-modal  id="clearCacheModal"
-            title="Clear Cache"
+            title="Clear all Cache"
             ok-variant="danger"
             @ok="clearStore()">
-    <p class="my-4">Are you Sure to delete  {{ $store.state.n3.tripleCount }} Triples containing
-{{ Object.keys($store.state.n3.subjects).length }} Subjects from your Store? This can not be undone!</p>
+    <p class="my-4">You are about to delete {{ $store.state.n3.tripleCount }} Triples containing
+{{ Object.keys($store.state.n3.subjects).length }} Subjects from the n3-Store.<br><br>
+All data you typed in forms will be deleted as well.<br><br>This step can not be undone. Are you sure you want to procede?</p>
     <div slot="modal-ok" size="lg" variant="danger">
-      Clear
+      Clear Everything
     </div>
     <div slot="modal-cancel" size="lg" variant="secondary">
       Cancel
