@@ -19,10 +19,10 @@
             </div>
             <div v-if="this.getOntology" >
               <h1>Explore Ontology</h1>
-              <b-form-select v-model="selectedOntology" class="mb-3">
+              <v-select v-model="selectedOntology" class="mb-3">
                 <option :value="null">Please select a Class</option>
                 <option v-for="cl in getClasses()" :value="cl['?x'].URI">{{ cl['?x'].name }}</option>
-              </b-form-select>
+              </v-select>
               <div>Selected: <strong>{{ selectedOntology }}</strong></div>
               <Propertytable :uri="selectedOntology"></Propertytable>
             </div>
