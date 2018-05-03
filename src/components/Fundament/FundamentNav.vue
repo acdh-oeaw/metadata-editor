@@ -4,7 +4,6 @@
       <v-navigation-drawer
         v-if="$store.state.app.drawer"
         :mini-variant="$store.state.app.miniVariant"
-        v-model="drawer"
         enable-resize-watcher
         :class="$store.state.app.config.color"
         dark

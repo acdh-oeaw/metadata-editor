@@ -30,6 +30,8 @@ const state = {
 const getters = {
   getTriples: s => p => s.store.getTriples(p.subject, p.predicate, p.object),
   getTitle: s => subject => s.store.getTriples(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle'),
+  getType: s => subject => s.store.getTriples(subject, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+  getCount: s => s.tripleCount,
 };
 
 export default {

@@ -1,35 +1,40 @@
 <template>
   <v-container grid-list-md class="mt-4">
-    <v-tabs fixed-tabs icons-and-text centered>
-      <v-tab href="#fileload">
+    <v-tabs icons-and-text centered>
+      <v-tab key="fileload">
         Load from File
         <v-icon>insert_drive_file</v-icon>
       </v-tab>
-      <v-tab href="#storeload">
-        Load from Store
+      <v-tab key="storeload">
+        Load from Database
         <v-icon>storage</v-icon>
       </v-tab>
-      <v-tab href="#viewtree">
+      <v-tab key="viewtree">
         View Item Tree
         <v-icon>storage</v-icon>
       </v-tab>
+        <v-tab-item key="fileload">
+          <v-flex xs12>
+              <loadfile></loadfile>
+          </v-flex>
+        </v-tab-item>
+        <v-tab-item key="storeload">
+          <v-flex xs12>
+              [SPARQL query / loader goes here]
+          </v-flex>
+        </v-tab-item>
+        <v-tab-item key="viewtree">
+          <v-flex xs12>
+            <storetree></storetree>
+          </v-flex>
+        </v-tab-item>
     </v-tabs>
-    <v-layout justify-space-around row wrap>
-      <v-flex xs12>
-          <loadfile></loadfile>
-      </v-flex>
-      <v-flex xs12>
-          <loadfile></loadfile>
-      </v-flex>
-      <v-flex xs12>
-          <loadfile></loadfile>
-      </v-flex>
-    </v-layout>
   </v-container>
 </template>
 
 <script>
 import loadfile from './Store_LoadFile';
+import storetree from './Store_Storetree';
 
 import HELPERS from '../helpers';
 
@@ -39,6 +44,7 @@ export default {
   mixins: [HELPERS],
   components: {
     loadfile,
+    storetree,
   },
   data() {
     return {

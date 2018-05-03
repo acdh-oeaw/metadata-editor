@@ -203,6 +203,13 @@ export default {
       this.$info('clearStore');
       this.clearCache();
     },
+    IconByRepoType(uri) {
+      switch (uri) {
+        case 'https://vocabs.acdh.oeaw.ac.at/schema#Collection': return 'folder';
+        case 'https://vocabs.acdh.oeaw.ac.at/schema#Resource': return 'developer_board';
+        default: return 'folder';
+      }
+    },
   },
   created() {
     this.$info('Helpers', 'created');
