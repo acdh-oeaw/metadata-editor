@@ -121,7 +121,7 @@ export default {
       this.$info('Helpers', 'getVocabsByID(id, type)', id, type);
       if (id && type && APIS.VOCABS[type]) {
         return APIS.VOCABS[type].get('', { params: { query: `${id}` } }).then((response) => {
-          this.$log('response', response.data);
+          this.$log('response', response);
           return Promise.resolve(response.data);
         }, (error) => {
           this.$log('errortree, request failed', error);

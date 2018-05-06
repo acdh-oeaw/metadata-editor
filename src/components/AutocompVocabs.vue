@@ -47,7 +47,7 @@ export default {
     },
     search: debounce((loading, search, vm) => {
       vm.$info(vm);
-      vm.getVocabsByID(escape(search), vm.type)
+      vm.getVocabsByID(search.trim(), vm.type)
       .then((res) => {
         if (Array.isArray(res.results)) vm.options = res.results;
         else vm.options = [];
