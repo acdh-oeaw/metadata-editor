@@ -116,7 +116,8 @@ export default {
       }
       return Promise.reject('no ID or Type was given');
     },
-    getVocabsByID(id, type) {
+    getVocabsByID(id, typ) {
+      const type = typ.toUpperCase();
       this.$info('Helpers', 'getVocabsByID(id, type)', id, type);
       if (id && type && APIS.VOCABS[type]) {
         return APIS.VOCABS[type].get('', { params: { query: `${id}` } }).then((response) => {

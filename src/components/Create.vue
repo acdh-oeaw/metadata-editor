@@ -17,11 +17,13 @@
             <h1><a id="Cards_0"></a>Form From Schema</h1>
             <p>Testing Form from Schema</p>
             <FormFromSchema :uniqueName="val" :type="val"></FormFromSchema>
-          </b-tab>
+          </b-tab><br>
           <div id="testing">
-            <div id="testing">
-              <AutocompVocabs type='ARCHE_CATEGORY' name='Test Vocabs' v-model="testVocabs"></AutocompVocabs>
-            </div>{{ testVocabs }}
+            <h3>Test Autocomplete for Vocabs</h3>
+            ARCHE_CATEGORY (eg.: sound): <AutocompVocabs type='ARCHE_CATEGORY' name='Test Vocabs' v-model="testVocabs"></AutocompVocabs>
+            {{ testVocabs }}<br><br>
+            ARCHE_LIFECYCLE_STATUS (eg.: active): <AutocompVocabs type='ARCHE_LIFECYCLE_STATUS' name='Test ARCHE_LIFECYCLE_STATUS' v-model="testARCHE_LIFECYCLE_STATUS"></AutocompVocabs>
+            {{ testARCHE_LIFECYCLE_STATUS }}
           </div>
         </b-tabs>
       </div>
@@ -54,6 +56,7 @@ export default {
       testModel: '',
       testVocabs: '',
       endpoints: ['Person', 'Organisation', 'Place', 'Concept', 'Publication', 'Metadata'],
+      testARCHE_LIFECYCLE_STATUS: '',
     };
   },
   methods: {
