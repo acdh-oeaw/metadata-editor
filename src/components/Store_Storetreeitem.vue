@@ -8,7 +8,7 @@
         <v-icon v-bind:class="{ expanded: 'teal lighten-3' }">{{this.typeicon}}</v-icon>
         <v-container grid-list-xs class="ml-2">
           <v-layout column justify-center>
-            <div class="itemcaption caption">{{this.getTitle(this.uri)[0].object || uri}}</div>
+            <div class="itemcaption caption">{{this.getTitle(this.uri)[0].object}}</div>
           </v-layout>
         </v-container>
         <v-spacer></v-spacer>
