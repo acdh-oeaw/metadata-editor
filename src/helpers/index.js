@@ -207,7 +207,7 @@ export default {
       switch (uri) {
         case 'https://vocabs.acdh.oeaw.ac.at/schema#Collection': return 'folder';
         case 'https://vocabs.acdh.oeaw.ac.at/schema#Resource': return 'developer_board';
-        case 'https://vocabs.acdh.oeaw.ac.at/schema#Person': return 'contact';
+        case 'https://vocabs.acdh.oeaw.ac.at/schema#Person': return 'person';
         case 'https://vocabs.acdh.oeaw.ac.at/schema#Place': return 'place';
         default: return 'folder';
       }
