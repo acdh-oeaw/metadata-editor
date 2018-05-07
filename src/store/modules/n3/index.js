@@ -29,8 +29,18 @@ const state = {
 
 const getters = {
   getTriples: s => p => s.store.getTriples(p.subject, p.predicate, p.object),
-  getTitle: s => subject => s.store.getTriples(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle'),
-  getType: s => subject => s.store.getTriples(subject, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+  getTitle: (s, g) => (subject) => {
+    const type = g.getType(subject);
+    switch (type) {
+      case 'https://vocabs.acdh.oeaw.ac.at/schema#Person':
+        const fn = s.store.getTriples(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasFirstName')[0].object;
+        const ln = s.store.getTriples(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasLastName')[0].object;
+        return `${fn} ${ln}`;
+      default: return s.store.getTriples(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle')[0].object;
+    }
+
+  },
+  getType: s => subject => s.store.getTriples(subject, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')[0].object,
   getCount: s => s.tripleCount,
 };
 

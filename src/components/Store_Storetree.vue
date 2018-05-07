@@ -2,7 +2,7 @@
   <v-layout row wrap class="mt-3">
     <v-expansion-panel popout>
       <v-expansion-panel-content value="true">
-        <div slot="header">Collections</div>
+        <div slot="header"><v-icon large color='teal lighten-3'>folder</v-icon> Collections / Resources</div>
         <v-card>
           <v-flex xs12 v-for="(item, i) in collections" :key="i" >
             <item :uri="item.subject"></item>
@@ -10,7 +10,7 @@
         </v-card>
       </v-expansion-panel-content>
       <v-expansion-panel-content>
-        <div slot="header">Persons</div>
+        <div slot="header"><v-icon large color='teal lighten-3'>person</v-icon> Persons</div>
         <v-card>
           <v-flex xs12 v-for="(item, i) in persons" :key="i" >
             <item :uri="item.subject"></item>
@@ -18,7 +18,7 @@
         </v-card>
       </v-expansion-panel-content>
       <v-expansion-panel-content>
-        <div slot="header">Places</div>
+        <div slot="header"><v-icon large color='teal lighten-3'>place</v-icon> Places</div>
         <v-card>
           <v-flex xs12 v-for="(item, i) in places" :key="i" >
             <item :uri="item.subject"></item>
@@ -26,7 +26,7 @@
         </v-card>
       </v-expansion-panel-content>
       <v-expansion-panel-content>
-        <div slot="header">Organisations</div>
+        <div slot="header"><v-icon large color='teal lighten-3'>device_hub</v-icon> Organisations</div>
         <v-card>
           <v-flex xs12 v-for="(item, i) in organisations" :key="i" >
             <item :uri="item.subject"></item>
@@ -65,7 +65,11 @@ export default {
       'getCount',
       'getTriples',
       'getTitle',
+      'getType',
     ]),
+    typeicon(type) {
+      return this.IconByRepoType(type);
+    },
   },
   watch: {
     getCount() {
@@ -88,7 +92,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.treecontainer {
-  width: 110%;
-}
 </style>

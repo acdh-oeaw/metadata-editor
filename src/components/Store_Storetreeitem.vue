@@ -8,7 +8,7 @@
         <v-icon v-bind:class="{ expanded: 'teal lighten-3' }">{{this.typeicon}}</v-icon>
         <v-container grid-list-xs class="ml-2">
           <v-layout column justify-center>
-            <div class="itemcaption caption">{{this.getTitle(this.uri)[0].object}}</div>
+            <div class="itemcaption caption">{{this.getTitle(this.uri)}}</div>
           </v-layout>
         </v-container>
         <v-spacer></v-spacer>
@@ -67,8 +67,7 @@ export default {
       'getType',
     ]),
     typeicon() {
-      console.log(this.getType(this.uri), this.IconByRepoType(this.getType(this.uri)[0].object));
-      return this.IconByRepoType(this.getType(this.uri)[0].object);
+      return this.IconByRepoType(this.getType(this.uri));
     },
   },
   methods: {
@@ -77,7 +76,6 @@ export default {
         { predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
           object: uri,
         });
-      console.log(children);
       if (children.length > 0) {
         let idx = children.length - 1;
         while (idx + 1) {
