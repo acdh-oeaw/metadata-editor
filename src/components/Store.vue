@@ -6,28 +6,37 @@
         <v-icon>insert_drive_file</v-icon>
       </v-tab>
       <v-tab key="storeload">
-        Load from Database
-        <v-icon>storage</v-icon>
+        Load via SPARQL
+        <v-icon>share</v-icon>
+      </v-tab>
+      <v-tab key="batchcreate">
+        Batch Create
+        <v-icon>content_copy</v-icon>
       </v-tab>
       <v-tab key="viewtree">
         View Item Tree
-        <v-icon>storage</v-icon>
+        <v-icon>format_indent_increase</v-icon>
       </v-tab>
-        <v-tab-item key="fileload">
-          <v-flex xs12>
-              <loadfile></loadfile>
-          </v-flex>
-        </v-tab-item>
-        <v-tab-item key="storeload">
-          <v-flex xs12>
-              [SPARQL query / loader goes here]
-          </v-flex>
-        </v-tab-item>
-        <v-tab-item key="viewtree">
-          <v-flex xs12>
-            <storetree></storetree>
-          </v-flex>
-        </v-tab-item>
+      <v-tab-item key="fileload">
+        <v-flex xs12>
+            <loadfile></loadfile>
+        </v-flex>
+      </v-tab-item>
+      <v-tab-item key="storeload">
+        <v-flex xs12>
+            [SPARQL query / loader goes here]
+        </v-flex>
+      </v-tab-item>
+      <v-tab-item key="batchcreate">
+        <v-flex xs12>
+            [API / File loader + Mapper goes here]
+        </v-flex>
+      </v-tab-item>
+      <v-tab-item key="viewtree">
+        <v-flex xs12>
+          <storetree></storetree>
+        </v-flex>
+      </v-tab-item>
     </v-tabs>
   </v-container>
 </template>
