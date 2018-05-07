@@ -6,16 +6,13 @@
         <v-icon v-if="expanded && children.length>0"  class="pointer">expand_more</v-icon>
         <v-icon v-if="children.length==0" style="opacity:0;">expand_more</v-icon>
         <v-icon v-bind:class="{ expanded: 'teal lighten-3' }">{{this.typeicon}}</v-icon>
-        <v-container grid-list-xs class="ml-2">
-          <v-layout column justify-center>
+        <v-layout grid-list-xs class="ml-2" column justify-center>
             <div class="itemcaption caption">{{this.getTitle(this.uri)}}</div>
-          </v-layout>
-        </v-container>
+        </v-layout>
         <v-spacer></v-spacer>
         <v-flex xs1 >
           <div class="itemtoolbar">
             <v-layout row nowrap>
-              <v-icon>add</v-icon>
               <v-icon>clear</v-icon>
               <v-icon>create</v-icon>
             </v-layout>
@@ -98,6 +95,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .itemline {
+  width:100%;
 }
 
 .itemline:hover {
@@ -105,12 +103,19 @@ export default {
 }
 
 .itemtoolbar {
+  position: absolute;
+  right: 0px;
   width: 0px;
   overflow: hidden;
+  cursor: pointer;
+  background-color: white;
+  opacity: 0.8;
+  -webkit-transition: width 0.3s;
+  transition: width 0.3s;
 }
 
 .itemline:hover .itemtoolbar {
-  width: 90px;
+  width: 60px;
 }
 
 .itemcaption {

@@ -1,5 +1,16 @@
 <template>
-<main class="grid-col" role="main">
+<v-container class="mt-4">
+  <v-layout row wrap>
+    <v-flex xs12 md3 class="mr-2">
+      <storetree></storetree>
+    </v-flex>
+    <v-flex xs12 md8>
+      <loadfile></loadfile>
+    </v-flex>
+  </v-layout>
+</v-container>
+
+<!-- <main class="grid-col" role="main">
   <div class="container">
     <div class="main-content row flex-xl-nowrap bg-white box-shadow element-border">
       <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
@@ -26,23 +37,20 @@
       </div>
     </div>
   </div>
-</main>
+</main> -->
 </template>
 
 <script>
-// import FundamentEntity from './FundamentEntity';
-// import Storestats from './StoreStats';
-// import AutocompArche from './AutocompArche';
-// import FormFromSchema from './FormFromSchema';
+import loadfile from './Store_LoadFile';
+import storetree from './Store_Storetree';
+
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 export default {
   mixins: [HELPERS],
   components: {
-    // FundamentEntity,
-    // AutocompArche,
-    // FormFromSchema,
-    // Storestats,
+    loadfile,
+    storetree,
   },
   data() {
     return {

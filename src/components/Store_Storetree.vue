@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap class="mt-3">
+  <v-layout row wrap>
     <v-expansion-panel popout>
       <v-expansion-panel-content value="true">
         <div slot="header"><v-icon large color='teal lighten-3'>folder</v-icon> Collections / Resources</div>
