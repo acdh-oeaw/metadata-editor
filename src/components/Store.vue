@@ -18,22 +18,22 @@
         <v-icon>format_indent_increase</v-icon>
       </v-tab>
       <v-tab-item key="fileload">
-        <v-flex xs12>
+        <v-flex xs12 class="mt-2">
             <loadfile></loadfile>
         </v-flex>
       </v-tab-item>
       <v-tab-item key="storeload">
-        <v-flex xs12>
+        <v-flex xs12 class="mt-2">
             [SPARQL query / loader goes here]
         </v-flex>
       </v-tab-item>
       <v-tab-item key="batchcreate">
-        <v-flex xs12>
+        <v-flex xs12 class="mt-2">
             [API / File loader + Mapper goes here]
         </v-flex>
       </v-tab-item>
       <v-tab-item key="viewtree">
-        <v-flex xs12>
+        <v-flex xs12 class="mt-2">
           <storetree></storetree>
         </v-flex>
       </v-tab-item>

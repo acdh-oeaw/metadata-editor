@@ -2,7 +2,7 @@
 <v-container class="mt-4">
   <v-layout row wrap>
     <v-flex xs12 md3 class="mr-2">
-      <storetree></storetree>
+      <storetree class="tree"></storetree>
     </v-flex>
     <v-flex xs12 md8>
       <loadfile></loadfile>
@@ -63,4 +63,8 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.tree {
+  max-height: 80vh;
+  overflow: auto;
+}
 </style>
