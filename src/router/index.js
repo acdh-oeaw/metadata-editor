@@ -48,7 +48,7 @@ export default new Router({
           name: 'store',
           components: {
             Content: Store,
-            rightdrawertop: Storestats,
+            rightdrawerbottom: Storestats,
           },
         },
         {
