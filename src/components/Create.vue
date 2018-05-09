@@ -6,7 +6,7 @@
     </v-flex>
     <v-flex xs12 md8>
       <loadfile></loadfile>
-      <autocomplete type="PERSONS"></autocomplete>
+      <autocomplete type="PERSONS" name="hasCreator"></autocomplete>
     </v-flex>
   </v-layout>
 </v-container>

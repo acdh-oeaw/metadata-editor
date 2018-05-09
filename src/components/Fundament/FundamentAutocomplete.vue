@@ -5,12 +5,14 @@
       :rules="[() => select.length > 0 || 'You must choose at least one']"
       :search-input.sync="search"
       v-model="select"
-      :label="type"
+      :label="name"
       autocomplete
       multiple
       cache-items
       chips
       required
+      item-text="title"
+      item-value="uri"
       >
       <template slot="selection" slot-scope="data">
         <v-chip
@@ -62,7 +64,7 @@ export default {
   },
   watch: {
     search(val) {
-      return val && this.querySelections(val);
+      this.querySelections(val);
     },
   },
   methods: {
@@ -73,6 +75,9 @@ export default {
       .then((res) => {
         if (Array.isArray(res)) this.items = res;
         console.log(this.items);
+        this.loading = false;
+      })
+      .catch((e) => {
         this.loading = false;
       });
     },
