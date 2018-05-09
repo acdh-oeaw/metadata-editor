@@ -14,11 +14,12 @@ import archeautocomplete from './AutocompArche';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
-FormSchema.setComponent('form', 'b-form', { validated: true });
+// FormSchema.setComponent('form', 'b-form', { validated: true });
 
-FormSchema.setComponent('email', 'b-form-input', { type: 'email' });
+// FormSchema.setComponent('email', 'b-form-input', { type: 'email' });
 // FormSchema.setComponent('text', 'b-form-input', { type: 'text' });
-FormSchema.setComponent('text', archeautocomplete, { type: 'PERSONS' });
+
+FormSchema.setComponent('text', archeautocomplete, { type: 'persons' });
 
 // FormSchema.setComponent('text', AutocompArche, { type: 'PERSONS', name: 'Person' });
 

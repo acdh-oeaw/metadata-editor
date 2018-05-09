@@ -109,7 +109,8 @@ export default {
       this.$log('errortree, no id');
       return Promise.reject('no ID was given');
     },
-    getArcheByID(id, type) {
+    getArcheByID(id, typ) {
+      const type = typ.toUpperCase();
       this.$info('Helpers', 'getArcheByID(id, type)', id, type);
       if (id && type && APIS.ARCHE[type]) {
         return APIS.ARCHE[type].get(`${id}`).then((response) => {
