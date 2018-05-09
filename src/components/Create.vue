@@ -6,6 +6,7 @@
     </v-flex>
     <v-flex xs12 md8>
       <loadfile></loadfile>
+      <autocomplete type="PERSONS"></autocomplete>
     </v-flex>
   </v-layout>
 </v-container>
@@ -43,6 +44,7 @@
 <script>
 import loadfile from './Store_LoadFile';
 import storetree from './Store_Storetree';
+import autocomplete from './Fundament/FundamentAutocomplete';
 
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -51,6 +53,7 @@ export default {
   components: {
     loadfile,
     storetree,
+    autocomplete,
   },
   data() {
     return {
