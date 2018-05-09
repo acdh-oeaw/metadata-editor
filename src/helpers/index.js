@@ -14,7 +14,7 @@ const CONFIG = {
       PLACES: 'places/',
       CONCEPTS: 'concepts/',
       PUBLICATIONS: 'publications/',
-      METADATA: 'getMetadata/metadata/en/',
+      METADATA: 'getMetadata/',
     },
     TIMEOUT: 15000,
     PARAMS: {
@@ -31,7 +31,7 @@ const CONFIG = {
       PLACES: 'places/',
       CONCEPTS: 'concepts/',
       PUBLICATIONS: 'publications/',
-      METADATA: 'getMetadata/metadata/en/',
+      METADATA: 'getMetadata/',
     },
     TIMEOUT: 15000,
     PARAMS: {
@@ -93,7 +93,7 @@ export default {
       */
     getMetadataByType(type) {
       this.$info('Helpers', 'getMetadataByType(type)', type);
-      return APIS.ARCHE.METADATA.get(`${type}/`).then(response => Promise.resolve(response.data));
+      return APIS.ARCHE2.METADATA.get(`${type}/en`).then(response => Promise.resolve(response.data));
     },
     getViafByID(id) {
       this.$info('Helpers', 'getViafByID(id)', id);

@@ -54,7 +54,7 @@ export default {
   props: [
     'type', 'name',
   ],
-  name:'AutocompArche',
+  name: 'AutocompArche',
   data() {
     return {
       loading: false,
@@ -68,9 +68,6 @@ export default {
       this.querySelections(val);
     },
   },
-  computed:{
-
-  },
   methods: {
     querySelections() {
       this.loading = true;
@@ -81,7 +78,7 @@ export default {
         console.log(this.items);
         this.loading = false;
       })
-      .catch((e) => {
+      .catch(() => {
         this.loading = false;
       });
     },

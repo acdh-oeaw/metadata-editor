@@ -5,10 +5,10 @@
       <storetree class="tree"></storetree>
     </v-flex>
     <v-flex xs12 md8>
-      <loadfile></loadfile>
       <archeautocomplete type="ORGANISATIONS" name="hasCreator"></archeautocomplete>
       <archeautocomplete type="PLACES" name="hasSpatialCoverage"></archeautocomplete>
       <archeautocomplete type="PERSONS" name="hasCurator"></archeautocomplete>
+      <formfromschema type="person" uniqueName=""></formfromschema>
     </v-flex>
   </v-layout>
 </v-container>
@@ -47,6 +47,8 @@
 import loadfile from './Store_LoadFile';
 import storetree from './Store_Storetree';
 import archeautocomplete from './AutocompArche';
+import formfromschema from './FormFromSchema';
+
 
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -56,6 +58,7 @@ export default {
     loadfile,
     storetree,
     archeautocomplete,
+    formfromschema,
   },
   data() {
     return {
