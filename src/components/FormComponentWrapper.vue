@@ -1,6 +1,6 @@
 <template>
   <div> FORMWRAPPER
-    <archeautocomplete v-if="component==='arche'" :type="type" :name="name" v-model="selectedValue"></archeautocomplete>
+    <archeautocomplete v-if="component==='arche'" :type="typ" :name="name" v-model="selectedValue"></archeautocomplete>
 
     <archeautocomplete v-else type="persons" name="SOMETHING WENT WRONG" v-model="selectedValue"></archeautocomplete>
   </div>
@@ -25,6 +25,7 @@ export default {
       selectedValue: '',
       loading: false,
       component: null,
+      typ: '',
     };
   },
   methods: {
@@ -33,7 +34,9 @@ export default {
   created() {
     this.$info('FormComponentWrapper created');
     // for now only arche
-    if(this.keyInValidTypes((this.type + 's').toUpperCase().trim(), 'ARCHE')) {
+    this.typ = this.type.trim() + 's';
+
+    if(this.keyInValidTypes((this.typ).toUpperCase(), 'ARCHE')) {
       this.component = 'arche';
     }
   },

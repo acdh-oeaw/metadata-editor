@@ -126,7 +126,6 @@ export default {
     //  this.$info('Helpers', 'keyInValidTypes(key, obj)', k, obj);
       const key = k.trim();
       return VALID_TYPES[subType].indexOf(k) >= 0;
-
     },
     getViafByID(id) {
       this.$info('Helpers', 'getViafByID(id)', id);
@@ -143,7 +142,7 @@ export default {
       return Promise.reject('no ID was given');
     },
     getArcheByID(id, typ) {
-      const type = typ.toUpperCase();
+      const type = typ.toUpperCase().trim();
       this.$info('Helpers', 'getArcheByID(id, type)', id, type);
       if (id && type && APIS.ARCHE[type]) {
         return APIS.ARCHE[type].get(`${id}`).then((response) => {
