@@ -23,7 +23,7 @@
           @input="data.parent.selectItem(data.item)"
         >
           <v-avatar>
-            <v-icon>person</v-icon>
+            <v-icon>{{typeicon(type)}}</v-icon>
           </v-avatar>
           {{ data.item.title }}
         </v-chip>
@@ -34,7 +34,7 @@
         </template>
         <template v-else>
           <v-list-tile-avatar>
-            <v-icon>person</v-icon>
+            <v-icon>{{typeicon(type)}}</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title v-html="data.item.title"></v-list-tile-title>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import HELPERS from '../../helpers';
+import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
 export default {
@@ -54,6 +54,7 @@ export default {
   props: [
     'type', 'name',
   ],
+  name:'AutocompArche',
   data() {
     return {
       loading: false,
@@ -66,6 +67,9 @@ export default {
     search(val) {
       this.querySelections(val);
     },
+  },
+  computed:{
+
   },
   methods: {
     querySelections() {
@@ -80,6 +84,9 @@ export default {
       .catch((e) => {
         this.loading = false;
       });
+    },
+    typeicon(type) {
+      return this.IconByRepoType(type);
     },
   },
 };

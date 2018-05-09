@@ -14,7 +14,24 @@ const CONFIG = {
       PLACES: 'places/',
       CONCEPTS: 'concepts/',
       PUBLICATIONS: 'publications/',
-      METADATA: 'getMetadata/',
+      METADATA: 'getMetadata/metadata/en/',
+    },
+    TIMEOUT: 15000,
+    PARAMS: {
+      _format: 'json',
+    },
+    HEADERS: {},
+  },
+  ARCHE2: {
+    BASEURL: 'https://fedora.hephaistos.arz.oeaw.ac.at/browser/api/',
+    ENDPOINTS: {
+      PERSONS: 'persons/',
+      BASE: '',
+      ORGANISATIONS: 'organisations/',
+      PLACES: 'places/',
+      CONCEPTS: 'concepts/',
+      PUBLICATIONS: 'publications/',
+      METADATA: 'getMetadata/metadata/en/',
     },
     TIMEOUT: 15000,
     PARAMS: {
@@ -207,8 +224,12 @@ export default {
       switch (uri) {
         case 'https://vocabs.acdh.oeaw.ac.at/schema#Collection': return 'folder';
         case 'https://vocabs.acdh.oeaw.ac.at/schema#Resource': return 'developer_board';
+        case 'PERSONS':
         case 'https://vocabs.acdh.oeaw.ac.at/schema#Person': return 'person';
+        case 'PLACES':
         case 'https://vocabs.acdh.oeaw.ac.at/schema#Place': return 'place';
+        case 'ORGANISATIONS':
+        case 'https://vocabs.acdh.oeaw.ac.at/schema#Organisation': return 'device_hub';
         default: return 'folder';
       }
     },
