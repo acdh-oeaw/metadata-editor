@@ -53,7 +53,33 @@ const CONFIG = {
   },
 };
 
+
+let TYPES = 0;
+TYPES = ['Agent',
+        'ContainerOrReMe',
+        'ContainerOrResource',
+        'Main',
+        'Organisation',
+        'PublicationOrRepoObject',
+        'RepoObject',
+        'anyURI',
+        'date',
+        'string',
+      ];
+
 let APIS = {};
+
+const VALID_TYPES = {
+  ARCHE: [
+    'PERSONS',
+    'ORGANISATIONS',
+    'PLACES',
+    'CONCEPTS',
+    'PUBLICATIONS',
+    'METADATA',
+  ],
+  VOCABS: [],
+};
 
 function buildFetchers(extconf) {
   // this.$info('Helpers', 'buildFetchers(extconf)', extconf);
@@ -86,6 +112,7 @@ export default {
   data() {
     return {
       APIS,
+      TYPES,
     };
   },
   methods: {
@@ -94,6 +121,12 @@ export default {
     getMetadataByType(type) {
       this.$info('Helpers', 'getMetadataByType(type)', type);
       return APIS.ARCHE2.METADATA.get(`${type}/en`).then(response => Promise.resolve(response.data));
+    },
+    keyInValidTypes(k, subType) {
+    //  this.$info('Helpers', 'keyInValidTypes(key, obj)', k, obj);
+      const key = k.trim();
+      return VALID_TYPES[subType].indexOf(k) >= 0;
+
     },
     getViafByID(id) {
       this.$info('Helpers', 'getViafByID(id)', id);
@@ -142,6 +175,65 @@ export default {
           m[keys[i]] = this.filterForArcheID(vals[i]);
         }
       }
+      return m;
+    },
+    filterFormSchemaModelForTypesOnlyName(model) {
+      this.$info('Helpers', 'filterFormSchemaModelForTypes(model)', model);
+      if(!model) {
+        return {};
+      }
+      let m = model; // to be returned
+
+      const keys = Object.keys(model.properties);
+      const vals = Object.values(model.properties);
+
+      let types = {}; // for listing only
+
+      this.$log(keys, vals, model);
+      for (let i = 0; i < keys.length; i += 1) {
+        if (!m.properties[keys[i]].range) {
+          continue;
+        }
+        let r = m.properties[keys[i]].range;
+        r = r.substring(r.lastIndexOf('#')+1);
+        m.properties[keys[i]].attrs.type = r;
+
+        if(types[r]) {
+          types[r]+=1;
+        }else {
+          types[r] = 1;
+        }
+      }
+      this.$debug('types:', types);
+      return m;
+    },
+    filterFormSchemaModelForTypes(model) {
+      this.$info('Helpers', 'filterFormSchemaModelForTypes(model)', model);
+      if(!model) {
+        return {};
+      }
+      let m = model; // to be returned
+
+      const keys = Object.keys(model.properties);
+      const vals = Object.values(model.properties);
+
+      let types = {}; // for listing only
+
+      this.$log(keys, vals, model);
+      for (let i = 0; i < keys.length; i += 1) {
+        if (!m.properties[keys[i]].range) {
+          continue;
+        }
+        let r = m.properties[keys[i]].range;
+        m.properties[keys[i]].type = r;
+
+        if(types[r]) {
+          types[r]+=1;
+        }else {
+          types[r] = 1;
+        }
+      }
+      this.$debug('types:', types);
       return m;
     },
     filterForArcheID(obj) {

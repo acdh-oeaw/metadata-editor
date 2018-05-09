@@ -1,8 +1,8 @@
 <template>
   <div class="" v-if="!loading">
-    <form-schema v-if="model" @input="saveEntry" :schema="schema[type]" v-model="model" @submit="submit">
-      <b-button variant="primary" @click="submit">Load into Store</b-button>
-      <b-button @click="resetForm();" variant="secondary">Reset Form</b-button>
+    <form-schema v-if="model" @input="saveEntry" :schema="schema" v-model="model" @submit="submit">
+      <v-btn variant="primary" @click="submit">Load into Store</v-btn>
+      <v-btn @click="resetForm();" variant="secondary">Reset Form</v-btn>
     </form-schema>
   </div>
 </template>
@@ -11,6 +11,7 @@
 import FormSchema from 'vue-json-schema';
 import { mapState, mapMutations, mapActions } from 'vuex';
 import archeautocomplete from './AutocompArche';
+import FormComponentWrapper from './FormComponentWrapper';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
@@ -19,7 +20,36 @@ import HELPERS from '../helpers';
 // FormSchema.setComponent('email', 'b-form-input', { type: 'email' });
 // FormSchema.setComponent('text', 'b-form-input', { type: 'text' });
 
-FormSchema.setComponent('text', archeautocomplete, { type: 'persons' });
+const TYPES = [
+  'Agent',
+  'ContainerOrReMe',
+  'ContainerOrResource',
+  'Main',
+  'Organisation',
+  'PublicationOrRepoObject',
+  'RepoObject',
+  'anyURI',
+  'date',
+  'string',
+];
+
+console.log('types', TYPES);
+
+
+for (const t in TYPES) {
+  console.log(TYPES[t]);
+
+  FormSchema.setComponent(TYPES[t], FormComponentWrapper, { type: TYPES[t] });
+}
+
+// FormSchema.setComponent('text', FormComponentWrapper, { type: 'persons'});
+
+
+//  const model = vm.data;
+// });
+
+// returning the form props
+
 
 // FormSchema.setComponent('text', AutocompArche, { type: 'PERSONS', name: 'Person' });
 
@@ -34,8 +64,10 @@ export default {
   components: {
     FormSchema,
     archeautocomplete,
+    FormComponentWrapper,
   },
   data: () => ({
+    schema: false,
     model: false,
     loading: true,
   }),
@@ -52,12 +84,15 @@ export default {
       this.setEntry({ name: this.uniqueName, entry: this.model });
     },
     resetForm() {
+      this.$debug('schema', JSON.stringify(this.schema.properties));
+      /*
       this.$info('FormFromSchema', 'resetForm');
       const keys = Object.keys(this.model);
       for (let i = 0; i < keys.length; i += 1) {
         this.$debug(keys[i]);
         this.model[keys[i]] = '';
       }
+      */
     },
     submit() {
       this.$info('FormFromSchema', 'submit()');
@@ -66,27 +101,27 @@ export default {
       we need to filter out objects and split them further into triples
       */
       this.objectToStore({ obj: this.filterModelForArcheObjects(this.model),
-        schema: this.schema[this.type] });
+        schema });
     },
   },
   watch: {
   },
   computed: {
-    ...mapState({
-      // this needs to be replaced, see l60ff
-      schema: $state => $state.JSONschema.schemas,
-    }),
   },
   created() {
     this.$info('FormFromSchema', 'created');
     this.getMetadataByType(this.type).then((res) => {
-      this.$log('schema', res);
+      this.$debug('schema', res);
       this.setSchema({ name: this.type, schema: res });
+      this.schema = this.filterFormSchemaModelForTypesOnlyName(res);
+      this.$debug('properties!!', JSON.stringify(this.schema.properties));
       this.loading = false;
     });
     if (!this.$store.state.JSONschema.entries[this.uniqueName]) {
       this.$store.state.JSONschema.entries[this.uniqueName] = {};
     }
+
+
     this.model = this.$store.state.JSONschema.entries[this.uniqueName];
   },
 };
