@@ -38,6 +38,10 @@ export default {
   computed: {
   },
   methods: {
+    ...mapActions('localStorageInfo', [
+      'safeLimitTest',
+      'testLimit',
+    ]),
     ...mapActions('n3', [
       'StringToStore',
     ]),
@@ -55,7 +59,7 @@ export default {
       const reader = new FileReader();
       reader.onload = (e) => {
         this.result = e.target.result;
-        if (e.target.result.length > 5200000) {
+        if (e.target.result.length > (this.$store.state.localStorageInfo.localStorageLimit || 5200000) - (this.$store.state.localStorageInfo.currentStoreLength || 0)) {
           this.sizeDialog = true;
         } else {
           this.StringToStore(e.target.result).then(this.toggleAppMode());

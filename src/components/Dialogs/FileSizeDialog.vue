@@ -5,7 +5,7 @@
       <v-card-title>
         Hey there!
       </v-card-title>
-      <v-card-text color="primary" v-if="result.length > ($store.state.localStorageInfo.localStorageLimit || 5200000)">
+      <v-card-text color="primary" v-if="result.length > ($store.state.localStorageInfo.localStorageLimit || 5200000) - ($store.state.localStorageInfo.currentStoreLength || 0)">
         <p>
           The file you are trying to upload seems to be to big according to the latest localstorage calculation.
         </p>
@@ -13,13 +13,13 @@
           Your file's size: {{ result.length }}
         </p>
         <p>
-          Calculated Localstorage Space left: {{ ($store.state.localStorageInfo.localStorageLimit || 5200000) - $store.state.localStorageInfo.currentStoreLength }}
+          Calculated Localstorage Space left: {{ ($store.state.localStorageInfo.localStorageLimit || 5200000) - ($store.state.localStorageInfo.currentStoreLength || 0) }}
         </p>
       </v-card-text>
       <v-card-text v-else>
         You're good to go!
       </v-card-text>
-      <v-card-actions v-if="result.length > ($store.state.localStorageInfo.localStorageLimit || 5200000)">
+      <v-card-actions v-if="result.length > ($store.state.localStorageInfo.localStorageLimit || 5200000) - ($store.state.localStorageInfo.currentStoreLength || 0)">
         <v-btn @click="testLimit" color="primary">
           Recalculate localstorage
         </v-btn>

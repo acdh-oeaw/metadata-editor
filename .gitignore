@@ -2,6 +2,7 @@
 node_modules/
 /dist/
 static/troesmis_collection.ttl
+static/4MB Collection.ttl
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
