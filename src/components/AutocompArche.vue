@@ -75,7 +75,7 @@ export default {
       this.getArcheByID(escape(this.search), this.type)
       .then((res) => {
         if (Array.isArray(res)) this.items = res;
-        console.log(this.items);
+        this.$log(this.items);
         this.loading = false;
       })
       .catch(() => {

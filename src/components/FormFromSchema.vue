@@ -9,7 +9,7 @@
 
 <script>
 import FormSchema from 'vue-json-schema';
-import { mapState, mapMutations, mapActions } from 'vuex';
+import { mapMutations, mapActions } from 'vuex';
 import archeautocomplete from './AutocompArche';
 import FormComponentWrapper from './FormComponentWrapper';
 import HELPERS from '../helpers';

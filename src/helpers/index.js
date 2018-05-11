@@ -125,7 +125,7 @@ export default {
     },
     keyInValidTypes(k, subType) {
     //  this.$info('Helpers', 'keyInValidTypes(key, obj)', k, obj);
-      const key = k.trim();
+    //  const key = k.trim();
       return VALID_TYPES[subType].indexOf(k) >= 0;
     },
     getViafByID(id) {
@@ -177,64 +177,43 @@ export default {
       }
       return m;
     },
-    filterFormSchemaModelForTypesOnlyName(model) {
+    universalFilterForFormSchema(model, type) {
       this.$info('Helpers', 'filterFormSchemaModelForTypes(model)', model);
-      if(!model) {
+      if (!model) {
         return {};
       }
-      let m = model; // to be returned
+      const m = model; // to be returned
 
       const keys = Object.keys(model.properties);
       const vals = Object.values(model.properties);
 
-      let types = {}; // for listing only
+      const types = {}; // for listing only
 
       this.$log(keys, vals, model);
       for (let i = 0; i < keys.length; i += 1) {
-        if (!m.properties[keys[i]].range) {
-          continue;
-        }
-        let r = m.properties[keys[i]].range;
-        r = r.substring(r.lastIndexOf('#')+1);
-        m.properties[keys[i]].attrs.type = r;
-
-        if(types[r]) {
-          types[r]+=1;
-        }else {
-          types[r] = 1;
+        if (m.properties[keys[i]].range) {
+          let r = m.properties[keys[i]].range;
+          if (type === 'only name') {
+            r = r.substring(r.lastIndexOf('#') + 1);
+            m.properties[keys[i]].attrs.type = r;
+          } else {
+            m.properties[keys[i]].type = r;
+          }
+          if (types[r]) {
+            types[r] += 1;
+          } else {
+            types[r] = 1;
+          }
         }
       }
       this.$debug('types:', types);
       return m;
     },
+    filterFormSchemaModelForTypesOnlyName(model) {
+      return this.universalFilterForFormSchema(model, 'only name');
+    },
     filterFormSchemaModelForTypes(model) {
-      this.$info('Helpers', 'filterFormSchemaModelForTypes(model)', model);
-      if(!model) {
-        return {};
-      }
-      let m = model; // to be returned
-
-      const keys = Object.keys(model.properties);
-      const vals = Object.values(model.properties);
-
-      let types = {}; // for listing only
-
-      this.$log(keys, vals, model);
-      for (let i = 0; i < keys.length; i += 1) {
-        if (!m.properties[keys[i]].range) {
-          continue;
-        }
-        let r = m.properties[keys[i]].range;
-        m.properties[keys[i]].type = r;
-
-        if(types[r]) {
-          types[r]+=1;
-        }else {
-          types[r] = 1;
-        }
-      }
-      this.$debug('types:', types);
-      return m;
+      return this.universalFilterForFormSchema(model);
     },
     filterForArcheID(obj) {
       this.$info('Helpers', 'filterForArcheID(obj)', obj);
