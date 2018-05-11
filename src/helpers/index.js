@@ -285,7 +285,6 @@ export default {
       } else {
         d = date.getDate();
       }
-      console.log('month', m);
       return `${d}/${m}/${y} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     },
     clearStore() {

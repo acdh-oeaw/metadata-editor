@@ -48,6 +48,7 @@ const actions = {
         commit('updateSubject');
         commit('stopProcessing');
         commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
+        this._vm.$info('Added String to Store');
       }
     });
   },

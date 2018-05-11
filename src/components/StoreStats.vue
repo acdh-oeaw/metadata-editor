@@ -10,6 +10,9 @@
       <div class="bd-toc-item">
         {{ Object.keys($store.state.n3.subjects).length }} Subjects
       </div>
+      <div class="bd-toc-item">
+        {{ $store.state.localStorageInfo.currentStoreLength }} Current Store Length
+      </div>
 
       <div class="bd-toc-item" v-if="$store.state.localStorageInfo.tested">
         {{ $store.state.localStorageInfo.localStorageLimit }} Chars Storage Capacity
