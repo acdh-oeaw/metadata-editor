@@ -7,6 +7,7 @@
         <p>[TEST FOR LOCALSTORAGE AND SOME STORE STATS SHOULD GO HERE]</p>
         <p>.</p>
         <input type="file" @change="onFileChange">
+        <file-size-dialog :result.sync="result" :sizeDialog.sync="sizeDialog"></file-size-dialog>
       </div>
     </fundamentcard>
 </template>
@@ -14,6 +15,7 @@
 <script>
 import { mapActions } from 'vuex';
 import fundamentcard from './Fundament/FundamentCard';
+import FileSizeDialog from './Dialogs/FileSizeDialog';
 
 import HELPERS from '../helpers';
 /* eslint no-unused-vars: ["error", {"args": "none"}] */
@@ -24,11 +26,14 @@ export default {
   data() {
     return {
       file: '',
+      sizeDialog: false,
+      result: '',
     };
   },
   name: 'load',
   components: {
     fundamentcard,
+    FileSizeDialog,
   },
   computed: {
   },
@@ -49,8 +54,12 @@ export default {
       this.$info('Load', 'loadTtl(file)', file);
       const reader = new FileReader();
       reader.onload = (e) => {
-        this.$info('file character count', e.target.result.length);
-        this.StringToStore(e.target.result).then(this.toggleAppMode());
+        this.result = e.target.result;
+        if (e.target.result.length > 5200000) {
+          this.sizeDialog = true;
+        } else {
+          this.StringToStore(e.target.result).then(this.toggleAppMode());
+        }
       };
       reader.readAsText(file);
     },
