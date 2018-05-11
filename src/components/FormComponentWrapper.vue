@@ -14,10 +14,11 @@ import archeautocomplete from './AutocompArche';
 export default {
   mixins: [HELPERS],
   props: [
-    'type', 'name',
+    'type',
+    'name',
   ],
   components: {
-      archeautocomplete,
+    archeautocomplete,
   },
   name: 'FormComponentWrapper',
   data() {
@@ -34,9 +35,9 @@ export default {
   created() {
     this.$info('FormComponentWrapper created');
     // for now only arche
-    this.typ = this.type.trim() + 's';
+    this.typ = `${this.type.trim()}s`;
 
-    if(this.keyInValidTypes((this.typ).toUpperCase(), 'ARCHE')) {
+    if (this.keyInValidTypes((this.typ).toUpperCase(), 'ARCHE')) {
       this.component = 'arche';
     }
   },

@@ -55,17 +55,18 @@ const CONFIG = {
 
 
 let TYPES = 0;
-TYPES = ['Agent',
-        'ContainerOrReMe',
-        'ContainerOrResource',
-        'Main',
-        'Organisation',
-        'PublicationOrRepoObject',
-        'RepoObject',
-        'anyURI',
-        'date',
-        'string',
-      ];
+TYPES = [
+  'Agent',
+  'ContainerOrReMe',
+  'ContainerOrResource',
+  'Main',
+  'Organisation',
+  'PublicationOrRepoObject',
+  'RepoObject',
+  'anyURI',
+  'date',
+  'string',
+];
 
 let APIS = {};
 
