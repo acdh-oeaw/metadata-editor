@@ -36,10 +36,11 @@ const TYPES = [
 console.log('types', TYPES);
 
 
-for (const t in TYPES) {
-  console.log(TYPES[t]);
+for (let i = 0; i < TYPES.lentgh; i += 1) {
+  const t = TYPES[i];
+  console.log(t);
 
-  FormSchema.setComponent(TYPES[t], FormComponentWrapper, { type: TYPES[t] });
+  FormSchema.setComponent(t, FormComponentWrapper, { type: t });
 }
 
 // FormSchema.setComponent('text', FormComponentWrapper, { type: 'persons'});
@@ -54,6 +55,7 @@ for (const t in TYPES) {
 // FormSchema.setComponent('text', AutocompArche, { type: 'PERSONS', name: 'Person' });
 
 /* eslint no-console: ['error', { allow: ['log'] }] */
+/* eslint-disable np-undev */
 
 export default {
   mixins: [HELPERS],
@@ -100,8 +102,7 @@ export default {
       /* before calling objectToStore,
       we need to filter out objects and split them further into triples
       */
-      this.objectToStore({ obj: this.filterModelForArcheObjects(this.model),
-        schema });
+      this.objectToStore({ obj: this.filterModelForArcheObjects(this.model), schema: this.schema });
     },
   },
   watch: {

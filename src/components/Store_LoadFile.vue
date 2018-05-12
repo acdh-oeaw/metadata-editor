@@ -20,7 +20,7 @@ import FileSizeDialog from './Dialogs/FileSizeDialog';
 import HELPERS from '../helpers';
 /* eslint no-unused-vars: ["error", {"args": "none"}] */
 /* eslint no-console: ["error", { allow: ["log"] }] */
-
+/* eslint-disable max-len */
 export default {
   mixins: [HELPERS],
   data() {
