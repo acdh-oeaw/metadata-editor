@@ -41,7 +41,7 @@ export default {
         publicationorrepoobject: { type: 'publications', name: 'archeautocomplete' },
         repoobject: { type: 'persons', name: 'archeautocomplete' },
         anyuri: defaultComponentObject,
-        date: { type: '', name: 'v-date-picker' },
+        date: { name: 'v-date-picker' },
         string: defaultComponentObject,
       },
     };
@@ -56,9 +56,8 @@ export default {
     const c = this.componentMap[typeL];
     this.$debug('c', c);
     this.component = c.name;
-    if (c.type) {
-      this.mappedType = c.type;
-    }
+    this.mappedType = c.type;
+
   },
 };
 </script>
