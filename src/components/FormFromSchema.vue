@@ -36,7 +36,7 @@ const TYPES = [
 console.log('types', TYPES);
 
 
-for (let i = 0; i < TYPES.lentgh; i += 1) {
+for (let i = 0; i < TYPES.length; i += 1) {
   const t = TYPES[i];
   console.log(t);
 
