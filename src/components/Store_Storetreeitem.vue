@@ -83,6 +83,8 @@ export default {
       }
     },
     update() {
+      // TODO: there needs to be some URI validation here and in the
+      // root storetree + probably in the module itself
       this.title = this.getTitle(this.uri);
       this.getChildren(this.uri);
     },
