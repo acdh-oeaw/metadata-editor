@@ -69,7 +69,6 @@ export default {
   },
   methods: {
     getChildren(uri) {
-      console.log('getChildren', uri);
       const children = this.getTriples(
         { predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
           object: uri,
@@ -83,6 +82,8 @@ export default {
       }
     },
     update() {
+      // TODO: there needs to be some URI validation here and in the
+      // root storetree + probably in the module itself
       this.title = this.getTitle(this.uri);
       this.getChildren(this.uri);
     },
