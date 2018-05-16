@@ -37,7 +37,7 @@ export default {
       componentMap: {
         // contains objects with 2 props: name -> component name;
         // type -> prop to give to component.
-        agent: { type: 'agent', name: 'archeautocomplete' },
+        agent: { type: 'agent', name: 'autocompdefault' },
         containerorreme:  { type: 'persons', name: 'autocompdefault' },
         containerorresource:  { type: 'containerorresource', name: 'autocompdefault' },
         main:  { type: 'main', name: 'autocompdefault' },

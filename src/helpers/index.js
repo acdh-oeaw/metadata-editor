@@ -191,6 +191,7 @@ export default {
         });
       }
     },
+
     getMultipleArcheCallsByTypeAndID(id, typ) {
       let type = typ.toUpperCase().trim();
       this.$info('Helpers', 'getMultipleArcheCallsByTypeAndID(id, type)', id, type);
@@ -233,11 +234,21 @@ export default {
               }
               return Promise.resolve(data);
           })
-          .catch(axios.spread(function (acct, perms) {
-              //this.$debug('acct, perms', acct, perms);
+          .catch(function (res) {
+            console.debug('res', res);
+            const data = [];
+            for (let i = 0; i < res.length; i += 1) {
+              const o = res[i];
+                for (let j = 0; j < o.data.length; j += 1) {
 
-          }));
+                  data.push(o.data[j]);
+                }
+            }
+            return Promise.resolve(data);
+            return Promise.reject('Failed');
+          });
         }
+        return Promise.reject('Failed');
       }
     },
     setInitialData(err, key, post) {
