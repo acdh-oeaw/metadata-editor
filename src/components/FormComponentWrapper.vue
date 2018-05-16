@@ -30,10 +30,12 @@ export default {
     return {
       selectedValue: null,
       loading: false,
-      component : null,
-      mappedType : null,
-      componentMap: {   // contains objects with 2 props: name -> component name; type -> prop to give to component.
-        agent : { type: 'persons', name: 'archeautocomplete' },
+      component: null,
+      mappedType: null,
+      componentMap: {
+        // contains objects with 2 props: name -> component name;
+        // type -> prop to give to component.
+        agent: { type: 'persons', name: 'archeautocomplete' },
         containerorreme: defaultComponentObject,
         containerorresource: defaultComponentObject,
         main: defaultComponentObject,
@@ -57,7 +59,6 @@ export default {
     this.$debug('c', c);
     this.component = c.name;
     this.mappedType = c.type;
-
   },
 };
 </script>

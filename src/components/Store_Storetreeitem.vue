@@ -69,6 +69,7 @@ export default {
   },
   methods: {
     getChildren(uri) {
+      console.log('getChildren', uri);
       const children = this.getTriples(
         { predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
           object: uri,
