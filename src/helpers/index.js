@@ -82,6 +82,17 @@ const VALID_TYPES = {
   VOCABS: [],
 };
 
+const RANGE_TO_APICALLS = {
+  agent:  { ARCHE: ['ARCHE', 'PERSONS'] },
+  containerorreme: 'ALL',
+  containerorresource: 'ALL',
+  main: 'ALL',
+  publicationorrepoobject: { ARCHE: ['PUBLICATIONS'] },
+  repoobject: 'ALL',
+  anyuri: 'ALL',
+};
+
+
 function buildFetchers(extconf) {
   // this.$info('Helpers', 'buildFetchers(extconf)', extconf);
   const fetchers = {};
@@ -108,7 +119,7 @@ function buildFetchers(extconf) {
 }
 
 APIS = buildFetchers();
-
+console.log('console.log(APIS);', APIS);
 export default {
   data() {
     return {
@@ -155,6 +166,32 @@ export default {
         });
       }
       return Promise.reject('no ID or Type was given');
+    },
+    getMultipleArcheCallsByTypeAndID(id, typ) {
+      let type = typ.toUpperCase().trim();
+      this.$info('Helpers', 'getMultipleArcheCallsByTypeAndID(id, type)', id, type);
+      if(!id || !typ) {
+        return Promise.reject('no ID or Type was given');
+      }
+      if (id && type && APIS.ARCHE[type]) {
+        return getArcheByID(id, type);
+      }
+      type = type.toLowerCase();
+      if (id && type && RANGE_TO_APICALLS[type]) {
+        const range = RANGE_TO_APICALLS[type];
+        // concat all the apicalls.
+        if (range === ALL) {
+          const calls = [];
+          const ArcheKeys = APIS.ARCHE.keys();
+
+          for (let i = 0; i < ArcheKeys.length; i += 1) {
+            calls.push(APIS.ARCHE[type].get(`${id}`));
+          }
+          axios.all(calls).then(axios.spread(function (acct, perms) {
+              this.$debug('acct, perms', acct, perms);
+          }));
+        }
+      }
     },
     setInitialData(err, key, post) {
       this.$info('Helpers', 'setInitialData(err, key, post)', err, key, post);
