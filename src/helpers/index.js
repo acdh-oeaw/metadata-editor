@@ -216,6 +216,7 @@ export default {
           }));
         }
       }
+    },
     setInitialData(err, key, post) {
       this.$info('Helpers', 'setInitialData(err, key, post)', err, key, post);
       if (err) {
