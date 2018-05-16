@@ -39,6 +39,18 @@ const CONFIG = {
     },
     HEADERS: {},
   },
+  VOCABS: {
+    BASEURL: 'https://vocabs.acdh.oeaw.ac.at/rest/v1/',
+    ENDPOINTS: {
+      ARCHE_CATEGORY: 'arche_category/search/',
+      ARCHE_LIFECYCLE_STATUS: 'arche_lifecycle_status/search/',
+    },
+    TIMEOUT: 5000,
+    PARAMS: {
+      _format: 'json',
+    },
+    HEADERS: {},
+  },
   VIAF: {
     BASEURL: 'https://www.viaf.org/viaf/',
     ENDPOINTS: {
@@ -79,7 +91,6 @@ const VALID_TYPES = {
     'PUBLICATIONS',
     'METADATA',
   ],
-  VOCABS: [],
 };
 
 function buildFetchers(extconf) {
@@ -148,6 +159,20 @@ export default {
       if (id && type && APIS.ARCHE[type]) {
         return APIS.ARCHE[type].get(`${id}`).then((response) => {
           this.$log('response', response.data);
+          return Promise.resolve(response.data);
+        }, (error) => {
+          this.$log('errortree, request failed', error);
+          return Promise.reject(error);
+        });
+      }
+      return Promise.reject('no ID or Type was given');
+    },
+    getVocabsByID(id, typ) {
+      const type = typ.toUpperCase();
+      this.$info('Helpers', 'getVocabsByID(id, type)', id, type);
+      if (id && type && APIS.VOCABS[type]) {
+        return APIS.VOCABS[type].get('', { params: { query: `${id}` } }).then((response) => {
+          this.$log('response', response);
           return Promise.resolve(response.data);
         }, (error) => {
           this.$log('errortree, request failed', error);

@@ -1,5 +1,12 @@
 <template>
 <v-container class="mt-4">
+  <div id="testing">
+    <h3>Test Autocomplete for Vocabs</h3>
+    ARCHE_CATEGORY (eg.: sound): <AutocompVocabs type='ARCHE_CATEGORY' name='Test Vocabs' v-model="testVocabs"></AutocompVocabs>
+    {{ testVocabs }}<br><br>
+    ARCHE_LIFECYCLE_STATUS (eg.: active): <AutocompVocabs type='ARCHE_LIFECYCLE_STATUS' name='Test ARCHE_LIFECYCLE_STATUS' v-model="testARCHE_LIFECYCLE_STATUS"></AutocompVocabs>
+    {{ testARCHE_LIFECYCLE_STATUS }}
+  </div>
   <v-layout row wrap>
     <v-flex xs12 md3 class="mr-2">
       <storetree class="tree"></storetree>
@@ -47,6 +54,7 @@
 import loadfile from './Store_LoadFile';
 import storetree from './Store_Storetree';
 import archeautocomplete from './AutocompArche';
+import AutocompVocabs from './AutocompVocabs';
 import formfromschema from './FormFromSchema';
 
 
@@ -55,6 +63,7 @@ import HELPERS from '../helpers';
 export default {
   mixins: [HELPERS],
   components: {
+    AutocompVocabs,
     loadfile,
     storetree,
     archeautocomplete,
@@ -63,6 +72,8 @@ export default {
   data() {
     return {
       testModel: '',
+      testVocabs: '',
+      testARCHE_LIFECYCLE_STATUS: '',
       endpoints: ['Person', 'Organisation', 'Place', 'Concept', 'Publication', 'Metadata'],
     };
   },
