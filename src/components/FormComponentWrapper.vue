@@ -7,6 +7,7 @@
 <script>
 import HELPERS from '../helpers';
 import archeautocomplete from './AutocompArche';
+import autocompdefault from './AutocompDefault';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
 const defaultComponentObject =
@@ -24,6 +25,7 @@ export default {
   ],
   components: {
     archeautocomplete,
+    autocompdefault,
   },
   name: 'FormComponentWrapper',
   data() {
@@ -35,14 +37,14 @@ export default {
       componentMap: {
         // contains objects with 2 props: name -> component name;
         // type -> prop to give to component.
-        agent: { type: 'persons', name: 'archeautocomplete' },
-        containerorreme: defaultComponentObject,
-        containerorresource: defaultComponentObject,
-        main: defaultComponentObject,
+        agent: { type: 'agent', name: 'archeautocomplete' },
+        containerorreme:  { type: 'persons', name: 'autocompdefault' },
+        containerorresource:  { type: 'containerorresource', name: 'autocompdefault' },
+        main:  { type: 'main', name: 'autocompdefault' },
         organisation: { type: 'organisations', name: 'archeautocomplete' },
-        publicationorrepoobject: { type: 'publications', name: 'archeautocomplete' },
-        repoobject: { type: 'persons', name: 'archeautocomplete' },
-        anyuri: defaultComponentObject,
+        publicationorrepoobject: { type: 'publicationorrepoobject', name: 'autocompdefault' },
+        repoobject: { type: 'repoobject', name: 'autocompdefault' },
+        anyuri:  { type: 'anyuri', name: 'autocompdefault' },
         date: { name: 'v-date-picker' },
         string: defaultComponentObject,
       },
