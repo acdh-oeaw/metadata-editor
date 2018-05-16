@@ -120,7 +120,7 @@ export default {
       const type = typ.toUpperCase();
       this.$info('Helpers', 'getVocabsByID(id, type)', id, type);
       if (id && type && APIS.VOCABS[type]) {
-        return APIS.VOCABS[type].get('', { params: { query: `${id}` } }).then((response) => {
+        return APIS.VOCABS[type].get('', { params: { query: `${id}*` } }).then((response) => {
           this.$log('response', response);
           return Promise.resolve(response.data);
         }, (error) => {
