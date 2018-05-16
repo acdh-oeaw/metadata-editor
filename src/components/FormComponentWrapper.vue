@@ -54,11 +54,11 @@ export default {
 
   },
   created() {
-    this.$info('FormComponentWrapper created');
 
     const typeL = this.type.toLowerCase();
     const c = this.componentMap[typeL];
-    this.$debug('c', c);
+
+    this.$info('FormComponentWrapper created', c);
     this.component = c.name;
     this.mappedType = c.type;
   },

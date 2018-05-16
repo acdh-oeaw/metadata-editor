@@ -115,7 +115,7 @@ export default {
       this.$debug('schema', res);
       this.setSchema({ name: this.type, schema: res });
       this.schema = this.filterFormSchemaModelForTypesOnlyName(res);
-      this.$debug('properties!!', JSON.stringify(this.schema.properties));
+      // this.$debug('properties!!', JSON.stringify(this.schema.properties));
       this.loading = false;
     });
     if (!this.$store.state.JSONschema.entries[this.uniqueName]) {

@@ -194,25 +194,48 @@ export default {
     getMultipleArcheCallsByTypeAndID(id, typ) {
       let type = typ.toUpperCase().trim();
       this.$info('Helpers', 'getMultipleArcheCallsByTypeAndID(id, type)', id, type);
-      if(!id || !typ) {
+      if (!id || !typ) {
+        this.$debug('return failed promise: type, id :', type, id);
         return Promise.reject('no ID or Type was given');
       }
       if (id && type && APIS.ARCHE[type]) {
-        return getArcheByID(id, type);
+        this.$debug('in arche:', type, id);
+        return this.getArcheByID(id, type);
       }
       type = type.toLowerCase();
       if (id && type && RANGE_TO_APICALLS[type]) {
         const range = RANGE_TO_APICALLS[type];
+        this.$debug('more than one: type, id, range: ', type, id, range);
         // concat all the apicalls.
-        if (range === ALL) {
+        if (range === 'ALL') {
+          this.$debug('Range is ALL: ', type, id, range);
+          this.$debug('alles gut noch: ');
           const calls = [];
-          const ArcheKeys = APIS.ARCHE.keys();
-
+          this.$debug('alles gut noch: ');
+          const ArcheKeys = Object.keys(APIS.ARCHE);
+          this.$debug('alles gut noch: ');
           for (let i = 0; i < ArcheKeys.length; i += 1) {
-            calls.push(APIS.ARCHE[type].get(`${id}`));
+            if(['METADATA', 'BASE', 'CONCEPTS'].indexOf(ArcheKeys[i]) < 0) {
+              this.$debug('push in:', APIS.ARCHE[ArcheKeys[i]]);
+              calls.push(APIS.ARCHE[ArcheKeys[i]].get(`${id}`));
+            }
           }
-          axios.all(calls).then(axios.spread(function (acct, perms) {
-              this.$debug('acct, perms', acct, perms);
+          this.$debug('calls is: ', calls);
+
+          return axios.all(calls).then(function (res) {
+              console.debug('res', res);
+              const data = [];
+              for (let i = 0; i < res.length; i += 1) {
+                const o = res[i];
+                  for (let j = 0; j < o.data.length; j += 1) {
+                    data.push(o.data[j]);
+                  }
+              }
+              return Promise.resolve(data);
+          })
+          .catch(axios.spread(function (acct, perms) {
+              //this.$debug('acct, perms', acct, perms);
+
           }));
         }
       }

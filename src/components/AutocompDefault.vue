@@ -75,11 +75,12 @@ export default {
       // this.$info(vm);
       this.getMultipleArcheCallsByTypeAndID(this.search, this.type)
       .then((res) => {
+        this.$debug('res win', res);
         if (Array.isArray(res)) this.items = res;
-        this.$log(this.items);
         this.loading = false;
       })
-      .catch(() => {
+      .catch((res) => {
+        this.$debug('res fail', res);
         this.loading = false;
       });
     },
