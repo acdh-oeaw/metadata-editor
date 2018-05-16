@@ -8,7 +8,7 @@
       <archeautocomplete type="ORGANISATIONS" name="hasCreator"></archeautocomplete>
       <archeautocomplete type="PLACES" name="hasSpatialCoverage"></archeautocomplete>
       <archeautocomplete type="PERSONS" name="hasCurator"></archeautocomplete>
-      <formfromschema type="person" uniqueName=""></formfromschema>
+      <formfromschema type="collection" uniqueName=""></formfromschema>
     </v-flex>
   </v-layout>
 </v-container>
