@@ -38,13 +38,13 @@ export default {
         // contains objects with 2 props: name -> component name;
         // type -> prop to give to component.
         agent: { type: 'agent', name: 'autocompdefault' },
-        containerorreme:  { type: 'persons', name: 'autocompdefault' },
-        containerorresource:  { type: 'containerorresource', name: 'autocompdefault' },
-        main:  { type: 'main', name: 'autocompdefault' },
+        containerorreme: { type: 'persons', name: 'autocompdefault' },
+        containerorresource: { type: 'containerorresource', name: 'autocompdefault' },
+        main: { type: 'main', name: 'autocompdefault' },
         organisation: { type: 'organisations', name: 'archeautocomplete' },
         publicationorrepoobject: { type: 'publicationorrepoobject', name: 'autocompdefault' },
         repoobject: { type: 'repoobject', name: 'autocompdefault' },
-        anyuri:  { type: 'anyuri', name: 'autocompdefault' },
+        anyuri: { type: 'anyuri', name: 'autocompdefault' },
         date: { name: 'v-date-picker' },
         string: defaultComponentObject,
       },
@@ -54,7 +54,6 @@ export default {
 
   },
   created() {
-
     const typeL = this.type.toLowerCase();
     const c = this.componentMap[typeL];
 
