@@ -73,9 +73,10 @@ export default {
     querySelections() {
       this.loading = true;
       // this.$info(vm);
-      this.getMultipleArcheCallsByTypeAndID(this.search, this.type)
+
+      this.splitToGetMultipleCalls(this.search, this.type)
       .then((res) => {
-        this.$debug('res win', res);
+        // this.$debug('res win', res);
         if (Array.isArray(res)) this.items = res;
         this.loading = false;
       })

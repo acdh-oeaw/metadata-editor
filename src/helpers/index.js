@@ -101,24 +101,30 @@ const VALID_TYPES = {
     'METADATA',
   ],
 };
-
+// atomic mapping
 const RANGE_TO_APICALLS = {
   agent: {
     ARCHE: ['ORGANISATIONS', 'PERSONS'],
   },
-  agentorplace: {
-    ARCHE: ['ORGANISATIONS', 'PERSONS', 'PLACES'],
+  person: {
+    ARCHE: ['PERSONS'],
   },
-  containerorreme: 'ARCHE_ALL',
-  containerorresource: 'ARCHE_ALL',
+  place: {
+    ARCHE: ['PLACES'],
+  },
+  container: 'ARCHE_ALL',
+  reme: 'ARCHE_ALL',
+  resource: 'ARCHE_ALL',
   main: 'ARCHE_ALL',
-  publicationorrepoobject: {
+  publication: {
     ARCHE: ['PUBLICATIONS'],
   },
   repoobject: 'ARCHE_ALL',
   anyuri: 'ARCHE_ALL',
-  collectionorresourceorpublication: 'ARCHE_ALL',
-  placeorpublicationorrepoobject: 'ARCHE_ALL',
+  collection: {
+    ARCHE: ['COLLECTIONS'],
+  },
+  resource: 'ARCHE_ALL',
 };
 
 
@@ -214,6 +220,34 @@ export default {
       }
       return Promise.reject('failed to recieve vocabs');
     },
+    splitToGetMultipleCalls(id, typ) {
+      this.$info('Helpers', 'splitToGetMultipleCalls(id, type)', id, typ);
+      if (typ.indexOf('Or') == -1) {
+        return this.getMultipleArcheCallsByTypeAndID(id, typ);
+      }
+      const typen = typ.split('Or');
+      const promises = [];
+      for (let i = 0; i < typen.length; i += 1) {
+        promises.push(this.getMultipleArcheCallsByTypeAndID(id, typen[i]).catch(this.useNull));
+      }
+      return Promise.all(promises).then(function f(res){
+        this.$debug('res All promises', res);
+        const data = [];
+        for (let i = 0; i < res.length; i += 1) {
+          if (res[i] !== null) {
+            const o = res[i];
+            for (let j = 0; j < o.length; j += 1) {
+              data.push(o[j]);
+            }
+          }
+        }
+        this.$debug('Data', data);
+        return Promise.resolve(data);
+      }.bind(this))
+      .catch(function f(res){
+        return Promise.reject('Could not receive data');
+      });
+    },
     getMultipleArcheCallsByTypeAndID(id, typ) {
       let type = typ.toUpperCase().trim();
       this.$info('Helpers', 'getMultipleArcheCallsByTypeAndID(id, type)', id, type);
@@ -262,11 +296,12 @@ export default {
           }
         }
         return Promise.resolve(data);
-      })
+      }.bind(this))
         .catch(function d(res) {
+          console.log(this);
           this.$debug('res failed', res);
           return Promise.reject('Failed');
-        });
+        }.bind(this));
     },
     useNull() {
       return null;
