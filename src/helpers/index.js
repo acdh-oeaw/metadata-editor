@@ -94,13 +94,13 @@ const VALID_TYPES = {
 };
 
 const RANGE_TO_APICALLS = {
-  agent:  { ARCHE: ['ARCHE', 'PERSONS'] },
-  containerorreme: 'ALL',
-  containerorresource: 'ALL',
-  main: 'ALL',
+  agent:  { ARCHE: ['ORGANISATIONS', 'PERSONS'] },
+  containerorreme: 'ARCHE_ALL',
+  containerorresource: 'ARCHE_ALL',
+  main: 'ARCHE_ALL',
   publicationorrepoobject: { ARCHE: ['PUBLICATIONS'] },
-  repoobject: 'ALL',
-  anyuri: 'ALL',
+  repoobject: 'ARCHE_ALL',
+  anyuri: 'ARCHE_ALL',
 };
 
 
@@ -191,66 +191,74 @@ export default {
         });
       }
     },
-
     getMultipleArcheCallsByTypeAndID(id, typ) {
       let type = typ.toUpperCase().trim();
       this.$info('Helpers', 'getMultipleArcheCallsByTypeAndID(id, type)', id, type);
       if (!id || !typ) {
-        this.$debug('return failed promise: type, id :', type, id);
         return Promise.reject('no ID or Type was given');
       }
       if (id && type && APIS.ARCHE[type]) {
-        this.$debug('in arche:', type, id);
         return this.getArcheByID(id, type);
       }
       type = type.toLowerCase();
-      if (id && type && RANGE_TO_APICALLS[type]) {
-        const range = RANGE_TO_APICALLS[type];
-        this.$debug('more than one: type, id, range: ', type, id, range);
-        // concat all the apicalls.
-        if (range === 'ALL') {
-          this.$debug('Range is ALL: ', type, id, range);
-          this.$debug('alles gut noch: ');
-          const calls = [];
-          this.$debug('alles gut noch: ');
-          const ArcheKeys = Object.keys(APIS.ARCHE);
-          this.$debug('alles gut noch: ');
-          for (let i = 0; i < ArcheKeys.length; i += 1) {
-            if(['METADATA', 'BASE', 'CONCEPTS'].indexOf(ArcheKeys[i]) < 0) {
-              this.$debug('push in:', APIS.ARCHE[ArcheKeys[i]]);
-              calls.push(APIS.ARCHE[ArcheKeys[i]].get(`${id}`));
-            }
-          }
-          this.$debug('calls is: ', calls);
-
-          return axios.all(calls).then(function (res) {
-              console.debug('res', res);
-              const data = [];
-              for (let i = 0; i < res.length; i += 1) {
-                const o = res[i];
-                  for (let j = 0; j < o.data.length; j += 1) {
-                    data.push(o.data[j]);
-                  }
-              }
-              return Promise.resolve(data);
-          })
-          .catch(function (res) {
-            console.debug('res', res);
-            const data = [];
-            for (let i = 0; i < res.length; i += 1) {
-              const o = res[i];
-                for (let j = 0; j < o.data.length; j += 1) {
-
-                  data.push(o.data[j]);
-                }
-            }
-            return Promise.resolve(data);
-            return Promise.reject('Failed');
-          });
-        }
+      if (! (id && type && RANGE_TO_APICALLS[type])) {
         return Promise.reject('Failed');
       }
+      const range = RANGE_TO_APICALLS[type];
+      this.$debug('more than one: type, id, range: ', type, id, range);
+      // concat all the apicalls.
+      const calls = [];
+      if (range === 'ARCHE_ALL') {
+        const ArcheKeys = Object.keys(APIS.ARCHE);
+        for (let i = 0; i < ArcheKeys.length; i += 1) {
+          this.$debug('push in:', APIS.ARCHE[ArcheKeys[i]]);
+          calls.push(APIS.ARCHE[ArcheKeys[i]].get(`${id}`).catch(this.useNull));
+        }
+      } else {
+        const childs = Object.keys(range);
+        for (let i = 0; i < childs.length; i += 1) {
+          const apis = range[childs[i]];
+          for (let j = 0; j < apis.length; j += 1) {
+            this.$debug( 'APIS, childs[i], apis[j], APIS[childs[i]][apis[j]]', APIS, childs[i], apis[j], APIS[childs[i]][apis[j]]  );
+            calls.push((APIS[childs[i]][apis[j]]).get(`${id}`).catch(this.useNull));
+          }
+        }
+        this.$debug('dynamic calls is:', calls);
+      }
+      this.$debug('calls is: ', calls);
+
+      return axios.all(calls).then(function (res) {
+          console.debug('res then', res);
+          const data = [];
+          for (let i = 0; i < res.length; i += 1) {
+            if (res[i] === null) { continue; }
+            const o = res[i];
+            for (let j = 0; j < o.data.length; j += 1) {
+              data.push(o.data[j]);
+            }
+          }
+          return Promise.resolve(data);
+      })
+      .catch(function (res) {
+        console.debug('res failed', res);
+        return Promise.reject('Failed');
+      });
     },
+    useNull() {
+      return null;
+    },
+    /*
+
+    agent:  { ARCHE: ['ARCHE', 'PERSONS'] },
+    containerorreme: 'ARCHE_ALL',
+    containerorresource: 'ARCHE_ALL',
+    main: 'ARCHE_ALL',
+    publicationorrepoobject: { ARCHE: ['PUBLICATIONS'] },
+    repoobject: 'ARCHE_ALL',
+    anyuri: 'ARCHE_ALL',
+
+    */
+
     setInitialData(err, key, post) {
       this.$info('Helpers', 'setInitialData(err, key, post)', err, key, post);
       if (err) {
