@@ -198,6 +198,7 @@ export default {
           return Promise.reject(error);
         });
       }
+      return Promise.reject('failed to recieve vocabs');
     },
     getMultipleArcheCallsByTypeAndID(id, typ) {
       let type = typ.toUpperCase().trim();
@@ -236,7 +237,7 @@ export default {
       this.$debug('calls is: ', calls);
 
       return axios.all(calls).then(function (res) {
-        console.debug('res then', res);
+        this.$debug('res then', res);
         const data = [];
         for (let i = 0; i < res.length; i += 1) {
           if (res[i] !== null) {
