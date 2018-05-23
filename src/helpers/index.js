@@ -94,11 +94,15 @@ const VALID_TYPES = {
 };
 
 const RANGE_TO_APICALLS = {
-  agent:  { ARCHE: ['ORGANISATIONS', 'PERSONS'] },
+  agent: {
+    ARCHE: ['ORGANISATIONS', 'PERSONS'],
+  },
   containerorreme: 'ARCHE_ALL',
   containerorresource: 'ARCHE_ALL',
   main: 'ARCHE_ALL',
-  publicationorrepoobject: { ARCHE: ['PUBLICATIONS'] },
+  publicationorrepoobject: {
+    ARCHE: ['PUBLICATIONS'],
+  },
   repoobject: 'ARCHE_ALL',
   anyuri: 'ARCHE_ALL',
 };
@@ -140,14 +144,14 @@ export default {
   },
   methods: {
     /* fetches the JSON-schema from the specified API in the config and returns it.
-      */
+     */
     getMetadataByType(type) {
       this.$info('Helpers', 'getMetadataByType(type)', type);
       return APIS.ARCHE2.METADATA.get(`${type}/en`).then(response => Promise.resolve(response.data));
     },
     keyInValidTypes(k, subType) {
-    //  this.$info('Helpers', 'keyInValidTypes(key, obj)', k, obj);
-    //  const key = k.trim();
+      //  this.$info('Helpers', 'keyInValidTypes(key, obj)', k, obj);
+      //  const key = k.trim();
       return VALID_TYPES[subType].indexOf(k) >= 0;
     },
     getViafByID(id) {
@@ -182,7 +186,11 @@ export default {
       const type = typ.toUpperCase();
       this.$info('Helpers', 'getVocabsByID(id, type)', id, type);
       if (id && type && APIS.VOCABS[type]) {
-        return APIS.VOCABS[type].get('', { params: { query: `${id}` } }).then((response) => {
+        return APIS.VOCABS[type].get('', {
+          params: {
+            query: `${id}`,
+          },
+        }).then((response) => {
           this.$log('response', response);
           return Promise.resolve(response.data);
         }, (error) => {
@@ -201,7 +209,7 @@ export default {
         return this.getArcheByID(id, type);
       }
       type = type.toLowerCase();
-      if (! (id && type && RANGE_TO_APICALLS[type])) {
+      if (!(id && type && RANGE_TO_APICALLS[type])) {
         return Promise.reject('Failed');
       }
       const range = RANGE_TO_APICALLS[type];
@@ -219,7 +227,7 @@ export default {
         for (let i = 0; i < childs.length; i += 1) {
           const apis = range[childs[i]];
           for (let j = 0; j < apis.length; j += 1) {
-            this.$debug( 'APIS, childs[i], apis[j], APIS[childs[i]][apis[j]]', APIS, childs[i], apis[j], APIS[childs[i]][apis[j]]  );
+            this.$debug('APIS, childs[i], apis[j], APIS[childs[i]][apis[j]]', APIS, childs[i], apis[j], APIS[childs[i]][apis[j]]);
             calls.push((APIS[childs[i]][apis[j]]).get(`${id}`).catch(this.useNull));
           }
         }
@@ -228,21 +236,22 @@ export default {
       this.$debug('calls is: ', calls);
 
       return axios.all(calls).then(function (res) {
-          console.debug('res then', res);
-          const data = [];
-          for (let i = 0; i < res.length; i += 1) {
-            if (res[i] === null) { continue; }
+        console.debug('res then', res);
+        const data = [];
+        for (let i = 0; i < res.length; i += 1) {
+          if (res[i] !== null) {
             const o = res[i];
             for (let j = 0; j < o.data.length; j += 1) {
               data.push(o.data[j]);
             }
           }
-          return Promise.resolve(data);
+        }
+        return Promise.resolve(data);
       })
-      .catch(function (res) {
-        console.debug('res failed', res);
-        return Promise.reject('Failed');
-      });
+        .catch(function (res) {
+          this.$debug('res failed', res);
+          return Promise.reject('Failed');
+        });
     },
     useNull() {
       return null;
@@ -333,7 +342,9 @@ export default {
         // Access denied :-(
         return e;
       }
-      let latest = { date: -1 };
+      let latest = {
+        date: -1,
+      };
       let sessions = {};
       let sessionVals = {};
       try {
@@ -374,7 +385,9 @@ export default {
       this.$router.go(this.$router.currentRoute);
     },
     stringToBlob(str) {
-      return new Blob([str], { type: 'text/ttl;' });
+      return new Blob([str], {
+        type: 'text/ttl;',
+      });
     },
     dateToString(date) {
       const y = date.getFullYear() - 2000;
@@ -398,15 +411,21 @@ export default {
     },
     IconByRepoType(uri) {
       switch (uri) {
-        case 'https://vocabs.acdh.oeaw.ac.at/schema#Collection': return 'folder';
-        case 'https://vocabs.acdh.oeaw.ac.at/schema#Resource': return 'developer_board';
+        case 'https://vocabs.acdh.oeaw.ac.at/schema#Collection':
+          return 'folder';
+        case 'https://vocabs.acdh.oeaw.ac.at/schema#Resource':
+          return 'developer_board';
         case 'PERSONS':
-        case 'https://vocabs.acdh.oeaw.ac.at/schema#Person': return 'person';
+        case 'https://vocabs.acdh.oeaw.ac.at/schema#Person':
+          return 'person';
         case 'PLACES':
-        case 'https://vocabs.acdh.oeaw.ac.at/schema#Place': return 'place';
+        case 'https://vocabs.acdh.oeaw.ac.at/schema#Place':
+          return 'place';
         case 'ORGANISATIONS':
-        case 'https://vocabs.acdh.oeaw.ac.at/schema#Organisation': return 'device_hub';
-        default: return 'folder';
+        case 'https://vocabs.acdh.oeaw.ac.at/schema#Organisation':
+          return 'device_hub';
+        default:
+          return 'folder';
       }
     },
   },
