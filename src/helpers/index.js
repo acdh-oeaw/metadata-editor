@@ -68,16 +68,25 @@ const CONFIG = {
 
 let TYPES = 0;
 TYPES = [
+  'Person',
+  'Place',
+  'Publication',
+  'Organisation',
   'Agent',
+  'AgentOrPlace',
   'ContainerOrReMe',
   'ContainerOrResource',
   'Main',
   'Organisation',
   'PublicationOrRepoObject',
+  'CollectionOrResourceOrPublication',
+  'PlaceOrPublicationOrRepoObject',
   'RepoObject',
   'anyURI',
   'date',
   'string',
+  'text',
+  'PositiveInteger',
 ];
 
 let APIS = {};
@@ -97,6 +106,9 @@ const RANGE_TO_APICALLS = {
   agent: {
     ARCHE: ['ORGANISATIONS', 'PERSONS'],
   },
+  agentorplace: {
+    ARCHE: ['ORGANISATIONS', 'PERSONS', 'PLACES'],
+  },
   containerorreme: 'ARCHE_ALL',
   containerorresource: 'ARCHE_ALL',
   main: 'ARCHE_ALL',
@@ -105,6 +117,8 @@ const RANGE_TO_APICALLS = {
   },
   repoobject: 'ARCHE_ALL',
   anyuri: 'ARCHE_ALL',
+  collectionorresourceorpublication: 'ARCHE_ALL',
+  placeorpublicationorrepoobject: 'ARCHE_ALL',
 };
 
 

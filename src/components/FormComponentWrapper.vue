@@ -37,16 +37,22 @@ export default {
       componentMap: {
         // contains objects with 2 props: name -> component name;
         // type -> prop to give to component.
+        person: { type: 'persons', name: 'archeautocomplete' },
+        place: { type: 'places', name: 'archeautocomplete' },
+        publication: { type: 'publications', name: 'archeautocomplete' },
+        organisation: { type: 'organisations', name: 'archeautocomplete' },
         agent: { type: 'agent', name: 'autocompdefault' },
+        agentorplace: { type: 'agentorplace', name: 'autocompdefault' },
         containerorreme:  { type: 'persons', name: 'autocompdefault' },
         containerorresource:  { type: 'containerorresource', name: 'autocompdefault' },
         main:  { type: 'main', name: 'autocompdefault' },
-        organisation: { type: 'organisations', name: 'archeautocomplete' },
         publicationorrepoobject: { type: 'publicationorrepoobject', name: 'autocompdefault' },
         repoobject: { type: 'repoobject', name: 'autocompdefault' },
         anyuri:  { type: 'anyuri', name: 'autocompdefault' },
         date: { name: 'v-date-picker' },
         string: defaultComponentObject,
+        text: defaultComponentObject,
+        positiveinteger: defaultComponentObject,
       },
     };
   },
@@ -58,7 +64,7 @@ export default {
     const typeL = this.type.toLowerCase();
     const c = this.componentMap[typeL];
 
-    this.$info('FormComponentWrapper created', c);
+    this.$info('FormComponentWrapper created', c, typeL);
     this.component = c.name;
     this.mappedType = c.type;
   },

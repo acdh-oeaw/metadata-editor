@@ -21,19 +21,28 @@ import HELPERS from '../helpers';
 // FormSchema.setComponent('text', 'b-form-input', { type: 'text' });
 
 const TYPES = [
+  'Person',
+  'Place',
+  'Publication',
+  'Organisation',
   'Agent',
+  'AgentOrPlace',
   'ContainerOrReMe',
   'ContainerOrResource',
   'Main',
   'Organisation',
   'PublicationOrRepoObject',
+  'CollectionOrResourceOrPublication',
+  'PlaceOrPublicationOrRepoObject',
   'RepoObject',
   'anyURI',
   'date',
   'string',
+  'text',
+  'PositiveInteger',
 ];
 
-console.log('types', TYPES);
+console.log('types in formfromshema', TYPES);
 
 
 for (let i = 0; i < TYPES.length; i += 1) {
