@@ -1,7 +1,17 @@
 <template>
   <div>
     <h3>Properties</h3>
-    <v-data-table :items="tabledata"></v-data-table>
+    <v-data-table
+      :headers="headers"
+      :items="tabledata"
+      class="elevation-1"
+    >
+      <template slot="items" slot-scope="props">
+        <td>{{ props.item.name }}</td>
+        <td>{{ props.item.type }}</td>
+        <td>{{ props.item.range }}</td>
+      </template>
+    </v-data-table>
   </div>
 </template>
 
@@ -21,6 +31,11 @@ export default {
   data() {
     return {
       tabledata: [],
+      headers: [
+        { text: 'Name', value: 'name' },
+        { text: 'Range', value: 'type' },
+        { text: 'Type', value: 'range' },
+      ],
     };
   },
   methods: {
@@ -40,7 +55,6 @@ export default {
       this.$info('DataTable', 'getProps(newClass)', newClass);
       this.tabledata = [];
       this.fetchPropertiesByURI({ q: newClass, uri: newClass }).then((res) => {
-        this.$info('Property Results', res);
         let idx = res.length - 1;
         while (idx + 1) {
           this.tabledata.push({
