@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component v-if="component" v-model="selectedValue" :name="name" :is="component" :type="mappedType"></component>
+    <component @input="$emit('input', selectedValue)" v-if="component" v-model="selectedValue" :name="name" :is="component" :type="mappedType"></component>
   </div>
 </template>
 

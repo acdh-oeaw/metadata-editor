@@ -106,7 +106,7 @@ export default {
       */
     },
     submit() {
-      this.$info('FormFromSchema', 'submit()');
+      this.$info('FormFromSchema', 'submit()', JSON.stringify(this.model));
       // here everything -> n3 store.
       /* before calling objectToStore,
       we need to filter out objects and split them further into triples
