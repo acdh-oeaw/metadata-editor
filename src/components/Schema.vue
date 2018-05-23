@@ -19,12 +19,16 @@
             </div>
             <div v-if="this.getOntology" >
               <h1>Explore Ontology</h1>
-              <v-select v-model="selectedOntology" class="mb-3">
-                <option :value="null">Please select a Class</option>
-                <option v-for="cl in getClasses()" :value="cl['?x'].URI">{{ cl['?x'].name }}</option>
+              <v-select
+                v-model="selectedOntology"
+                class="mb-3"
+                label="Please select a Class"
+                :items="getClasses()"
+                item-text="?x.name"
+                item-value="?x.URI">
               </v-select>
               <div>Selected: <strong>{{ selectedOntology }}</strong></div>
-              <Propertytable :uri="selectedOntology"></Propertytable>
+              <DataTable :uri="selectedOntology"></DataTable>
             </div>
           </div>
         </div>
@@ -34,8 +38,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-// import Propertytable from './Propertytable';
 
+import DataTable from './DataTable';
 import HELPERS from '../helpers';
 
 /* eslint no-unused-vars: ["error", {"args": "none"}] */
@@ -44,7 +48,7 @@ import HELPERS from '../helpers';
 export default {
   mixins: [HELPERS],
   components: {
-    // Propertytable,
+    DataTable,
   },
   data() {
     return {
@@ -65,6 +69,7 @@ export default {
         if (cl['?x'].baseURI === 'https://vocabs.acdh.oeaw.ac.at/schema#') return true;
         return false;
       });
+      this.$log('Classes:', classes);
       return classes;
     },
   },

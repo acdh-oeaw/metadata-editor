@@ -250,7 +250,7 @@ export default {
       }
       this.$debug('calls is: ', calls);
 
-      return axios.all(calls).then(function (res) {
+      return axios.all(calls).then(function d(res) {
         this.$debug('res then', res);
         const data = [];
         for (let i = 0; i < res.length; i += 1) {
@@ -263,7 +263,7 @@ export default {
         }
         return Promise.resolve(data);
       })
-        .catch(function (res) {
+        .catch(function d(res) {
           this.$debug('res failed', res);
           return Promise.reject('Failed');
         });
