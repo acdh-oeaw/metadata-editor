@@ -14,20 +14,32 @@
         {{ $store.state.localStorageInfo.currentStoreLength }} Current Store Length
       </div>
 
-      <div class="bd-toc-item" v-if="$store.state.localStorageInfo.tested">
+      <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
         {{ $store.state.localStorageInfo.localStorageLimit }} Chars Storage Capacity
+<<<<<<< HEAD
         <v-progress-linear :value="$store.state.localStorageInfo.currentStoreLength/$store.state.localStorageInfo.localStorageLimit*100"></v-progress-linear>
+=======
+        <b-progress :value="$store.state.localStorageInfo.currentStoreLength/$store.state.localStorageInfo.localStorageLimit" :max="1"></b-progress>
+>>>>>>> remotes/vuetify/master
       </div>
 
-      <div class="bd-toc-item" v-if="$store.state.localStorageInfo.tested">
+      <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
         {{ (""+($store.state.localStorageInfo.currentStoreLength *100/ $store.state.localStorageInfo.localStorageLimit)).substring(0,4) }}% Capacity used
       </div>
-      <div class="bd-toc-item" v-if="$store.state.localStorageInfo.tested">
+      <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
       Space for ~{{ Math.floor(($store.state.localStorageInfo.localStorageLimit - $store.state.localStorageInfo.currentStoreLength)
       *($store.state.n3.tripleCount/$store.state.localStorageInfo.currentStoreLength) ) }} Triples left.
       </div>
+<<<<<<< HEAD
       <v-alert color="success" show v-if="$store.state.n3.stored">All Stored</v-alert>
       <v-alert color="error" show v-if="!$store.state.n3.stored">Quota Exceeded</v-alert>
+=======
+      <b-alert variant="success" show v-if="$store.state.n3.stored">All Stored</b-alert>
+      <b-alert variant="danger" show v-if="!$store.state.n3.stored">
+        <h5>Quota Exceeded!</h5>
+        <p>To save your work, make sure to download it by clicking the button below before closing or reloading this page</p>
+      </b-alert>
+>>>>>>> remotes/vuetify/master
       <div class="bd-toc-item">
         <div>
           <v-btn block @click="downloadBlob" color="primary">Download</v-btn>

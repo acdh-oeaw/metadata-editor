@@ -11,11 +11,9 @@ const STORAGE_KEY = 'MetaDataEditor';
 
 const state = {
   localStorageLimit: null,
-  tested: false,
-  status: true,
   currentStoreLength: null,
   testKey: 'testStorageCapacity',
-  p: ['localStorageLimit', 'tested', 'currentStoreLength'],
+  p: ['localStorageLimit', 'currentStoreLength'],
 };
 
 const mutations = {
@@ -27,22 +25,22 @@ const mutations = {
       s[s.p[i]] = pState.localStorageInfo[s.p[i]];
     }
   },
-  setTested(s, value) {
-    s.tested = value;
-  },
   getCurrentStoreLength(s) {
     this._vm.$info('getCurrentStoreLength called', s);
     let localStorage = null;
     try {
       localStorage = window.localStorage;
     } catch (e) {
-      this.status = false;
+      this._vm.$debug('getCurrentStoreLength failed due to access to local Storage');
     }
 
     if (localStorage) {
       s.currentStoreLength = JSON.stringify(localStorage.getItem(STORAGE_KEY)).length;
+<<<<<<< HEAD
       this._vm.$info('currentStoreLength', s.currentStoreLength);
       this.status = true;
+=======
+>>>>>>> remotes/vuetify/master
     }
   },
 
@@ -68,29 +66,30 @@ const actions = {
     }
     if (localStorage) {
       this._vm.$debug('localStorage exists');
-      let tenThausandChars = PI;
+      let aHundredThausandChars = PI;
       let toBeSaved = '';
       this._vm.$debug('state.store.testKey', state.testKey);
-      let oneMoreTry = true;
+      let tries = 2;
       while (true) {
         try {
-          toBeSaved += tenThausandChars;
+          toBeSaved += aHundredThausandChars;
           localStorage.setItem(state.testKey, toBeSaved);
         } catch (e) {
-          if (oneMoreTry) {
-            oneMoreTry = false;
-            tenThausandChars = PI.substring(0, 10000);
+          if (tries > 0) {
+            tries -= 1;
+            toBeSaved = toBeSaved.substring(0, toBeSaved.length - aHundredThausandChars.length);
+            aHundredThausandChars = aHundredThausandChars
+              .substring(0, aHundredThausandChars.length / 10);
           } else {
-            this._vm.$debug('setLimit because writing did not work', e, cSL, toBeSaved);
-            commit('setLocalStorageLimit', cSL + toBeSaved.length);
-            commit('setTested', true);
             // cleanup
             try {
               localStorage.removeItem(state.testKey);
             } catch (e) {
               this._vm.$debug('cleaning up and deleting the TestKey did not work', e);
             }
-
+            // setLimit
+            this._vm.$debug('setLimit because writing did not work', e, cSL, toBeSaved.length);
+            commit('setLocalStorageLimit', cSL + toBeSaved.length);
             return cSL + toBeSaved.length;
           }
         }
