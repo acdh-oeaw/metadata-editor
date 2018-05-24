@@ -25,7 +25,8 @@
                 label="Please select a Class"
                 :items="getClasses()"
                 item-text="?x.name"
-                item-value="?x.URI">
+                item-value="?x.URI"
+                autocomplete>
               </v-select>
               <div>Selected: <strong>{{ selectedOntology }}</strong></div>
               <DataTable :uri="selectedOntology"></DataTable>
