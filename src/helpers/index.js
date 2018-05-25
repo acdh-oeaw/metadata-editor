@@ -217,15 +217,11 @@ export default {
       const type = typ.toUpperCase();
       this.$info('Helpers', 'getVocabsByID(id, type)', id, type);
       if (id && type && APIS.VOCABS[type]) {
-<<<<<<< HEAD
         return APIS.VOCABS[type].get('', {
           params: {
             query: `${id}`,
           },
         }).then((response) => {
-=======
-        return APIS.VOCABS[type].get('', { params: { query: `${id}*` } }).then((response) => {
->>>>>>> remotes/vuetify/master
           this.$log('response', response);
           return Promise.resolve(response.data);
         }, (error) => {
@@ -233,7 +229,6 @@ export default {
           return Promise.reject(error);
         });
       }
-<<<<<<< HEAD
       return Promise.reject('failed to recieve vocabs');
     },
     splitToGetMultipleCalls(id, typ) {
@@ -333,11 +328,6 @@ export default {
     anyuri: 'ARCHE_ALL',
 
     */
-
-=======
-      return Promise.reject('no ID or Type was given');
-    },
->>>>>>> remotes/vuetify/master
     setInitialData(err, key, post) {
       this.$info('Helpers', 'setInitialData(err, key, post)', err, key, post);
       if (err) {

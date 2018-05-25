@@ -42,10 +42,7 @@
             <h1><a id="Cards_0"></a>Form From Schema</h1>
             <p>Testing Form from Schema</p>
             <FormFromSchema :uniqueName="val" :type="val"></FormFromSchema>
-<<<<<<< HEAD
-          </v-tab-item>
-        </v-tabs>
-=======
+
           </b-tab><br>
           <div id="testing">
             <h3>Test Autocomplete for Vocabs</h3>
@@ -55,7 +52,6 @@
             {{ testARCHE_LIFECYCLE_STATUS }}
           </div>
         </b-tabs>
->>>>>>> remotes/vuetify/master
       </div>
 
     </div>
@@ -65,48 +61,27 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 import loadfile from './Store_LoadFile';
 import storetree from './Store_Storetree';
 import archeautocomplete from './AutocompArche';
 import AutocompVocabs from './AutocompVocabs';
 import formfromschema from './FormFromSchema';
-
-
-=======
-import FundamentEntity from './FundamentEntity';
-import Storestats from './StoreStats';
-import AutocompArche from './AutocompArche';
-import AutocompVocabs from './AutocompVocabs';
-import FormFromSchema from './FormFromSchema';
->>>>>>> remotes/vuetify/master
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 export default {
   mixins: [HELPERS],
   components: {
-<<<<<<< HEAD
     AutocompVocabs,
     loadfile,
     storetree,
     archeautocomplete,
     formfromschema,
-=======
-    FundamentEntity,
-    AutocompArche,
-    AutocompVocabs,
-    FormFromSchema,
-    Storestats,
->>>>>>> remotes/vuetify/master
   },
   data() {
     return {
       testModel: '',
       testVocabs: '',
-<<<<<<< HEAD
       testARCHE_LIFECYCLE_STATUS: '',
-=======
->>>>>>> remotes/vuetify/master
       endpoints: ['Person', 'Organisation', 'Place', 'Concept', 'Publication', 'Metadata'],
       testARCHE_LIFECYCLE_STATUS: '',
     };

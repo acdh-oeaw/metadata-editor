@@ -36,11 +36,8 @@ const mutations = {
 
     if (localStorage) {
       s.currentStoreLength = JSON.stringify(localStorage.getItem(STORAGE_KEY)).length;
-<<<<<<< HEAD
       this._vm.$info('currentStoreLength', s.currentStoreLength);
       this.status = true;
-=======
->>>>>>> remotes/vuetify/master
     }
   },
 
