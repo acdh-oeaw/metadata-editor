@@ -68,6 +68,19 @@ const actions = {
     const values = Object.values(obj);
     for (let k = 0; k < keys.length; k += 1) {
       if (values[k]) {
+        if (values[k].constructor === Array) {
+          for (let i = 0; i < values[k].length; i += 1) {
+            const triple = {
+              subject,
+              predicate: `https://vocabs.acdh.oeaw.ac.at/schema#${keys[k]}`,
+            };
+            if (urlpattern.test(values[k][i]) || newobjpattern.test(values[k][i])) {
+              triple.object = values[k][i];
+            } else triple.object = `"${values[k][i]}"`;
+            dispatch('AddFilteredTriple', triple);
+          }
+          continue;
+        }
         const triple = {
           subject,
           predicate: `https://vocabs.acdh.oeaw.ac.at/schema#${keys[k]}`,
