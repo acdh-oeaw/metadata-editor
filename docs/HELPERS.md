@@ -179,7 +179,7 @@ this.setInitialData(null, 'hello', 'Hello World!');
 
 ```
 
-### filterModelForArcheObjects
+### filterModelBeforeUpload
 
 This function is for cleaning up models before they can be used in [objectToStore](/store#objectToStore)
 It is specific for Objects from [FormFromSchema](/components#FormFromSchema) that use any component, which v-model returns an object. In our case it is the [AutocompArche-component](/components#AutocompArche).
@@ -195,7 +195,7 @@ it loops through all the key value pairs and if it finds an object it redefines 
 
 #### How it is called
 ``` FormFromSchema
-this.objectToStore({ obj: this.filterModelForArcheObjects(this.model),
+this.objectToStore({ obj: this.filterModelBeforeUpload(this.model),
   schema: this.schema[this.type] });
 ```
 Real Example from FormFromSchema's [submit](/components#submit) function  
@@ -204,7 +204,7 @@ Real Example from FormFromSchema's [submit](/components#submit) function
 ### filterForArcheID
 
 Short helper function to find an Arche-Identifier inside an Object.
-used in [filterModelForArcheObjects](#filterModelForArcheObjects).
+used in [filterModelBeforeUpload](#filterModelBeforeUpload).
 
 since it only a one liner, here is the code:
 

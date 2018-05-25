@@ -39,18 +39,6 @@ const CONFIG = {
     },
     HEADERS: {},
   },
-  VOCABS: {
-    BASEURL: 'https://vocabs.acdh.oeaw.ac.at/rest/v1/',
-    ENDPOINTS: {
-      ARCHE_CATEGORY: 'arche_category/search/',
-      ARCHE_LIFECYCLE_STATUS: 'arche_lifecycle_status/search/',
-    },
-    TIMEOUT: 5000,
-    PARAMS: {
-      _format: 'json',
-    },
-    HEADERS: {},
-  },
   VIAF: {
     BASEURL: 'https://www.viaf.org/viaf/',
     ENDPOINTS: {
@@ -135,7 +123,6 @@ const RANGE_TO_APICALLS = {
   collection: {
     ARCHE: ['COLLECTIONS'],
   },
-  resource: 'ARCHE_ALL',
 };
 
 
@@ -233,7 +220,7 @@ export default {
     },
     splitToGetMultipleCalls(id, typ) {
       this.$info('Helpers', 'splitToGetMultipleCalls(id, type)', id, typ);
-      if (typ.indexOf('Or') == -1) {
+      if (typ.indexOf('Or') === -1) {
         return this.getMultipleArcheCallsByTypeAndID(id, typ);
       }
       const typen = typ.split('Or');
@@ -241,7 +228,7 @@ export default {
       for (let i = 0; i < typen.length; i += 1) {
         promises.push(this.getMultipleArcheCallsByTypeAndID(id, typen[i]).catch(this.useNull));
       }
-      return Promise.all(promises).then(function f(res){
+      return Promise.all(promises).then((res) => {
         this.$debug('res All promises', res);
         const data = [];
         for (let i = 0; i < res.length; i += 1) {
@@ -254,9 +241,9 @@ export default {
         }
         this.$debug('Data', data);
         return Promise.resolve(data);
-      }.bind(this))
-      .catch(function f(res){
-        return Promise.reject('Could not receive data');
+      })
+      .catch((res) => {
+        Promise.reject('Could not receive data', res);
       });
     },
     getMultipleArcheCallsByTypeAndID(id, typ) {
@@ -295,7 +282,7 @@ export default {
       }
       this.$debug('calls is: ', calls);
 
-      return axios.all(calls).then(function d(res) {
+      return axios.all(calls).then((res) => {
         this.$debug('res then', res);
         const data = [];
         for (let i = 0; i < res.length; i += 1) {
@@ -307,12 +294,12 @@ export default {
           }
         }
         return Promise.resolve(data);
-      }.bind(this))
-        .catch(function d(res) {
+      })
+        .catch((res) => {
           console.log(this);
           this.$debug('res failed', res);
           return Promise.reject('Failed');
-        }.bind(this));
+        });
     },
     useNull() {
       return null;
@@ -336,8 +323,8 @@ export default {
         this[key] = post;
       }
     },
-    filterModelForArcheObjects(model) {
-      this.$info('Helpers', 'filterModelForArcheObjects(model)', model);
+    filterModelBeforeUpload(model) {
+      this.$info('Helpers', 'filterModelBeforeUpload(model)', model);
       const m = JSON.parse(JSON.stringify(model));
       const keys = Object.keys(model);
       const vals = Object.values(model);
@@ -391,7 +378,10 @@ export default {
     },
     filterForArcheID(obj) {
       this.$info('Helpers', 'filterForArcheID(obj)', obj);
-      return obj.identifiers.filter(str => str.indexOf('https://id.acdh.oeaw.ac.at') > -1)[0];
+      if (obj.identifiers) {
+        return obj.identifiers.filter(str => str.indexOf('https://id.acdh.oeaw.ac.at') > -1)[0];
+      }
+      return obj;
     },
     // Store Functions
     getLatestSession() {

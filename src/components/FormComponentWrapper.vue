@@ -43,12 +43,12 @@ export default {
         organisation: { type: 'organisations', name: 'archeautocomplete' },
         agent: { type: 'agent', name: 'autocompdefault' },
         // agentorplace: { type: 'agentorplace', name: 'autocompdefault' },
-        containerorreme:  { type: 'persons', name: 'autocompdefault' },
-        containerorresource:  { type: 'containerorresource', name: 'autocompdefault' },
-        main:  { type: 'main', name: 'autocompdefault' },
+        containerorreme: { type: 'persons', name: 'autocompdefault' },
+        containerorresource: { type: 'containerorresource', name: 'autocompdefault' },
+        main: { type: 'main', name: 'autocompdefault' },
         publicationorrepoobject: { type: 'publicationorrepoobject', name: 'autocompdefault' },
         repoobject: { type: 'repoobject', name: 'autocompdefault' },
-        anyuri:  { type: 'anyuri', name: 'autocompdefault' },
+        anyuri: { type: 'anyuri', name: 'autocompdefault' },
         date: { name: 'v-date-picker' },
         string: defaultComponentObject,
         text: defaultComponentObject,
@@ -63,9 +63,9 @@ export default {
     const typeL = this.type.toLowerCase();
     let c = this.componentMap[typeL];
     if (!c) {
-      c = {type: this.type, name: 'autocompdefault'};
+      c = { type: this.type, name: 'autocompdefault' };
     }
-    this.$info('FormComponentWrapper created',  c, typeL);
+    this.$info('FormComponentWrapper created', c, typeL);
     this.component = c.name;
     this.mappedType = c.type;
   },
