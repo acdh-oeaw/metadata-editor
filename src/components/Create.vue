@@ -83,7 +83,6 @@ export default {
       testVocabs: '',
       testARCHE_LIFECYCLE_STATUS: '',
       endpoints: ['Person', 'Organisation', 'Place', 'Concept', 'Publication', 'Metadata'],
-      testARCHE_LIFECYCLE_STATUS: '',
     };
   },
   methods: {},
