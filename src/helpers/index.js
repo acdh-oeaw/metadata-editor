@@ -111,18 +111,21 @@ const RANGE_TO_APICALLS = {
   place: {
     ARCHE: ['PLACES'],
   },
+  organisation: {
+    ARCHE: ['ORGANISATIONS'],
+  },
+  publication: {
+    ARCHE: ['PUBLICATIONS'],
+  },
+  collection: {
+    ARCHE: ['COLLECTIONS'],
+  },
   container: 'ARCHE_ALL',
   reme: 'ARCHE_ALL',
   resource: 'ARCHE_ALL',
   main: 'ARCHE_ALL',
-  publication: {
-    ARCHE: ['PUBLICATIONS'],
-  },
   repoobject: 'ARCHE_ALL',
   anyuri: 'ARCHE_ALL',
-  collection: {
-    ARCHE: ['COLLECTIONS'],
-  },
 };
 
 
