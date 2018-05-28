@@ -24,7 +24,7 @@
           @input="data.parent.selectItem(data.item)"
         >
           <v-avatar>
-            <v-icon>{{typeicon(type)}}</v-icon>
+            <v-icon>{{typeicon(data.item.type)}}</v-icon>
           </v-avatar>
           {{ data.item.title }}
         </v-chip>
@@ -35,7 +35,7 @@
         </template>
         <template v-else>
           <v-list-tile-avatar>
-            <v-icon>{{typeicon(type)}}</v-icon>
+            <v-icon>{{typeicon(data.item.type)}}</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title v-html="data.item.title"></v-list-tile-title>

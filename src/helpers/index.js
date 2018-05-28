@@ -65,29 +65,6 @@ const CONFIG = {
 };
 
 
-let TYPES = 0;
-TYPES = [
-  'Person',
-  'Place',
-  'Publication',
-  'Organisation',
-  'Agent',
-  'AgentOrPlace',
-  'ContainerOrReMe',
-  'ContainerOrResource',
-  'Main',
-  'Organisation',
-  'PublicationOrRepoObject',
-  'CollectionOrResourceOrPublication',
-  'PlaceOrPublicationOrRepoObject',
-  'RepoObject',
-  'anyURI',
-  'date',
-  'string',
-  'text',
-  'PositiveInteger',
-];
-
 let APIS = {};
 
 const VALID_TYPES = {
@@ -100,7 +77,14 @@ const VALID_TYPES = {
     'METADATA',
   ],
 };
-// atomic mapping
+
+/*
+ atomic mapping of types to API-Calls by using APIS
+ example) type: { APITYPE1: [ 'enpoint1', 'endoint2' ], APITYPE2: [ 'enpoint1', 'endoint2' ] }
+ in the example above 4 apicalls would be made and all results concatted into one for the user to select.
+ 'ARCHE_ALL' is a wildcard for all endoints within ARCHE.
+ used in getMultipleArcheCallsByTypeAndID.
+*/
 const RANGE_TO_APICALLS = {
   agent: {
     ARCHE: ['ORGANISATIONS', 'PERSONS'],
@@ -160,7 +144,6 @@ export default {
   data() {
     return {
       APIS,
-      TYPES,
     };
   },
   methods: {
@@ -349,7 +332,7 @@ export default {
       const keys = Object.keys(model.properties);
       const vals = Object.values(model.properties);
 
-      const types = {}; // for listing only
+      const types = {}; // for listing different types only
 
       this.$log(keys, vals, model);
       for (let i = 0; i < keys.length; i += 1) {
@@ -370,7 +353,7 @@ export default {
           }
         }
       }
-      this.$debug('types:', types);
+      this.$debug('FMFT: valid types:', types);
       return m;
     },
     filterFormSchemaModelForTypesOnlyName(model) {
