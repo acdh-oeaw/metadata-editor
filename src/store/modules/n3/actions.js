@@ -52,7 +52,7 @@ const actions = {
       }
     });
   },
-  /*  high level action parsing an JS-Object into triples and subsequently
+  /*  high level action parsing JSON from a form into triples and subsequently
      saving it to the N3.js store */
   objectToStore({ state, commit, dispatch }, { schema, obj }) {
     const subject = `_:${schema.title}_${Date.now().valueOf().toString(36)}`;
@@ -64,11 +64,13 @@ const actions = {
       object: schema.id,
     };
     dispatch('AddFilteredTriple', first);
+    // parsing triples with props from form
     const keys = Object.keys(obj);
     const values = Object.values(obj);
     for (let k = 0; k < keys.length; k += 1) {
       if (values[k]) {
-        if (values[k].constructor === Array) {
+        //if cardinality > 1
+        if (Array.isArray(values[k])) {
           for (let i = 0; i < values[k].length; i += 1) {
             const triple = {
               subject,
@@ -79,16 +81,18 @@ const actions = {
             } else triple.object = `"${values[k][i]}"`;
             dispatch('AddFilteredTriple', triple);
           }
-          continue;
         }
-        const triple = {
-          subject,
-          predicate: `https://vocabs.acdh.oeaw.ac.at/schema#${keys[k]}`,
-        };
-        if (urlpattern.test(values[k]) || newobjpattern.test(values[k])) {
-          triple.object = values[k];
-        } else triple.object = `"${values[k]}"`;
-        dispatch('AddFilteredTriple', triple);
+        //if cardinality = 1
+        else {
+          const triple = {
+            subject,
+            predicate: `https://vocabs.acdh.oeaw.ac.at/schema#${keys[k]}`,
+          };
+          if (urlpattern.test(values[k]) || newobjpattern.test(values[k])) {
+            triple.object = values[k];
+          } else triple.object = `"${values[k]}"`;
+          dispatch('AddFilteredTriple', triple);
+        }
       }
     }
     dispatch('writeTTL');
