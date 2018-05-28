@@ -81,7 +81,8 @@ const VALID_TYPES = {
 /*
  atomic mapping of types to API-Calls by using APIS
  example) type: { APITYPE1: [ 'enpoint1', 'endoint2' ], APITYPE2: [ 'enpoint1', 'endoint2' ] }
- in the example above 4 apicalls would be made and all results concatted into one for the user to select.
+ in the example above 4 apicalls would be made and all results concatted into one
+ for the user to select.
  'ARCHE_ALL' is a wildcard for all endoints within ARCHE.
  used in getMultipleArcheCallsByTypeAndID.
 */

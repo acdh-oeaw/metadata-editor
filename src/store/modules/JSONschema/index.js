@@ -14,10 +14,10 @@ const getters = {
 
 const mutations = {
   constructJSONschema(s, { pState }) {
-    console.log('constructJSONschema(s, { pState })', JSON.stringify(s), JSON.stringify(pState) );
+    console.log('constructJSONschema(s, { pState })', JSON.stringify(s), JSON.stringify(pState));
     for (let i = 0; i < s.p.length; i += 1) {
       s[s.p[i]] = pState.JSONschema[s.p[i]];
-      console.log(s[s.p[i]] + ' = ' + pState.JSONschema[s.p[i]]);
+      console.log(`${s[s.p[i]]} = ${pState.JSONschema[s.p[i]]}`);
     }
   },
   setSchema(s, { name, schema }) {

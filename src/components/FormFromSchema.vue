@@ -51,16 +51,6 @@ for (let i = 0; i < TYPES.length; i += 1) {
   FormSchema.setComponent(t, FormComponentWrapper, { type: t });
 }
 
-<<<<<<< HEAD
-// FormSchema.setComponent('text', FormComponentWrapper, { type: 'persons'});
-
-
-//  const model = vm.data;
-// });
-
-// returning the form props
-=======
->>>>>>> 23d5bc0eb53990dd7a69a0e98d2b0de2e06b10bc
 /* eslint no-console: ['error', { allow: ['log'] }] */
 /* eslint-disable np-undev */
 
