@@ -69,7 +69,7 @@ const actions = {
     const values = Object.values(obj);
     for (let k = 0; k < keys.length; k += 1) {
       if (values[k]) {
-        //if cardinality > 1
+        // if cardinality > 1
         if (Array.isArray(values[k])) {
           for (let i = 0; i < values[k].length; i += 1) {
             const triple = {
@@ -81,9 +81,7 @@ const actions = {
             } else triple.object = `"${values[k][i]}"`;
             dispatch('AddFilteredTriple', triple);
           }
-        }
-        //if cardinality = 1
-        else {
+        } else {
           const triple = {
             subject,
             predicate: `https://vocabs.acdh.oeaw.ac.at/schema#${keys[k]}`,

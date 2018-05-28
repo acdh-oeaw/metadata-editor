@@ -58,9 +58,6 @@ for (let i = 0; i < TYPES.length; i += 1) {
 // });
 
 // returning the form props
-
-
-
 /* eslint no-console: ['error', { allow: ['log'] }] */
 /* eslint-disable np-undev */
 
