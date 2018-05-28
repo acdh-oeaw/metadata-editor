@@ -12,7 +12,7 @@
       <storetree class="tree"></storetree>
     </v-flex>
     <v-flex xs12 md8>
-      <formfromschema v-model="formModel" type="collection" uniqueName=""></formfromschema>
+      <formfromschema v-model="formModel" type="collection" uniqueName="robinisteinheisl"></formfromschema>
       <p>Model for debugging: {{ formModel }}</p>
     </v-flex>
   </v-layout>
@@ -33,7 +33,7 @@
           </v-tab>
           <v-tab-item v-for="val in endpoints">
             <h3><a id="Cards_0"></a>{{val}}</h3>
-          
+
             <h1><a id="Cards_0"></a>Form From Schema</h1>
             <p>Testing Form from Schema</p>
             <FormFromSchema :uniqueName="val" :type="val"></FormFromSchema>

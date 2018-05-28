@@ -106,6 +106,7 @@ const actions = {
     });
   },
   constructN3({ state, commit, dispatch }, { pState }) {
+    console.log('constructN3({ pState })', JSON.stringify(pState) );
     const ttlString = pState.n3.ttlString;
     dispatch('StringToStore', ttlString);
   },
