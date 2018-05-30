@@ -173,5 +173,15 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-
-</style>
+  label {
+    display: block;
+    font-weight: bold;
+  }
+  label small {
+    font-weight: normal;
+  }
+  label {
+    margin-bottom: 20px;
+    background-color: #EEE;
+  }
+  </style>

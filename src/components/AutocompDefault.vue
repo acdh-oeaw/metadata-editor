@@ -11,7 +11,7 @@
       cache-items
       chips
       required
-      item-text="title"
+      item-text="title+'lel'"
       item-value="uri"
       @input="$emit('input', select)"
       >
