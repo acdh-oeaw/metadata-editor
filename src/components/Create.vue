@@ -12,7 +12,7 @@
       <storetree class="tree"></storetree>
     </v-flex>
     <v-flex xs12 md8>
-      <formfromschema v-model="formModel" type="collection" uniqueName="robinisteinheisl"></formfromschema>
+      <formfromschema v-model="formModel" type="collection" uniqueName="uniqeueFormSchema"></formfromschema>
       <p>Model for debugging: {{ formModel }}</p>
     </v-flex>
   </v-layout>

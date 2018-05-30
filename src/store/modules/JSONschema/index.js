@@ -14,10 +14,11 @@ const getters = {
 
 const mutations = {
   constructJSONschema(s, { pState }) {
-    console.log('constructJSONschema(s, { pState })', JSON.stringify(s), JSON.stringify(pState));
+    this._vm.$debug('constructJSONschema(s, { pState })', JSON.stringify(s), JSON.stringify(pState));
     for (let i = 0; i < s.p.length; i += 1) {
+
       s[s.p[i]] = pState.JSONschema[s.p[i]];
-      console.log(`${s[s.p[i]]} = ${pState.JSONschema[s.p[i]]}`);
+      this._vm.$debug(`Found One: s[${s.p[i]}] = ${JSON.stringify(pState.JSONschema[s.p[i]])}`);
     }
   },
   setSchema(s, { name, schema }) {

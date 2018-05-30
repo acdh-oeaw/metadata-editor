@@ -53,7 +53,9 @@ import HELPERS from '../helpers';
 export default {
   mixins: [HELPERS],
   props: [
-    'type', 'name',
+    'type',
+    'name',
+    'value',
   ],
   name: 'AutocompDefault',
   data() {
@@ -61,20 +63,20 @@ export default {
       loading: false,
       items: [],
       search: null,
-      select: [],
+      select: this.value || [],
     };
   },
   watch: {
     search(val) {
-      this.querySelections(val);
+      this.querySelections(this.search);
     },
   },
   methods: {
-    querySelections() {
+    querySelections(val) {
       this.loading = true;
       // this.$info(vm);
 
-      this.splitToGetMultipleCalls(this.search, this.type)
+      this.splitToGetMultipleCalls(val, this.type)
       .then((res) => {
         // this.$debug('res win', res);
         if (Array.isArray(res)) this.items = res;
@@ -90,7 +92,9 @@ export default {
     },
   },
   created() {
-
+    if (this.value) {
+      this.querySelections('a');
+    }
   },
 };
 </script>
