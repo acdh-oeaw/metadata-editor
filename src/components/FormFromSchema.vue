@@ -95,7 +95,7 @@ console.log('types in formfromshema', unique);
 
 for (let i = 0; i < TYPES.length; i += 1) {
   const t = TYPES[i];
-  this.$log(t);
+  console.log(t);
 
   FormSchema.setComponent(t, FormComponentWrapper, { type: t });
 }
