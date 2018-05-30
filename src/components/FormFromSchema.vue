@@ -11,6 +11,7 @@ import { mapMutations, mapActions } from 'vuex';
 import FormComponentWrapper from './FormComponentWrapper';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
+/* eslint-disable no-irregular-whitespace */
 
 // FormSchema.setComponent('form', 'b-form', { validated: true });
 
@@ -61,39 +62,40 @@ const TYPES = [
 ];
 
 /*
-Agent: 15
-​AgentOrPlace: 1
-​CollectionOrPlaceOrPublicationOrResource: 1
-CollectionOrResource: 1
-​CollectionOrResourceOrPublication: 2
-​ContainerOrReMe: 1
-​ContainerOrResource: 2
-​Image: 1
-​Main: 1
-​Metadata: 1
-​Place: 1
-​PlaceOrPublicationOrRepoObject: 1
-​Project: 1
-​Publication: 1
-​PublicationOrRepoObject: 2
-​anyURI: 7
-​date: 13
-​positiveInteger: 2
-​string: 24
+  Agent: 15
+  ​AgentOrPlace: 1
+  ​CollectionOrPlaceOrPublicationOrResource: 1
+  CollectionOrResource: 1
+  ​CollectionOrResourceOrPublication: 2
+  ​ContainerOrReMe: 1
+  ​ContainerOrResource: 2
+  ​Image: 1
+  ​Main: 1
+  ​Metadata: 1
+  ​Place: 1
+  ​PlaceOrPublicationOrRepoObject: 1
+  ​Project: 1
+  ​Publication: 1
+  ​PublicationOrRepoObject: 2
+  ​anyURI: 7
+  ​date: 13
+  ​positiveInteger: 2
+  ​string: 24
 */
 
 
-let unique = [];
+const unique = [];
 
 for (let t = 0; t < TYPES.length; t += 1) {
-  if (unique.indexOf(TYPES[t]) === -1)
+  if (unique.indexOf(TYPES[t]) === -1) {
     unique.push(TYPES[t]);
+  }
 }
 console.log('types in formfromshema', unique);
 
 for (let i = 0; i < TYPES.length; i += 1) {
   const t = TYPES[i];
-  console.log(t);
+  this.$log(t);
 
   FormSchema.setComponent(t, FormComponentWrapper, { type: t });
 }

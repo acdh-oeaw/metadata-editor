@@ -67,7 +67,7 @@ export default {
     };
   },
   watch: {
-    search(val) {
+    search() {
       this.querySelections(this.search);
     },
   },
