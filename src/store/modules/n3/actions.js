@@ -82,6 +82,7 @@ const actions = {
             dispatch('AddFilteredTriple', triple);
           }
         } else {
+          // if cardinality = 1
           const triple = {
             subject,
             predicate: `https://vocabs.acdh.oeaw.ac.at/schema#${keys[k]}`,
