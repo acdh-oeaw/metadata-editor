@@ -21,6 +21,7 @@ export default {
   props: [
     'type',
     'name',
+    'value',
   ],
   components: {
     autocompdefault,
@@ -28,7 +29,7 @@ export default {
   name: 'FormComponentWrapper',
   data() {
     return {
-      selectedValue: null,
+      selectedValue: this.value,
       loading: false,
       component: null,
       mappedType: null,
