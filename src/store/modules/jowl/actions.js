@@ -46,6 +46,10 @@ const actions = {
     const query = `PropertyValue(${uri}, ?p, ?x)`;
     return dispatch('makeQuery', { q, query });
   },
+  fetchObjectPropsByURI({ dispatch }, { q, uri }) {
+    const query = ``;
+    return dispatch('makeQuery', { q, query });
+  },
 };
 
 export default actions;
