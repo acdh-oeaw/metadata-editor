@@ -5,7 +5,7 @@
         <div slot="header"><v-icon large color='teal lighten-3'>folder</v-icon> Collections / Resources</div>
         <v-card>
           <v-flex xs12 v-for="(item, i) in collections" :key="i" >
-            <item :uri="item.subject"></item>
+            <item :uri="item.subject" :bg="i%2"></item>
           </v-flex>
         </v-card>
       </v-expansion-panel-content>
@@ -13,7 +13,7 @@
         <div slot="header"><v-icon large color='teal lighten-3'>person</v-icon> Persons</div>
         <v-card>
           <v-flex xs12 v-for="(item, i) in persons" :key="i" >
-            <item :uri="item.subject"></item>
+            <item :uri="item.subject" :bg="i%2"></item>
           </v-flex>
         </v-card>
       </v-expansion-panel-content>
@@ -21,7 +21,7 @@
         <div slot="header"><v-icon large color='teal lighten-3'>place</v-icon> Places</div>
         <v-card>
           <v-flex xs12 v-for="(item, i) in places" :key="i" >
-            <item :uri="item.subject"></item>
+            <item :uri="item.subject" :bg="i%2"></item>
           </v-flex>
         </v-card>
       </v-expansion-panel-content>
@@ -29,7 +29,7 @@
         <div slot="header"><v-icon large color='teal lighten-3'>device_hub</v-icon> Organisations</div>
         <v-card>
           <v-flex xs12 v-for="(item, i) in organisations" :key="i" >
-            <item :uri="item.subject"></item>
+            <item :uri="item.subject" :bg="i%2"></item>
           </v-flex>
         </v-card>
       </v-expansion-panel-content>

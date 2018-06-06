@@ -1,5 +1,5 @@
 <template>
-  <v-layout column>
+  <v-layout column :class="{ greyBg: !bg }">
     <v-flex xs12>
       <v-layout row class="itemline" v-on:click="expanded = !expanded">
         <v-icon v-if="!expanded && children.length>0"  class="pointer">chevron_right</v-icon>
@@ -13,8 +13,8 @@
         <v-flex xs1 >
           <div class="itemtoolbar">
             <v-layout row nowrap>
-              <v-icon>clear</v-icon>
-              <v-icon>create</v-icon>
+              <v-icon @click="clear">clear</v-icon>
+              <v-icon @click="edit">create</v-icon>
             </v-layout>
           </div>
         </v-flex>
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import item from './Store_Storetreeitem';
 
 import HELPERS from '../helpers';
@@ -52,6 +52,7 @@ export default {
   name: 'item',
   props: [
     'uri',
+    'bg',
   ],
   components: {
     item,
@@ -68,6 +69,9 @@ export default {
     },
   },
   methods: {
+    ...mapActions('n3', [
+      'RemoveSubject',
+    ]),
     getChildren(uri) {
       const children = this.getTriples(
         { predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
@@ -87,6 +91,12 @@ export default {
       this.title = this.getTitle(this.uri);
       this.getChildren(this.uri);
     },
+    clear() {
+      this.RemoveSubject(this.uri);
+    },
+    edit() {
+
+    },
   },
   mounted() {
     this.update();
@@ -98,10 +108,6 @@ export default {
 <style scoped>
 .itemline {
   width:100%;
-}
-
-.itemline:hover {
-  background: #fff;
 }
 
 .itemtoolbar {
@@ -124,5 +130,8 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+.greyBg {
+  background-color: #EEE;
 }
 </style>
