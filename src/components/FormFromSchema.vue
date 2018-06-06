@@ -157,9 +157,10 @@ export default {
   created() {
     this.$info('FormFromSchema', 'created');
     this.getMetadataByType(this.type).then((res) => {
+      this.$debug('schema before copyRangeToType', JSON.stringify(res));
       this.schema = this.copyRangeToType(res, 'only name');
       this.setSchema({ name: this.type, schema: this.schema });
-      this.$debug('schema', res);
+      this.$debug('schema after copyRangeToType', JSON.stringify(this.schema));
       // this.$debug('properties!!', JSON.stringify(this.schema.properties));
       if (!this.$store.state.JSONschema.entries[this.uniqueName]) {
         this.$store.state.JSONschema.entries[this.uniqueName] = {};
