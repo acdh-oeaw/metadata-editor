@@ -47,7 +47,7 @@ const actions = {
     return dispatch('makeQuery', { q, query });
   },
   fetchObjectPropsByURI({ dispatch }, { q, uri }) {
-    const query = ``;
+    const query = '';
     return dispatch('makeQuery', { q, query });
   },
 };
