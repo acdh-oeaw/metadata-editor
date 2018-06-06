@@ -22,6 +22,7 @@ const state = {
   ttlString: '',
   p: ['ttlString'],
   stored: true,
+  deletePrompt: true,
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */

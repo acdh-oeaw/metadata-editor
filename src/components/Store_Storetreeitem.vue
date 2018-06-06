@@ -15,6 +15,7 @@
             <v-layout row nowrap>
               <v-icon @click="clear">clear</v-icon>
               <v-icon @click="edit">create</v-icon>
+              <DeleteSubjectDialog :uri.sync="uri" :dialog.sync="dialog"></DeleteSubjectDialog>
             </v-layout>
           </div>
         </v-flex>
@@ -35,6 +36,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import item from './Store_Storetreeitem';
+import DeleteSubjectDialog from './Dialogs/DeleteSubjectDialog';
 
 import HELPERS from '../helpers';
 /* eslint no-unused-vars: ["error", {"args": "none"}] */
@@ -47,6 +49,8 @@ export default {
       title: '',
       expanded: false,
       children: [],
+      popup: true,
+      dialog: false,
     };
   },
   name: 'item',
@@ -56,6 +60,7 @@ export default {
   ],
   components: {
     item,
+    DeleteSubjectDialog
   },
   computed: {
     ...mapGetters('n3', [
@@ -92,7 +97,11 @@ export default {
       this.getChildren(this.uri);
     },
     clear() {
-      this.RemoveSubject(this.uri);
+      if (this.$store.state.n3.deletePrompt) {
+        this.dialog = true;
+      } else {
+        this.RemoveSubject(this.uri);
+      }
     },
     edit() {
 
