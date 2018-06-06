@@ -11,7 +11,7 @@
       cache-items
       chips
       required
-      item-text="title+'lel'"
+      item-text="title"
       item-value="uri"
       @input="$emit('input', select)"
       >
@@ -73,13 +73,18 @@ export default {
   },
   methods: {
     querySelections(val) {
-      this.loading = true;
+      if(!this.items) {
+        this.loading = true;
+      }
       // this.$info(vm);
 
       this.splitToGetMultipleCalls(val, this.type)
       .then((res) => {
         // this.$debug('res win', res);
-        if (Array.isArray(res)) this.items = res;
+        this.$debug('after Split', res)
+        if (Array.isArray(res) && res[0]) {
+          this.items = res;
+        }
         this.loading = false;
       })
       .catch((res) => {
