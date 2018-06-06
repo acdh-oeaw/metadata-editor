@@ -83,7 +83,7 @@ export default {
         this.loading = false;
       })
       .catch((res) => {
-        this.$debug('res fail', res);
+        // this.$debug('res fail', res);
         this.loading = false;
       });
     },

@@ -323,19 +323,25 @@ export default {
       }
       return m;
     },
-    universalFilterForFormSchema(model, type) {
-      this.$info('Helpers', 'filterFormSchemaModelForTypes(model)', model);
-      if (!model) {
+    /**
+    * copies the value of range to the position of type. and returns the model.
+    * @param schema schema object obtained form the api via getMetadataByType()
+    * @param type if type === 'only name' only the name of the range is taken.
+    *             eg. "https://vocabs.acdh.oeaw.ac.at/schema#ContainerOrResource" -> ContainerOrResource"
+    **/
+    copyRangeToType(schema, type) {
+      this.$info('Helpers', 'copyRangeToType(model, type)', schema, type);
+      if (!schema) {
         return {};
       }
-      const m = model; // to be returned
+      const m = schema; // to be returned
 
-      const keys = Object.keys(model.properties);
-      const vals = Object.values(model.properties);
+      const keys = Object.keys(schema.properties);
 
-      const types = {}; // for listing different types only
+      // debug object, lists all types
+      const types = {};
 
-      this.$log(keys, vals, model);
+      this.$log(keys, schema);
       for (let i = 0; i < keys.length; i += 1) {
         if (!m.properties[keys[i]].attrs) m.properties[keys[i]].attrs = {};
         if (m.properties[keys[i]].range) {
@@ -345,7 +351,7 @@ export default {
             r = r.substring(r.lastIndexOf('#') + 1);
             m.properties[keys[i]].attrs.type = r;
           } else {
-            m.properties[keys[i]].type = r;
+            m.properties[keys[i]].attrs.type = r;
           }
           if (types[r]) {
             types[r] += 1;
@@ -356,12 +362,6 @@ export default {
       }
       this.$debug('FMFT: valid types:', types);
       return m;
-    },
-    filterFormSchemaModelForTypesOnlyName(model) {
-      return this.universalFilterForFormSchema(model, 'only name');
-    },
-    filterFormSchemaModelForTypes(model) {
-      return this.universalFilterForFormSchema(model);
     },
     filterForArcheID(obj) {
       this.$info('Helpers', 'filterForArcheID(obj)', obj);

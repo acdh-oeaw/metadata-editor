@@ -131,7 +131,7 @@ export default {
       this.setEntry({ name: this.uniqueName, entry: this.model });
     },
     resetForm() {
-      this.$debug('schema', JSON.stringify(this.schema.properties));
+      // this.$debug('schema', JSON.stringify(this.schema.properties));
       /*
       this.$info('FormFromSchema', 'resetForm');
       const keys = Object.keys(this.model);
@@ -157,9 +157,9 @@ export default {
   created() {
     this.$info('FormFromSchema', 'created');
     this.getMetadataByType(this.type).then((res) => {
+      this.schema = this.copyRangeToType(res, 'only name');
+      this.setSchema({ name: this.type, schema: this.schema });
       this.$debug('schema', res);
-      this.setSchema({ name: this.type, schema: res });
-      this.schema = this.filterFormSchemaModelForTypesOnlyName(res);
       // this.$debug('properties!!', JSON.stringify(this.schema.properties));
       if (!this.$store.state.JSONschema.entries[this.uniqueName]) {
         this.$store.state.JSONschema.entries[this.uniqueName] = {};
