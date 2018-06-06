@@ -10,7 +10,7 @@
       multiple
       cache-items
       chips
-      item-text="preLabel"
+      item-text="prefLabel"
       item-value="uri"
       @input="$emit('input', select)"
       >

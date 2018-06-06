@@ -323,8 +323,8 @@ export default {
       }
       return m;
     },
-    /**
-    * copies the value of range to the position of type. and returns the model.
+
+    /*  copies the value of range to the position of type. and returns the model.
     * @param schema schema object obtained form the api via getMetadataByType()
     * @param type if type === 'only name' only the name of the range is taken.
     *             eg. "https://vocabs.acdh.oeaw.ac.at/schema#ContainerOrResource" -> ContainerOrResource"
