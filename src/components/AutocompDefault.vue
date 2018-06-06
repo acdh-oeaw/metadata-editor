@@ -73,9 +73,7 @@ export default {
   },
   methods: {
     querySelections(val) {
-      if(!this.items) {
-        this.loading = true;
-      }
+      this.loading = true;
       // this.$info(vm);
 
       this.splitToGetMultipleCalls(val, this.type)
@@ -85,8 +83,10 @@ export default {
         if (Array.isArray(res) && res[0]) {
           this.items = res;
         }
+        this.items.push({ title: val, uri: val, type: 'fa-fa-pencil'});
         this.loading = false;
       })
+
       .catch((res) => {
         // this.$debug('res fail', res);
         this.loading = false;
