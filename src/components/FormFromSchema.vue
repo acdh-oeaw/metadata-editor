@@ -17,7 +17,7 @@ import HELPERS from '../helpers';
 
 // FormSchema.setComponent('email', 'b-form-input', { type: 'email' });
 // FormSchema.setComponent('text', 'b-form-input', { type: 'text' });
-
+/*
 const TYPES = [
   'Person',
   'Place',
@@ -40,6 +40,8 @@ const TYPES = [
   'positiveInteger',
   'CollectionOrPlaceOrPublicationOrResource',
   '​CollectionOrPlaceOrPublicationOrResource',
+  '​CollectionOrPlaceOrPublicationOrResource',
+  'CollectionOrPlaceOrPublicationOrResource',
   'Agent',
   '​AgentOrPlace',
   'CollectionOrResource',
@@ -83,12 +85,14 @@ const TYPES = [
   ​string: 24
 */
 
-
-const unique = [];
+/*
+let unique = [];
 
 for (let t = 0; t < TYPES.length; t += 1) {
-  if (unique.indexOf(TYPES[t]) === -1) {
+  console.log('loop', TYPES[t], unique, unique.indexOf(TYPES[t]));
+  if (unique.indexOf(TYPES[t]) < 0) {
     unique.push(TYPES[t]);
+    unique = JSON.parse(JSON.stringify(unique));
   }
 }
 console.log('types in formfromshema', unique);
@@ -98,7 +102,7 @@ for (let i = 0; i < TYPES.length; i += 1) {
   console.log(t);
 
   FormSchema.setComponent(t, FormComponentWrapper, { type: t });
-}
+}*/
 
 /* eslint no-console: ['error', { allow: ['log'] }] */
 /* eslint-disable np-undev */
@@ -149,6 +153,26 @@ export default {
       */
       this.objectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema });
     },
+    setComponents() {
+      const TYPES1 = [];
+
+      const fields = Object.keys(this.schema.properties);
+
+      for (let i = 0; i < fields.length; i += 1) {
+        if (this.schema.properties[fields[i]].attrs &&
+           this.schema.properties[fields[i]].attrs.type) {
+          TYPES1.push(this.schema.properties[fields[i]].attrs.type);
+        }
+      }
+      this.$debug('types in created:', TYPES1);
+
+      for (let i = 0; i < TYPES1.length; i += 1) {
+        const t = TYPES1[i];
+        this.$log('important', t);
+
+        FormSchema.setComponent(t, FormComponentWrapper, { type: t });
+      }
+    },
   },
   watch: {
   },
@@ -161,11 +185,16 @@ export default {
       this.schema = this.copyRangeToType(res, 'only name');
       this.setSchema({ name: this.type, schema: this.schema });
       this.$debug('schema after copyRangeToType', JSON.stringify(this.schema));
+
+      this.setComponents();
+
       // this.$debug('properties!!', JSON.stringify(this.schema.properties));
       if (!this.$store.state.JSONschema.entries[this.uniqueName]) {
         this.$store.state.JSONschema.entries[this.uniqueName] = {};
       }
       this.model = this.$store.state.JSONschema.entries[this.uniqueName];
+      // Mapping
+
       this.loading = false;
       this.$emit('input', this.model);
     });
