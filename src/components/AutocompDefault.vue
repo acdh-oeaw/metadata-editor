@@ -72,6 +72,25 @@ export default {
     },
   },
   methods: {
+    typeicon(type) {  // // TODO: better mapping in one place
+      switch (type) {
+      case 'pencil':
+        return 'fa-pencil';
+      case 'https://vocabs.acdh.oeaw.ac.at/schema#Resource':
+        return 'developer_board';
+      case 'PERSONS':
+      case 'https://vocabs.acdh.oeaw.ac.at/schema#Person':
+        return 'person';
+      case 'PLACES':
+      case 'https://vocabs.acdh.oeaw.ac.at/schema#Place':
+        return 'place';
+      case 'ORGANISATIONS':
+      case 'https://vocabs.acdh.oeaw.ac.at/schema#Organisation':
+        return 'device_hub';
+      default:
+        return 'folder';
+    }
+    },
     querySelections(val) {
       this.loading = true;
       // this.$info(vm);
@@ -83,7 +102,7 @@ export default {
         if (Array.isArray(res) && res[0]) {
           this.items = res;
         }
-        this.items.push({ title: val, uri: val, type: 'fa-fa-pencil'});
+        this.items.push({ title: val, uri: val, type: 'pencil' });
         this.loading = false;
       })
 
