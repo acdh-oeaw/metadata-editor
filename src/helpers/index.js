@@ -193,7 +193,7 @@ export default {
       if (id && type && APIS.VOCABS[type]) {
         return APIS.VOCABS[type].get('', {
           params: {
-            query: `${id}`,
+            query: `${id}*`,
           },
         }).then((response) => {
           this.$log('response', response);

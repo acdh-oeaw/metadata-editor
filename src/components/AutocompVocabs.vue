@@ -23,7 +23,7 @@
           @input="data.parent.selectItem(data.item)"
         >
           <v-avatar>
-            <v-icon>{{typeicon(type)}}</v-icon>
+            <v-icon>{{typeicon(data.item.type)}}</v-icon>
           </v-avatar>
           {{ data.item.prefLabel }}
         </v-chip>
@@ -34,7 +34,7 @@
         </template>
         <template v-else>
           <v-list-tile-avatar>
-            <v-icon>{{typeicon(type)}}</v-icon>
+            <v-icon>{{typeicon(data.item.type)}}</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title v-html="data.item.prefLabel"></v-list-tile-title>
@@ -76,11 +76,13 @@ export default {
       // this.$info(vm);
       this.getVocabsByID(escape((this.search || '').trim()), this.type)
       .then((res) => {
-        if (Array.isArray(res)) this.items = res.results;
+        this.$debug(res);
+        if (Array.isArray(res.results)) this.items = res.results;
         this.$log(this.items);
         this.loading = false;
       })
-      .catch(() => {
+      .catch((res) => {
+        this.$debug(res);
         this.loading = false;
       });
     },
