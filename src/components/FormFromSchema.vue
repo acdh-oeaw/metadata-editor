@@ -52,7 +52,7 @@ export default {
         this.model[keys[i]] = '';
       }
       */
-    },    
+    },
     submit() {
       this.$info('FormFromSchema', 'submit()', JSON.stringify(this.model));
       // here everything -> n3 store.

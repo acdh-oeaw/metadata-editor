@@ -36,7 +36,7 @@ const mutations = {
   },
   toggleDeletePrompt(s, bool) {
     s.deletePrompt = bool;
-  }
+  },
 };
 
 export default mutations;

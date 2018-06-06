@@ -60,7 +60,7 @@ export default {
   ],
   components: {
     item,
-    DeleteSubjectDialog
+    DeleteSubjectDialog,
   },
   computed: {
     ...mapGetters('n3', [

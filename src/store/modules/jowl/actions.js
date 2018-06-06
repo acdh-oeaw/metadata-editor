@@ -1,4 +1,6 @@
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable no-unused-vars */
+
 /* eslint no-console: ["error", { allow: ["log"] }] */
 require('./jOWL.js');
 

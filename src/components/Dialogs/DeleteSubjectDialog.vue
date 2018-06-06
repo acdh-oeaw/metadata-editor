@@ -1,12 +1,21 @@
 <template lang="html">
   <!-- store deletion -->
-  <v-dialog v-model="dialog" max-width="500px">
+  <v-dialog v-model="dialog" max-width="900px">
     <v-card>
       <v-card-title>
         Delete Subject
       </v-card-title>
       <v-card-text color="primary">
         Are you sure you want to delete the following triples?
+        <v-data-table
+          :items="triples"
+          hide-actions
+        >
+          <template slot="items" slot-scope="props">
+              <td class="text-xs-right">{{ props.item.predicate }}</td>
+              <td>{{ props.item.object }}</td>
+          </template>
+        </v-data-table>
         <v-checkbox
           label="Don't ask me again"
           v-model="checkbox"
@@ -25,7 +34,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions, mapMutations, mapGetters } from 'vuex';
 
 import HELPERS from '../../helpers';
 
@@ -36,17 +45,23 @@ export default {
     },
     dialog: {
       default: false,
-    }
+    },
+  },
+  computed: {
+    ...mapGetters('n3', [
+      'getTriples',
+    ]),
   },
   data() {
     return {
       checkbox: false,
+      triples: [],
     };
   },
   watch: {
-      checkbox() {
-        this.toggleDeletePrompt(!this.checkbox);
-      }
+    checkbox() {
+      this.toggleDeletePrompt(!this.checkbox);
+    },
   },
   mixins: [HELPERS],
   methods: {
@@ -59,6 +74,9 @@ export default {
     close() {
       this.$emit('update:dialog', false);
     },
+  },
+  created() {
+    this.triples = (this.getTriples({ subject: this.uri }));
   },
 };
 </script>

@@ -49,6 +49,7 @@
 <script>
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
+/* eslint-disable indent */
 
 export default {
   mixins: [HELPERS],
@@ -74,22 +75,21 @@ export default {
   methods: {
     typeicon(type) {  // // TODO: better mapping in one place
       switch (type) {
-      case 'pencil':
+        case 'pencil':
         return 'fa-pencil';
-      case 'https://vocabs.acdh.oeaw.ac.at/schema#Resource':
+        case 'https://vocabs.acdh.oeaw.ac.at/schema#Resource':
         return 'developer_board';
-      case 'PERSONS':
-      case 'https://vocabs.acdh.oeaw.ac.at/schema#Person':
+        case 'PERSONS':
+        case 'https://vocabs.acdh.oeaw.ac.at/schema#Person':
         return 'person';
-      case 'PLACES':
-      case 'https://vocabs.acdh.oeaw.ac.at/schema#Place':
+        case 'PLACES':
+        case 'https://vocabs.acdh.oeaw.ac.at/schema#Place':
         return 'place';
-      case 'ORGANISATIONS':
-      case 'https://vocabs.acdh.oeaw.ac.at/schema#Organisation':
+        case 'ORGANISATIONS':
+        case 'https://vocabs.acdh.oeaw.ac.at/schema#Organisation':
         return 'device_hub';
-      default:
-        return 'folder';
-    }
+        default: return 'folder';
+      }
     },
     querySelections(val) {
       this.loading = true;
@@ -98,7 +98,7 @@ export default {
       this.splitToGetMultipleCalls(val, this.type)
       .then((res) => {
         // this.$debug('res win', res);
-        this.$debug('after Split', res)
+        this.$debug('after Split', res);
         if (Array.isArray(res) && res[0]) {
           this.items = res;
         }
@@ -107,13 +107,15 @@ export default {
       })
 
       .catch((res) => {
-        // this.$debug('res fail', res);
+        this.$debug('res fail', res);
         this.loading = false;
       });
     },
+    /*
     typeicon(type) {
       return this.IconByRepoType(type);
     },
+    */
   },
   created() {
     if (this.value) {

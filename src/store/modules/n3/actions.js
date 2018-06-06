@@ -49,8 +49,8 @@ const actions = {
       null,
       null,
     );
-    this._vm.$log(triples.length + ' triples found!', triples);
-    for(let i = 0; i < triples.length; i = i + 1) {
+    this._vm.$log(`${triples.length} triples found!`, triples);
+    for (let i = 0; i < triples.length; i += 1) {
       dispatch('RemoveTriple', triples[i]);
     }
     dispatch('writeTTL');
@@ -58,7 +58,7 @@ const actions = {
     commit('updateSubject');
     commit('stopProcessing');
     commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
-    this._vm.$info('Removed ' + triples.length + ' triples from Store');
+    this._vm.$info(`Removed ${triples.length} triples from Store`);
   },
   /* high lvl action parsing a TTL file into triples and subsequently
      saving it to the N3.js store   */
