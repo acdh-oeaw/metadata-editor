@@ -74,24 +74,6 @@ export default {
     },
   },
   methods: {
-    typeicon(type) {  // // TODO: better mapping in one place
-      switch (type) {
-        case 'pencil':
-        return 'fa-pencil';
-        case 'https://vocabs.acdh.oeaw.ac.at/schema#Resource':
-        return 'developer_board';
-        case 'PERSONS':
-        case 'https://vocabs.acdh.oeaw.ac.at/schema#Person':
-        return 'person';
-        case 'PLACES':
-        case 'https://vocabs.acdh.oeaw.ac.at/schema#Place':
-        return 'place';
-        case 'ORGANISATIONS':
-        case 'https://vocabs.acdh.oeaw.ac.at/schema#Organisation':
-        return 'device_hub';
-        default: return 'folder';
-      }
-    },
     querySelections(val) {
       this.loading = true;
       // this.$info(vm);
@@ -111,13 +93,12 @@ export default {
           if(it.title) {
             this.items.push({ title: it.title, uri: it.uri, type: it.type });
           } else if (it.prefLabel) {
-            this.items.push({ title: it.prefLabel, uri: it.uri, type: it.type[0] });
+            this.items.push({ title: it.prefLabel, uri: it.uri, type: it.type });
           }
         }
 
-
         // manual typed word
-        this.items.push({ title: val, uri: val, type: 'pencil' });
+        this.items.push({ title: val, uri: val, type: 'keyboard' });
 
         this.loading = false;
 

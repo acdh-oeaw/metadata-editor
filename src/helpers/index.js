@@ -107,7 +107,7 @@ const RANGE_TO_APICALLS = {
     ARCHE: ['COLLECTIONS'],
   },
   vocabstest: {
-    VOCABS: ['ARCHE_CATEGORY']
+    VOCABS: ['ARCHE_CATEGORY', 'ARCHE_LIFECYCLE_STATUS'],
   },
   container: 'ARCHE_ALL',
   reme: 'ARCHE_ALL',
@@ -307,10 +307,14 @@ export default {
             const o = res[i];
             if(o.data.results) {
               for (let j = 0; j < o.data.results.length; j += 1) {
-                data.push(o.data.results[j]);
+                const item = o.data.results[j];
+                item.type = this.urlToType(o.config.baseURL);
+                data.push(item);
               }
             } else {
               for (let j = 0; j < o.data.length; j += 1) {
+                const item = o.data[j];
+                item.type = this.urlToType(o.config.baseURL);
                 data.push(o.data[j]);
               }
             }
@@ -326,6 +330,44 @@ export default {
     },
     useNull() {
       return null;
+    },
+    urlToType(url){
+      const urlA =  url.split('/');
+      for (let i = urlA.length -1; i >= 0; i -= 1){
+        const val = urlA[i];
+        if(val && val !== undefined && val !== 'search' ) {
+          return val;
+        }
+      }
+      return 'not_found';
+
+    },
+    typeicon(typ) {
+      if(typ) {
+        const type = typ.toUpperCase();
+        switch (type) {
+          case 'KEYBOARD':
+            return 'keyboard';
+          case 'https://vocabs.acdh.oeaw.ac.at/schema#Resource':
+            return 'developer_board';
+          case 'PERSONS':
+          case 'persons':
+          case 'https://vocabs.acdh.oeaw.ac.at/schema#Person':
+            return 'person';
+          case 'PLACES':
+          case 'https://vocabs.acdh.oeaw.ac.at/schema#Place':
+            return 'place';
+          case 'ORGANISATIONS':
+          case 'https://vocabs.acdh.oeaw.ac.at/schema#Organisation':
+            return 'device_hub';
+          case 'ARCHE_CATEGORY':
+            return 'folder_open';
+          case 'ARCHE_LIFECYCLE_STATUS':
+              return 'donut_large';
+          default: return 'folder';
+        }
+      }
+      return 'folder';
     },
     /*
 
