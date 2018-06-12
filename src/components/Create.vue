@@ -4,6 +4,8 @@
     <h3>Test Autocomplete for Vocabs</h3>
     ARCHE_CATEGORY (eg.: sound): <AutocompVocabs type='ARCHE_CATEGORY' name='Test Vocabs' v-model="testVocabs"></AutocompVocabs>
     {{ testVocabs }}<br><br>
+    <AutocompDefault type='vocabstest' name='Test Vocabs via autocomplete' v-model="testVocabs2"></AutocompDefault>
+    {{ testVocabs2 }} <br><br>
     ARCHE_LIFECYCLE_STATUS (eg.: active): <AutocompVocabs type='ARCHE_LIFECYCLE_STATUS' name='Test ARCHE_LIFECYCLE_STATUS' v-model="testARCHE_LIFECYCLE_STATUS"></AutocompVocabs>
     {{ testARCHE_LIFECYCLE_STATUS }}
   </div>
@@ -60,6 +62,7 @@ import loadfile from './Store_LoadFile';
 import storetree from './Store_Storetree';
 import AutocompVocabs from './AutocompVocabs';
 import formfromschema from './FormFromSchema';
+import AutocompDefault from './AutocompDefault.vue';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 export default {
@@ -69,11 +72,13 @@ export default {
     loadfile,
     storetree,
     formfromschema,
+    AutocompDefault,
   },
   data() {
     return {
       testModel: '',
       testVocabs: '',
+      testVocabs2: '',
       formModel: '',
       testARCHE_LIFECYCLE_STATUS: '',
       endpoints: ['Person', 'Organisation', 'Place', 'Concept', 'Publication', 'Metadata'],

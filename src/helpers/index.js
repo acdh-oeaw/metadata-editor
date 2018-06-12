@@ -85,7 +85,7 @@ const VALID_TYPES = {
  in the example above 4 apicalls would be made and all results concatted into one
  for the user to select.
  'ARCHE_ALL' is a wildcard for all endoints within ARCHE.
- used in getMultipleArcheCallsByTypeAndID.
+ used in getMultipleApiCallsByTypeAndID.
 */
 const RANGE_TO_APICALLS = {
   agent: {
@@ -105,6 +105,9 @@ const RANGE_TO_APICALLS = {
   },
   collection: {
     ARCHE: ['COLLECTIONS'],
+  },
+  vocabstest: {
+    VOCABS: ['ARCHE_CATEGORY']
   },
   container: 'ARCHE_ALL',
   reme: 'ARCHE_ALL',
@@ -174,6 +177,11 @@ export default {
       this.$log('errortree, no id');
       return Promise.reject('no ID was given');
     },
+    getArchePromise(id, typ) {
+      const type = typ.toUpperCase().trim();
+      this.$info('Helpers', 'getArchePromise(id, type)', id, type);
+      return APIS.ARCHE[type].get(`${id}`);
+    },
     getArcheByID(id, typ) {
       const type = typ.toUpperCase().trim();
       this.$info('Helpers', 'getArcheByID(id, type)', id, type);
@@ -187,6 +195,15 @@ export default {
         });
       }
       return Promise.reject('no ID or Type was given');
+    },
+    getVocabsPromise(id, typ) {
+      const type = typ.toUpperCase();
+      this.$info('Helpers', 'getVocabsPromise(id, type)', id, type);
+      return APIS.VOCABS[type].get('', {
+        params: {
+          query: `${id}*`,
+        },
+      });
     },
     getVocabsByID(id, typ) {
       const type = typ.toUpperCase();
@@ -209,17 +226,18 @@ export default {
     splitToGetMultipleCalls(id, typ) {
       this.$info('Helpers', 'splitToGetMultipleCalls(id, type)', id, typ);
       if (typ.indexOf('Or') === -1) {
-        return this.getMultipleArcheCallsByTypeAndID(id, typ);
+        return this.getMultipleApiCallsByTypeAndID(id, typ);
       }
       const typen = typ.split('Or');
       const promises = [];
       for (let i = 0; i < typen.length; i += 1) {
-        promises.push(this.getMultipleArcheCallsByTypeAndID(id, typen[i]).catch(this.useNull));
+        promises.push(this.getMultipleApiCallsByTypeAndID(id, typen[i]).catch(this.useNull));
       }
       return Promise.all(promises).then((res) => {
         // this.$debug('res All promises', res);
         const data = [];
         for (let i = 0; i < res.length; i += 1) {
+
           if (res[i] !== null) {
             const o = res[i];
             for (let j = 0; j < o.length; j += 1) {
@@ -234,15 +252,15 @@ export default {
         Promise.reject('Could not receive data', res);
       });
     },
-    getMultipleArcheCallsByTypeAndID(id, typ) {
+    getMultipleApiCallsByTypeAndID(id, typ) {
       let type = typ.toUpperCase().trim();
-      this.$info('Helpers', 'getMultipleArcheCallsByTypeAndID(id, type)', id, type);
+      this.$info('Helpers', 'getMultipleApiCallsByTypeAndID(id, type)', id, type);
       if (!id || !typ) {
         return Promise.reject('no ID or Type was given');
       }
-      if (id && type && APIS.ARCHE[type]) {
+  /*    if (id && type && APIS.ARCHE[type]) {
         return this.getArcheByID(id, type);
-      }
+      } */
       type = type.toLowerCase();
       if (!(id && type && RANGE_TO_APICALLS[type])) {
         return Promise.reject('Failed');
@@ -263,7 +281,16 @@ export default {
           const apis = range[childs[i]];
           for (let j = 0; j < apis.length; j += 1) {
             // this.$debug('APIS, childs[i], apis[j], APIS[childs[i]][apis[j]]', APIS, childs[i], apis[j], APIS[childs[i]][apis[j]]);
-            calls.push((APIS[childs[i]][apis[j]]).get(`${id}`).catch(this.useNull));
+            let p;
+            switch (childs[i]) {
+              case 'ARCHE':
+                p = this.getArchePromise(id, apis[j]);
+                break;
+              case 'VOCABS':
+                p = this.getVocabsPromise(id, apis[j]);
+                break;
+            }
+            calls.push(p.catch(this.useNull));
           }
         }
         // this.$debug('dynamic calls is:', calls);
@@ -271,13 +298,21 @@ export default {
       // this.$debug('calls is: ', calls);
 
       return axios.all(calls).then((res) => {
-        // this.$debug('res then', res);
+        this.$debug('res then', res);
         const data = [];
         for (let i = 0; i < res.length; i += 1) {
+          this.$debug('res[i]', res[i]);
           if (res[i] !== null) {
+
             const o = res[i];
-            for (let j = 0; j < o.data.length; j += 1) {
-              data.push(o.data[j]);
+            if(o.data.results) {
+              for (let j = 0; j < o.data.results.length; j += 1) {
+                data.push(o.data.results[j]);
+              }
+            } else {
+              for (let j = 0; j < o.data.length; j += 1) {
+                data.push(o.data[j]);
+              }
             }
           }
         }
