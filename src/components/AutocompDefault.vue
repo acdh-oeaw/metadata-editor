@@ -98,7 +98,6 @@ export default {
       this.splitToGetMultipleCalls(val, this.type)
       .then((res) => {
         // this.$debug('res win', res);
-        this.$debug('after Split', res);
         if (Array.isArray(res) && res[0]) {
           this.items = res;
         }
@@ -107,7 +106,7 @@ export default {
       })
 
       .catch((res) => {
-        this.$debug('res fail', res);
+        // this.$debug('res fail', res);
         this.loading = false;
       });
     },

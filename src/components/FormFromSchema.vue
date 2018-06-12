@@ -72,7 +72,7 @@ export default {
           TYPES1.push(this.schema.properties[fields[i]].attrs.type);
         }
       }
-      this.$debug('types in created:', TYPES1);
+      // this.$debug('types in created:', TYPES1);
 
       for (let i = 0; i < TYPES1.length; i += 1) {
         const t = TYPES1[i];
@@ -89,10 +89,10 @@ export default {
   created() {
     this.$info('FormFromSchema', 'created');
     this.getMetadataByType(this.type).then((res) => {
-      this.$debug('schema before copyRangeToType', JSON.stringify(res));
+      // this.$debug('schema before copyRangeToType', JSON.stringify(res));
       this.schema = this.copyRangeToType(res, 'only name');
       this.setSchema({ name: this.type, schema: this.schema });
-      this.$debug('schema after copyRangeToType', JSON.stringify(this.schema));
+      // this.$debug('schema after copyRangeToType', JSON.stringify(this.schema));
 
       this.setComponents();
 

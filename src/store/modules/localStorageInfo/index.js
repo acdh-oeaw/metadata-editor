@@ -31,7 +31,7 @@ const mutations = {
     try {
       localStorage = window.localStorage;
     } catch (e) {
-      this._vm.$debug('getCurrentStoreLength failed due to access to local Storage');
+      //this._vm.$debug('getCurrentStoreLength failed due to access to local Storage');
     }
 
     if (localStorage) {
@@ -59,13 +59,13 @@ const actions = {
     try {
       localStorage = window.localStorage;
     } catch (e) {
-      this._vm.$debug('localStorage does not exists');
+      // this._vm.$debug('localStorage does not exists');
     }
     if (localStorage) {
-      this._vm.$debug('localStorage exists');
+      // this._vm.$debug('localStorage exists');
       let aHundredThausandChars = PI;
       let toBeSaved = '';
-      this._vm.$debug('state.store.testKey', state.testKey);
+      // this._vm.$debug('state.store.testKey', state.testKey);
       let tries = 2;
       while (true) {
         try {
@@ -82,10 +82,10 @@ const actions = {
             try {
               localStorage.removeItem(state.testKey);
             } catch (e) {
-              this._vm.$debug('cleaning up and deleting the TestKey did not work', e);
+              // this._vm.$debug('cleaning up and deleting the TestKey did not work', e);
             }
             // setLimit
-            this._vm.$debug('setLimit because writing did not work', e, cSL, toBeSaved.length);
+            // this._vm.$debug('setLimit because writing did not work', e, cSL, toBeSaved.length);
             commit('setLocalStorageLimit', cSL + toBeSaved.length);
             return cSL + toBeSaved.length;
           }

@@ -21,7 +21,7 @@ const mutations = {
     s.processingMessage = message || 'Processing...';
   },
   stopProcessing(s) {
-    this._vm.$debug('stopProcessing called');
+    this._vm.$info('stopProcessing called');
     s.processingMessage = '';
     s.processing = false;
   },

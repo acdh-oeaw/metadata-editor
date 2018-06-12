@@ -217,7 +217,7 @@ export default {
         promises.push(this.getMultipleArcheCallsByTypeAndID(id, typen[i]).catch(this.useNull));
       }
       return Promise.all(promises).then((res) => {
-        this.$debug('res All promises', res);
+        // this.$debug('res All promises', res);
         const data = [];
         for (let i = 0; i < res.length; i += 1) {
           if (res[i] !== null) {
@@ -227,7 +227,7 @@ export default {
             }
           }
         }
-        this.$debug('Data', data);
+        // this.$debug('Data', data);
         return Promise.resolve(data);
       })
       .catch((res) => {
@@ -248,13 +248,13 @@ export default {
         return Promise.reject('Failed');
       }
       const range = RANGE_TO_APICALLS[type];
-      this.$debug('more than one: type, id, range: ', type, id, range);
+      // this.$debug('more than one: type, id, range: ', type, id, range);
       // concat all the apicalls.
       const calls = [];
       if (range === 'ARCHE_ALL') {
         const ArcheKeys = Object.keys(APIS.ARCHE);
         for (let i = 0; i < ArcheKeys.length; i += 1) {
-          this.$debug('push in:', APIS.ARCHE[ArcheKeys[i]]);
+          // this.$debug('push in:', APIS.ARCHE[ArcheKeys[i]]);
           calls.push(APIS.ARCHE[ArcheKeys[i]].get(`${id}`).catch(this.useNull));
         }
       } else {
@@ -262,16 +262,16 @@ export default {
         for (let i = 0; i < childs.length; i += 1) {
           const apis = range[childs[i]];
           for (let j = 0; j < apis.length; j += 1) {
-            this.$debug('APIS, childs[i], apis[j], APIS[childs[i]][apis[j]]', APIS, childs[i], apis[j], APIS[childs[i]][apis[j]]);
+            // this.$debug('APIS, childs[i], apis[j], APIS[childs[i]][apis[j]]', APIS, childs[i], apis[j], APIS[childs[i]][apis[j]]);
             calls.push((APIS[childs[i]][apis[j]]).get(`${id}`).catch(this.useNull));
           }
         }
-        this.$debug('dynamic calls is:', calls);
+        // this.$debug('dynamic calls is:', calls);
       }
-      this.$debug('calls is: ', calls);
+      // this.$debug('calls is: ', calls);
 
       return axios.all(calls).then((res) => {
-        this.$debug('res then', res);
+        // this.$debug('res then', res);
         const data = [];
         for (let i = 0; i < res.length; i += 1) {
           if (res[i] !== null) {
@@ -285,7 +285,7 @@ export default {
       })
         .catch((res) => {
           console.log(this);
-          this.$debug('res failed', res);
+          // this.$debug('res failed', res);
           return Promise.reject('Failed');
         });
     },
@@ -362,7 +362,7 @@ export default {
           }
         }
       }
-      this.$debug('FMFT: valid types:', types);
+      // this.$debug('FMFT: valid types:', types);
       return m;
     },
     filterForArcheID(obj) {
