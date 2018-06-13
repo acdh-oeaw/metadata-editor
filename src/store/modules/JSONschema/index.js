@@ -26,6 +26,7 @@ const mutations = {
     }
   },
   setEntry(s, { name, entry }) {
+    this._vm.$log(name, entry);
     if (name && entry) {
       s.entries[name] = entry;
     }

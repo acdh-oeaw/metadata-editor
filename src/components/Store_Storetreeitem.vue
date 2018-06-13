@@ -51,6 +51,7 @@ export default {
       children: [],
       popup: true,
       dialog: false,
+      params: {},
     };
   },
   name: 'item',
@@ -104,7 +105,10 @@ export default {
       }
     },
     edit() {
-
+      for (const triple of this.getTriples({ subject: this.uri })) {
+        this.params[triple.predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')] = triple.object.replace(/"/g, '');
+      }
+      this.$router.push({ name: 'create', query: this.params });
     },
   },
   mounted() {

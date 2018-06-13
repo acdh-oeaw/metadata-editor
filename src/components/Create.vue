@@ -1,6 +1,7 @@
 <template>
 <v-container class="mt-4">
   <div id="testing">
+  <p>Model for debugging: {{ formModel }}</p>
     <h3>Test Autocomplete for Vocabs</h3>
     ARCHE_CATEGORY (eg.: sound): <AutocompVocabs type='ARCHE_CATEGORY' name='Test Vocabs' v-model="testVocabs"></AutocompVocabs>
     {{ testVocabs }}<br><br>
@@ -14,8 +15,7 @@
       <storetree class="tree"></storetree>
     </v-flex>
     <v-flex xs12 md8>
-      <formfromschema v-model="formModel" type="collection" uniqueName="uniqueFormSchema"></formfromschema>
-      <p>Model for debugging: {{ formModel }}</p>
+      <formfromschema v-model="formModel" type="person" uniqueName="uniqueFormSchema"></formfromschema>
     </v-flex>
   </v-layout>
 </v-container>

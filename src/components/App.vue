@@ -2,9 +2,7 @@
   <v-app>
     <fundamentnav></fundamentnav>
     <v-content>
-      <transition :duration="250" name="fadeUp" mode="out-in">
-        <router-view name="Content"></router-view>
-      </transition>
+      <router-view name="Content"></router-view>
       <fundamentfooter></fundamentfooter>
     </v-content>
     <dialogs></dialogs>

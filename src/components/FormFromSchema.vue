@@ -54,7 +54,7 @@ export default {
       */
     },
     submit() {
-      this.$info('FormFromSchema', 'submit()', JSON.stringify(this.model));
+      this.$info('FormFromSchema', 'submit()', this.model);
       // here everything -> n3 store.
       /* before calling objectToStore,
       we need to filter out objects and split them further into triples
@@ -83,6 +83,14 @@ export default {
     },
   },
   watch: {
+      '$route'() {
+        for (const triple in this.$route.query) {
+          if(this.model[triple] !== undefined) {
+            this.model[triple] = [this.$route.query[triple]];
+          }
+        }
+        this.saveEntry();
+      },
   },
   computed: {
   },
