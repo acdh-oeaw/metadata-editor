@@ -14,7 +14,6 @@ import HELPERS from '../helpers';
 /* eslint-disable no-irregular-whitespace */
 /* eslint no-console: ['error', { allow: ['log'] }] */
 /* eslint-disable np-undev */
-/* eslint-disable no-restricted-syntax */
 /* eslint-disable object-shorthand */
 
 export default {
@@ -86,9 +85,13 @@ export default {
   },
   watch: {
     '$route'() {
-      for (const triple in this.$route.query) {
-        if (this.model[triple] !== undefined) {
-          this.model[triple] = [this.$route.query[triple]];
+      const keys = Object.keys(this.model);
+      this.$log('type', this.$route.query['http://www.w3.org/1999/02/22-rdf-syntax-ns#type']);
+      for (let i = 0; i < keys.length; i += 1) {
+        if (this.$route.query[keys[i]] !== undefined) {
+          this.model[keys[i]] = this.$route.query[keys[i]];
+        } else {
+          this.model[keys[i]] = '';
         }
       }
       this.saveEntry();

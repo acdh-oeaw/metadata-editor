@@ -110,8 +110,13 @@ export default {
     },
     edit() {
       const triples = this.getTriples({ subject: this.uri });
+      this.params = {};
       for (let i = 0; i < triples.length; i += 1) {
-        this.params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')] = triples[i].object.replace(/"/g, '');
+        if (this.params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')]) {
+          this.params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')].push(triples[i].object.replace(/"/g, ''));
+        } else {
+          this.params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')] = [triples[i].object.replace(/"/g, '')];
+        }
       }
       this.$router.push({ name: 'create', query: this.params });
     },
