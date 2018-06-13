@@ -31,7 +31,7 @@ const mutations = {
     try {
       localStorage = window.localStorage;
     } catch (e) {
-      //this._vm.$debug('getCurrentStoreLength failed due to access to local Storage');
+      // this._vm.$debug('getCurrentStoreLength failed due to access to local Storage');
     }
 
     if (localStorage) {

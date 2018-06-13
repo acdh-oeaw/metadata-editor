@@ -62,7 +62,7 @@ import loadfile from './Store_LoadFile';
 import storetree from './Store_Storetree';
 import AutocompVocabs from './AutocompVocabs';
 import formfromschema from './FormFromSchema';
-import AutocompDefault from './AutocompDefault.vue';
+import AutocompDefault from './AutocompDefault';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 export default {

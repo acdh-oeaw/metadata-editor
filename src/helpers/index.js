@@ -237,7 +237,6 @@ export default {
         // this.$debug('res All promises', res);
         const data = [];
         for (let i = 0; i < res.length; i += 1) {
-
           if (res[i] !== null) {
             const o = res[i];
             for (let j = 0; j < o.length; j += 1) {
@@ -280,7 +279,16 @@ export default {
         for (let i = 0; i < childs.length; i += 1) {
           const apis = range[childs[i]];
           for (let j = 0; j < apis.length; j += 1) {
-            // this.$debug('APIS, childs[i], apis[j], APIS[childs[i]][apis[j]]', APIS, childs[i], apis[j], APIS[childs[i]][apis[j]]);
+            /*
+              this.$debug(
+                'APIS,
+                childs[i],
+                apis[j],
+                APIS[childs[i]][apis[j]]',
+                APIS, childs[i],
+                apis[j],
+                APIS[childs[i]][apis[j]]);
+            */
             let p;
             switch (childs[i]) {
               case 'ARCHE':
@@ -288,6 +296,8 @@ export default {
                 break;
               case 'VOCABS':
                 p = this.getVocabsPromise(id, apis[j]);
+                break;
+              default:
                 break;
             }
             calls.push(p.catch(this.useNull));
@@ -303,9 +313,8 @@ export default {
         for (let i = 0; i < res.length; i += 1) {
           this.$debug('res[i]', res[i]);
           if (res[i] !== null) {
-
             const o = res[i];
-            if(o.data.results) {
+            if (o.data.results) {
               for (let j = 0; j < o.data.results.length; j += 1) {
                 const item = o.data.results[j];
                 item.type = this.urlToType(o.config.baseURL);
@@ -324,26 +333,25 @@ export default {
       })
         .catch((res) => {
           console.log(this);
-          // this.$debug('res failed', res);
+          this.$debug('res failed', res);
           return Promise.reject('Failed');
         });
     },
     useNull() {
       return null;
     },
-    urlToType(url){
-      const urlA =  url.split('/');
-      for (let i = urlA.length -1; i >= 0; i -= 1){
+    urlToType(url) {
+      const urlA = url.split('/');
+      for (let i = urlA.length - 1; i >= 0; i -= 1) {
         const val = urlA[i];
-        if(val && val !== undefined && val !== 'search' ) {
+        if (val && val !== undefined && val !== 'search') {
           return val;
         }
       }
       return 'not_found';
-
     },
     typeicon(typ) {
-      if(typ) {
+      if (typ) {
         const type = typ.toUpperCase();
         switch (type) {
           case 'KEYBOARD':
@@ -363,7 +371,7 @@ export default {
           case 'ARCHE_CATEGORY':
             return 'folder_open';
           case 'ARCHE_LIFECYCLE_STATUS':
-              return 'donut_large';
+            return 'donut_large';
           default: return 'folder';
         }
       }

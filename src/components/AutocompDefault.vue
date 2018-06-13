@@ -85,9 +85,9 @@ export default {
           results = res;
         }
         // map to items //title url type
-        for(let i = 0; i < results.length; i += 1) {
+        for (let i = 0; i < results.length; i += 1) {
           const it = results[i];
-          if(it.title) {
+          if (it.title) {
             this.items.push({ title: it.title, uri: it.uri, type: it.type });
           } else if (it.prefLabel) {
             this.items.push({ title: it.prefLabel, uri: it.uri, type: it.type });
@@ -96,11 +96,9 @@ export default {
         // manual typed word
         this.items.push({ title: val, uri: val, type: 'keyboard', openPopUp: true });
         this.loading = false;
-
       })
-
       .catch((res) => {
-        // this.$debug('res fail', res);
+        this.$debug('res fail', res);
         this.loading = false;
       });
     },
