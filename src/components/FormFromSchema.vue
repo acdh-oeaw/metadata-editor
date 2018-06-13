@@ -14,6 +14,8 @@ import HELPERS from '../helpers';
 /* eslint-disable no-irregular-whitespace */
 /* eslint no-console: ['error', { allow: ['log'] }] */
 /* eslint-disable np-undev */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable object-shorthand */
 
 export default {
   mixins: [HELPERS],
@@ -83,14 +85,14 @@ export default {
     },
   },
   watch: {
-      '$route'() {
-        for (const triple in this.$route.query) {
-          if(this.model[triple] !== undefined) {
-            this.model[triple] = [this.$route.query[triple]];
-          }
+    '$route'() {
+      for (const triple in this.$route.query) {
+        if (this.model[triple] !== undefined) {
+          this.model[triple] = [this.$route.query[triple]];
         }
-        this.saveEntry();
-      },
+      }
+      this.saveEntry();
+    },
   },
   computed: {
   },

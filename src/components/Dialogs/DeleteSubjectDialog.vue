@@ -63,8 +63,8 @@ export default {
     checkbox() {
       this.toggleDeletePrompt(!this.checkbox);
     },
-    uri (oldVal, newVal) {
-      this.$debug('updated uri:', oldVal, newVal)
+    uri(oldVal, newVal) {
+      this.$debug('updated uri:', oldVal, newVal);
       this.triples = (this.getTriples({ subject: this.uri }));
     },
   },

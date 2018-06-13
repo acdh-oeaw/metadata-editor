@@ -42,7 +42,7 @@
 import { mapActions, mapMutations, mapGetters } from 'vuex';
 
 import HELPERS from '../../helpers';
-import storetree from '../Store_Storetree'
+import storetree from '../Store_Storetree';
 
 export default {
   props: {

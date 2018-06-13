@@ -22,15 +22,16 @@
 </template>
 
 <script>
-import HELPERS from '../../helpers';
 import { mapMutations } from 'vuex';
+import HELPERS from '../../helpers';
+
 export default {
   props: {
     dialog: {
       default: false,
     },
   },
-  data () {
+  data() {
     return {
       name: 'clearcachedialog',
     };

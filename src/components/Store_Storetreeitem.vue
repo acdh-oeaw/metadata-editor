@@ -109,8 +109,9 @@ export default {
       }
     },
     edit() {
-      for (const triple of this.getTriples({ subject: this.uri })) {
-        this.params[triple.predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')] = triple.object.replace(/"/g, '');
+      const triples = this.getTriples({ subject: this.uri });
+      for (let i = 0; i < triples.length; i += 1) {
+        this.params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')] = triples[i].object.replace(/"/g, '');
       }
       this.$router.push({ name: 'create', query: this.params });
     },
