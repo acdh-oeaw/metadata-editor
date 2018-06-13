@@ -8,6 +8,7 @@ import n3 from './modules/n3/index';
 import JSONschema from './modules/JSONschema/index';
 import app from './modules/app/index';
 import localStorageInfo from './modules/localStorageInfo/index';
+import dialogs from './modules/dialogs/index';
 import plugins from './plugins';
 
 
@@ -26,6 +27,7 @@ export default new Vuex.Store({
     JSONschema,
     app,
     localStorageInfo,
+    dialogs,
   },
   plugins,
   strict: false,

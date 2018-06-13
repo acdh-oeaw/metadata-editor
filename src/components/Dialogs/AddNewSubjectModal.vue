@@ -1,11 +1,16 @@
 <template lang="html">
   <!-- store deletion -->
-  <v-dialog v-model="$store.state.dialogs[name].status" max-width="900px">
+  <v-dialog
+    v-model="dialog"
+    fullscreen
+  >
     <v-card>
       <v-card-title>
-        Delete Subject
+        Select From Store or Create New Subject
       </v-card-title>
+
       <v-card-text color="primary">
+        <storetree class="tree"></storetree>
         Are you sure you want to delete the following triples?
         <v-data-table
           :items="triples"
@@ -22,10 +27,10 @@
         ></v-checkbox>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="RemoveSubject($store.state.dialogs[name].uri); closeDialog(name);" large color="error">
+        <v-btn @click="RemoveSubject(uri); close();" large color="error">
           Delete
         </v-btn>
-        <v-btn @click="closeDialog(name)" color="secondary" large>
+        <v-btn @click="close" color="secondary" large>
           Cancel
         </v-btn>
       </v-card-actions>
@@ -37,35 +42,34 @@
 import { mapActions, mapMutations, mapGetters } from 'vuex';
 
 import HELPERS from '../../helpers';
+import storetree from '../Store_Storetree'
 
 export default {
   props: {
+    uri: {
+      default: '',
+    },
     dialog: {
       default: false,
     },
+  },
+  components: {
+    storetree,
   },
   computed: {
     ...mapGetters('n3', [
       'getTriples',
     ]),
-    uri() {
-      return this.$store.state.dialogs[this.name].uri;
-    },
   },
   data() {
     return {
       checkbox: false,
       triples: [],
-      name: 'deletesubjectdialog',
     };
   },
   watch: {
     checkbox() {
       this.toggleDeletePrompt(!this.checkbox);
-    },
-    uri (oldVal, newVal) {
-      this.$debug('updated uri:', oldVal, newVal)
-      this.triples = (this.getTriples({ subject: this.uri }));
     },
   },
   mixins: [HELPERS],
@@ -76,9 +80,12 @@ export default {
     ...mapMutations('n3', [
       'toggleDeletePrompt',
     ]),
-    ...mapMutations('dialogs', [
-      'closeDialog',
-    ]),
+    close() {
+      this.$emit('update:dialog', false);
+    },
+  },
+  created() {
+    this.triples = (this.getTriples({ subject: this.uri }));
   },
 };
 </script>

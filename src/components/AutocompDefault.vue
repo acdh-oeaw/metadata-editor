@@ -37,7 +37,7 @@
         <v-list-tile-avatar>
           <v-icon>{{typeicon(data.item.type)}}</v-icon>
         </v-list-tile-avatar>
-        <v-list-tile-content @click="openPopUp(data.item.openPopUp)">
+        <v-list-tile-content @click="openPopUp(data.item)">
           <v-list-tile-title v-html="data.item.title"></v-list-tile-title>
           <v-list-tile-sub-title v-html="data.item.uri"></v-list-tile-sub-title>
         </v-list-tile-content>
@@ -102,9 +102,10 @@ export default {
         this.loading = false;
       });
     },
-    openPopUp(bool, item) {
-      if(bool) {
-        this.$debug('openPopUp(bool, item)', bool, item);
+    openPopUp(item) {
+      if(item.openPopUp) {
+        this.$debug('openPopUp(item)', item);
+        item.title = 'changedByPopUP';
       }
     },
   },

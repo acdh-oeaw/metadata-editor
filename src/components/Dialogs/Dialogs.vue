@@ -1,20 +1,28 @@
 <template lang="html">
-  <!-- Dialogs -->
-  <!-- store recovery -->
   <div>
-    <store-dialog></store-dialog>
-    <clear-cache-dialog></clear-cache-dialog>
+      <clearcachedialog></clearcachedialog>
+      <storedialog></storedialog>
+      <deletesubjectdialog></deletesubjectdialog>
+      <addnewsubjectmodal></addnewsubjectmodal>
+      <filesizedialog></filesizedialog>
   </div>
 </template>
 
 <script>
-import ClearCacheDialog from './ClearCacheDialog';
-import StoreDialog from './StoreDialog';
+import clearcachedialog from './ClearCacheDialog';
+import storedialog from './StoreDialog';
+import deletesubjectdialog from './DeleteSubjectDialog';
+import addnewsubjectmodal from './AddNewSubjectModal';
+import filesizedialog from './FileSizeDialog';
+
 
 export default {
   components: {
-    StoreDialog,
-    ClearCacheDialog,
+    clearcachedialog,
+    storedialog,
+    deletesubjectdialog,
+    addnewsubjectmodal,
+    filesizedialog,
   },
 };
 </script>
