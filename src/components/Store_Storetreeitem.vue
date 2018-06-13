@@ -103,7 +103,7 @@ export default {
     clear() {
       if (this.$store.state.n3.deletePrompt) {
         this.dialog = true;
-        this.setDialog({ name: 'deletesubjectdialog', obj: {status: true, uri: this.uri }});
+        this.setDialog({ name: 'deletesubjectdialog', obj: { status: true, uri: this.uri } });
       } else {
         this.RemoveSubject(this.uri);
       }

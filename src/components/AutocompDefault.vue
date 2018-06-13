@@ -103,7 +103,7 @@ export default {
       });
     },
     openPopUp(item) {
-      if(item.openPopUp) {
+      if (item.openPopUp) {
         this.$debug('openPopUp(item)', item);
         item.title = 'changedByPopUP';
       }

@@ -23,9 +23,9 @@ const mutations = {
   switchDialog(s, name) {
     s[name].status = !s[name];
   },
-  setDialog(s, {name, obj}) {
+  setDialog(s, { name, obj }) {
     s[name] = obj;
-  }
+  },
 };
 
 
@@ -33,4 +33,5 @@ export default {
   namespaced: true,
   state,
   mutations,
+  getters,
 };
