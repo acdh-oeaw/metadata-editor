@@ -30,7 +30,6 @@
       </v-chip>
     </template>
     <template slot="item" slot-scope="data">
-      <!-- ARCHE -->
       <template v-if="typeof data.item !== 'object'">
         <v-list-tile-content v-text="data.item"></v-list-tile-content>
       </template>
@@ -38,7 +37,7 @@
         <v-list-tile-avatar>
           <v-icon>{{typeicon(data.item.type)}}</v-icon>
         </v-list-tile-avatar>
-        <v-list-tile-content>
+        <v-list-tile-content @click="openPopUp(data.item)">
           <v-list-tile-title v-html="data.item.title"></v-list-tile-title>
           <v-list-tile-sub-title v-html="data.item.uri"></v-list-tile-sub-title>
         </v-list-tile-content>
@@ -77,7 +76,6 @@ export default {
     querySelections(val) {
       this.loading = true;
       // this.$info(vm);
-
       this.splitToGetMultipleCalls(val, this.type)
       .then((res) => {
         this.$debug('res win', res);
@@ -86,7 +84,6 @@ export default {
           this.$debug('autocompde res', res);
           results = res;
         }
-
         // map to items //title url type
         for (let i = 0; i < results.length; i += 1) {
           const it = results[i];
@@ -96,9 +93,8 @@ export default {
             this.items.push({ title: it.prefLabel, uri: it.uri, type: it.type });
           }
         }
-
         // manual typed word
-        this.items.push({ title: val, uri: val, type: 'keyboard' });
+        this.items.push({ title: val, uri: val, type: 'keyboard', openPopUp: true });
         this.loading = false;
       })
       .catch((res) => {
@@ -106,11 +102,12 @@ export default {
         this.loading = false;
       });
     },
-    /*
-    typeicon(type) {
-      return this.IconByRepoType(type);
+    openPopUp(item) {
+      if(item.openPopUp) {
+        this.$debug('openPopUp(item)', item);
+        item.title = 'changedByPopUP';
+      }
     },
-    */
   },
   created() {
     if (this.value) {

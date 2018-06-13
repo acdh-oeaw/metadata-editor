@@ -1,6 +1,6 @@
 <template lang="html">
   <!-- store deletion -->
-  <v-dialog v-model="dialog" max-width="500px">
+  <v-dialog v-model="$store.state.dialogs[name].status" max-width="500px">
     <v-card>
       <v-card-title>
         Clear Cache
@@ -10,10 +10,10 @@
   {{ Object.keys($store.state.n3.subjects).length }} Subjects from your Store? This can not be undone!
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="clearStore(); close();" large color="error">
+        <v-btn @click="clearStore(); closeDialog(name);" large color="error">
           Discard
         </v-btn>
-        <v-btn @click="close" color="secondary" large>
+        <v-btn @click="closeDialog(name)" color="secondary" large>
           Close
         </v-btn>
       </v-card-actions>
@@ -23,18 +23,29 @@
 
 <script>
 import HELPERS from '../../helpers';
-
+import { mapMutations } from 'vuex';
 export default {
   props: {
     dialog: {
       default: false,
     },
   },
+  data () {
+    return {
+      name: 'clearcachedialog',
+    };
+  },
   mixins: [HELPERS],
   methods: {
     close() {
-      this.$emit('update:dialog', false);
+      this.closeDialog(this.name);
     },
+    ...mapMutations('dialogs', [
+      'closeDialog',
+    ]),
+  },
+  created() {
+    this.$info('ClearCacheModal created', this.$store.state.dialogs.clearcachedialog);
   },
 };
 </script>

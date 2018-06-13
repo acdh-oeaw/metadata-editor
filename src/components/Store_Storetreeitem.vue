@@ -15,7 +15,6 @@
             <v-layout row nowrap>
               <v-icon @click="clear">clear</v-icon>
               <v-icon @click="edit">create</v-icon>
-              <DeleteSubjectDialog :uri.sync="uri" :dialog.sync="dialog"></DeleteSubjectDialog>
             </v-layout>
           </div>
         </v-flex>
@@ -34,7 +33,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 import item from './Store_Storetreeitem';
 import DeleteSubjectDialog from './Dialogs/DeleteSubjectDialog';
 
@@ -78,6 +77,10 @@ export default {
     ...mapActions('n3', [
       'RemoveSubject',
     ]),
+    ...mapMutations('dialogs', [
+      'setDialog',
+      'closeDialog',
+    ]),
     getChildren(uri) {
       const children = this.getTriples(
         { predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
@@ -100,6 +103,7 @@ export default {
     clear() {
       if (this.$store.state.n3.deletePrompt) {
         this.dialog = true;
+        this.setDialog({ name: 'deletesubjectdialog', obj: {status: true, uri: this.uri }});
       } else {
         this.RemoveSubject(this.uri);
       }
