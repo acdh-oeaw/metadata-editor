@@ -87,6 +87,7 @@ export default {
     '$route'() {
       const keys = Object.keys(this.model);
       this.$log('type', this.$route.query['http://www.w3.org/1999/02/22-rdf-syntax-ns#type']);
+      this.$log('query', this.$route.query);
       for (let i = 0; i < keys.length; i += 1) {
         if (this.$route.query[keys[i]] !== undefined) {
           this.model[keys[i]] = this.$route.query[keys[i]];

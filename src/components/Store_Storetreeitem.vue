@@ -1,5 +1,5 @@
 <template>
-  <v-layout column :class="{ greyBg: !bg }">
+  <v-layout column :class="{ greyBg: !bg, selected: this.uri === this.$route.query.uri }">
     <v-flex xs12>
       <v-layout row class="itemline" v-on:click="expanded = !expanded">
         <v-icon v-if="!expanded && children.length>0"  class="pointer">chevron_right</v-icon>
@@ -7,7 +7,7 @@
         <v-icon v-if="children.length==0" style="opacity:0;">expand_more</v-icon>
         <v-icon v-bind:class="{ expanded: 'teal lighten-3' }">{{this.typeicon}}</v-icon>
         <v-layout grid-list-xs class="ml-2" column justify-center>
-            <div class="itemcaption caption">{{this.getTitle(this.uri)}}</div>
+            <div class="itemcaption caption">{{ this.getTitle(this.uri).replace(/"/g, '') }}</div>
         </v-layout>
         <v-spacer></v-spacer>
         <v-flex xs1 >
@@ -118,6 +118,7 @@ export default {
           this.params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')] = [triples[i].object.replace(/"/g, '')];
         }
       }
+      this.params.uri = this.uri;
       this.$router.push({ name: 'create', query: this.params });
     },
   },
@@ -156,5 +157,8 @@ export default {
 }
 .greyBg {
   background-color: #EEE;
+}
+.selected {
+  background-color: #80CBC4;
 }
 </style>
