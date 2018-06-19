@@ -1,0 +1,29 @@
+{
+  "agent": {
+    "ARCHE": ["ORGANISATIONS", "PERSONS"],
+  },
+  "person": {
+    "ARCHE": ["PERSONS"],
+  },
+  "place": {
+    "ARCHE": ["PLACES"],
+  },
+  "organisation": {
+    "ARCHE": ["ORGANISATIONS"],
+  },
+  "publication": {
+    "ARCHE": ["PUBLICATIONS"],
+  },
+  "collection": {
+    "ARCHE": ["COLLECTIONS"],
+  },
+  "vocabstest": {
+    "VOCABS": ["ARCHE_CATEGORY", "ARCHE_LIFECYCLE_STATUS"],
+  },
+  "container": "ARCHE_ALL",
+  "reme": "ARCHE_ALL",
+  "resource": "ARCHE_ALL",
+  "main": "ARCHE_ALL",
+  "repoobject": "ARCHE_ALL",
+  "anyuri": "ARCHE_ALL",
+};
