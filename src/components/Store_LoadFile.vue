@@ -69,8 +69,6 @@ export default {
                 name: 'filesizedialog',
                 obj: {
                        status: true,
-                       file: file,
-                       size: this.result.length,
                        result: this.result,
                      },
               }
