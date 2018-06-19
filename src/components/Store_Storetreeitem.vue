@@ -35,7 +35,6 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import item from './Store_Storetreeitem';
-import DeleteSubjectDialog from './Dialogs/DeleteSubjectDialog';
 
 import HELPERS from '../helpers';
 /* eslint no-unused-vars: ["error", {"args": "none"}] */
@@ -60,7 +59,6 @@ export default {
   ],
   components: {
     item,
-    DeleteSubjectDialog,
   },
   computed: {
     ...mapGetters('n3', [
