@@ -6,7 +6,7 @@ const state = {
   storedialog: { status: false },
   deletesubjectdialog: { status: false, uri: '' },
   addnewsubjectmodal: { status: false },
-  filesizedialog: { status: false, result: '' },
+  filesizedialog: { status: false, file: '', size: '', result: ''},
 };
 
 const getters = {
@@ -24,6 +24,7 @@ const mutations = {
     s[name].status = !s[name];
   },
   setDialog(s, { name, obj }) {
+    this._vm.$info('store dialogs setDialog', name, obj);
     s[name] = obj;
   },
 };

@@ -7,13 +7,12 @@
         <p>[TEST FOR LOCALSTORAGE AND SOME STORE STATS SHOULD GO HERE]</p>
         <p>.</p>
         <input type="file" @change="onFileChange">
-        <file-size-dialog :result.sync="result" :sizeDialog.sync="sizeDialog"></file-size-dialog>
       </div>
     </fundamentcard>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 import fundamentcard from './Fundament/FundamentCard';
 import FileSizeDialog from './Dialogs/FileSizeDialog';
 
@@ -48,6 +47,10 @@ export default {
     ...mapActions('app', [
       'toggleAppMode',
     ]),
+    ...mapMutations('dialogs', [
+          'setDialog',
+          'closeDialog',
+        ]),
     onFileChange(e) {
       this.$info('Load', 'onFileChange(e)', e);
       const files = e.target.files || e.dataTransfer.files;
@@ -60,8 +63,19 @@ export default {
       reader.onload = (e) => {
         this.result = e.target.result;
         if (e.target.result.length > (this.$store.state.localStorageInfo.localStorageLimit || 5200000) - (this.$store.state.localStorageInfo.currentStoreLength || 0)) {
-          this.sizeDialog = true;
-        } else {
+            // this.sizeDialog = true;
+            this.setDialog(
+              {
+                name: 'filesizedialog',
+                obj: {
+                       status: true,
+                       file: file,
+                       size: this.result.length,
+                       result: this.result,
+                     },
+              }
+          );
+          } else {
           this.StringToStore(e.target.result).then(this.toggleAppMode());
         }
       };

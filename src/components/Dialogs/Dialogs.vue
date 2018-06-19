@@ -18,11 +18,11 @@ import filesizedialog from './FileSizeDialog';
 
 export default {
   components: {
-    clearcachedialog,
-    storedialog,
-    deletesubjectdialog,
-    addnewsubjectmodal,
-    filesizedialog,
+    clearcachedialog,  // opened in storeStats
+    storedialog,    // directly opens itself. -> old session restore
+    deletesubjectdialog,  // opened in Store_Storetreeitem
+    addnewsubjectmodal,  // opened in autoCompDefault
+    filesizedialog,  // opened in Store_LoadFile
   },
 };
 </script>

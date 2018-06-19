@@ -51,6 +51,8 @@ import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint-disable indent */
 
+import { mapMutations } from 'vuex';
+
 export default {
   mixins: [HELPERS],
   props: [
@@ -73,6 +75,9 @@ export default {
     },
   },
   methods: {
+    ...mapMutations('dialogs', [
+      'setDialog',
+    ]),
     querySelections(val) {
       this.loading = true;
       // this.$info(vm);
@@ -105,7 +110,14 @@ export default {
     openPopUp(item) {
       if (item.openPopUp) {
         this.$debug('openPopUp(item)', item);
-        item.title = 'changedByPopUP';
+        item.title = 'changedByPopUP'; // -> works
+        this.setDialog({
+          name: 'addnewsubjectmodal',
+          obj: {
+            status: true,
+            item: item,
+          },
+        })
       }
     },
   },

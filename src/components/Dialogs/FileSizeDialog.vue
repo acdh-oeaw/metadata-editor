@@ -1,6 +1,6 @@
 <template lang="html">
   <!-- store deletion -->
-  <v-dialog v-model="sizeDialog" max-width="500px">
+  <v-dialog v-model="$store.state.dialogs[name].status" max-width="500px">
     <v-card>
       <v-card-title>
         Hey there!
@@ -43,19 +43,16 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 import HELPERS from '../../helpers';
 
 export default {
-  props: {
-    sizeDialog: {
-      default: false,
-    },
-    result: {
-      default: '',
-    },
-  },
   mixins: [HELPERS],
+  data() {
+      return {
+        name: 'filesizedialog',
+      }
+  },
   methods: {
     ...mapActions('localStorageInfo', [
       'safeLimitTest',
@@ -67,13 +64,21 @@ export default {
     ...mapActions('n3', [
       'StringToStore',
     ]),
+    ...mapMutations('dialogs', [
+      'closeDialog',
+    ]),
     save() {
       this.$log('StringToStore', this.StringToStore(this.result));
       this.StringToStore(this.result).then(this.toggleAppMode());
     },
     close() {
-      this.$emit('update:sizeDialog', false);
+      this.closeDialog(this.name);
     },
+  },
+  computed: {
+    result() {
+      return this.$store.state.dialogs[this.name].result;
+    }
   },
 };
 </script>
