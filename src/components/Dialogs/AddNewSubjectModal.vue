@@ -10,6 +10,7 @@
       <v-card-text color="primary">
         <storetree class="tree"></storetree>
         <p>Select an item form in store saved items above. Currently nothing happens, but shortly, this will return the identifier of the subject.</p>
+        <p>item: {{ item }}</p>
       </v-card-text>
       <v-card-actions>
         </v-btn>
