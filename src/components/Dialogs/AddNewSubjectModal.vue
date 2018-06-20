@@ -9,7 +9,7 @@
       </v-card-title>
       <v-card-text color="primary">
         <storetree class="tree"></storetree>
-        <p>Select an item form in store saved items above. Currently nothing happens, but shortly, this will return the identifier of the subject.</p>        
+        <p>Select an item form in store saved items above. Currently nothing happens, but shortly, this will return the identifier of the subject.</p>
       </v-card-text>
       <v-card-actions>
         </v-btn>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapGetters } from 'vuex';
+import { mapMutations } from 'vuex';
 
 import HELPERS from '../../helpers';
 import storetree from '../Store_Storetree';
@@ -34,7 +34,7 @@ export default {
   computed: {
     item() {
       return this.$store.state.dialogs[this.name].item;
-    }
+    },
   },
   data() {
     return {

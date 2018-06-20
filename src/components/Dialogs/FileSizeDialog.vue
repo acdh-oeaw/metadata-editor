@@ -49,9 +49,9 @@ import HELPERS from '../../helpers';
 export default {
   mixins: [HELPERS],
   data() {
-      return {
-        name: 'filesizedialog',
-      }
+    return {
+      name: 'filesizedialog',
+    };
   },
   methods: {
     ...mapActions('localStorageInfo', [
@@ -78,7 +78,7 @@ export default {
   computed: {
     result() {
       return this.$store.state.dialogs[this.name].result;
-    }
+    },
   },
 };
 </script>

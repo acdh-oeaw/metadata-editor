@@ -48,9 +48,9 @@ export default {
       'toggleAppMode',
     ]),
     ...mapMutations('dialogs', [
-          'setDialog',
-          'closeDialog',
-        ]),
+      'setDialog',
+      'closeDialog',
+    ]),
     onFileChange(e) {
       this.$info('Load', 'onFileChange(e)', e);
       const files = e.target.files || e.dataTransfer.files;
@@ -62,18 +62,15 @@ export default {
       const reader = new FileReader();
       reader.onload = (e) => {
         this.result = e.target.result;
-        if (e.target.result.length > (this.$store.state.localStorageInfo.localStorageLimit || 5200000) - (this.$store.state.localStorageInfo.currentStoreLength || 0)) {
-            // this.sizeDialog = true;
-            this.setDialog(
-              {
-                name: 'filesizedialog',
-                obj: {
-                       status: true,
-                       result: this.result,
-                     },
-              }
-          );
-          } else {
+        if (e.target.result.length > (this.$store.state.localStorageInfo.localStorageLimit || 5200000) - (this.$store.state.localStorageInfo.currentStoreLength || 0)) { // this.sizeDialog = true
+          this.setDialog({
+            name: 'filesizedialog',
+            obj: {
+              status: true,
+              result: this.result,
+            },
+          });
+        } else {
           this.StringToStore(e.target.result).then(this.toggleAppMode());
         }
       };

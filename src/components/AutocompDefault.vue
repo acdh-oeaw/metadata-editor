@@ -47,11 +47,11 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint-disable indent */
 
-import { mapMutations } from 'vuex';
 
 export default {
   mixins: [HELPERS],
@@ -115,9 +115,9 @@ export default {
           name: 'addnewsubjectmodal',
           obj: {
             status: true,
-            item: item,
+            item,
           },
-        })
+        });
       }
     },
   },
