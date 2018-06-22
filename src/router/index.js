@@ -59,6 +59,13 @@ export default new Router({
           },
         },
         {
+          path: 'authcallback',
+          name: 'authcallback',
+          components: {
+            Content: Schema,
+          },
+        },
+        {
           path: '',
           redirect: { name: 'start' },
         },
