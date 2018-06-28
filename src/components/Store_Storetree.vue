@@ -67,9 +67,6 @@ export default {
       'getTitle',
       'getType',
     ]),
-    typeicon(type) {
-      return this.IconByRepoType(type);
-    },
   },
   watch: {
     getCount() {

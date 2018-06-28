@@ -34,7 +34,7 @@
         </template>
         <template v-else>
           <v-list-tile-avatar>
-            <v-icon>{{typeicon(data.item.type)}}</v-icon>
+            <v-icon>{{typeicon(data.item.type[0])}}</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title v-html="data.item.prefLabel"></v-list-tile-title>
@@ -85,9 +85,6 @@ export default {
         this.$debug(res);
         this.loading = false;
       });
-    },
-    typeicon(type) {
-      return this.IconByRepoType(type);
     },
   },
   created() {
