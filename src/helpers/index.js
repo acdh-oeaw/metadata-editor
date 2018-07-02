@@ -360,7 +360,7 @@ export default {
             return 'developer_board';
           case 'PERSONS':
           case 'persons':
-          case 'https://vocabs.acdh.oeaw.ac.at/schema#Person':
+          case 'https://vocabs.acdh.oeaw.ac.at/schema#Persons':
             return 'person';
           case 'PLACES':
           case 'https://vocabs.acdh.oeaw.ac.at/schema#Place':
@@ -551,6 +551,10 @@ export default {
         default:
           return 'folder';
       }
+    },
+    saveEntry() {
+      this.$info('FormFromSchema', 'saveEntry');
+      this.setEntry({ name: this.uniqueName, entry: this.model });
     },
   },
   created() {

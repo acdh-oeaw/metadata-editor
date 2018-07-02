@@ -10,10 +10,12 @@ import FormSchema from 'vue-json-schema';
 import { mapMutations, mapActions } from 'vuex';
 import FormComponentWrapper from './FormComponentWrapper';
 import HELPERS from '../helpers';
+
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint-disable no-irregular-whitespace */
 /* eslint no-console: ['error', { allow: ['log'] }] */
 /* eslint-disable np-undev */
+/* eslint-disable func-names */
 /* eslint-disable object-shorthand */
 
 export default {
@@ -84,23 +86,28 @@ export default {
     },
   },
   watch: {
-    '$route'() {
+    $route: function (to, from) {
+      this.$log('to, from', to, from);
       const keys = Object.keys(this.model);
-      this.$log('type', this.$route.query['http://www.w3.org/1999/02/22-rdf-syntax-ns#type']);
-      this.$log('query', this.$route.query);
+      this.$log('type', to.query['http://www.w3.org/1999/02/22-rdf-syntax-ns#type']);
+      this.$log('query', to.query);
       for (let i = 0; i < keys.length; i += 1) {
-        if (this.$route.query[keys[i]] !== undefined) {
-          this.model[keys[i]] = this.$route.query[keys[i]];
+        if (to.query[keys[i]] !== undefined) {
+          this.model[keys[i]] = to.query[keys[i]];
         } else {
           this.model[keys[i]] = '';
         }
       }
+
+      this.model['isPrincipalInvestigatorOf'] = ['test'];
+
+      this.$log('entries', this.$store.state.JSONschema.entries[this.uniqueName]);
       this.saveEntry();
     },
   },
   computed: {
   },
-  created() {
+  mounted() {
     this.$info('FormFromSchema', 'created');
     this.getMetadataByType(this.type).then((res) => {
       // this.$debug('schema before copyRangeToType', JSON.stringify(res));
@@ -114,6 +121,7 @@ export default {
       if (!this.$store.state.JSONschema.entries[this.uniqueName]) {
         this.$store.state.JSONschema.entries[this.uniqueName] = {};
       }
+
       this.model = this.$store.state.JSONschema.entries[this.uniqueName];
       // Mapping
 
