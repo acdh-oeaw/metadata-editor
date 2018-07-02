@@ -99,7 +99,7 @@ export default {
         }
       }
 
-      this.model['isPrincipalInvestigatorOf'] = ['test'];
+      this.model.isPrincipalInvestigatorOf = ['test'];
 
       this.$log('entries', this.$store.state.JSONschema.entries[this.uniqueName]);
       this.saveEntry();

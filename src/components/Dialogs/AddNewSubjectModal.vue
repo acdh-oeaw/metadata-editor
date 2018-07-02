@@ -8,14 +8,17 @@
         Select From Store or Create New Subject
       </v-card-title>
       <v-card-text color="primary">
-        <storetree class="tree"></storetree>
-        <p>Select an item form in store saved items above. Currently nothing happens, but shortly, this will return the identifier of the subject.</p>
+        <storetree v-model="storeTreeSelection" class="tree"></storetree>
+        <p>Select an item from the stored items above. Currently nothing happens, but shortly, this will return the identifier of the subject.</p>
         <p>item: {{ item }}</p>
+        <p>currently selected: {{ storeTreeSelection }}</p>
       </v-card-text>
       <v-card-actions>
-        </v-btn>
         <v-btn @click="closeDialog(name)" color="secondary" large>
           Cancel
+        </v-btn>
+        <v-btn :disabled="!storeTreeSelection" @click="closeDialog(name); ChangeItem();" color="primary" large>
+          Select
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -40,6 +43,7 @@ export default {
   data() {
     return {
       name: 'addnewsubjectmodal',
+      storeTreeSelection: '',
     };
   },
   watch: {
@@ -48,7 +52,18 @@ export default {
   methods: {
     ...mapMutations('dialogs', [
       'closeDialog',
+      'setDialog',
     ]),
+    ChangeItem() {
+      this.setDialog({
+        name: this.name,
+        obj: {
+          status: false,
+          item: this.item,
+          changedItem: this.storeTreeSelection,
+        },
+      });
+    },
   },
 };
 </script>

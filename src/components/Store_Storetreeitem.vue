@@ -1,5 +1,5 @@
 <template>
-  <v-layout column :class="{ greyBg: !bg, selected: this.uri === this.$route.query.uri }">
+  <v-layout @click="$emit('input', chosenItem)" column :class="{ greyBg: !bg, selected: this.uri === this.$route.query.uri }">
     <v-flex xs12>
       <v-layout row class="itemline" v-on:click="expanded = !expanded">
         <v-icon v-if="!expanded && children.length>0"  class="pointer">chevron_right</v-icon>
@@ -50,12 +50,14 @@ export default {
       popup: true,
       dialog: false,
       params: {},
+      chosenItem: {},
     };
   },
   name: 'item',
   props: [
     'uri',
     'bg',
+    'itemFull',
   ],
   components: {
     item,
@@ -117,7 +119,12 @@ export default {
       this.$router.push({ name: 'create', query: this.params });
     },
   },
+  created() {
+
+  },
   mounted() {
+    this.$debug("itemFull:", this.itemFull);
+    this.chosenItem = this.itemFull;
     this.update();
   },
 };

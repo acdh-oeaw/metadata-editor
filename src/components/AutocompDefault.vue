@@ -49,6 +49,7 @@
 <script>
 import { mapMutations } from 'vuex';
 import HELPERS from '../helpers';
+import { mapGetters } from 'vuex';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint-disable indent */
 
@@ -67,11 +68,26 @@ export default {
       items: [],
       search: null,
       select: this.value || [],
+      iForDes: -1,
     };
   },
   watch: {
     search() {
       this.querySelections(this.search);
+    },
+    newSubject(after, before) {
+      this.$debug('bef aft: ', JSON.stringify(before), JSON.stringify(after));
+      if(after.changedItem) {
+        this.$debug('after exists');
+        let newItem = {};
+        newItem.titel = this.getTitle(after.changedItem.subject) || 'new Tilel';
+        newItem.uri = after.changedItem.subject;
+        this.select.push(newItem);
+
+        this.$debug('bef aft: ', JSON.stringify(before), JSON.stringify(after));
+        this.value = 'lel';
+        this.$debug('select: ', this.select);
+      }
     },
   },
   methods: {
@@ -95,11 +111,16 @@ export default {
           if (it.title) {
             this.items.push({ title: it.title, uri: it.uri, type: it.type });
           } else if (it.prefLabel) {
-            this.items.push({ title: it.prefLabel, uri: it.uri, type: it.type });
+            this.items.push({ title: it.prefLabel, uri: it.uri, type: it.type, });
           }
         }
         // manual typed word
-        this.items.push({ title: val, uri: val, type: 'keyboard', openPopUp: true });
+        if(!this.items[this.items.length-1].indexForDeletion) { // only if none exists already
+          this.items.push({ title: val, uri: val, type: 'keyboard', openPopUp: true, indexForDestruction: this.items.length });
+          this.iForDes = this.items.length-1;
+        } else {
+          this.items[this.iForDes] = { title: val, uri: val, type: 'keyboard', openPopUp: true, indexForDestruction: this.iForDes }
+        }
         this.loading = false;
       })
       .catch((res) => {
@@ -110,7 +131,7 @@ export default {
     openPopUp(item) {
       if (item.openPopUp) {
         this.$debug('openPopUp(item)', item);
-        item.title = 'changedByPopUP'; // -> works
+        // item.title = 'changedByPopUP'; // -> works
         this.setDialog({
           name: 'addnewsubjectmodal',
           obj: {
@@ -125,6 +146,14 @@ export default {
     if (this.value) {
       this.querySelections('a');
     }
+  },
+  computed: {
+    ...mapGetters('n3', [
+      'getTitle',
+    ]),
+    newSubject() {
+      return this.$store.state.dialogs.addnewsubjectmodal;
+    },
   },
 };
 </script>
