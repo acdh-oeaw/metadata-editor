@@ -79,8 +79,6 @@ export default {
 
       for (let i = 0; i < TYPES1.length; i += 1) {
         const t = TYPES1[i];
-        this.$log('important', t);
-
         FormSchema.setComponent(t, FormComponentWrapper, { type: t });
       }
     },

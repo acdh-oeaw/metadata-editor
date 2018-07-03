@@ -78,7 +78,6 @@ export default {
       .then((res) => {
         // this.$debug(res);
         if (Array.isArray(res.results)) this.items = res.results;
-        this.$log(this.items);
         this.loading = false;
       })
       .catch((res) => {

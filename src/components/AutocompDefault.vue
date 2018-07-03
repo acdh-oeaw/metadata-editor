@@ -68,26 +68,8 @@ export default {
       search: null,
       select: this.value || [],
       iForDes: -1,
+      manuallySelectedItem: false,
     };
-  },
-  watch: {
-    search() {
-      this.querySelections(this.search);
-    },
-    newSubject(after, before) {
-      this.$debug('bef aft: ', JSON.stringify(before), JSON.stringify(after));
-      if (after.changedItem) {
-        this.$debug('after exists');
-        const newItem = {};
-        newItem.titel = this.getTitle(after.changedItem.subject) || 'new Tilel';
-        newItem.uri = after.changedItem.subject;
-        this.select.push(newItem);
-
-        this.$debug('bef aft: ', JSON.stringify(before), JSON.stringify(after));
-        this.value = 'lel';
-        this.$debug('select: ', this.select);
-      }
-    },
   },
   methods: {
     ...mapMutations('dialogs', [
@@ -96,6 +78,12 @@ export default {
     querySelections(val) {
       this.loading = true;
       // this.$info(vm);
+
+      // manual typed word
+      if(!this.items[0]) {
+        this.items[0] = { title: 'Click Here to select from store or to add a new Entry', uri: 'selectFromStoreOrTypeInNewOne', type: 'keyboard', openPopUp: true, indexForDestruction: 0 };
+      }
+      //results from api
       this.splitToGetMultipleCalls(val, this.type)
       .then((res) => {
         this.$debug('res win', res);
@@ -104,28 +92,24 @@ export default {
           this.$debug('autocompde res', res);
           results = res;
         }
-        // map to items //title url type
-        for (let i = 0; i < results.length; i += 1) {
-          const it = results[i];
-          if (it.title) {
-            this.items.push({ title: it.title, uri: it.uri, type: it.type });
-          } else if (it.prefLabel) {
-            this.items.push({ title: it.prefLabel, uri: it.uri, type: it.type });
-          }
-        }
-        // manual typed word
-        if (!this.items[this.items.length - 1].indexForDeletion) { // only if none exists already
-          this.items.push({ title: val, uri: val, type: 'keyboard', openPopUp: true, indexForDestruction: this.items.length });
-          this.iForDes = this.items.length - 1;
-        } else {
-          this.items[this.iForDes] = { title: val, uri: val, type: 'keyboard', openPopUp: true, indexForDestruction: this.iForDes };
-        }
+        this.mapResultsToItems(results);
         this.loading = false;
       })
       .catch((res) => {
         this.$debug('res fail', res);
         this.loading = false;
       });
+    },
+    mapResultsToItems(results) {
+      // map to items //title url type
+      for (let i = 0; i < results.length; i += 1) {
+        const it = results[i];
+        if (it.title) {
+          this.items.push({ title: it.title, uri: it.uri, type: it.type });
+        } else if (it.prefLabel) {
+          this.items.push({ title: it.prefLabel, uri: it.uri, type: it.type });
+        }
+      }
     },
     openPopUp(item) {
       if (item.openPopUp) {
@@ -138,7 +122,30 @@ export default {
             item,
           },
         });
+        this.manuallySelectedItem = true;
       }
+    },
+  },
+  watch: {
+    search() {
+      this.querySelections(this.search);
+    },
+    newItem(before, after) {
+      if (!this.manuallySelectedItem || !after) {
+        return;
+      }
+      this.$info('AutocompDefault -> newSubject before, after, manuallySelectedItem',  before, after, this.manuallySelectedItem);
+      this.$debug('bef aft: ', JSON.stringify(before), JSON.stringify(after));
+      if (after.changedItem) {
+        this.$debug('after exists');
+        this.items[0].title = this.getTitle(after.changedItem.subject);
+        this.items[0].uri = after.changedItem.subject;
+      } else {
+        // dialog got canceld
+        this.select.splice(this.select.length-1);
+      }
+      this.manuallySelectedItem = false;
+      this.$emit('input', this.select);
     },
   },
   created() {
@@ -150,7 +157,7 @@ export default {
     ...mapGetters('n3', [
       'getTitle',
     ]),
-    newSubject() {
+    newItem() {
       return this.$store.state.dialogs.addnewsubjectmodal;
     },
   },

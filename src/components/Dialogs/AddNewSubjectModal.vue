@@ -14,10 +14,10 @@
         <p>currently selected: {{ storeTreeSelection }}</p>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="closeDialog(name)" color="secondary" large>
+        <v-btn @click="deleteItem(); closeDialog(name);" color="secondary" large>
           Cancel
         </v-btn>
-        <v-btn :disabled="!storeTreeSelection" @click="closeDialog(name); ChangeItem();" color="primary" large>
+        <v-btn :disabled="!storeTreeSelection" @click="ChangeItem();" color="primary" large>
           Select
         </v-btn>
       </v-card-actions>
@@ -61,6 +61,17 @@ export default {
           status: false,
           item: this.item,
           changedItem: this.storeTreeSelection,
+        },
+      });
+    },
+    deleteItem() {
+      this.setDialog({
+        name: this.name,
+        obj: {
+          status: false,
+          obj: {
+            item: this.item,
+          }
         },
       });
     },
