@@ -123,7 +123,7 @@ export default {
 
   },
   mounted() {
-    this.$debug("itemFull:", this.itemFull);
+    // this.$debug('itemFull', this.itemFull);
     this.chosenItem = this.itemFull;
     this.update();
   },

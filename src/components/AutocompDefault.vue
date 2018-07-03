@@ -47,9 +47,8 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 import HELPERS from '../helpers';
-import { mapGetters } from 'vuex';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint-disable indent */
 
@@ -77,9 +76,9 @@ export default {
     },
     newSubject(after, before) {
       this.$debug('bef aft: ', JSON.stringify(before), JSON.stringify(after));
-      if(after.changedItem) {
+      if (after.changedItem) {
         this.$debug('after exists');
-        let newItem = {};
+        const newItem = {};
         newItem.titel = this.getTitle(after.changedItem.subject) || 'new Tilel';
         newItem.uri = after.changedItem.subject;
         this.select.push(newItem);
@@ -111,15 +110,15 @@ export default {
           if (it.title) {
             this.items.push({ title: it.title, uri: it.uri, type: it.type });
           } else if (it.prefLabel) {
-            this.items.push({ title: it.prefLabel, uri: it.uri, type: it.type, });
+            this.items.push({ title: it.prefLabel, uri: it.uri, type: it.type });
           }
         }
         // manual typed word
-        if(!this.items[this.items.length-1].indexForDeletion) { // only if none exists already
+        if (!this.items[this.items.length - 1].indexForDeletion) { // only if none exists already
           this.items.push({ title: val, uri: val, type: 'keyboard', openPopUp: true, indexForDestruction: this.items.length });
-          this.iForDes = this.items.length-1;
+          this.iForDes = this.items.length - 1;
         } else {
-          this.items[this.iForDes] = { title: val, uri: val, type: 'keyboard', openPopUp: true, indexForDestruction: this.iForDes }
+          this.items[this.iForDes] = { title: val, uri: val, type: 'keyboard', openPopUp: true, indexForDestruction: this.iForDes };
         }
         this.loading = false;
       })
