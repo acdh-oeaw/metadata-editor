@@ -74,6 +74,7 @@ export default {
   methods: {
     ...mapMutations('dialogs', [
       'setDialog',
+      'setDialogPromise',
     ]),
     querySelections(val) {
       this.loading = true;
@@ -115,6 +116,7 @@ export default {
       if (item.openPopUp) {
         this.$debug('openPopUp(item)', item);
         // item.title = 'changedByPopUP'; // -> works
+        this.manuallySelectedItem = true;
         this.setDialog({
           name: 'addnewsubjectmodal',
           obj: {
@@ -122,7 +124,6 @@ export default {
             item,
           },
         });
-        this.manuallySelectedItem = true;
       }
     },
   },
@@ -130,20 +131,26 @@ export default {
     search() {
       this.querySelections(this.search);
     },
-    newItem(before, after) {
-      if (!this.manuallySelectedItem || !after) {
+    newItem(after, before) {
+      if(!this.manuallySelectedItem) {
+        return;
+      }
+      if(after.delete) {
+        // dialog got canceld
+        this.select.splice(this.select.length - 1);
+        this.manuallySelectedItem = false;
+        return;
+      }
+      if (!after.changedItem) {
         return;
       }
       this.$info('AutocompDefault -> newSubject before, after, manuallySelectedItem', before, after, this.manuallySelectedItem);
-      this.$debug('bef aft: ', JSON.stringify(before), JSON.stringify(after));
-      if (after.changedItem) {
-        this.$debug('after exists');
-        this.items[0].title = this.getTitle(after.changedItem.subject);
-        this.items[0].uri = after.changedItem.subject;
-      } else {
-        // dialog got canceld
-        this.select.splice(this.select.length - 1);
-      }
+      this.$debug('bef aft: ', JSON.stringify(this.newItem));
+      this.$debug('after exists, select:', this.select);
+      this.items[0].title = this.getTitle(after.changedItem.subject);
+      this.items[0].uri = after.changedItem.subject;
+      this.select.splice(this.select.length - 1);
+      this.select.push(after.changedItem.subject);
       this.manuallySelectedItem = false;
       this.$emit('input', this.select);
     },

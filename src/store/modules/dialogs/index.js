@@ -27,6 +27,12 @@ const mutations = {
     this._vm.$info('store dialogs setDialog', name, obj);
     s[name] = obj;
   },
+  setDialogPromise(s, { name, obj }) {
+    s[name] = obj;
+    return new Promise(function() {
+      return Promise.resolve(s[name]);
+    });
+  },
 };
 
 
