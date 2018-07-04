@@ -80,10 +80,10 @@ export default {
       // this.$info(vm);
 
       // manual typed word
-      if(!this.items[0]) {
+      if (!this.items[0]) {
         this.items[0] = { title: 'Click Here to select from store or to add a new Entry', uri: 'selectFromStoreOrTypeInNewOne', type: 'keyboard', openPopUp: true, indexForDestruction: 0 };
       }
-      //results from api
+      // results from api
       this.splitToGetMultipleCalls(val, this.type)
       .then((res) => {
         this.$debug('res win', res);
@@ -134,7 +134,7 @@ export default {
       if (!this.manuallySelectedItem || !after) {
         return;
       }
-      this.$info('AutocompDefault -> newSubject before, after, manuallySelectedItem',  before, after, this.manuallySelectedItem);
+      this.$info('AutocompDefault -> newSubject before, after, manuallySelectedItem', before, after, this.manuallySelectedItem);
       this.$debug('bef aft: ', JSON.stringify(before), JSON.stringify(after));
       if (after.changedItem) {
         this.$debug('after exists');
@@ -142,7 +142,7 @@ export default {
         this.items[0].uri = after.changedItem.subject;
       } else {
         // dialog got canceld
-        this.select.splice(this.select.length-1);
+        this.select.splice(this.select.length - 1);
       }
       this.manuallySelectedItem = false;
       this.$emit('input', this.select);

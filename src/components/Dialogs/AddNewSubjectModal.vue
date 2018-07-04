@@ -71,7 +71,7 @@ export default {
           status: false,
           obj: {
             item: this.item,
-          }
+          },
         },
       });
     },
