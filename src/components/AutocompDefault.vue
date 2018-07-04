@@ -154,10 +154,32 @@ export default {
       this.manuallySelectedItem = false;
       this.$emit('input', this.select);
     },
+    $route(to) {
+      if (this.value) {
+        this.$log('selection', this.select, this.value);
+        for (let i = 0; i < Object.keys(to.query).length; i += 1) {
+          if (Object.keys(to.query)[i] === this.name) {
+            this.$log('selection name', this.value, to.query[Object.keys(to.query)[i]]);
+            break;
+          }
+        }
+        if (Array.isArray(this.value)) {
+          for (let i = 0; i < this.value.length; i += 1) {
+            this.items.push({ title: this.value[i], uri: this.value[i], type: '' });
+          }
+        } else {
+          this.items.push({ title: this.value, uri: this.value, type: '' });
+        }
+        this.$log('selection items', this.items);
+      }
+    },
   },
   created() {
     if (this.value) {
-      this.querySelections('a');
+      this.$log('selection', this.select, this.value);
+      for (let i = 0; i < this.value.length; i += 1) {
+        this.items.push({ title: this.value[i], uri: this.value[i], type: '' });
+      }
     }
   },
   computed: {
