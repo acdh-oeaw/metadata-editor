@@ -44,18 +44,21 @@ export default {
       },
     };
   },
-  methods: {
-
-  },
   created() {
     const typeL = this.type.toLowerCase();
     let c = this.componentMap[typeL];
     if (!c) {
       c = { type: this.type, name: 'autocompdefault' };
     }
-    this.$info('FormComponentWrapper created', c, this.type);
+    if (this.selectedValue) {
+      this.$info('FormComponentWrapper created', c, this.selectedValue);
+    }
     this.component = c.name;
     this.mappedType = c.type;
+    this.selectedValue = this.value;
+  },
+  updated() {
+    this.selectedValue = this.value;
   },
 };
 </script>

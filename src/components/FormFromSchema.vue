@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import FormSchema from 'vue-json-schema';
+import FormSchema from '@formschema/native';
 import { mapMutations, mapActions } from 'vuex';
 import FormComponentWrapper from './FormComponentWrapper';
 import HELPERS from '../helpers';
@@ -75,35 +75,37 @@ export default {
           TYPES1.push(this.schema.properties[fields[i]].attrs.type);
         }
       }
-      // this.$debug('types in created:', TYPES1);
+      this.$debug('types in created:', TYPES1);
 
       for (let i = 0; i < TYPES1.length; i += 1) {
         const t = TYPES1[i];
         FormSchema.setComponent(t, FormComponentWrapper, { type: t });
       }
     },
-  },
-  watch: {
-    $route: function (to, from) {
-      this.$log('to, from', to, from);
+    updateModel(params) {
       const keys = Object.keys(this.model);
-      this.$log('type', to.query['http://www.w3.org/1999/02/22-rdf-syntax-ns#type']);
-      this.$log('query', to.query);
       for (let i = 0; i < keys.length; i += 1) {
-        if (to.query[keys[i]] !== undefined) {
-          this.model[keys[i]] = to.query[keys[i]];
+        if (params[keys[i]] !== undefined) {
+          this.model[keys[i]] = params[keys[i]];
         } else {
           this.model[keys[i]] = '';
         }
       }
-
-      this.model.isPrincipalInvestigatorOf = ['test'];
-
       this.$log('entries', this.$store.state.JSONschema.entries[this.uniqueName]);
       this.saveEntry();
     },
   },
-  computed: {
+  watch: {
+    $route: function (to, from) {
+      this.$log('to, from', to, from);
+      this.updateModel(to.query);
+
+      this.setComponents();
+    },
+  },
+  updated() {
+    this.updateModel(this.$route.query);
+    this.setComponents();
   },
   mounted() {
     this.$info('FormFromSchema', 'created');
