@@ -9,9 +9,12 @@
       </v-card-title>
       <v-card-text color="primary">
         <storetree v-model="storeTreeSelection" class="tree"></storetree>
-        <p>Select an item from the stored items above. Currently nothing happens, but shortly, this will return the identifier of the subject.</p>
-        <p>item: {{ item }}</p>
-        <p>currently selected: {{ storeTreeSelection }}</p>
+        <p>Select an item from the stored items above. this will return the identifier of the subject. Or you can create a new Entry [based on your tree selection] below. (not impemented yet)</p>
+        <form>
+          <v-text-field label="subject" placeholder="Placeholder" v-model="storeTreeSelection.subject"></v-text-field>
+          <v-text-field label="predicate" placeholder="Placeholder" v-model="storeTreeSelection.predicate"></v-text-field>
+          <v-text-field label="object" placeholder="Placeholder" v-model="storeTreeSelection.object"></v-text-field>
+        </form>
       </v-card-text>
       <v-card-actions>
         <v-btn @click="deleteItem();" color="secondary" large>
@@ -21,6 +24,8 @@
           Select
         </v-btn>
       </v-card-actions>
+
+      <p>old item: {{ item }}</p>
     </v-card>
   </v-dialog>
 </template>
