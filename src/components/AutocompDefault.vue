@@ -132,10 +132,10 @@ export default {
       this.querySelections(this.search);
     },
     newItem(after, before) {
-      if(!this.manuallySelectedItem) {
+      if (!this.manuallySelectedItem) {
         return;
       }
-      if(after.delete) {
+      if (after.delete) {
         // dialog got canceld
         this.select.splice(this.select.length - 1);
         this.manuallySelectedItem = false;
