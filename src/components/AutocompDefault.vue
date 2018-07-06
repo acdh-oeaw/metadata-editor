@@ -85,6 +85,7 @@ export default {
         this.items[0] = { title: 'Click Here to select from store or to add a new Entry', uri: 'selectFromStoreOrTypeInNewOne', type: 'keyboard', openPopUp: true, indexForDestruction: 0 };
       }
       // results from api
+      // this.getArcheByID(this.type + '/' + val, 'AUTOCOMPLETE') // TODO: once getData-endpoint is corrected, delete line below and take this line
       this.splitToGetMultipleCalls(val, this.type)
       .then((res) => {
         this.$debug('res win', res);

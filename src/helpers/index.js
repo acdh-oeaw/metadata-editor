@@ -16,6 +16,7 @@ const CONFIG = {
       CONCEPTS: 'concepts/',
       PUBLICATIONS: 'publications/',
       METADATA: 'getMetadata/',
+      AUTOCOMPLETE: 'getData/'
     },
     TIMEOUT: 15000,
     PARAMS: {
