@@ -34,6 +34,7 @@ const CONFIG = {
       CONCEPTS: 'concepts/',
       PUBLICATIONS: 'publications/',
       METADATA: 'getMetadata/',
+      AUTOCOMPLETE: 'getData/'
     },
     TIMEOUT: 15000,
     PARAMS: {
@@ -186,8 +187,8 @@ export default {
     getArcheByID(id, typ) {
       const type = typ.toUpperCase().trim();
       this.$info('Helpers', 'getArcheByID(id, type)', id, type);
-      if (id && type && APIS.ARCHE[type]) {
-        return APIS.ARCHE[type].get(`${id}`).then((response) => {
+      if (id && type && APIS.ARCHE2[type]) {
+        return APIS.ARCHE2[type].get(`${id}`).then((response) => {
           this.$log('response', response.data);
           return Promise.resolve(response.data);
         }, (error) => {

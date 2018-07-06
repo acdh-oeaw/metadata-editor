@@ -69,6 +69,7 @@ export default {
       select: this.value || [],
       iForDes: -1,
       manuallySelectedItem: false,
+      nStoreSelected: 0,
     };
   },
   methods: {
@@ -81,12 +82,9 @@ export default {
       // this.$info(vm);
 
       // manual typed word
-      if (!this.items[0]) {
-        this.items[0] = { title: 'Click Here to select from store or to add a new Entry', uri: 'selectFromStoreOrTypeInNewOne', type: 'keyboard', openPopUp: true, indexForDestruction: 0 };
-      }
+      this.addFieldForStoreSelection();
       // results from api
-      // this.getArcheByID(this.type + '/' + val, 'AUTOCOMPLETE') // TODO: #1 once getData-endpoint is corrected, delete line below and take this line
-      this.splitToGetMultipleCalls(val, this.type)
+       this.getArcheByID(this.type + '/' + val, 'AUTOCOMPLETE')
       .then((res) => {
         this.$debug('res win', res);
         let results = [];
@@ -101,6 +99,11 @@ export default {
         this.$debug('res fail', res);
         this.loading = false;
       });
+    },
+    addFieldForStoreSelection() {
+      if (!this.items[0]) {
+        this.items[0] = this.storeSeletItem();
+      }
     },
     mapResultsToItems(results) {
       // map to items //title url type
@@ -127,6 +130,9 @@ export default {
         });
       }
     },
+    storeSeletItem() {
+      return { title: 'Click Here to select from store or to add a new Entry', uri: 'selectFromStoreOrTypeInNewOne', type: 'keyboard', openPopUp: true };
+    },
   },
   watch: {
     search() {
@@ -136,20 +142,28 @@ export default {
       if (!this.manuallySelectedItem) {
         return;
       }
-      if (after.delete) {
-        // dialog got canceld
+      if (after.delete) { // dialog got canceld
         this.select.splice(this.select.length - 1);
         this.manuallySelectedItem = false;
         return;
       }
-      if (!after.changedItem) {
+      if (!after.changedItem) { // item did not get changed
         return;
       }
+      // change occoured
       this.$info('AutocompDefault -> newSubject before, after, manuallySelectedItem', before, after, this.manuallySelectedItem);
       this.$debug('bef aft: ', JSON.stringify(this.newItem));
       this.$debug('after exists, select:', this.select);
-      this.items[0].title = this.getTitle(after.changedItem.subject);
-      this.items[0].uri = after.changedItem.subject;
+      this.items[this.nStoreSelected].title = this.getTitle(after.changedItem.subject);
+      this.items[this.nStoreSelected].uri = after.changedItem.subject;
+      if(this.items.length > this.nStoreSelected+1) {
+        this.$debug('items', this.items);
+        this.items.push(this.items[this.nStoreSelected+1]);
+        this.items[++this.nStoreSelected] = this.storeSeletItem();
+      } else {
+        this.items.push(this.storeSeletItem());
+      }
+
       this.select.splice(this.select.length - 1);
       this.select.push(after.changedItem.subject);
       this.manuallySelectedItem = false;
