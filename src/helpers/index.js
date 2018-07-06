@@ -16,7 +16,8 @@ const CONFIG = {
       CONCEPTS: 'concepts/',
       PUBLICATIONS: 'publications/',
       METADATA: 'getMetadata/',
-      AUTOCOMPLETE: 'getData/'
+      AUTOCOMPLETE: 'getData/',
+      ID: 'checkIdentifier/'
     },
     TIMEOUT: 15000,
     PARAMS: {
@@ -34,7 +35,8 @@ const CONFIG = {
       CONCEPTS: 'concepts/',
       PUBLICATIONS: 'publications/',
       METADATA: 'getMetadata/',
-      AUTOCOMPLETE: 'getData/'
+      AUTOCOMPLETE: 'getData/',
+      ID: 'checkIdentifier/'
     },
     TIMEOUT: 15000,
     PARAMS: {
@@ -183,6 +185,14 @@ export default {
       const type = typ.toUpperCase().trim();
       this.$info('Helpers', 'getArchePromise(id, type)', id, type);
       return APIS.ARCHE[type].get(`${id}`);
+    },
+    isIdentifier(id) {
+      if (id) {
+        return APIS.ARCHE2.ID.get(`${id}`).then((response) => {
+          this.$log('response', response.data);
+          return Promise.resolve(response.data.title ? response.data : false);
+        });
+      }
     },
     getArcheByID(id, typ) {
       const type = typ.toUpperCase().trim();
@@ -356,6 +366,10 @@ export default {
       if (typ) {
         const type = typ.toUpperCase();
         switch (type) {
+          case 'X':
+            return 'highlight_off';
+          case 'check':
+            return 'check_circle';
           case 'KEYBOARD':
             return 'keyboard';
           case 'https://vocabs.acdh.oeaw.ac.at/schema#Resource':

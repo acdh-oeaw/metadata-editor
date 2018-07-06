@@ -41,6 +41,7 @@ export default {
         string: defaultComponentObject,
         text: defaultComponentObject,
         positiveinteger: defaultComponentObject,
+
       },
     };
   },
