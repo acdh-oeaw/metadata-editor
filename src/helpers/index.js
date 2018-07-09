@@ -17,7 +17,7 @@ const CONFIG = {
       PUBLICATIONS: 'publications/',
       METADATA: 'getMetadata/',
       AUTOCOMPLETE: 'getData/',
-      ID: 'checkIdentifier/'
+      ID: 'checkIdentifier/',
     },
     TIMEOUT: 15000,
     PARAMS: {
@@ -36,7 +36,7 @@ const CONFIG = {
       PUBLICATIONS: 'publications/',
       METADATA: 'getMetadata/',
       AUTOCOMPLETE: 'getData/',
-      ID: 'checkIdentifier/'
+      ID: 'checkIdentifier/',
     },
     TIMEOUT: 15000,
     PARAMS: {
@@ -193,6 +193,7 @@ export default {
           return Promise.resolve(response.data.title ? response.data : false);
         });
       }
+      return Promise.reject('no identifier were given');
     },
     getArcheByID(id, typ) {
       const type = typ.toUpperCase().trim();

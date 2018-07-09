@@ -51,7 +51,7 @@ import { mapMutations, mapGetters } from 'vuex';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint-disable indent */
-
+/* eslint-disable prefer-template */
 
 export default {
   mixins: [HELPERS],
@@ -84,7 +84,7 @@ export default {
       // manual typed word
       this.addFieldForStoreSelection();
       // results from api
-       this.getArcheByID(this.type + '/' + val, 'AUTOCOMPLETE')
+      this.getArcheByID(this.type + '/' + val, 'AUTOCOMPLETE')
       .then((res) => {
         this.$debug('res win', res);
         let results = [];
@@ -156,10 +156,11 @@ export default {
       this.$debug('after exists, select:', this.select);
       this.items[this.nStoreSelected].title = this.getTitle(after.changedItem.subject);
       this.items[this.nStoreSelected].uri = after.changedItem.subject;
-      if(this.items.length > this.nStoreSelected+1) {
+      if (this.items.length > this.nStoreSelected + 1) {
         this.$debug('items', this.items);
-        this.items.push(this.items[this.nStoreSelected+1]);
-        this.items[++this.nStoreSelected] = this.storeSeletItem();
+        this.nStoreSelected = this.nStoreSelected + 1;
+        this.items.push(this.items[this.nStoreSelected]);
+        this.items[this.nStoreSelected] = this.storeSeletItem();
       } else {
         this.items.push(this.storeSeletItem());
       }
