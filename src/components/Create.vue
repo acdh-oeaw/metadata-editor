@@ -11,8 +11,9 @@
       {{ testVocabs2 }} <br><br>
 
       Test identifier field:
-      <HasIdentifierField forbidExists="true" name="randomName" v-model="hifTest"></HasIdentifierField>
+      <HasIdentifierField name="randomName" v-model="hifTest"></HasIdentifierField>
     {{ hifTest }}
+          <HasIdentifierField allowExists="true" name="randomName"></HasIdentifierField>
 
     </div>
     <v-layout row wrap>

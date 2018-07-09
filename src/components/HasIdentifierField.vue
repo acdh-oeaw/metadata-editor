@@ -3,7 +3,7 @@
     <v-text-field
       v-model="select"
       :label="name"
-      :rules = "[() => select.length > 0 || 'This field may not be empty', () => (!this.exists && !this.allowExists) || 'Please choose an non existing Identifier' ]"
+      :rules = "[() => select.length > 0 || 'This field may not be empty', () => (!this.exists || !this.allowExists) || 'Please choose an non existing Identifier' ]"
       required
       @input="querySelections(select); $emit('input', select)"
       >
