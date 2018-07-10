@@ -10,11 +10,14 @@
       <AutocompDefault type='vocabstest' name='Test Vocabs via autocomplete' v-model="testVocabs2"></AutocompDefault>
       {{ testVocabs2 }} <br><br>
 
-      Test identifier field:
-      <HasIdentifierField name="randomName" v-model="hifTest"></HasIdentifierField>
-    {{ hifTest }}
-          <HasIdentifierField allowExists="true" name="randomName"></HasIdentifierField>
+      <h3>Test identifier field:</h3>
+      <p>existing identifier for testing is below</p>
+       https://fedora.hephaistos.arz.oeaw.ac.at/rest/44/19/55/c2/441955c2-288f-462f-92e6-c15ef46804f4
+       <HasIdentifierField name="no existing ID allowed" v-model="hifTest"></HasIdentifierField>
 
+          <HasIdentifierField allowExists="true" name="allow Existing IDs"></HasIdentifierField>
+
+          <p>v-model for first field: {{ hifTest }}</p>
     </div>
     <v-layout row wrap>
       <v-flex xs12 md3 class="mr-2">

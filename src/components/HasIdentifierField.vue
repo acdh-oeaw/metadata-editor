@@ -53,6 +53,7 @@ export default {
       this.$debug('querySelections(val)', val);
       this.loading = true;
 
+
       this.isIdentifier(val)
         .then((res) => {
           this.$debug('res exists identifier', res);

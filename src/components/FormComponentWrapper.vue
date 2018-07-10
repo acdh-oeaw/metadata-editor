@@ -57,7 +57,7 @@ export default {
       }
       return false;
     },
-    onBlacklist(name) {
+    onBlacklist(name) { // unused
       let onList = false;
       this.blacklist.forEach((r) => {
         this.$debug('regexCheck, r, name', r, name);

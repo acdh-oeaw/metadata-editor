@@ -187,9 +187,11 @@ export default {
       return APIS.ARCHE[type].get(`${id}`);
     },
     isIdentifier(id) {
+      this.$debug('isIdentifier, id, APIS.ARCHE2.ID', id, APIS.ARCHE2.ID);
       if (id) {
-        return APIS.ARCHE2.ID.get(`${id}`).then((response) => {
-          this.$log('response', response.data);
+        const identi = escape(id)
+        return APIS.ARCHE2.ID.get(`${identi}`).then((response) => {
+          this.$log('   good response', response.data);
           return Promise.resolve(response.data.title ? response.data : false);
         });
       }
