@@ -7,6 +7,7 @@
 <script>
 import HELPERS from '../helpers';
 import autocompdefault from './AutocompDefault';
+import HasIdentifierField from './HasIdentifierField';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
 const defaultComponentObject =
@@ -25,6 +26,7 @@ export default {
   ],
   components: {
     autocompdefault,
+    HasIdentifierField,
   },
   name: 'FormComponentWrapper',
   data() {
@@ -41,23 +43,49 @@ export default {
         string: defaultComponentObject,
         text: defaultComponentObject,
         positiveinteger: defaultComponentObject,
-
       },
+      blacklist: [/^is.*/],
     };
   },
+  methods: {
+    hasIdentifier(name) {
+      if (name === 'hasIdentifier') {
+        this.component = 'HasIdentifierField';
+        this.selectedValue = this.value;
+        this.$info('FormComponentWrapper created', this.component, this.selectedValue);
+        return true;
+      }
+      return false;
+    },
+    onBlacklist(name) {
+      let onList = false;
+      this.blacklist.forEach(r => {
+        this.$debug('regexCheck, r, name', r, name);
+        this.$debug('      check: ',r.exec(name));
+        if(r.exec(name) !== null) {
+          onList = true;
+        }
+      });
+      return onList;
+    }
+  },
   created() {
+    // hasIdentifier;
+    if (this.hasIdentifier(this.name)) { return; }
     const typeL = this.type.toLowerCase();
     let c = this.componentMap[typeL];
     if (!c) {
       c = { type: this.type, name: 'autocompdefault' };
     }
+    this.$info('FormComponentWrapper created', c )
     if (this.selectedValue) {
-      this.$info('FormComponentWrapper created', c, this.selectedValue);
+      this.$info('  selectedValue:', selectedValue);
     }
     this.component = c.name;
     this.mappedType = c.type;
     this.selectedValue = this.value;
   },
+
   updated() {
     this.selectedValue = this.value;
   },

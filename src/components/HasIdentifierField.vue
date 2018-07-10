@@ -8,12 +8,12 @@
       @input="querySelections(select); $emit('input', select)"
       >
     </v-text-field>
-    <template v-if="!loading">
+    <template v-if="!loading && select.length > 0">
       <p v-if="exists && status" class="exists">does already exist as an identifier in ARCHE</p>
       <p v-if="!exists && status" class="notExists">does not exist as an identifier in ARCHE</p>
       <p v-if="!status">Failed to get Data from the API.</p>
     </template>
-    <template v-else>
+    <template v-if="loading && select.length > 0">
       <p>laoding...</p>
     </template>
   </div>

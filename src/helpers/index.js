@@ -467,6 +467,20 @@ export default {
       // this.$debug('FMFT: valid types:', types);
       return m;
     },
+    removeBlacklisted(schema, regEx) {
+      this.$info('Helpers', 'removeBlacklisted(schema, regEx)', schema, regEx);
+      if (!schema) {
+        return {};
+      }
+      const m = schema; // to be returned
+      const keys = Object.keys(schema.properties);
+      for (let i = 0; i < keys.length; i += 1) {
+        if (regEx.exec(keys[i])) {
+          delete m.properties[keys[i]];
+        }
+      }
+      return m;
+    },
     filterForArcheID(obj) {
       this.$info('Helpers', 'filterForArcheID(obj)', obj);
       if (obj.identifiers) {

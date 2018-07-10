@@ -32,6 +32,7 @@ export default {
     schema: false,
     model: false,
     loading: true,
+    blacklistRegex: /^is*/, // for name like
   }),
   methods: {
     ...mapMutations('JSONschema', [
@@ -110,14 +111,12 @@ export default {
   mounted() {
     this.$info('FormFromSchema', 'created');
     this.getMetadataByType(this.type).then((res) => {
-      // this.$debug('schema before copyRangeToType', JSON.stringify(res));
       this.schema = this.copyRangeToType(res, 'only name');
+      this.$debug('schema after copyRangeToType', this.schema);
+      this.schema = this.removeBlacklisted(this.schema, this.blacklistRegex);
+
       this.setSchema({ name: this.type, schema: this.schema });
-      // this.$debug('schema after copyRangeToType', JSON.stringify(this.schema));
-
       this.setComponents();
-
-      // this.$debug('properties!!', JSON.stringify(this.schema.properties));
       if (!this.$store.state.JSONschema.entries[this.uniqueName]) {
         this.$store.state.JSONschema.entries[this.uniqueName] = {};
       }
