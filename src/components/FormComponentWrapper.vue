@@ -59,15 +59,15 @@ export default {
     },
     onBlacklist(name) {
       let onList = false;
-      this.blacklist.forEach(r => {
+      this.blacklist.forEach((r) => {
         this.$debug('regexCheck, r, name', r, name);
-        this.$debug('      check: ',r.exec(name));
-        if(r.exec(name) !== null) {
+        this.$debug('      check: ', r.exec(name));
+        if (r.exec(name) !== null) {
           onList = true;
         }
       });
       return onList;
-    }
+    },
   },
   created() {
     // hasIdentifier;
@@ -77,9 +77,9 @@ export default {
     if (!c) {
       c = { type: this.type, name: 'autocompdefault' };
     }
-    this.$info('FormComponentWrapper created', c )
+    this.$info('FormComponentWrapper created', c);
     if (this.selectedValue) {
-      this.$info('  selectedValue:', selectedValue);
+      this.$info('  selectedValue:', this.selectedValue);
     }
     this.component = c.name;
     this.mappedType = c.type;
@@ -87,7 +87,9 @@ export default {
   },
 
   updated() {
-    this.selectedValue = this.value;
+    if (this.value) {
+      this.selectedValue = this.value;
+    }
   },
 };
 </script>
