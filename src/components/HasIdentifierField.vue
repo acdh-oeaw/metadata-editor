@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex';
+import { mapMutations } from 'vuex';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint-disable indent */
@@ -31,7 +31,7 @@ export default {
   props: [
     'name',
     'value',
-    'allowExists'
+    'allowExists',
   ],
   name: 'HasIdentifierField',
   data() {
@@ -49,11 +49,6 @@ export default {
       'setDialog',
       'setDialogPromise',
     ]),
-    selectItem(item) {
-      if (this.select.length > 1) {
-        this.select.splice(0,1);
-      }
-    },
     querySelections(val) {
       this.$debug('querySelections(val)', val);
       this.loading = true;
@@ -67,7 +62,7 @@ export default {
         })
         .catch((res) => {
           this.$debug('res not exists', res);
-          if(res) { //// TODO: check for no answer
+          if (res) { // TODO: check for no answer
             this.exists = false;
             this.status = true;
             this.loading = false;
@@ -83,7 +78,7 @@ export default {
     },
   },
   created() {
-    /*if (this.value) {
+    /* if (this.value) {
       this.$log('selection', this.select, this.value);
       for (let i = 0; i < this.value.length; i += 1) {
         this.items.push({ title: this.value[i], uri: this.value[i], type: '' });
