@@ -95,23 +95,8 @@ export default {
       this.$log('entries', this.$store.state.JSONschema.entries[this.uniqueName]);
       this.saveEntry();
     },
-  },
-  watch: {
-    $route: function (to, from) {
-      this.$log('to, from', to, from);
-      this.updateModel(to.query);
-
-      this.setComponents();
-    },
-  },
-  updated() {
-    this.updateModel(this.$route.query);
-    this.setComponents();
-  },
-  mounted() {
-    this.$info('FormFromSchema', 'created');
-    this.getMetadataByType(this.type).then((res) => {
-      this.schema = this.copyRangeToType(res, 'only name');
+    importSchema(schema) {
+      this.schema = this.copyRangeToType(schema, 'only name');
       this.$debug('schema after copyRangeToType', this.schema);
       this.schema = this.removeBlacklisted(this.schema, this.blacklistRegex);
 
@@ -123,10 +108,27 @@ export default {
 
       this.model = this.$store.state.JSONschema.entries[this.uniqueName];
       // Mapping
-
       this.loading = false;
       this.$emit('input', this.model);
-    });
+    },
+  },
+  watch: {
+    $route: function (to, from) {
+      this.$log('to, from', to, from);
+      this.updateModel(to.query);
+
+      this.setComponents();
+    },
+  },
+  mounted() {
+    this.$info('FormFromSchema', 'created');
+    if (this.$store.state.JSONschema.schemas[this.type]) {
+      this.importSchema(this.$store.state.JSONschema.schemas[this.type]);
+    } else {
+      this.getMetadataByType(this.type).then((res) => {
+        this.importSchema(res);
+      });
+    }
   },
 };
 </script>
