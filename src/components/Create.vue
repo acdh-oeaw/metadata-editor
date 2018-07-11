@@ -24,7 +24,21 @@
         <storetree class="tree"></storetree>
       </v-flex>
       <v-flex xs12 md8>
-        <formfromschema v-model="formModel" type="person" uniqueName="uniqueFormSchema"></formfromschema>
+        <v-tabs><v-tab
+        v-for="type in ['person', 'places', 'organisations']"
+        :key="type"
+        ripple
+      >
+        {{ type }}
+
+      </v-tab>
+      <v-tab-item
+        v-for="type in ['person', 'place', 'organisation']"
+        :key="type"
+      >
+        <formfromschema v-model="formModel" :type="type" uniqueName="uniqueFormSchema"></formfromschema>
+      </v-tab-item>
+        </v-tabs>
       </v-flex>
     </v-layout>
   </v-container>
