@@ -8,6 +8,7 @@
 import HELPERS from '../helpers';
 import autocompdefault from './AutocompDefault';
 import HasIdentifierField from './HasIdentifierField';
+import AutocompVocabs from './AutocompVocabs';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
 const defaultComponentObject =
@@ -27,6 +28,7 @@ export default {
   components: {
     autocompdefault,
     HasIdentifierField,
+    AutocompVocabs,
   },
   name: 'FormComponentWrapper',
   data() {
@@ -35,14 +37,20 @@ export default {
       loading: false,
       component: null,
       mappedType: null,
-      // for Mapping easy components of direct input without API calls.
-      componentMap: {
+      // for Mapping matching types to components.
+      componentTypeMap: {
         // contains objects with 2 props: name -> component name;
         // type -> prop to give to component.
         date: { name: 'v-date-picker' },
         string: defaultComponentObject,
         text: defaultComponentObject,
         positiveinteger: defaultComponentObject,
+      },
+      // for Mapping matching names to components.
+      componentNameMap: {
+        hasIdentifier: { name: 'hasIdentifier', },
+        ArcheLifeCycleStatus: { name: 'AutocompVocabs', type: 'ARCHE_LIFECYCLE_STATUS'},
+        ArcheCategory: { name: 'AutocompVocabs', type: 'ARCHE_CATEGORY'},
       },
       blacklist: [/^is.*/],
     };
@@ -72,8 +80,13 @@ export default {
   created() {
     // hasIdentifier;
     if (this.hasIdentifier(this.name)) { return; }
-    const typeL = this.type.toLowerCase();
-    let c = this.componentMap[typeL];
+
+    let c = this.componentNameMap[this.name];
+    if (!c) {
+      const typeL = this.type.toLowerCase();
+      c = this.componentTypeMap[typeL];
+    }
+
     if (!c) {
       c = { type: this.type, name: 'autocompdefault' };
     }

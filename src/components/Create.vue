@@ -3,11 +3,11 @@
     <div id="testing">
     <p>Model for debugging: {{ formModel }}</p>
       <h3>Test Autocomplete for Vocabs</h3>
-      ARCHE_CATEGORY (eg.: sound): <AutocompVocabs type='ARCHE_CATEGORY' name='Test Vocabs' v-model="testVocabs"></AutocompVocabs>
+      ARCHE_CATEGORY (eg.: sound): <AutocompVocabs type='ARCHE_CATEGORY' name='ArcheLifeCycleStatus' v-model="testVocabs"></AutocompVocabs>
       {{ testVocabs }}<br><br>
-      ARCHE_LIFECYCLE_STATUS (eg.: active): <AutocompVocabs type='ARCHE_LIFECYCLE_STATUS' name='Test ARCHE_LIFECYCLE_STATUS' v-model="testARCHE_LIFECYCLE_STATUS"></AutocompVocabs>
+      ARCHE_LIFECYCLE_STATUS (eg.: active): <FormComponentWrapper  name='ArcheCategory' v-model="testARCHE_LIFECYCLE_STATUS"></FormComponentWrapper>
       {{ testARCHE_LIFECYCLE_STATUS }}
-      <AutocompDefault type='vocabstest' name='Test Vocabs via autocomplete' v-model="testVocabs2"></AutocompDefault>
+      <FormComponentWrapper type='vocabstest' name='Test Vocabs via autocomplete' v-model="testVocabs2"></FormComponentWrapper>
       {{ testVocabs2 }} <br><br>
 
       <h3>Test identifier field:</h3>
@@ -17,8 +17,8 @@
 
           <HasIdentifierField allowExists="true" name="allow Existing IDs"></HasIdentifierField>
 
+        </div>
           <p>v-model for first field: {{ hifTest }}</p>
-    </div>
     <v-layout row wrap>
       <v-flex xs12 md3 class="mr-2">
         <storetree class="tree"></storetree>
@@ -38,6 +38,7 @@ import formfromschema from './FormFromSchema';
 import AutocompDefault from './AutocompDefault';
 import HasIdentifierField from './HasIdentifierField';
 import HELPERS from '../helpers';
+import FormComponentWrapper from './FormComponentWrapper';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 export default {
   mixins: [HELPERS],
@@ -48,6 +49,7 @@ export default {
     formfromschema,
     AutocompDefault,
     HasIdentifierField,
+    FormComponentWrapper,
   },
   data() {
     return {
