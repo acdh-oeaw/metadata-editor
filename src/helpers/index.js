@@ -189,7 +189,7 @@ export default {
     isIdentifier(id) {
       this.$debug('isIdentifier, id, APIS.ARCHE2.ID', id, APIS.ARCHE2.ID);
       if (id) {
-        const identi = escape(id)
+        const identi = escape(id);
         return APIS.ARCHE2.ID.get(`${identi}`).then((response) => {
           this.$log('   good response', response.data);
           return Promise.resolve(response.data.title ? response.data : false);
