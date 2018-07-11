@@ -187,10 +187,19 @@ export default {
       return APIS.ARCHE[type].get(`${id}`);
     },
     isIdentifier(id) {
+      let idArr;
       this.$debug('isIdentifier, id, APIS.ARCHE2.ID', id, APIS.ARCHE2.ID);
-      if (id) {
-        return APIS.ARCHE2.ID.get(`${encodeURIComponent(id.replace('https://', '')).replace('%2F', '%20')}`).then((response) => {
-          // For some reason, the api only accepts %20 instead of %2F, this might be fixed but for now we'll have to do it like this
+      if (!Array.isArray(id)) {
+        idArr = [id];
+      } else {
+        idArr = id;
+      }
+      for (let i = 0; i < idArr.length; i += 1) {
+        return APIS.ARCHE2.ID.get(`${encodeURIComponent(idArr[i].replace('https://', '')).replace('%2F', '%20')}`).then((response) => {
+          /*
+            For some reason, the api only accepts %20 instead of %2F,
+            this might be fixed but for now we'll have to do it like this
+          */
           this.$log('   good response', response.data);
           return Promise.resolve(response.data.title ? response.data : false);
         });

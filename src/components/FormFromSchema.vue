@@ -123,9 +123,11 @@ export default {
   mounted() {
     this.$info('FormFromSchema', 'created');
     if (this.$store.state.JSONschema.schemas[this.type]) {
+      this.$info('Metadata found in store! Type:', this.type);
       this.importSchema(this.$store.state.JSONschema.schemas[this.type]);
     } else {
       this.getMetadataByType(this.type).then((res) => {
+        this.$info('Fetching Metadata');
         this.importSchema(res);
       });
     }
