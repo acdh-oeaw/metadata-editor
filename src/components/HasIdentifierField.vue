@@ -14,7 +14,7 @@
       <p v-if="!status">Failed to get Data from the API.</p>
     </template>
     <template v-if="loading && select.length > 0">
-      <p>laoding...</p>
+      <p>loading...</p>
     </template>
   </div>
 </template>
@@ -85,8 +85,7 @@ export default {
         this.items.push({ title: this.value[i], uri: this.value[i], type: '' });
       }
     } */
-  },
-  computed: {
+    this.querySelections(this.value);
   },
 };
 </script>

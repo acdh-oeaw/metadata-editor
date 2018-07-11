@@ -102,7 +102,7 @@ export default {
     },
     addFieldForStoreSelection() {
       if (!this.items[0]) {
-        this.items[0] = this.storeSeletItem();
+        this.items[0] = this.storeSelectItem();
       }
     },
     mapResultsToItems(results) {
@@ -130,7 +130,7 @@ export default {
         });
       }
     },
-    storeSeletItem() {
+    storeSelectItem() {
       return { title: 'Click Here to select from store or to add a new Entry', uri: 'selectFromStoreOrTypeInNewOne', type: 'keyboard', openPopUp: true };
     },
   },
@@ -160,9 +160,9 @@ export default {
         this.$debug('items', this.items);
         this.nStoreSelected = this.nStoreSelected + 1;
         this.items.push(this.items[this.nStoreSelected]);
-        this.items[this.nStoreSelected] = this.storeSeletItem();
+        this.items[this.nStoreSelected] = this.storeSelectItem();
       } else {
-        this.items.push(this.storeSeletItem());
+        this.items.push(this.storeSelectItem());
       }
 
       this.select.splice(this.select.length - 1);
