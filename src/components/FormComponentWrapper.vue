@@ -48,9 +48,9 @@ export default {
       },
       // for Mapping matching names to components.
       componentNameMap: {
-        hasIdentifier: { name: 'hasIdentifier', },
-        ArcheLifeCycleStatus: { name: 'AutocompVocabs', type: 'ARCHE_LIFECYCLE_STATUS'},
-        ArcheCategory: { name: 'AutocompVocabs', type: 'ARCHE_CATEGORY'},
+        hasIdentifier: { name: 'hasIdentifier' },
+        ArcheLifeCycleStatus: { name: 'AutocompVocabs', type: 'ARCHE_LIFECYCLE_STATUS' },
+        ArcheCategory: { name: 'AutocompVocabs', type: 'ARCHE_CATEGORY' },
       },
       blacklist: [/^is.*/],
     };
