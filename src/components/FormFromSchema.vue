@@ -96,6 +96,7 @@ export default {
       this.saveEntry();
     },
     importSchema(schema) {
+      this.$info('FormFromSchema, importSchema(schema)', schema);
       this.schema = this.copyRangeToType(schema, 'only name');
       this.$debug('schema after copyRangeToType', this.schema);
       this.schema = this.removeBlacklisted(this.schema, this.blacklistRegex);
@@ -110,6 +111,7 @@ export default {
       // Mapping
       this.loading = false;
       this.$emit('input', this.model);
+      this.$debug('after import schema:', this.schema);
     },
   },
   watch: {
@@ -121,14 +123,17 @@ export default {
     },
   },
   mounted() {
-    this.$info('FormFromSchema', 'created');
-    if (this.$store.state.JSONschema.schemas[this.type]) {
+    this.$info('FormFromSchema', 'mounted');
+    if (this.$store.state.JSONschema.schemas && this.$store.state.JSONschema.schemas[this.type]) {
       this.$info('Metadata found in store! Type:', this.type);
       this.importSchema(this.$store.state.JSONschema.schemas[this.type]);
+      this.$debug('schema test, in store', this.schema);
     } else {
+      this.$info('Metadata found not in store');
       this.getMetadataByType(this.type).then((res) => {
         this.$info('Fetching Metadata');
         this.importSchema(res);
+        this.$debug('schema test, not in store', this.schema);
       });
     }
   },

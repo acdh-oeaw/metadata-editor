@@ -2,7 +2,7 @@
 const state = {
   schemas: {},
   entries: {},
-  p: ['entries'],
+  p: ['entries', 'schemas'],
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -21,6 +21,10 @@ const mutations = {
     }
   },
   setSchema(s, { name, schema }) {
+    this._vm.$info('JSONschema.setSchema(name, schema)', name, schema);
+    if (!s.schemas) {
+      s.schemas = {};
+    }
     if (name && schema) {
       s.schemas[name] = schema;
     }
