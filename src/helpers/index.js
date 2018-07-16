@@ -195,7 +195,7 @@ export default {
     -3 => answer from server failed
     */
     isIdentifier(id) {
-      if(!id) { return Promise.reject(-2); }
+      if (!id) { return Promise.reject(-2); }
       this.$debug('isIdentifier, id', id);
       return APIS.ARCHE2.ID.get(`${encodeURIComponent(id.replace('https://', '')).replace('%2F', '%20')}`).then((response) => {
         /*
@@ -207,7 +207,7 @@ export default {
       })
       .catch((res) => {
         this.$debug('   bad response', res.response);
-        if(res.response && res.response.data && res.response.data[0]) {
+        if (res.response && res.response.data && res.response.data[0]) {
           const answer = (res.response.data[0] === 'This is not a valid ACDH identifier') ? 0 : -3;
           return answer;
         }
