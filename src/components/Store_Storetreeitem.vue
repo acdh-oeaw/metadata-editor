@@ -115,7 +115,7 @@ export default {
           this.params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')] = [triples[i].object.replace(/"/g, '')];
         }
       }
-      this.params.uri = this.uri;
+      this.params.uri = this.getType(this.uri);
       this.$router.push({ name: 'create', query: this.params });
     },
   },

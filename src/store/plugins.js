@@ -31,6 +31,7 @@ function isQuotaExceeded(e) {
   return quotaExceeded;
 }
 
+const triggerMutations = ['n3/stopProcessing', 'JSONschema/setEntry', 'JSONschema/setSchema', 'JSONschema/addTab', 'JSONschema/removeTab'];
 
 // helper function for filtering for properties that need to be persistent.
 function filterForPersistantProperties(stateObj) {
@@ -57,7 +58,6 @@ const localStoragePlugin = store => {
   }
   if (localStorage) {
     store.subscribe((mutation, state) => {
-      const triggerMutations = ['n3/stopProcessing', 'JSONschema/setEntry', 'JSONschema/setSchema'];
       if (triggerMutations.indexOf(mutation.type) > -1) {
         const pState = filterForPersistantProperties(state);
         const currentStore = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '{}');

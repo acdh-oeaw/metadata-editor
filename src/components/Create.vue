@@ -25,18 +25,18 @@
       </v-flex>
       <v-flex xs12 md8>
         <v-tabs><v-tab
-        v-for="type in ['person', 'places', 'organisations']"
-        :key="type"
+        v-for="tab in tabs"
+        :key="tab.name"
         ripple
       >
-        {{ type }}
+        {{ tab.name }}
 
       </v-tab>
       <v-tab-item
-        v-for="type in ['person', 'place', 'organisation']"
-        :key="type"
+        v-for="(tab, index) in tabs"
+        :key="tab.name"
       >
-        <formfromschema v-model="formModel" :type="type" uniqueName="uniqueFormSchema"></formfromschema>
+        <formfromschema v-model="formModel[index]" :type="tab.type" :uniqueName="tab.name + ' ' + index" :edit="tab.query"></formfromschema>
       </v-tab-item>
         </v-tabs>
       </v-flex>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex';
 import loadfile from './Store_LoadFile';
 import storetree from './Store_Storetree';
 import AutocompVocabs from './AutocompVocabs';
@@ -65,18 +66,40 @@ export default {
     HasIdentifierField,
     FormComponentWrapper,
   },
+  computed: {
+    ...mapGetters('n3', [
+      'getTitle',
+    ]),
+    tabs() {
+      return this.$store.state.JSONschema.tabs;
+    }
+  },
   data() {
     return {
       testModel: '',
       testVocabs: '',
       testVocabs2: '',
-      formModel: '',
+      formModel: [],
       hifTest: '',
       testARCHE_LIFECYCLE_STATUS: '',
       endpoints: ['Person', 'Organisation', 'Place', 'Concept', 'Publication', 'Metadata'],
     };
   },
-  methods: {},
+  methods: {
+    ...mapMutations('JSONschema', [
+      'addTab',
+      'removeTab',
+    ]),
+    nameToType(name) {
+      return name.substring(name.lastIndexOf('#') + 1).toLowerCase();
+    }
+  },
+   watch: {
+    $route: function (to, from) {
+      this.$log('to, from', to, from);
+      this.addTab({tab: { name: 'edit: ' + to.query.hasTitle || to.query.hasFirstName[0] || Object.keys(to.query)[0], type: this.nameToType(to.query.uri), query: to.query } });
+    },
+  },
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

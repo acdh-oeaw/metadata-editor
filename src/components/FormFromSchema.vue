@@ -23,6 +23,7 @@ export default {
   props: [
     'type',
     'uniqueName',
+    'edit', // if exists contains query from store.
   ],
   components: {
     FormSchema,
@@ -84,6 +85,7 @@ export default {
       }
     },
     updateModel(params) {
+      this.$info('FormFromSchema, updateModel(params)', params);
       const keys = Object.keys(this.model);
       for (let i = 0; i < keys.length; i += 1) {
         if (params[keys[i]] !== undefined) {
@@ -114,14 +116,14 @@ export default {
       this.$debug('after import schema:', this.schema);
     },
   },
-  watch: {
+  /*watch: {
     $route: function (to, from) {
       this.$log('to, from', to, from);
       this.updateModel(to.query);
 
       this.setComponents();
     },
-  },
+  }, */
   mounted() {
     this.$info('FormFromSchema', 'mounted');
     if (this.$store.state.JSONschema.schemas && this.$store.state.JSONschema.schemas[this.type]) {
@@ -135,6 +137,11 @@ export default {
         this.importSchema(res);
         this.$debug('schema test, not in store', this.schema);
       });
+    }
+    if (this.edit) {
+      this.$log('edit stuff', this.edit);
+      this.updateModel(this.edit);
+      this.setComponents();
     }
   },
 };

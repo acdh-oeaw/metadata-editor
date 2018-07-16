@@ -1,8 +1,9 @@
 
 const state = {
+  tabs: [ { name:'place', type: 'place' }, { name: 'person', type: 'person' }, { name: 'organisation', type: 'organisation' } ],
   schemas: {},
   entries: {},
-  p: ['entries', 'schemas'],
+  p: ['entries', 'schemas', 'tabs'],
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -19,6 +20,14 @@ const mutations = {
       s[s.p[i]] = pState.JSONschema[s.p[i]];
       // this._vm.$debug(`Found One: s[${s.p[i]}] = ${JSON.stringify(pState.JSONschema[s.p[i]])}`);
     }
+  },
+  addTab(s, { tab }) {
+    s.tabs.push(tab);
+  },
+  removeTab(s, { name }) {
+    s.tabs.filter( (t) => {
+      return t.name !== name;
+    });
   },
   setSchema(s, { name, schema }) {
     this._vm.$info('JSONschema.setSchema(name, schema)', name, schema);
