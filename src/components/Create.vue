@@ -11,9 +11,8 @@
       {{ testVocabs2 }} <br><br>
 
       <h3>Test identifier field:</h3>
-      <p>existing identifier for testing is below</p>
-       https://fedora.hephaistos.arz.oeaw.ac.at/rest/44/19/55/c2/441955c2-288f-462f-92e6-c15ef46804f4
-       <p>existing identifier for testing is below</p>
+      <p>existing identifier for testing is below:</p>
+       https://id.acdh.oeaw.ac.at/pub-calvetrobin1997
           <HasIdentifierField name="allow existing Identifiers" v-model="hifTest"></HasIdentifierField>
 
              <HasIdentifierField forbidExistingIdentifiers="true" name="forbid Existing IDs"></HasIdentifierField>

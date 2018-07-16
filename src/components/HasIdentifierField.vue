@@ -3,19 +3,25 @@
     <v-text-field
       v-model="select"
       :label="name"
-      :rules = "[() => select.length > 0 || 'This field may not be empty', () => (!this.exists || !this.forbidExistingIdentifiers) || 'Please choose an non existing Identifier' ]"
+      :rules = "[() => status || 'Failed to fetch Data from the API',() => select.length > 0 || 'This field may not be empty', () => valid || 'Please choose a valid identifier', (!this.exists || !this.forbidExistingIdentifiers) || 'Please choose an non existing Identifier']"
       required
       @input="querySelections(select); $emit('input', select)"
       >
     </v-text-field>
     <template v-if="!loading && select.length > 0">
-      <p v-if="exists && status" class="exists">does already exist as an identifier in ARCHE</p>
-      <p v-if="!exists && status" class="notExists">does not exist as an identifier in ARCHE</p>
-      <p v-if="!status">Failed to get Data from the API.</p>
+      <p v-if="status">
+        <span class="notExists" v-if="valid">valid Identifier:</span>
+        <span class="exists" v-else>invalid Identifier</span>
+        <span :class="{exists: forbidExistingIdentifiers}" v-if="exists && valid">does already exist as an identifier in ARCHE</span>
+        <span class="notExists" v-if="!exists && valid">does not exist as an identifier in ARCHE</span>
+      </p>
     </template>
     <template v-if="loading && select.length > 0">
       <p>loading...</p>
     </template>
+    <!--<template v-if="!loading && !status && select.length > 0">
+      <p>Failed to fetch Data from the API...</p>
+    </template> -->
   </div>
 </template>
 
@@ -38,6 +44,7 @@ export default {
     return {
       loading: true,
       exists: false,
+      valid: false,
       status: false,
       items: [],
       search: null,
@@ -50,26 +57,43 @@ export default {
       'setDialogPromise',
     ]),
     querySelections(val) {
-      this.$debug('querySelections(val)', val);
+      let value;
+      if (val) {
+        value = val.trim();
+      } else {
+        return;
+      }
+      this.$debug('querySelections(val)', value);
       this.loading = true;
-
-
-      this.isIdentifier(val)
+      this.isIdentifier(value)
         .then((res) => {
-          this.$debug('res exists identifier', res);
-          this.exists = true;
-          this.status = true;
           this.loading = false;
-        })
-        .catch((res) => {
-          this.$debug('res not exists', res);
-          if (res) { // TODO: check for no answer
-            this.exists = false;
-            this.status = true;
-            this.loading = false;
-          } else {
-            this.status = false;
+          switch (res) {
+            case 1: // valid free identifier
+              this.valid = true;
+              this.exists = false;
+              this.status = true;
+              break;
+            case -1: // valid already taken identifier
+              this.valid = true;
+              this.exists = true;
+              this.status = true;
+              break;
+            case -3: // no answer from server
+              this.valid = false;
+              this.exists = false;
+              this.status = false;
+              break;
+          // ----------------
+            case 0:
+            case -2:
+            default:
+              this.valid = false;
+              this.exists = false;
+              this.status = true;
+              break;
           }
+          this.$debug('res exists identifier', res);
         });
     },
   },

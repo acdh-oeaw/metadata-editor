@@ -186,25 +186,33 @@ export default {
       this.$info('Helpers', 'getArchePromise(id, type)', id, type);
       return APIS.ARCHE[type].get(`${id}`);
     },
+    /*
+    returns:
+    0 => not a valid identifier
+    1 => valid free identifier
+    -1 => valid already taken identifier
+    -2 => no parameters were given
+    -3 => answer from server failed
+    */
     isIdentifier(id) {
-      let idArr;
-      this.$debug('isIdentifier, id, APIS.ARCHE2.ID', id, APIS.ARCHE2.ID);
-      if (!Array.isArray(id)) {
-        idArr = [id];
-      } else {
-        idArr = id;
-      }
-      for (let i = 0; i < idArr.length; i += 1) {
-        return APIS.ARCHE2.ID.get(`${encodeURIComponent(idArr[i].replace('https://', '')).replace('%2F', '%20')}`).then((response) => {
-          /*
-            For some reason, the api only accepts %20 instead of %2F,
-            this might be fixed but for now we'll have to do it like this
-          */
-          this.$log('   good response', response.data);
-          return Promise.resolve(response.data.title ? response.data : false);
-        });
-      }
-      return Promise.reject('no identifier were given');
+      if(!id) { return Promise.reject(-2); }
+      this.$debug('isIdentifier, id', id);
+      return APIS.ARCHE2.ID.get(`${encodeURIComponent(id.replace('https://', '')).replace('%2F', '%20')}`).then((response) => {
+        /*
+          For some reason, the api only accepts %20 instead of %2F,
+          this might be fixed but for now we'll have to do it like this
+        */
+        this.$debug('   good response', response.data);
+        return response.data[0] === 'The identifier is free' ? 1 : -1;
+      })
+      .catch((res) => {
+        this.$debug('   bad response', res.response);
+        if(res.response && res.response.data && res.response.data[0]) {
+          const answer = (res.response.data[0] === 'This is not a valid ACDH identifier') ? 0 : -3;
+          return answer;
+        }
+        return -3;
+      });
     },
     getArcheByID(id, typ) {
       const type = typ.toUpperCase().trim();
