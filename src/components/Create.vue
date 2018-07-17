@@ -72,7 +72,7 @@ export default {
     ]),
     tabs() {
       return this.$store.state.JSONschema.tabs;
-    }
+    },
   },
   data() {
     return {
@@ -92,12 +92,12 @@ export default {
     ]),
     nameToType(name) {
       return name.substring(name.lastIndexOf('#') + 1).toLowerCase();
-    }
+    },
   },
-   watch: {
-    $route: function (to, from) {
+  watch: {
+    $route(to, from) {
       this.$log('to, from', to, from);
-      this.addTab({tab: { name: 'edit: ' + to.query.hasTitle || to.query.hasFirstName[0] || Object.keys(to.query)[0], type: this.nameToType(to.query.uri), query: to.query } });
+      this.addTab({ tab: { name: `edit: ${to.query.hasTitle}` || to.query.hasFirstName || Object.keys(to.query), type: this.nameToType(to.query.uri), query: to.query } });
     },
   },
 };

@@ -1,6 +1,6 @@
 
 const state = {
-  tabs: [ { name:'place', type: 'place' }, { name: 'person', type: 'person' }, { name: 'organisation', type: 'organisation' } ],
+  tabs: [{ name: 'place', type: 'place' }, { name: 'person', type: 'person' }, { name: 'organisation', type: 'organisation' }],
   schemas: {},
   entries: {},
   p: ['entries', 'schemas', 'tabs'],
@@ -25,9 +25,7 @@ const mutations = {
     s.tabs.push(tab);
   },
   removeTab(s, { name }) {
-    s.tabs.filter( (t) => {
-      return t.name !== name;
-    });
+    s.tabs.filter(t => t.name !== name);
   },
   setSchema(s, { name, schema }) {
     this._vm.$info('JSONschema.setSchema(name, schema)', name, schema);
