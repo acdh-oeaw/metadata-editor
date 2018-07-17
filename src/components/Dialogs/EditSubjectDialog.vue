@@ -54,14 +54,14 @@ export default {
     },
     type() {
       return this.$store.state.dialogs[this.name].type;
-    }
+    },
   },
   watch: {
     query() {
       this.$debug('query changed', this.query);
-        if (this.query) {
-          this.$log('dialogdata', this.query);
-        }
+      if (this.query) {
+        this.$log('dialogdata', this.query);
+      }
     },
   },
 };

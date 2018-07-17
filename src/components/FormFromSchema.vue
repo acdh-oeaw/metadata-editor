@@ -17,6 +17,7 @@ import HELPERS from '../helpers';
 /* eslint-disable np-undev */
 /* eslint-disable func-names */
 /* eslint-disable object-shorthand */
+/* eslint-disable no-lonely-if */
 
 export default {
   mixins: [HELPERS],
@@ -28,7 +29,7 @@ export default {
       default: '',
     }, // if exists contains query from store.
     uniqueName: {
-      default: 'onlyoneForm'
+      default: 'onlyoneForm',
     },
   },
   components: {
@@ -145,7 +146,7 @@ export default {
   },
   watch: {
     edit(after, before) {
-
+      this.$log('watch edit, before, after', before, after);
       if (after) {
         this.$debug('edit stuff', after);
         this.updateModel(after);
@@ -154,7 +155,7 @@ export default {
 
       this.$debug('test if blank edit works');
     },
-    type(after, before) {
+    type() {
       this.initSchema();
     },
   },
