@@ -115,12 +115,13 @@ export default {
           this.params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')] = [triples[i].object.replace(/"/g, '')];
         }
       }
-      this.params.uri = this.getType(this.uri);
-      this.$router.push({ name: 'create', query: this.params });
-    },
-  },
-  created() {
+      this.dialog = true;
+      this.setDialog({ name: 'editsubjectdialog', obj: { status: true, query: this.params } });
 
+      /* Before Dialo were used
+        this.$router.push({ name: 'create', query: this.params });
+      */
+    },
   },
   mounted() {
     // this.$debug('itemFull', this.itemFull);

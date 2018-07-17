@@ -5,6 +5,7 @@ const state = {
   clearcachedialog: { status: false },
   storedialog: { status: false },
   deletesubjectdialog: { status: false, uri: '' },
+  editsubjectdialog: { status: false, query: {} },
   addnewsubjectmodal: { status: false, item: {}, changedItem: {} },
   filesizedialog: { status: false, file: '', size: '', result: '' },
 };

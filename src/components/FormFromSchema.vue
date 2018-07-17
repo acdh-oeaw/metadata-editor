@@ -116,7 +116,8 @@ export default {
       this.$debug('after import schema:', this.schema);
     },
   },
-  /*watch: {
+  /*
+  watch: {
     $route: function (to, from) {
       this.$log('to, from', to, from);
       this.updateModel(to.query);

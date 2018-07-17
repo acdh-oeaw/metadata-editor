@@ -58,8 +58,8 @@ export default {
     ]),
     querySelections(val) {
       let value;
-      if (val && val instanceof Array) {
-        value = val.replace(/^\s+|\s+$/g, "");
+      if (val && !Array.isArray(val)) {
+        value = val.replace(/^\s+|\s+$/g, '');
       } else {
         return;
       }
