@@ -20,11 +20,17 @@ import HELPERS from '../helpers';
 
 export default {
   mixins: [HELPERS],
-  props: [
-    'type',
-    'uniqueName',
-    'edit', // if exists contains query from store.
-  ],
+  props: {
+    type: {
+      default: '',
+    },
+    edit: {
+      default: '',
+    }, // if exists contains query from store.
+    uniqueName: {
+      default: 'onlyoneForm'
+    },
+  },
   components: {
     FormSchema,
     FormComponentWrapper,
@@ -88,14 +94,19 @@ export default {
       this.$info('FormFromSchema, updateModel(params)', params);
       const keys = Object.keys(this.model);
       for (let i = 0; i < keys.length; i += 1) {
-        if (params[keys[i]] !== undefined) {
+        if (params[keys[i]]) {
           this.model[keys[i]] = params[keys[i]];
         } else {
-          this.model[keys[i]] = '';
+          if (Array.isArray(this.model[keys[i]])) {
+            this.model[keys[i]] = [];
+          } else {
+            this.model[keys[i]] = '';
+          }
         }
       }
       this.$log('entries', this.$store.state.JSONschema.entries[this.uniqueName]);
       this.saveEntry();
+      this.setComponents();
     },
     importSchema(schema) {
       this.$info('FormFromSchema, importSchema(schema)', schema);
@@ -115,35 +126,41 @@ export default {
       this.$emit('input', this.model);
       this.$debug('after import schema:', this.schema);
     },
-  },
-  /*
-  watch: {
-    $route: function (to, from) {
-      this.$log('to, from', to, from);
-      this.updateModel(to.query);
-
-      this.setComponents();
+    initSchema() {
+      this.$info('FormFromSchema', 'initSchema');
+      if (!this.type) { return; }
+      if (this.$store.state.JSONschema.schemas && this.$store.state.JSONschema.schemas[this.type]) {
+        this.$info('Metadata found in store! Type:', this.type);
+        this.importSchema(this.$store.state.JSONschema.schemas[this.type]);
+        this.$debug('schema test, in store', this.schema);
+      } else {
+        this.$info('Metadata found not in store');
+        this.getMetadataByType(this.type).then((res) => {
+          this.$info('Fetching Metadata');
+          this.importSchema(res);
+          this.$debug('schema test, not in store', this.schema);
+        });
+      }
     },
-  }, */
+  },
+  watch: {
+    edit(after, before) {
+
+      if (after) {
+        this.$debug('edit stuff', after);
+        this.updateModel(after);
+//        this.setComponents();
+      }
+
+      this.$debug('test if blank edit works');
+    },
+    type(after, before) {
+      this.initSchema();
+    },
+  },
   mounted() {
     this.$info('FormFromSchema', 'mounted');
-    if (this.$store.state.JSONschema.schemas && this.$store.state.JSONschema.schemas[this.type]) {
-      this.$info('Metadata found in store! Type:', this.type);
-      this.importSchema(this.$store.state.JSONschema.schemas[this.type]);
-      this.$debug('schema test, in store', this.schema);
-    } else {
-      this.$info('Metadata found not in store');
-      this.getMetadataByType(this.type).then((res) => {
-        this.$info('Fetching Metadata');
-        this.importSchema(res);
-        this.$debug('schema test, not in store', this.schema);
-      });
-    }
-    if (this.edit) {
-      this.$log('edit stuff', this.edit);
-      this.updateModel(this.edit);
-      this.setComponents();
-    }
+    this.initSchema();
   },
 };
 </script>

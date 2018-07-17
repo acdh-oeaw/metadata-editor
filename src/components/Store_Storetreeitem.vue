@@ -116,7 +116,8 @@ export default {
         }
       }
       this.dialog = true;
-      this.setDialog({ name: 'editsubjectdialog', obj: { status: true, query: this.params } });
+      const type = this.nameToType(this.getType(this.uri));
+      this.setDialog({ name: 'editsubjectdialog', obj: { status: true, query: this.params, type } });
 
       /* Before Dialo were used
         this.$router.push({ name: 'create', query: this.params });

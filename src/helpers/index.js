@@ -186,6 +186,9 @@ export default {
       this.$info('Helpers', 'getArchePromise(id, type)', id, type);
       return APIS.ARCHE[type].get(`${id}`);
     },
+    nameToType(name) {
+      return name.substring(name.lastIndexOf('#') + 1).toLowerCase();
+    },
     /*
     returns:
     0 => not a valid identifier
