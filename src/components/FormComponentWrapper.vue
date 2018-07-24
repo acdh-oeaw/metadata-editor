@@ -48,7 +48,6 @@ export default {
       },
       // for Mapping matching names to components.
       componentNameMap: {
-        hasIdentifier: { name: 'hasIdentifier' },
         ArcheLifeCycleStatus: { name: 'AutocompVocabs', type: 'ARCHE_LIFECYCLE_STATUS' },
         ArcheCategory: { name: 'AutocompVocabs', type: 'ARCHE_CATEGORY' },
       },
@@ -59,7 +58,11 @@ export default {
     hasIdentifier(name) {
       if (name === 'hasIdentifier') {
         this.component = 'HasIdentifierField';
-        this.selectedValue = this.value;
+        if (Array.isArray(this.value)) {
+          this.selectedValue = this.value[0];
+        } else {
+          this.selectedValue = this.value;
+        }
         this.$info('FormComponentWrapper created', this.component, this.selectedValue);
         return true;
       }
@@ -98,11 +101,15 @@ export default {
     this.mappedType = c.type;
     this.selectedValue = this.value;
   },
-
-  updated() {
-    if (this.value) {
-      this.selectedValue = this.value;
-    }
+  watch: {
+    value() {
+      if (this.value) {
+        // hasIdentifier;
+        if (!this.hasIdentifier(this.name)) {
+          this.selectedValue = this.value;
+        }
+      }
+    },
   },
 };
 </script>

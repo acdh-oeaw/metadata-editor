@@ -1,8 +1,21 @@
 <template v-if="!loading">
+  <v-card>
+    <v-toolbar dark color="primary" fixed v-if="edit">
+      <v-btn icon dark @click.native="setDialog({ name, obj: { query: {} } });">
+        <v-icon>close</v-icon>
+      </v-btn>
+      <v-toolbar-title>Edit Subject</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn flat variant="primary" @click="submit">Load into Store</v-btn>
+        <v-btn flat @click="resetForm();" variant="secondary">Reset Form</v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
   <form-schema v-if="model && !loading" @input="saveEntry(); $emit('input', model)" :schema="schema" v-model="model" @submit="submit">
     <v-btn variant="primary" @click="submit">Load into Store</v-btn>
     <v-btn @click="resetForm();" variant="secondary">Reset Form</v-btn>
   </form-schema>
+</v-card>
 </template>
 
 <script>
@@ -40,12 +53,17 @@ export default {
     schema: false,
     model: false,
     loading: true,
+    name: 'editsubjectdialog',
     blacklistRegex: /^is*/, // for name like
   }),
   methods: {
     ...mapMutations('JSONschema', [
       'setSchema',
       'setEntry',
+      'setDialog',
+    ]),
+    ...mapMutations('dialogs', [
+      'setDialog',
     ]),
     ...mapActions('n3', [
       'objectToStore',
@@ -150,7 +168,7 @@ export default {
       if (after) {
         this.$debug('edit stuff', after);
         this.updateModel(after);
-//        this.setComponents();
+        this.setComponents();
       }
 
       this.$debug('test if blank edit works');

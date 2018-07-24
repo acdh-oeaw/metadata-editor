@@ -1,12 +1,7 @@
 <template lang="html">
   <!-- store deletion -->
-  <v-dialog v-model="$store.state.dialogs[name].status">
+  <v-dialog fullscreen transition="dialog-bottom-transition" v-model="$store.state.dialogs[name].status">
     <v-card>
-        <v-toolbar dark color="primary">
-          <v-btn icon dark @click.native="close(name)">
-            <v-icon>close</v-icon>
-          </v-btn>
-        </v-toolbar>
       <v-card-text color="primary">
         <formfromschema v-model="data" :type="type" uniqueName="edit" :edit="query">
         </formfromschema>
@@ -42,11 +37,7 @@ export default {
   methods: {
     ...mapMutations('dialogs', [
       'closeDialog',
-      'setDialog',
     ]),
-    close(name) {
-      this.setDialog({ name, obj: { query: {} } });
-    },
   },
   computed: {
     query() {
