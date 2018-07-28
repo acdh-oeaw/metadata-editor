@@ -3,7 +3,7 @@ const state = {
   tabs: [{ name: 'place', type: 'place' }, { name: 'person', type: 'person' }, { name: 'organisation', type: 'organisation' }],
   schemas: {},
   entries: {},
-  p: ['entries', 'schemas', 'tabs'],
+  p: ['entries', 'schemas', 'tabs', ],
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -37,11 +37,36 @@ const mutations = {
     }
   },
   setEntry(s, { name, entry }) {
-    this._vm.$log(name, entry);
+    this._vm.$info(name, entry);
     if (name && entry) {
       s.entries[name] = entry;
     }
     // s.entries = JSON.parse(JSON.stringify(s.entries));
+  },
+  /*
+  converts a guven query (data from n3-store) to a usable model for a formFromSchema
+  and sets it to entrys using the given name.
+  assumes that the wanted schema, is already fetched. if it is not, nothing happens
+  */
+  queryToEntry(s, { name, query, type }) {
+    this._vm.$info('queryToEntry: name, query, type', name, query, type);
+    if(!s.schemas[type] || !name || !type) { return; }
+
+    const m = {};
+    const modelTemplate = s.schemas[type].properties;
+
+    const keys = Object.keys(modelTemplate);
+    for (let i = 0; i < keys.length; i += 1) {
+      if (query[keys[i]]) {
+        m[keys[i]] = query[keys[i]];
+      } else {
+        m[keys[i]] = '';
+      }
+    }
+    this._vm.$debug('what happened:', m, type);
+    s.entries[name] = {};
+    s.entries[name].model = m;
+    s.entries[name].schema = type;
   },
 };
 

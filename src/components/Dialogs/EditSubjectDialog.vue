@@ -4,8 +4,8 @@
     <v-card>
       <v-card-text color="primary">
         <br><br>{{ type }}
-        <formfromschema v-model="data" :type="type" uniqueName="edit" :edit="query">
-        </formfromschema>
+        <formfromschemaedit v-if="$store.state.dialogs[name].status" v-model="data" :type="type" uniqueName="edit" :edit="query">
+        </formfromschemaedit>
       </v-card-text>
     </v-card>
   </v-dialog>
@@ -14,7 +14,7 @@
 <script>
 import { mapMutations } from 'vuex';
 
-import formfromschema from '../FormFromSchema';
+import formfromschemaedit from '../FormFromSchema_edit';
 import HELPERS from '../../helpers';
 
 export default {
@@ -26,7 +26,7 @@ export default {
     };
   },
   components: {
-    formfromschema,
+    formfromschemaedit,
   },
   mounted() {
   },
@@ -44,6 +44,9 @@ export default {
   computed: {
     query() {
       return this.$store.state.dialogs[this.name].query;
+    },
+    status() {
+      return this.$store.state.dialogs[this.name].status;
     },
   },
   watch: {

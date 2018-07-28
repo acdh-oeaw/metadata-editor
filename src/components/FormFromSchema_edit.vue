@@ -1,3 +1,4 @@
+<!-- formFromSchema for edit functionality. -->
 <template v-if="!loading">
   <v-card>
     <v-toolbar dark color="primary" fixed v-if="edit">
@@ -150,12 +151,7 @@ export default {
 
       this.setSchema({ name: this.type, schema: this.schema });
       this.setComponents();
-      if (!this.$store.state.JSONschema.entries[this.uniqueName]) {
-          this.setEntry({ name: this.uniqueName, entry: {} });
-      }
 
-      this.model = this.$store.state.JSONschema.entries[this.uniqueName];
-      // Mapping
       this.loading = false;
       this.$emit('input', this.model);
       this.$debug('after import schema:', this.schema);
@@ -186,20 +182,10 @@ export default {
 
   },
   mounted() {
-    this.$info('FormFromSchema', 'mounted');
-    // normal formFromSchema
-    if(!this.edit) {
-      this.initSchema();
-    } else {
-      // a FormFromSchema to edit data
-
-      //clear vuex store:
-      this.setEntry({ name: this.uniqueName, entry: {} });
-      this.initSchema();
-      this.updateModel(this.edit);
-      this.setEntry({ name: this.uniqueName, entry: this.model });
-      this.$debug('set edit data', JSON.stringify(this.model));
-    }
+    this.$info('FormFromSchemaEDIT', 'mounted');
+    this.model = this.$store.state.JSONschema.entries[this.uniqueName].model;
+    this.schema = this.$store.state.JSONschema.entries[this.uniqueName].schema;
+    this.initSchema();
 
   },
 };

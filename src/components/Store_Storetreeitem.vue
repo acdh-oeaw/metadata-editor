@@ -78,6 +78,9 @@ export default {
       'setDialog',
       'closeDialog',
     ]),
+    ...mapMutations('JSONschema', [
+      'queryToEntry',
+    ]),
     getChildren(uri) {
       const children = this.getTriples(
         { predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
@@ -108,6 +111,7 @@ export default {
     edit() {
       this.dialog = true;
       const type = this.nameToType(this.getType(this.uri));
+      this.queryToEntry({ name: 'edit', query: this.StoreToObject(this.getTriples({ subject: this.uri })), type });
       this.setDialog({ name: 'editsubjectdialog', obj: { status: true, query: this.StoreToObject(this.getTriples({ subject: this.uri })), type } });
 
       /* Before Dialogs were used
