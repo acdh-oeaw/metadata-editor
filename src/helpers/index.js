@@ -460,7 +460,7 @@ export default {
       }
       return `${y}/${m}/${d} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     },
-    StoreToObject(triples) {
+    TriplesToObject(triples) {
       const params = {};
       for (let i = 0; i < triples.length; i += 1) {
         if (params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')]) {
