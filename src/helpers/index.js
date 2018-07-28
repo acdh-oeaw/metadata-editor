@@ -157,6 +157,8 @@ export default {
       return name.substring(name.lastIndexOf('#') + 1).toLowerCase();
     },
     /*
+    finds out if given id is a identifier in Arche by asking the checkIdentifier endpoint.
+    since there are multiple types of responses the mapping below explains what each response means.
     returns:
     0 => not a valid identifier
     1 => valid free identifier
@@ -184,6 +186,9 @@ export default {
         return -3;
       });
     },
+    /*
+    fetches data from Arche on the specified endpoint using the given typ.
+    */
     getArcheByID(id, typ) {
       const type = typ.toUpperCase().trim();
       this.$info('Helpers', 'getArcheByID(id, type)', id, type);
@@ -198,15 +203,9 @@ export default {
       }
       return Promise.reject('no ID or Type was given');
     },
-    getVocabsPromise(id, typ) {
-      const type = typ.toUpperCase();
-      this.$info('Helpers', 'getVocabsPromise(id, type)', id, type);
-      return APIS.VOCABS[type].get('', {
-        params: {
-          query: `${id}*`,
-        },
-      });
-    },
+    /*
+    fetches data from the vocabs endpoint of the given typ matching the given id.
+    */
     getVocabsByID(id, typ) {
       const type = typ.toUpperCase();
       this.$info('Helpers', 'getVocabsByID(id, type)', id, type);
@@ -225,19 +224,16 @@ export default {
       }
       return Promise.reject('failed to recieve vocabs');
     },
+    /*
+    function to add in a .catch function for multiple promises. not used right now.
+    */
     useNull() {
       return null;
     },
-    urlToType(url) {
-      const urlA = url.split('/');
-      for (let i = urlA.length - 1; i >= 0; i -= 1) {
-        const val = urlA[i];
-        if (val && val !== undefined && val !== 'search') {
-          return val;
-        }
-      }
-      return 'not_found';
-    },
+
+    /*
+    maps typs to material icons. see https://material.io/tools/icons/
+    */
     typeicon(typ) {
       if (typ) {
         const type = typ.toUpperCase();
@@ -269,16 +265,9 @@ export default {
       }
       return 'folder';
     },
+
     /*
-
-    agent:  { ARCHE: ['ARCHE', 'PERSONS'] },
-    containerorreme: 'ARCHE_ALL',
-    containerorresource: 'ARCHE_ALL',
-    main: 'ARCHE_ALL',
-    publicationorrepoobject: { ARCHE: ['PUBLICATIONS'] },
-    repoobject: 'ARCHE_ALL',
-    anyuri: 'ARCHE_ALL',
-
+    This function can be used to set data to any key to vm (this). Also usable to set an error to this.error. The function currently is never used.
     */
     setInitialData(err, key, post) {
       this.$info('Helpers', 'setInitialData(err, key, post)', err, key, post);
@@ -288,6 +277,11 @@ export default {
         this[key] = post;
       }
     },
+
+    /*
+    takes in entries from an autocomplete component, which is an object.
+    it looks for objects as values and replaces them by the id found in the object.
+    */
     filterModelBeforeUpload(model) {
       this.$info('Helpers', 'filterModelBeforeUpload(model)', model);
       const m = JSON.parse(JSON.stringify(model));
@@ -301,12 +295,25 @@ export default {
       }
       return m;
     },
+    /*
+    searches for identifiers inside an object and returns the first identifier
+    that starts with https://id.acdh.oeaw.ac.at.
 
-         /*
+    used by filterModelBeforeUpload.
+    */
+    filterForArcheID(obj) {
+      this.$info('Helpers', 'filterForArcheID(obj)', obj);
+      if (obj.identifiers) {
+        return obj.identifiers.filter(str => str.indexOf('https://id.acdh.oeaw.ac.at') > -1)[0];
+      }
+      return obj;
+    },
+
+    /*
     copies the value of range to the position of type. and returns the model.
     * @param schema schema object obtained form the api via getMetadataByType()
     * @param type if type === 'only name' only the name of the range is taken.
-    *             eg. "https://vocabs.acdh.oeaw.ac.at/schema#ContainerOrResource" -> ContainerOrResource"
+    * eg. "https://vocabs.acdh.oeaw.ac.at/schema#ContainerOrResource" -> ContainerOrResource"
     **/
     copyRangeToType(schema, type) {
       this.$info('Helpers', 'copyRangeToType(model, type)', schema, type);
@@ -342,6 +349,9 @@ export default {
       // this.$debug('FMFT: valid types:', types);
       return m;
     },
+    /*
+    deletes all keys of on object that match the given regEx. and returns the object.
+    */
     removeBlacklisted(schema, regEx) {
       this.$info('Helpers', 'removeBlacklisted(schema, regEx)', schema, regEx);
       if (!schema) {
@@ -356,14 +366,11 @@ export default {
       }
       return m;
     },
-    filterForArcheID(obj) {
-      this.$info('Helpers', 'filterForArcheID(obj)', obj);
-      if (obj.identifiers) {
-        return obj.identifiers.filter(str => str.indexOf('https://id.acdh.oeaw.ac.at') > -1)[0];
-      }
-      return obj;
-    },
     // Store Functions
+    /*
+    gets the latest session out of the local storage.
+    // TODO: since we currently obly store one session, this function coud be much shorter.
+    */
     getLatestSession() {
       let localStorage;
       try {
@@ -395,6 +402,10 @@ export default {
       }
       return latest;
     },
+    /*
+    deletes the whole local Storage of the key 'MetaDataEditor'.
+    // TODO: the key is currently hardcoded. should be imported from some config.
+    */
     deleteOldSessions() {
       let localStorage;
       try {
@@ -410,15 +421,24 @@ export default {
       }
       return null;
     },
+    /*
+    deletes * from the local storage and reroutes to the current page in order do clear the vuex Storage.
+    */
     clearCache() {
       this.deleteOldSessions();
       this.$router.go(this.$router.currentRoute);
     },
+    /*
+    returns a new Blob of the type text/ttl of the given string.
+    */
     stringToBlob(str) {
       return new Blob([str], {
         type: 'text/ttl;',
       });
     },
+    /*
+    returns a verbose date format in the form of: yy/mm/dd hh:mm:ss
+    */
     dateToString(date) {
       const y = date.getFullYear() - 2000;
       let m;
@@ -433,34 +453,7 @@ export default {
       } else {
         d = date.getDate();
       }
-      return `${d}/${m}/${y} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-    },
-    clearStore() {
-      this.$info('clearStore');
-      this.clearCache();
-    },
-    IconByRepoType(uri) {
-      switch (uri) {
-        case 'https://vocabs.acdh.oeaw.ac.at/schema#Collection':
-          return 'folder';
-        case 'https://vocabs.acdh.oeaw.ac.at/schema#Resource':
-          return 'developer_board';
-        case 'PERSONS':
-        case 'https://vocabs.acdh.oeaw.ac.at/schema#Person':
-          return 'person';
-        case 'PLACES':
-        case 'https://vocabs.acdh.oeaw.ac.at/schema#Place':
-          return 'place';
-        case 'ORGANISATIONS':
-        case 'https://vocabs.acdh.oeaw.ac.at/schema#Organisation':
-          return 'device_hub';
-        default:
-          return 'folder';
-      }
-    },
-    saveEntry() {
-      this.$info('FormFromSchema', 'saveEntry');
-      this.setEntry({ name: this.uniqueName, entry: this.model });
+      return `${y}/${m}/${d} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     },
   },
   created() {
