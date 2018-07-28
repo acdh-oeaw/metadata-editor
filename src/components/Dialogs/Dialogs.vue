@@ -3,6 +3,7 @@
       <clearcachedialog></clearcachedialog>
       <storedialog></storedialog>
       <deletesubjectdialog></deletesubjectdialog>
+      <editsubjectdialog></editsubjectdialog>
       <addnewsubjectmodal></addnewsubjectmodal>
       <filesizedialog></filesizedialog>
   </div>
@@ -12,6 +13,7 @@
 import clearcachedialog from './ClearCacheDialog';
 import storedialog from './StoreDialog';
 import deletesubjectdialog from './DeleteSubjectDialog';
+import editsubjectdialog from './EditSubjectDialog';
 import addnewsubjectmodal from './AddNewSubjectModal';
 import filesizedialog from './FileSizeDialog';
 
@@ -20,7 +22,8 @@ export default {
   components: {
     clearcachedialog,  // opened in storeStats
     storedialog,    // directly opens itself. -> old session restore
-    deletesubjectdialog,  // opened in Store_Storetreeitem
+    editsubjectdialog,
+    deletesubjectdialog,  // both opened in Store_Storetreeitem
     addnewsubjectmodal,  // opened in autoCompDefault
     filesizedialog,  // opened in Store_LoadFile
   },
