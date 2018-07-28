@@ -1,6 +1,6 @@
 
 const state = {
-  tabs: [{ name: 'place', type: 'place' }, { name: 'person', type: 'person' }, { name: 'organisation', type: 'organisation' }],
+  tabs: [{ name: 'place', type: 'place' }, { name: 'person', type: 'person' }, { name: 'organisation', type: 'organisation' }, { name: 'collection', type: 'collection' }, { name: 'project', type: 'project' }],
   schemas: {},
   entries: {},
   p: ['entries', 'schemas', 'tabs', ],

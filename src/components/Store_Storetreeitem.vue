@@ -111,8 +111,9 @@ export default {
     edit() {
       this.dialog = true;
       const type = this.nameToType(this.getType(this.uri));
-      this.queryToEntry({ name: 'edit', query: this.StoreToObject(this.getTriples({ subject: this.uri })), type });
-      this.setDialog({ name: 'editsubjectdialog', obj: { status: true, query: this.StoreToObject(this.getTriples({ subject: this.uri })), type } });
+      const query = this.TriplesToObject(this.getTriples({ subject: this.uri}));
+      this.queryToEntry({ name: 'edit', query, type });
+      this.setDialog({ name: 'editsubjectdialog', obj: { status: true, query, type } });
 
       /* Before Dialogs were used
         this.$router.push({ name: 'create', query: this.params });

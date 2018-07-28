@@ -3,8 +3,7 @@
   <v-dialog fullscreen transition="dialog-bottom-transition" v-model="$store.state.dialogs[name].status">
     <v-card>
       <v-card-text color="primary">
-        <br><br>{{ type }}
-        <formfromschemaedit v-if="$store.state.dialogs[name].status" v-model="data" :type="type" uniqueName="edit" :edit="query">
+        <formfromschemaedit v-if="$store.state.dialogs[name].status" v-model="data" :type="type" uniqueName="edit" edit="true">
         </formfromschemaedit>
       </v-card-text>
     </v-card>
@@ -50,13 +49,6 @@ export default {
     },
   },
   watch: {
-    query() {
-      this.$debug('query changed', this.query);
-      if (this.query) {
-        this.$log('dialogdata', this.query);
-        this.type = this.$store.state.dialogs[this.name].type;
-      }
-    },
   },
 };
 </script>
