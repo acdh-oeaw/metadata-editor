@@ -244,7 +244,7 @@ export default {
         switch (type) {
           case 'X':
             return 'highlight_off';
-          case 'check':
+          case 'CHECK':
             return 'check_circle';
           case 'KEYBOARD':
             return 'keyboard';
