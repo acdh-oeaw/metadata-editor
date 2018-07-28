@@ -10,7 +10,7 @@
   {{ Object.keys($store.state.n3.subjects).length }} Subjects from your Store? This can not be undone!
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="clearStore(); closeDialog(name);" large color="error">
+        <v-btn @click="clearCache(); closeDialog(name);" large color="error">
           Discard
         </v-btn>
         <v-btn @click="closeDialog(name)" color="secondary" large>

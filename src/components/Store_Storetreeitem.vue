@@ -5,7 +5,7 @@
         <v-icon v-if="!expanded && children.length>0"  class="pointer">chevron_right</v-icon>
         <v-icon v-if="expanded && children.length>0"  class="pointer">expand_more</v-icon>
         <v-icon v-if="children.length==0" style="opacity:0;">expand_more</v-icon>
-        <v-icon v-bind:class="{ expanded: 'teal lighten-3' }">{{ typeicon(IconByRepoType(getType(uri))) }}</v-icon>
+        <v-icon v-bind:class="{ expanded: 'teal lighten-3' }">{{ typeicon(getType(uri)) }}</v-icon>
         <v-layout grid-list-xs class="ml-2" column justify-center>
             <div class="itemcaption caption">{{ getTitle(uri).replace(/"/g, '') }}</div>
         </v-layout>
