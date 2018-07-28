@@ -3,6 +3,7 @@
   <v-dialog fullscreen transition="dialog-bottom-transition" v-model="$store.state.dialogs[name].status">
     <v-card>
       <v-card-text color="primary">
+        <br><br>{{ type }}
         <formfromschema v-model="data" :type="type" uniqueName="edit" :edit="query">
         </formfromschema>
       </v-card-text>
@@ -21,6 +22,7 @@ export default {
     return {
       name: 'editsubjectdialog',
       data: {},
+      type: {},
     };
   },
   components: {
@@ -43,15 +45,13 @@ export default {
     query() {
       return this.$store.state.dialogs[this.name].query;
     },
-    type() {
-      return this.$store.state.dialogs[this.name].type;
-    },
   },
   watch: {
     query() {
       this.$debug('query changed', this.query);
       if (this.query) {
         this.$log('dialogdata', this.query);
+        this.type = this.$store.state.dialogs[this.name].type;
       }
     },
   },

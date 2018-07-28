@@ -91,36 +91,6 @@ const VALID_TYPES = {
  'ARCHE_ALL' is a wildcard for all endoints within ARCHE.
  used in getMultipleApiCallsByTypeAndID.
 */
-const RANGE_TO_APICALLS = {
-  agent: {
-    ARCHE: ['ORGANISATIONS', 'PERSONS'],
-  },
-  person: {
-    ARCHE: ['PERSONS'],
-  },
-  place: {
-    ARCHE: ['PLACES'],
-  },
-  organisation: {
-    ARCHE: ['ORGANISATIONS'],
-  },
-  publication: {
-    ARCHE: ['PUBLICATIONS'],
-  },
-  collection: {
-    ARCHE: ['COLLECTIONS'],
-  },
-  vocabstest: {
-    VOCABS: ['ARCHE_CATEGORY', 'ARCHE_LIFECYCLE_STATUS'],
-  },
-  container: 'ARCHE_ALL',
-  reme: 'ARCHE_ALL',
-  resource: 'ARCHE_ALL',
-  main: 'ARCHE_ALL',
-  repoobject: 'ARCHE_ALL',
-  anyuri: 'ARCHE_ALL',
-};
-
 
 function buildFetchers(extconf) {
   // this.$info('Helpers', 'buildFetchers(extconf)', extconf);
@@ -162,11 +132,8 @@ export default {
       this.$info('Helpers', 'getMetadataByType(type)', type);
       return APIS.ARCHE2.METADATA.get(`${type}/en`).then(response => Promise.resolve(response.data));
     },
-    keyInValidTypes(k, subType) {
-      //  this.$info('Helpers', 'keyInValidTypes(key, obj)', k, obj);
-      //  const key = k.trim();
-      return VALID_TYPES[subType].indexOf(k) >= 0;
-    },
+    /* fetches data from the specified viaf endpoint in the config above and returnes it.
+    */
     getViafByID(id) {
       this.$info('Helpers', 'getViafByID(id)', id);
       if (id) {
@@ -181,11 +148,11 @@ export default {
       this.$log('errortree, no id');
       return Promise.reject('no ID was given');
     },
-    getArchePromise(id, typ) {
-      const type = typ.toUpperCase().trim();
-      this.$info('Helpers', 'getArchePromise(id, type)', id, type);
-      return APIS.ARCHE[type].get(`${id}`);
-    },
+    /*
+    returns the substring of the given name from the last '#' to the end and returns the lower case version of it. used by Create.vue.
+
+    eg: nameToType('https://vocabs.acdh.oeaw.ac.at/schema#Agent') -> agent
+    */
     nameToType(name) {
       return name.substring(name.lastIndexOf('#') + 1).toLowerCase();
     },
@@ -257,120 +224,6 @@ export default {
         });
       }
       return Promise.reject('failed to recieve vocabs');
-    },
-    splitToGetMultipleCalls(id, typ) {
-      this.$info('Helpers', 'splitToGetMultipleCalls(id, type)', id, typ);
-      if (typ.indexOf('Or') === -1) {
-        return this.getMultipleApiCallsByTypeAndID(id, typ);
-      }
-      const typen = typ.split('Or');
-      const promises = [];
-      for (let i = 0; i < typen.length; i += 1) {
-        promises.push(this.getMultipleApiCallsByTypeAndID(id, typen[i]).catch(this.useNull));
-      }
-      return Promise.all(promises).then((res) => {
-        // this.$debug('res All promises', res);
-        const data = [];
-        for (let i = 0; i < res.length; i += 1) {
-          if (res[i] !== null) {
-            const o = res[i];
-            for (let j = 0; j < o.length; j += 1) {
-              data.push(o[j]);
-            }
-          }
-        }
-        // this.$debug('Data', data);
-        return Promise.resolve(data);
-      })
-      .catch((res) => {
-        Promise.reject('Could not receive data', res);
-      });
-    },
-    getMultipleApiCallsByTypeAndID(id, typ) {
-      let type = typ.toUpperCase().trim();
-      this.$info('Helpers', 'getMultipleApiCallsByTypeAndID(id, type)', id, type);
-      if (!id || !typ) {
-        return Promise.reject('no ID or Type was given');
-      }
-  /*    if (id && type && APIS.ARCHE[type]) {
-        return this.getArcheByID(id, type);
-      } */
-      type = type.toLowerCase();
-      if (!(id && type && RANGE_TO_APICALLS[type])) {
-        return Promise.reject('Failed');
-      }
-      const range = RANGE_TO_APICALLS[type];
-      // this.$debug('more than one: type, id, range: ', type, id, range);
-      // concat all the apicalls.
-      const calls = [];
-      if (range === 'ARCHE_ALL') {
-        const ArcheKeys = Object.keys(APIS.ARCHE);
-        for (let i = 0; i < ArcheKeys.length; i += 1) {
-          // this.$debug('push in:', APIS.ARCHE[ArcheKeys[i]]);
-          calls.push(APIS.ARCHE[ArcheKeys[i]].get(`${id}`).catch(this.useNull));
-        }
-      } else {
-        const childs = Object.keys(range);
-        for (let i = 0; i < childs.length; i += 1) {
-          const apis = range[childs[i]];
-          for (let j = 0; j < apis.length; j += 1) {
-            /*
-              this.$debug(
-                'APIS,
-                childs[i],
-                apis[j],
-                APIS[childs[i]][apis[j]]',
-                APIS, childs[i],
-                apis[j],
-                APIS[childs[i]][apis[j]]);
-            */
-            let p;
-            switch (childs[i]) {
-              case 'ARCHE':
-                p = this.getArchePromise(id, apis[j]);
-                break;
-              case 'VOCABS':
-                p = this.getVocabsPromise(id, apis[j]);
-                break;
-              default:
-                break;
-            }
-            calls.push(p.catch(this.useNull));
-          }
-        }
-        // this.$debug('dynamic calls is:', calls);
-      }
-      // this.$debug('calls is: ', calls);
-
-      return axios.all(calls).then((res) => {
-        this.$debug('res then', res);
-        const data = [];
-        for (let i = 0; i < res.length; i += 1) {
-          this.$debug('res[i]', res[i]);
-          if (res[i] !== null) {
-            const o = res[i];
-            if (o.data.results) {
-              for (let j = 0; j < o.data.results.length; j += 1) {
-                const item = o.data.results[j];
-                item.type = this.urlToType(o.config.baseURL);
-                data.push(item);
-              }
-            } else {
-              for (let j = 0; j < o.data.length; j += 1) {
-                const item = o.data[j];
-                item.type = this.urlToType(o.config.baseURL);
-                data.push(o.data[j]);
-              }
-            }
-          }
-        }
-        return Promise.resolve(data);
-      })
-        .catch((res) => {
-          console.log(this);
-          this.$debug('res failed', res);
-          return Promise.reject('Failed');
-        });
     },
     useNull() {
       return null;
