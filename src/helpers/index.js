@@ -240,6 +240,7 @@ export default {
     typeicon(typ) {
       if (typ) {
         const type = typ.toUpperCase();
+        console.log(type);
         switch (type) {
           case 'X':
             return 'highlight_off';
@@ -250,14 +251,13 @@ export default {
           case 'https://vocabs.acdh.oeaw.ac.at/schema#Resource':
             return 'developer_board';
           case 'PERSONS':
-          case 'persons':
-          case 'https://vocabs.acdh.oeaw.ac.at/schema#Persons':
+          case 'HTTPS://VOCABS.ACDH.OEAW.AC.AT/SCHEMA#PERSON':
             return 'person';
           case 'PLACES':
-          case 'https://vocabs.acdh.oeaw.ac.at/schema#Place':
+          case 'HTTPS://VOCABS.ACDH.OEAW.AC.AT/SCHEMA#PLACE':
             return 'place';
           case 'ORGANISATIONS':
-          case 'https://vocabs.acdh.oeaw.ac.at/schema#Organisation':
+          case 'HTTPS://VOCABS.ACDH.OEAW.AC.AT/SCHEMA#ORGANISATION':
             return 'device_hub';
           case 'ARCHE_CATEGORY':
             return 'folder_open';
@@ -460,7 +460,7 @@ export default {
       }
       return `${y}/${m}/${d} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     },
-    StoreToObject(triples) {
+    TriplesToObject(triples) {
       const params = {};
       for (let i = 0; i < triples.length; i += 1) {
         if (params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')]) {
