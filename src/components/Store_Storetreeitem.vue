@@ -119,7 +119,7 @@ export default {
       const type = this.nameToType(this.getType(this.uri));
       this.setDialog({ name: 'editsubjectdialog', obj: { status: true, query: this.params, type } });
 
-      /* Before Dialo were used
+      /* Before Dialogs were used
         this.$router.push({ name: 'create', query: this.params });
       */
     },
