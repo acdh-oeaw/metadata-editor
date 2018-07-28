@@ -91,6 +91,10 @@ export default {
       */
       this.objectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema });
     },
+    /*
+    sets the mapping in formFromShcema for each type (taken the actual schema)
+    to the FormComponentWrapper, which handels the further mapping to actual components.
+    */
     setComponents() {
       const TYPES1 = [];
 
@@ -109,6 +113,10 @@ export default {
         FormSchema.setComponent(t, FormComponentWrapper, { type: t });
       }
     },
+    /*
+    sets the model (used as v-model in the formschema) to new values out of params.
+    params should be in the same form of model.
+    */
     updateModel(params) {
       this.$info('FormFromSchema, updateModel(params)', params);
       const keys = Object.keys(this.model);
@@ -127,16 +135,22 @@ export default {
       this.saveEntry();
       this.setComponents();
     },
+
+    /*
+    sets this.schema to the given schema after removing blacklisted keys
+    and also copying the range property to the type property.
+    also sets the components of the formSchema via setComponents.
+    resets this.model to whatever is found in the store.
+    */
     importSchema(schema) {
       this.$info('FormFromSchema, importSchema(schema)', schema);
       this.schema = this.copyRangeToType(schema, 'only name');
-      this.$debug('schema after copyRangeToType', this.schema);
       this.schema = this.removeBlacklisted(this.schema, this.blacklistRegex);
 
       this.setSchema({ name: this.type, schema: this.schema });
       this.setComponents();
       if (!this.$store.state.JSONschema.entries[this.uniqueName]) {
-        this.$store.state.JSONschema.entries[this.uniqueName] = {};
+          this.setEntry({ name: this.uniqueName, entry: {} });
       }
 
       this.model = this.$store.state.JSONschema.entries[this.uniqueName];
@@ -145,6 +159,11 @@ export default {
       this.$emit('input', this.model);
       this.$debug('after import schema:', this.schema);
     },
+    /*
+    gets the schema of the given type (this.type) from the storage or from
+    getMetadataByType if it is not found in store.
+    after that it calls importSchema to load it to give it to the formschema.
+    */
     initSchema() {
       this.$info('FormFromSchema', 'initSchema');
       if (!this.type) { return; }
@@ -163,16 +182,22 @@ export default {
     },
   },
   watch: {
+    /*
+    watches edit, which is a prop and defines the data that needs to be edited.
+    */
     edit(after, before) {
       this.$log('watch edit, before, after', before, after);
-      if (after) {
+      if (after){
         this.$debug('edit stuff', after);
         this.updateModel(after);
         this.setComponents();
       }
-
       this.$debug('test if blank edit works');
     },
+    /*
+    watches type which is a prop and should change the schema accordingly
+    // TODO: currently something here does not work properly
+    */
     type() {
       this.initSchema();
     },

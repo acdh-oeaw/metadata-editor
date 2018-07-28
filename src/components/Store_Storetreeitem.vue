@@ -5,7 +5,7 @@
         <v-icon v-if="!expanded && children.length>0"  class="pointer">chevron_right</v-icon>
         <v-icon v-if="expanded && children.length>0"  class="pointer">expand_more</v-icon>
         <v-icon v-if="children.length==0" style="opacity:0;">expand_more</v-icon>
-        <v-icon v-bind:class="{ expanded: 'teal lighten-3' }">{{ typeicon(IconByRepoType(getType(uri))) }}</v-icon>
+        <v-icon v-bind:class="{ expanded: 'teal lighten-3' }">{{ typeicon(getType(uri)) }}</v-icon>
         <v-layout grid-list-xs class="ml-2" column justify-center>
             <div class="itemcaption caption">{{ getTitle(uri).replace(/"/g, '') }}</div>
         </v-layout>
@@ -106,20 +106,11 @@ export default {
       }
     },
     edit() {
-      const triples = this.getTriples({ subject: this.uri });
-      this.params = {};
-      for (let i = 0; i < triples.length; i += 1) {
-        if (this.params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')]) {
-          this.params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')].push(triples[i].object.replace(/"/g, ''));
-        } else {
-          this.params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')] = [triples[i].object.replace(/"/g, '')];
-        }
-      }
       this.dialog = true;
       const type = this.nameToType(this.getType(this.uri));
-      this.setDialog({ name: 'editsubjectdialog', obj: { status: true, query: this.params, type } });
+      this.setDialog({ name: 'editsubjectdialog', obj: { status: true, query: this.TriplesToObject(this.getTriples({ subject: this.uri })), type } });
 
-      /* Before Dialo were used
+      /* Before Dialogs were used
         this.$router.push({ name: 'create', query: this.params });
       */
     },

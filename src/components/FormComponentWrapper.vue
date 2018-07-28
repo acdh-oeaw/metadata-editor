@@ -51,7 +51,6 @@ export default {
         ArcheLifeCycleStatus: { name: 'AutocompVocabs', type: 'ARCHE_LIFECYCLE_STATUS' },
         ArcheCategory: { name: 'AutocompVocabs', type: 'ARCHE_CATEGORY' },
       },
-      blacklist: [/^is.*/],
     };
   },
   methods: {
@@ -67,17 +66,6 @@ export default {
         return true;
       }
       return false;
-    },
-    onBlacklist(name) { // unused
-      let onList = false;
-      this.blacklist.forEach((r) => {
-        this.$debug('regexCheck, r, name', r, name);
-        this.$debug('      check: ', r.exec(name));
-        if (r.exec(name) !== null) {
-          onList = true;
-        }
-      });
-      return onList;
     },
   },
   created() {
@@ -101,15 +89,13 @@ export default {
     this.mappedType = c.type;
     this.selectedValue = this.value;
   },
-  watch: {
-    value() {
-      if (this.value) {
-        // hasIdentifier;
-        if (!this.hasIdentifier(this.name)) {
-          this.selectedValue = this.value;
-        }
+  updated() {
+    if (this.value) {
+      // hasIdentifier;
+      if (!this.hasIdentifier(this.name)) {
+        this.selectedValue = this.value;
       }
-    },
+    }
   },
 };
 </script>
