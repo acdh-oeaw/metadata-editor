@@ -89,15 +89,13 @@ export default {
     this.mappedType = c.type;
     this.selectedValue = this.value;
   },
-  watch: {
-    value() {
-      if (this.value) {
-        // hasIdentifier;
-        if (!this.hasIdentifier(this.name)) {
-          this.selectedValue = this.value;
-        }
+  updated() {
+    if (this.value) {
+      // hasIdentifier;
+      if (!this.hasIdentifier(this.name)) {
+        this.selectedValue = this.value;
       }
-    },
+    }
   },
 };
 </script>

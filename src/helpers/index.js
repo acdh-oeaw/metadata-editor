@@ -460,6 +460,17 @@ export default {
       }
       return `${y}/${m}/${d} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     },
+    StoreToObject(triples) {
+      const params = {};
+      for (let i = 0; i < triples.length; i += 1) {
+        if (params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')]) {
+          params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')].push(triples[i].object.replace(/"/g, ''));
+        } else {
+          params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')] = [triples[i].object.replace(/"/g, '')];
+        }
+      }
+      return params;
+    },
   },
   created() {
     this.$info('Helpers', 'created');
