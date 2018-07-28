@@ -49,7 +49,6 @@ export default {
   mixins: [HELPERS],
   data() {
     return {
-      rootitems: [],
       collections: [],
       persons: [],
       places: [],
