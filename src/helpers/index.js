@@ -72,6 +72,7 @@ const CONFIG = {
 
 let APIS = {};
 
+/*
 const VALID_TYPES = {
   ARCHE: [
     'PERSONS',
@@ -82,6 +83,7 @@ const VALID_TYPES = {
     'METADATA',
   ],
 };
+*/
 
 /*
  atomic mapping of types to API-Calls by using APIS
@@ -149,7 +151,8 @@ export default {
       return Promise.reject('no ID was given');
     },
     /*
-    returns the substring of the given name from the last '#' to the end and returns the lower case version of it. used by Create.vue.
+    returns the substring of the given name from the last '#' to the end
+    and returns the lower case version of it. used by Create.vue.
 
     eg: nameToType('https://vocabs.acdh.oeaw.ac.at/schema#Agent') -> agent
     */
@@ -267,7 +270,8 @@ export default {
     },
 
     /*
-    This function can be used to set data to any key to vm (this). Also usable to set an error to this.error. The function currently is never used.
+    This function can be used to set data to any key to vm (this).
+    Also usable to set an error to this.error. The function currently is never used.
     */
     setInitialData(err, key, post) {
       this.$info('Helpers', 'setInitialData(err, key, post)', err, key, post);
@@ -422,7 +426,8 @@ export default {
       return null;
     },
     /*
-    deletes * from the local storage and reroutes to the current page in order do clear the vuex Storage.
+    deletes * from the local storage
+    and reroutes to the current page in order do clear the vuex Storage.
     */
     clearCache() {
       this.deleteOldSessions();
