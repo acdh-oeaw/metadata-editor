@@ -107,7 +107,8 @@ export default {
 
       for (let i = 0; i < fields.length; i += 1) {
         if (this.schema && this.schema.properties[fields[i]].attrs &&
-           this.schema.properties[fields[i]].attrs.type && TYPES1.indexOf(this.schema.properties[fields[i]].attrs.type) < 0) {
+          this.schema.properties[fields[i]].attrs.type &&
+          TYPES1.indexOf(this.schema.properties[fields[i]].attrs.type) < 0) {
           TYPES1.push(this.schema.properties[fields[i]].attrs.type);
         }
       }
@@ -137,7 +138,7 @@ export default {
           }
         }
       }
-      this.$debug('entries', this.$store.state.JSONschema.entries[this.uniqueName], 'model:',  JSON.stringify(this.model) );
+      this.$debug('entries', this.$store.state.JSONschema.entries[this.uniqueName], 'model:', JSON.stringify(this.model));
       this.saveEntry();
       this.setComponents();
     },
@@ -161,8 +162,8 @@ export default {
       this.$debug('after import schema:', this.schema);
     },
     /*
-    gets the schema of the given type (this.type) from the storage or from
-    getMetadataByType if it is not found in store.
+    gets the schema of the given type (this.type) from the storage
+    or from getMetadataByType if it is not found in store.
     after that it calls importSchema to load it to give it to the formschema.
     */
     initSchema() {
@@ -188,9 +189,10 @@ export default {
   mounted() {
     this.$info('FormFromSchemaEDIT', 'mounted');
     this.model = this.$store.state.JSONschema.entries[this.uniqueName].model;
-    this.schema = this.$store.state.JSONschema.schemas[ this.$store.state.JSONschema.entries[this.uniqueName].schema];
+    this.schema = this.$store.state.JSONschema.schemas[
+      this.$store.state.JSONschema.entries[this.uniqueName].schema
+    ];
     this.initSchema();
-
   },
 };
 </script>

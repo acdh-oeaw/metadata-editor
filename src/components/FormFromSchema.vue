@@ -102,7 +102,8 @@ export default {
 
       for (let i = 0; i < fields.length; i += 1) {
         if (this.schema && this.schema.properties[fields[i]].attrs &&
-           this.schema.properties[fields[i]].attrs.type && TYPES1.indexOf(this.schema.properties[fields[i]].attrs.type) < 0) {
+           this.schema.properties[fields[i]].attrs.type &&
+           TYPES1.indexOf(this.schema.properties[fields[i]].attrs.type) < 0) {
           TYPES1.push(this.schema.properties[fields[i]].attrs.type);
         }
       }
@@ -132,7 +133,7 @@ export default {
           }
         }
       }
-      this.$debug('entries', this.$store.state.JSONschema.entries[this.uniqueName], 'model:',  JSON.stringify(this.model) );
+      this.$debug('entries', this.$store.state.JSONschema.entries[this.uniqueName], 'model:', JSON.stringify(this.model));
       this.saveEntry();
       this.setComponents();
     },
@@ -151,7 +152,7 @@ export default {
       this.setSchema({ name: this.type, schema: this.schema });
       this.setComponents();
       if (!this.$store.state.JSONschema.entries[this.uniqueName]) {
-          this.setEntry({ name: this.uniqueName, entry: {} });
+        this.setEntry({ name: this.uniqueName, entry: {} });
       }
 
       this.model = this.$store.state.JSONschema.entries[this.uniqueName];
@@ -188,19 +189,18 @@ export default {
   mounted() {
     this.$info('FormFromSchema', 'mounted');
     // normal formFromSchema
-    if(!this.edit) {
+    if (!this.edit) {
       this.initSchema();
     } else {
       // a FormFromSchema to edit data
 
-      //clear vuex store:
+      // clear vuex store:
       this.setEntry({ name: this.uniqueName, entry: {} });
       this.initSchema();
       this.updateModel(this.edit);
       this.setEntry({ name: this.uniqueName, entry: this.model });
       this.$debug('set edit data', JSON.stringify(this.model));
     }
-
   },
 };
 </script>

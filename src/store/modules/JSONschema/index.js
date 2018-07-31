@@ -3,7 +3,7 @@ const state = {
   tabs: [{ name: 'place', type: 'place' }, { name: 'person', type: 'person' }, { name: 'organisation', type: 'organisation' }, { name: 'collection', type: 'collection' }, { name: 'project', type: 'project' }],
   schemas: {},
   entries: {},
-  p: ['entries', 'schemas', 'tabs', ],
+  p: ['entries', 'schemas', 'tabs'],
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -50,7 +50,7 @@ const mutations = {
   */
   queryToEntry(s, { name, query, type }) {
     this._vm.$info('queryToEntry: name, query, type', name, query, type);
-    if(!s.schemas[type] || !name || !type) { return; }
+    if (!s.schemas[type] || !name || !type) { return; }
 
     const m = {};
     const modelTemplate = s.schemas[type].properties;
