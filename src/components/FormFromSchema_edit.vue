@@ -94,13 +94,17 @@ export default {
       this.verboseEntityDescription = s;
     },
     saveChanges() {
-      this.$debug('saveChanges, old model, new model', this.oldModel, this.model);
-      const subjectTriple = this.getTriples('hasIdentifier', this.oldModel.hasIdentifier);
-      this.$debug('subjectTriple', subjectTriple);
-      if (subjectTriple) {
-        this.RemoveSubject(subjectTriple[0].subject);
-        this.submit();
-        this.oldModel = JSON.parse(JSON.stringify(this.model));
+      // this.$debug('saveChanges, old model, new model', this.oldModel, this.model);
+      // this.$debug('saveChanges, old model, new model', this.oldModel, this.model);
+      if (this.oldModel.hasIdentifier) {
+        const id = Array.isArray(this.oldModel.hasIdentifier) ? this.oldModel.hasIdentifier[0] : this.oldModel.hasIdentifier;
+        const subjectTriple = this.getTriples(null, 'hasIdentifier', id);
+        this.$debug('subjectTriple', subjectTriple);
+        if (subjectTriple) {
+          this.RemoveSubject(subjectTriple[0].subject);
+          this.submit();
+          this.oldModel = JSON.parse(JSON.stringify(this.model));
+        }
       }
     },
     resetForm() {
