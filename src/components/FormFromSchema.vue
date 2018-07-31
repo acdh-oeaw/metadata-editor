@@ -70,7 +70,7 @@ export default {
     ]),
     saveEntry() {
       this.$info('FormFromSchema', 'saveEntry');
-      this.setEntry({ name: this.uniqueName, entry: this.model });
+      this.setEntry({ name: this.uniqueName, entry: this.model, schema: this.type });
     },
     resetForm() {
       // this.$debug('schema', JSON.stringify(this.schema.properties));
@@ -152,10 +152,10 @@ export default {
       this.setSchema({ name: this.type, schema: this.schema });
       this.setComponents();
       if (!this.$store.state.JSONschema.entries[this.uniqueName]) {
-        this.setEntry({ name: this.uniqueName, entry: {} });
+        this.setEntry({ name: this.uniqueName, entry: {}, schema: this.type  });
       }
 
-      this.model = this.$store.state.JSONschema.entries[this.uniqueName];
+      this.model = this.$store.state.JSONschema.entries[this.uniqueName].model;
       // Mapping
       this.loading = false;
       this.$emit('input', this.model);
@@ -195,10 +195,10 @@ export default {
       // a FormFromSchema to edit data
 
       // clear vuex store:
-      this.setEntry({ name: this.uniqueName, entry: {} });
+      this.setEntry({ name: this.uniqueName, entry: {}, schema: this.type });
       this.initSchema();
       this.updateModel(this.edit);
-      this.setEntry({ name: this.uniqueName, entry: this.model });
+      this.setEntry({ name: this.uniqueName, entry: this.model, schema: this.type });
       this.$debug('set edit data', JSON.stringify(this.model));
     }
   },

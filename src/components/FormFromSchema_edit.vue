@@ -75,7 +75,7 @@ export default {
     ]),
     saveEntry() {
       this.$info('FormFromSchema', 'saveEntry');
-      this.setEntry({ name: this.uniqueName, entry: this.model });
+      this.setEntry({ name: this.uniqueName, entry: this.model, schema: this.type });
     },
     resetForm() {
       // this.$debug('schema', JSON.stringify(this.schema.properties));

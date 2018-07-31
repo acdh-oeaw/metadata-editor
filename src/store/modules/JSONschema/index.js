@@ -1,9 +1,10 @@
 
 const state = {
-  tabs: [{ name: 'place', type: 'place' }, { name: 'person', type: 'person' }, { name: 'organisation', type: 'organisation' }, { name: 'collection', type: 'collection' }, { name: 'project', type: 'project' }],
+  tabs: [ { name: 'person', type: 'person' }, { name: 'place', type: 'place' }, { name: 'organisation', type: 'organisation' }, { name: 'collection', type: 'collection' }, { name: 'project', type: 'project' }],
   schemas: {},
-  entries: {},
-  p: ['entries', 'schemas', 'tabs'],
+  entries: {}, /* = { model: {..actual entries go here..},
+    schema: 'schematype* corresponding to a key in schemas goes here' */
+  p: ['entries', 'schemas'],
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -36,10 +37,12 @@ const mutations = {
       s.schemas[name] = schema;
     }
   },
-  setEntry(s, { name, entry }) {
+  setEntry(s, { name, entry, schema }) {
     this._vm.$info(name, entry);
-    if (name && entry) {
-      s.entries[name] = entry;
+    if (name && entry && schema) {
+      s.entries[name] = {};
+      s.entries[name].model = entry;
+      s.entries[name].schema = schema;
     }
     // s.entries = JSON.parse(JSON.stringify(s.entries));
   },

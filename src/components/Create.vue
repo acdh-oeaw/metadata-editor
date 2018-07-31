@@ -29,7 +29,7 @@
           {{ tab.name }}
         </v-tab>
         <v-tab-item v-for="(tab, index) in tabs" :key="tab.name">
-          <formfromschema v-model="formModel[index]" :type="tab.type" :uniqueName="tab.name + ' ' + index" :edit="false"></formfromschema>
+          <formfromschema v-model="formModel[index]" :type="tab.type" :uniqueName="tab.name" :edit="false"></formfromschema>
         </v-tab-item>
       </v-tabs>
     </v-flex>
