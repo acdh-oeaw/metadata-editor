@@ -1,0 +1,21 @@
+@prefix acdh: <https://vocabs.acdh.oeaw.ac.at/schema#>.
+
+_:coll-p01 a acdh:Person;
+    acdh:hasIdentifier <http://viaf.org/viaf/16146825542707632523/>, <https://id.acdh.oeaw.ac.at/paigner>;
+    acdh:hasFirstName "Petra";
+    acdh:hasLastName "Aigner";
+    acdh:isMember _:coll-o02.
+_:person_jk9jj41b a acdh:person;
+    acdh:hasIdentifier <https://id.acdh.oeaw.ac.at/hgoetekummer>;
+    acdh:hasFirstName "Herbert";
+    acdh:hasLastName "Götekummer";
+    acdh:hasTitle "new title";
+    acdh:hasPersonalTitle "dr.";
+    acdh:hasAddress "Gladiolenweg 8";
+    acdh:hasAddressLine1 "3";
+    acdh:hasAddressLine2 "1";
+    acdh:hasPostcode "1030";
+    acdh:hasCity "Wien";
+    acdh:hasRegion "Wien";
+    acdh:hasCountry "Austria";
+    acdh:hasEmail "hakki@gmail.com".

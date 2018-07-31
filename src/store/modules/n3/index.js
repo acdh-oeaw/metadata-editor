@@ -33,11 +33,11 @@ const getters = {
   getTitle: (s, g) => (subject) => {
     const type = g.getType(subject);
     switch (type) {
-      case 'https://vocabs.acdh.oeaw.ac.at/schema#Person': {
+      case 'https://vocabs.acdh.oeaw.ac.at/schema#person':
+      case 'https://vocabs.acdh.oeaw.ac.at/schema#Person':
         const fn = s.store.getTriples(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasFirstName')[0].object;
         const ln = s.store.getTriples(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasLastName')[0].object;
         return `${fn} ${ln}`;
-      }
       default: return s.store.getTriples(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle')[0].object;
     }
   },
