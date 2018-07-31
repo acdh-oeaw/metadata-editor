@@ -8,24 +8,27 @@
       <v-toolbar-title>Edit Subject</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat variant="primary" @click="submit">Save Changes</v-btn>
+        <v-btn flat variant="primary" @click="saveChanges();">Save Changes</v-btn>
         <v-btn flat variant="primary" @click="submit">Add as new Entity</v-btn>
         <v-btn flat @click="resetForm();" variant="secondary">Reset Form</v-btn>
       </v-toolbar-items>
 
 
     </v-toolbar>
-  <form-schema v-if="model" @input="saveEntry(); $emit('input', model)" :schema="schema" v-model="model" @submit="submit">
-    <v-btn variant="primary" @click="submit">Save Changes</v-btn>
-      <v-btn variant="primary" @click="submit">Add as new Entity</v-btn>
-    <v-btn @click="resetForm();" variant="secondary">Reset Form</v-btn>
-  </form-schema>
+    <v-card-text>You are currently editing the entity {{ verboseEntityDescription }}
+    </v-card-text>
+    You are currently editing the entity: {{ verboseEntityDescription }}
+    <form-schema v-if="model && type" @input="saveEntry(); $emit('input', model)" :schema="schema" v-model="model" @submit="submit">
+      <v-btn variant="primary"  @click="saveChanges();">Save Changes</v-btn>
+        <v-btn variant="primary" @click="submit">Add as new Entity</v-btn>
+      <v-btn @click="resetForm();" variant="secondary">Reset Form</v-btn>
+    </form-schema>
 </v-card>
 </template>
 
 <script>
 import FormSchema from '@formschema/native';
-import { mapMutations, mapActions } from 'vuex';
+import { mapMutations, mapActions, mapGetters } from 'vuex';
 import FormComponentWrapper from './FormComponentWrapper';
 import HELPERS from '../helpers';
 
@@ -57,9 +60,11 @@ export default {
   data: () => ({
     schema: false,
     model: false,
+    oldModel: false, // this is necessary for saving changes.
     loading: true,
     name: 'editsubjectdialog',
     blacklistRegex: /^is*/, // for name like
+    verboseEntityDescription: '',
   }),
   methods: {
     ...mapMutations('JSONschema', [
@@ -72,10 +77,31 @@ export default {
     ]),
     ...mapActions('n3', [
       'objectToStore',
+      'RemoveSubject',
     ]),
     saveEntry() {
       this.$info('FormFromSchema', 'saveEntry');
       this.setEntry({ name: this.uniqueName, entry: this.model, schema: this.type });
+    },
+    verboseEntityDesc() {
+      let s = '';
+      this.$debug('this.titel', this.title);
+      if(this.oldModel.hasFirstName) {
+        s = this.oldModel.hasFirstName + ' ' + this.oldModel.hasLastName;
+      } else {
+        s = Array.isArray(this.oldModel.hasTitle) ? this.oldModel.hasTitle[0] : this.oldModel.hasTitle;
+      }
+      this.verboseEntityDescription = s;
+    },
+    saveChanges() {
+      this.$debug('saveChanges, old model, new model', this.oldModel, this.model);
+      const subjectTriple = this.getTriples('hasIdentifier', this.oldModel.hasIdentifier);
+      this.$debug('subjectTriple', subjectTriple);
+      if (subjectTriple) {
+        this.RemoveSubject(subjectTriple[0].subject);
+        this.submit();
+        this.oldModel = JSON.parse(JSON.stringify(this.model));
+      }
     },
     resetForm() {
       // this.$debug('schema', JSON.stringify(this.schema.properties));
@@ -186,14 +212,23 @@ export default {
   watch: {
 
   },
+  computed: {
+    ...mapGetters('n3', [
+      'getTriples',
+    ]),
+  },
   mounted() {
     this.$info('FormFromSchemaEDIT', 'mounted');
     this.model = this.$store.state.JSONschema.entries[this.uniqueName].model;
     this.schema = this.$store.state.JSONschema.schemas[
       this.$store.state.JSONschema.entries[this.uniqueName].schema
     ];
+    this.oldModel = JSON.parse(JSON.stringify(this.model));
     this.initSchema();
   },
+  updated() {
+    this.verboseEntityDesc();
+  }
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
