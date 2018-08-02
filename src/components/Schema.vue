@@ -65,12 +65,12 @@ export default {
     // convenience method to limit options to ACDH namespace classes
     getClasses() {
       this.$info('Schema', 'getClasses()');
-      this.$log('latest session:', this.getLatestSession());
+      // this.$log('latest session:', this.getLatestSession());
       const classes = this.getQuery('classes').filter((cl) => {
         if (cl['?x'].baseURI === 'https://vocabs.acdh.oeaw.ac.at/schema#') return true;
         return false;
       });
-      this.$log('Classes:', classes);
+      // this.$log('Classes:', classes);
       return classes;
     },
   },
@@ -93,7 +93,7 @@ export default {
   created() {
     this.$info('Schema', 'created');
     if (this.getOntology) this.fetchClasses({ q: 'classes' });
-    this.$log('last session', this.getLatestSession());
+    // this.$log('last session', this.getLatestSession());
   },
 };
 </script>

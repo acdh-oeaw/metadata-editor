@@ -91,16 +91,6 @@ export default {
     },
   },
   watch: {
-    $route(to, from) {
-      this.$log('to, from', to, from);
-      this.addTab({
-        tab: {
-          name: `edit: ${to.query.hasTitle || to.query.hasFirstName[0] || Object.keys(to.query)[0]}`,
-          type: this.nameToType(to.query.uri),
-          query: to.query,
-        },
-      });
-    },
   },
 };
 </script>

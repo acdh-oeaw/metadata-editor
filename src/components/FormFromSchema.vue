@@ -116,29 +116,6 @@ export default {
       }
     },
     /*
-    sets the model (used as v-model in the formschema) to new values out of params.
-    params should be in the same form of model.
-    */
-    updateModel(params) {
-      this.$debug('FormFromSchema, updateModel(params)', JSON.stringify(params), 'model', JSON.stringify(this.model));
-      const keys = Object.keys(this.model);
-      for (let i = 0; i < keys.length; i += 1) {
-        if (params[keys[i]]) {
-          this.model[keys[i]] = params[keys[i]];
-        } else {
-          if (Array.isArray(this.model[keys[i]])) {
-            this.model[keys[i]] = [];
-          } else {
-            this.model[keys[i]] = '';
-          }
-        }
-      }
-      this.$debug('entries', this.$store.state.JSONschema.entries[this.uniqueName], 'model:', JSON.stringify(this.model));
-      this.saveEntry();
-      this.setComponents();
-    },
-
-    /*
     sets this.schema to the given schema after removing blacklisted keys
     and also copying the range property to the type property.
     also sets the components of the formSchema via setComponents.
@@ -188,19 +165,7 @@ export default {
   },
   mounted() {
     this.$info('FormFromSchema', 'mounted');
-    // normal formFromSchema
-    if (!this.edit) {
-      this.initSchema();
-    } else {
-      // a FormFromSchema to edit data
-
-      // clear vuex store:
-      this.setEntry({ name: this.uniqueName, entry: {}, schema: this.type });
-      this.initSchema();
-      this.updateModel(this.edit);
-      this.setEntry({ name: this.uniqueName, entry: this.model, schema: this.type });
-      this.$debug('set edit data', JSON.stringify(this.model));
-    }
+    this.initSchema();
   },
 };
 </script>

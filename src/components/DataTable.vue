@@ -64,7 +64,7 @@ export default {
           });
           idx -= 1;
         }
-        this.$log('Tabledata', this.tabledata);
+        // this.$log('Tabledata', this.tabledata);
       });
     },
   },

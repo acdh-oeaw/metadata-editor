@@ -62,7 +62,7 @@ export default {
         } else {
           this.selectedValue = this.value;
         }
-        this.$info('FormComponentWrapper created', this.component, this.selectedValue);
+        // this.$info('FormComponentWrapper created', this.component, this.selectedValue);
         return true;
       }
       return false;
@@ -81,9 +81,9 @@ export default {
     if (!c) {
       c = { type: this.type, name: 'autocompdefault' };
     }
-    this.$info('FormComponentWrapper created', c);
+    // this.$info('FormComponentWrapper created', c);
     if (this.selectedValue) {
-      this.$info('  selectedValue:', this.selectedValue);
+      // this.$info('  selectedValue:', this.selectedValue);
     }
     this.component = c.name;
     this.mappedType = c.type;

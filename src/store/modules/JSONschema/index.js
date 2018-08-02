@@ -53,6 +53,7 @@ const mutations = {
   */
   queryToEntry(s, { name, query, type }) {
     this._vm.$info('queryToEntry: name, query, type', name, query, type);
+
     if (!s.schemas[type] || !name || !type) { return; }
 
     const m = {};
@@ -66,7 +67,6 @@ const mutations = {
         m[keys[i]] = '';
       }
     }
-    this._vm.$debug('what happened:', m, type);
     s.entries[name] = {};
     s.entries[name].model = m;
     s.entries[name].schema = type;

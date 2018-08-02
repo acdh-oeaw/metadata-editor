@@ -68,7 +68,7 @@ export default {
       'closeDialog',
     ]),
     save() {
-      this.$log('StringToStore', this.StringToStore(this.result));
+      // this.$log('StringToStore', this.StringToStore(this.result));
       this.StringToStore(this.result).then(this.toggleAppMode());
     },
     close() {

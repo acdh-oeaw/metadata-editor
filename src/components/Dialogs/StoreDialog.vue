@@ -32,9 +32,15 @@ export default {
     };
   },
   mixins: [HELPERS],
+  computed: {
+    tabs() {
+      return this.$store.state.JSONschema.tabs;
+    }
+  },
   methods: {
     ...mapMutations('JSONschema', [
       'constructJSONschema',
+      'setSchema',
     ]),
     ...mapActions('n3', [
       'constructN3',
@@ -45,10 +51,32 @@ export default {
     discard() {
       this.dialogShow = false;
       this.deleteOldSessions();
+      this.initAllSchemas();
+    },
+    /* used to initialize schemas so they are ready to be worked with
+    */
+    initSchema (type) {
+      this.$info('init Schema:', type);
+      if (!type) { return; }
+      if (this.$store.state.JSONschema.schemas && this.$store.state.JSONschema.schemas[type]) {
+        return; //already there
+      } else {
+        this.getMetadataByType(type).then((res) => {
+          // this.$log('Fetching Metadata', type, res);
+          this.setSchema( {name: type, schema: res });
+        });
+      }
+    },
+    initAllSchemas() {
+      this.$debug('init all Schemas');
+      for (let i = 0; i < this.tabs.length; i += 1) {
+        this.initSchema(this.tabs[i].type);
+      }
     },
     restore(reload = true) {
       // this.constructJOWL(this.latestSession);
       this.constructJSONschema(this.latestSession);
+      this.initAllSchemas();
       this.constructN3(this.latestSession);
       this.constructLocalStorageInfo(this.latestSession);
       this.discard();
@@ -60,13 +88,15 @@ export default {
   created() {
     this.latestSession = this.getLatestSession();
     if (this.latestSession) {
-      this.$log('latestSession', this.latestSession);
+      // this.$log('latestSession', this.latestSession);
       this.date = this.dateToString(new Date(this.latestSession.date));
       if (Date.now() - this.latestSession.date < 300000) {
         this.restore(false);
       } else {
         this.dialogShow = true;
       }
+    } else {
+      this.initAllSchemas();
     }
   },
 };

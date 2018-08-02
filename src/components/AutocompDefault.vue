@@ -151,7 +151,7 @@ export default {
         return;
       }
       // change occoured
-      this.$info('AutocompDefault -> newSubject before, after, manuallySelectedItem', before, after, this.manuallySelectedItem);
+      this.$log('AutocompDefault -> newSubject before, after, manuallySelectedItem', before, after, this.manuallySelectedItem);
       this.$debug('bef aft: ', JSON.stringify(this.newItem));
       this.$debug('after exists, select:', this.select);
       this.items[this.nStoreSelected].title = this.getTitle(after.changedItem.subject);
@@ -172,10 +172,10 @@ export default {
     },
     $route(to) {
       if (this.value) {
-        this.$log('selection', this.select, this.value);
+        // this.$log('selection', this.select, this.value);
         for (let i = 0; i < Object.keys(to.query).length; i += 1) {
           if (Object.keys(to.query)[i] === this.name) {
-            this.$log('selection name', this.value, to.query[Object.keys(to.query)[i]]);
+            // this.$log('selection name', this.value, to.query[Object.keys(to.query)[i]]);
             break;
           }
         }
@@ -186,13 +186,13 @@ export default {
         } else {
           this.items.push({ title: this.value, uri: this.value, type: '' });
         }
-        this.$log('selection items', this.items);
+        // this.$log('selection items', this.items);
       }
     },
   },
   created() {
     if (this.value) {
-      this.$log('selection', this.select, this.value);
+      // this.$log('selection', this.select, this.value);
       for (let i = 0; i < this.value.length; i += 1) {
         this.items.push({ title: this.value[i], uri: this.value[i], type: '' });
       }

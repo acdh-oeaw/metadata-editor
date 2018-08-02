@@ -104,7 +104,7 @@ export default {
   },
   created() {
     /* if (this.value) {
-      this.$log('selection', this.select, this.value);
+      // this.$log('selection', this.select, this.value);
       for (let i = 0; i < this.value.length; i += 1) {
         this.items.push({ title: this.value[i], uri: this.value[i], type: '' });
       }

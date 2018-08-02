@@ -85,7 +85,6 @@ export default {
     },
     verboseEntityDesc() {
       let s = '';
-      this.$debug('this.titel', this.title);
       if (this.oldModel.hasFirstName) {
         s = `${this.oldModel.hasFirstName} ${this.oldModel.hasLastName}`;
       } else {
@@ -95,14 +94,17 @@ export default {
       this.verboseEntityDescription = s;
     },
     saveChanges() {
-      // this.$debug('saveChanges, old model, new model', this.oldModel, this.model);
+
+      this.$debug('saveChanges, old model, new model', this.oldModel, this.model);
       // this.$debug('saveChanges, old model, new model', this.oldModel, this.model);
       if (this.oldModel.hasIdentifier) {
         const id = Array.isArray(this.oldModel.hasIdentifier) ?
           this.oldModel.hasIdentifier[0] : this.oldModel.hasIdentifier;
-        const subjectTriple = this.getTriples(null, 'hasIdentifier', id);
+        this.$debug('id', id);
+        const subjectTriple = this.getTriples({ subject: null, predicate: null, object: id });
         this.$debug('subjectTriple', subjectTriple);
-        if (subjectTriple) {
+        if (subjectTriple && subjectTriple[0]) {
+          this.$debug('delete: ', subjectTriple[0].subject);
           this.RemoveSubject(subjectTriple[0].subject);
           this.submit();
           this.oldModel = JSON.parse(JSON.stringify(this.model));
@@ -121,7 +123,7 @@ export default {
       */
     },
     submit() {
-      this.$info('FormFromSchema', 'submit()', this.model);
+      this.$info('FormFromSchema', 'submit()', JSON.stringify(this.model));
       // here everything -> n3 store.
       /* before calling objectToStore,
       we need to filter out objects and split them further into triples
@@ -133,6 +135,7 @@ export default {
     to the FormComponentWrapper, which handels the further mapping to actual components.
     */
     setComponents() {
+      this.$debug('setComponents: schema:', this.schema)
       const TYPES1 = [];
 
       const fields = Object.keys(this.schema.properties);
@@ -152,28 +155,7 @@ export default {
         FormSchema.setComponent(t, FormComponentWrapper, { type: t });
       }
     },
-    /*
-    sets the model (used as v-model in the formschema) to new values out of params.
-    params should be in the same form of model.
-    */
-    updateModel(params) {
-      this.$debug('FormFromSchema, updateModel(params)', JSON.stringify(params), 'model', JSON.stringify(this.model));
-      const keys = Object.keys(this.model);
-      for (let i = 0; i < keys.length; i += 1) {
-        if (params[keys[i]]) {
-          this.model[keys[i]] = params[keys[i]];
-        } else {
-          if (Array.isArray(this.model[keys[i]])) {
-            this.model[keys[i]] = [];
-          } else {
-            this.model[keys[i]] = '';
-          }
-        }
-      }
-      this.$debug('entries', this.$store.state.JSONschema.entries[this.uniqueName], 'model:', JSON.stringify(this.model));
-      this.saveEntry();
-      this.setComponents();
-    },
+
 
     /*
     sets this.schema to the given schema after removing blacklisted keys
@@ -182,7 +164,7 @@ export default {
     resets this.model to whatever is found in the store.
     */
     importSchema(schema) {
-      this.$info('FormFromSchema, importSchema(schema)', schema);
+      this.$debug('FormFromSchema, importSchema(schema)', schema);
       this.schema = this.copyRangeToType(schema, 'only name');
       this.schema = this.removeBlacklisted(this.schema, this.blacklistRegex);
 
@@ -199,7 +181,7 @@ export default {
     after that it calls importSchema to load it to give it to the formschema.
     */
     initSchema() {
-      this.$info('FormFromSchema', 'initSchema');
+      this.$debug('FormFromSchemaEDIT', 'initSchema');
       if (!this.type) { return; }
       if (this.$store.state.JSONschema.schemas && this.$store.state.JSONschema.schemas[this.type]) {
         this.$info('Metadata found in store! Type:', this.type);
@@ -223,14 +205,16 @@ export default {
       'getTriples',
     ]),
   },
-  mounted() {
-    this.$info('FormFromSchemaEDIT', 'mounted');
+  created() {
+    this.$debug('FormFromSchemaEDIT', 'mounted');
     this.model = this.$store.state.JSONschema.entries[this.uniqueName].model;
+    this.type = this.$store.state.JSONschema.entries[this.uniqueName].schema;
     this.schema = this.$store.state.JSONschema.schemas[
-      this.$store.state.JSONschema.entries[this.uniqueName].schema
+      this.type
     ];
     this.oldModel = JSON.parse(JSON.stringify(this.model));
     this.initSchema();
+    this.setComponents();
   },
   updated() {
     this.verboseEntityDesc();

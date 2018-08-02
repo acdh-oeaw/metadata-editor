@@ -115,9 +115,6 @@ export default {
       this.queryToEntry({ name: 'edit', query, type });
       this.setDialog({ name: 'editsubjectdialog', obj: { status: true } });
 
-      /* Before Dialogs were used
-        this.$router.push({ name: 'create', query: this.params });
-      */
     },
   },
   mounted() {

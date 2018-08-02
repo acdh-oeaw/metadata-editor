@@ -131,7 +131,7 @@ export default {
     /* fetches the JSON-schema from the specified API in the config and returns it.
      */
     getMetadataByType(type) {
-      this.$info('Helpers', 'getMetadataByType(type)', type);
+      this.$debug('Helpers', 'getMetadataByType(type)', type);
       return APIS.ARCHE2.METADATA.get(`${type}/en`).then(response => Promise.resolve(response.data));
     },
     /* fetches data from the specified viaf endpoint in the config above and returnes it.
@@ -140,14 +140,14 @@ export default {
       this.$info('Helpers', 'getViafByID(id)', id);
       if (id) {
         return APIS.VIAF.BASE.get(`${id}/`).then((response) => {
-          this.$log('response', response.data);
+          // this.$log('response', response.data);
           return Promise.resolve(response.data);
         }, (error) => {
-          this.$log('errortree, request failed', error);
+          // this.$log('errortree, request failed', error);
           return Promise.reject(error);
         });
       }
-      this.$log('errortree, no id');
+      // this.$log('errortree, no id');
       return Promise.reject('no ID was given');
     },
     /*
@@ -197,10 +197,10 @@ export default {
       this.$info('Helpers', 'getArcheByID(id, type)', id, type);
       if (id && type && APIS.ARCHE2[type]) {
         return APIS.ARCHE2[type].get(`${id}`).then((response) => {
-          this.$log('response', response.data);
+          // this.$log('response', response.data);
           return Promise.resolve(response.data);
         }, (error) => {
-          this.$log('errortree, request failed', error);
+          // this.$log('errortree, request failed', error);
           return Promise.reject(error);
         });
       }
@@ -218,10 +218,10 @@ export default {
             query: `${id}*`,
           },
         }).then((response) => {
-          this.$log('response', response);
+          // this.$log('response', response);
           return Promise.resolve(response.data);
         }, (error) => {
-          this.$log('errortree, request failed', error);
+          // this.$log('errortree, request failed', error);
           return Promise.reject(error);
         });
       }
@@ -291,7 +291,7 @@ export default {
       const m = JSON.parse(JSON.stringify(model));
       const keys = Object.keys(model);
       const vals = Object.values(model);
-      this.$log(keys, vals, m);
+      // this.$log(keys, vals, m);
       for (let i = 0; i < keys.length; i += 1) {
         if ((typeof vals[i]).toLowerCase() === 'object') {
           m[keys[i]] = this.filterForArcheID(vals[i]);
@@ -331,7 +331,7 @@ export default {
       // debug object, lists all types
       const types = {};
 
-      this.$log(keys, schema);
+      // this.$log(keys, schema);
       for (let i = 0; i < keys.length; i += 1) {
         if (!m.properties[keys[i]].attrs) m.properties[keys[i]].attrs = {};
         if (m.properties[keys[i]].range) {
