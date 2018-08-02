@@ -1,5 +1,6 @@
 import actions from './actions';
 import mutations from './mutations';
+/* eslint-disable no-case-declarations */
 
 const N3 = require('./n3-browser.js');
 

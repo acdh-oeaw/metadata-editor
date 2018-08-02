@@ -86,10 +86,11 @@ export default {
     verboseEntityDesc() {
       let s = '';
       this.$debug('this.titel', this.title);
-      if(this.oldModel.hasFirstName) {
-        s = this.oldModel.hasFirstName + ' ' + this.oldModel.hasLastName;
+      if (this.oldModel.hasFirstName) {
+        s = `${this.oldModel.hasFirstName} ${this.oldModel.hasLastName}`;
       } else {
-        s = Array.isArray(this.oldModel.hasTitle) ? this.oldModel.hasTitle[0] : this.oldModel.hasTitle;
+        s = Array.isArray(this.oldModel.hasTitle) ?
+          this.oldModel.hasTitle[0] : this.oldModel.hasTitle;
       }
       this.verboseEntityDescription = s;
     },
@@ -97,7 +98,8 @@ export default {
       // this.$debug('saveChanges, old model, new model', this.oldModel, this.model);
       // this.$debug('saveChanges, old model, new model', this.oldModel, this.model);
       if (this.oldModel.hasIdentifier) {
-        const id = Array.isArray(this.oldModel.hasIdentifier) ? this.oldModel.hasIdentifier[0] : this.oldModel.hasIdentifier;
+        const id = Array.isArray(this.oldModel.hasIdentifier) ?
+          this.oldModel.hasIdentifier[0] : this.oldModel.hasIdentifier;
         const subjectTriple = this.getTriples(null, 'hasIdentifier', id);
         this.$debug('subjectTriple', subjectTriple);
         if (subjectTriple) {
@@ -232,7 +234,7 @@ export default {
   },
   updated() {
     this.verboseEntityDesc();
-  }
+  },
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

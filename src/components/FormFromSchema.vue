@@ -152,7 +152,7 @@ export default {
       this.setSchema({ name: this.type, schema: this.schema });
       this.setComponents();
       if (!this.$store.state.JSONschema.entries[this.uniqueName]) {
-        this.setEntry({ name: this.uniqueName, entry: {}, schema: this.type  });
+        this.setEntry({ name: this.uniqueName, entry: {}, schema: this.type });
       }
 
       this.model = this.$store.state.JSONschema.entries[this.uniqueName].model;
