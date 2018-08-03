@@ -7,7 +7,12 @@
 
 // some helper functions iso mixin
 function RemovePrefix(str) {
-  if (str.search(/b\d/) > -1) {
+  if (str.id && str.id.search(/b\d/) > -1) {
+    str.id = str.id.replace(/b\d_/, '');
+    return str;
+  }
+  else if (str.id) return str;
+  else if (str.search(/b\d/) > -1) {
     return str.replace(/b\d_/, '');
   }
   return str;
@@ -18,34 +23,39 @@ const newobjpattern = /_:.*/;
 
 
 const actions = {
-  AddTriple({ state }, triple) {
-    state.store.addTriple(
-      triple.subject,
-      triple.predicate,
-      triple.object,
+  AddTriple({ state }, quad) {
+    state.store.addQuad(
+      quad.subject,
+      quad.predicate,
+      quad.object,
+      quad.graph,
     );
   },
   /* special action to remove the prefixes n3.js automatically adds when parsing
      blank namespaces before adding the triple, never called directly
      see http://rubenverborgh.github.io/N3.js/docs/N3Store.html#section-124 */
-  AddFilteredTriple({ state }, triple) {
-    state.store.addTriple(
-      RemovePrefix(triple.subject),
-      triple.predicate,
-      RemovePrefix(triple.object),
+  AddFilteredTriple({ state }, quad) {
+    console.log(quad);
+    state.store.addQuad(
+      RemovePrefix(quad.subject),
+      quad.predicate,
+      RemovePrefix(quad.object),
+      quad.graph,
     );
   },
-  RemoveTriple({ state }, triple) {
-    state.store.removeTriple(
-      triple.subject,
-      triple.predicate,
-      triple.object,
+  RemoveTriple({ state }, quad) {
+    state.store.removeQuad(
+      quad.subject,
+      quad.predicate,
+      quad.object,
+      quad.graph,
     );
   },
   RemoveSubject({ state, dispatch, commit }, subject) {
     commit('startProcessing', 'Loading File to Store...');
-    const triples = state.store.getTriples(
+    const triples = state.store.getQuads(
       subject,
+      null,
       null,
       null,
     );
@@ -126,8 +136,8 @@ const actions = {
     commit('stopProcessing');
   },
   writeTTL({ state, commit }) {
-    const triples = state.store.getTriples();
-    state.writer.addTriples(triples);
+    const triples = state.store.getQuads();
+    state.writer.addQuads(triples);
     state.writer.end((error, result) => {
       commit('updateTtlString', result);
       commit('resetWriter');

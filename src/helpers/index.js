@@ -240,6 +240,7 @@ export default {
     maps typs to material icons. see https://material.io/tools/icons/
     */
     typeicon(typ) {
+      console.log(typ);
       if (typ) {
         const type = typ.toUpperCase();
         console.log(type);
@@ -465,10 +466,10 @@ export default {
     TriplesToObject(triples) {
       const params = {};
       for (let i = 0; i < triples.length; i += 1) {
-        if (params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')]) {
-          params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')].push(triples[i].object.replace(/"/g, ''));
+        if (params[triples[i].predicate.id.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')]) {
+          params[triples[i].predicate.id.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')].push(triples[i].object.id.replace(/"/g, ''));
         } else {
-          params[triples[i].predicate.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')] = [triples[i].object.replace(/"/g, '')];
+          params[triples[i].predicate.id.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')] = [triples[i].object.id.replace(/"/g, '')];
         }
       }
       return params;

@@ -2,7 +2,10 @@ import actions from './actions';
 import mutations from './mutations';
 /* eslint-disable no-case-declarations */
 
-const N3 = require('./n3-browser.js');
+const N3 = require('n3');
+
+console.log(N3);
+// const N3 = require('./n3-browser.js');
 
 const prefixes = {
   acdh: 'https://vocabs.acdh.oeaw.ac.at/schema#',
@@ -11,11 +14,11 @@ const prefixes = {
 
 
 const state = {
-  module: N3.N3,
-  store: N3.N3.Store(),
-  parser: N3.N3.Parser(),
+  module: N3,
+  store: N3.Store(),
+  parser: N3.Parser(),
   prefixes,
-  writer: N3.N3.Writer(null, { prefixes }),
+  writer: N3.Writer(null, { prefixes }),
   tripleCount: 0,
   subjects: {},
   processing: false,
@@ -30,20 +33,21 @@ const state = {
 /* eslint no-console: ["error", { allow: ["log"] }] */
 
 const getters = {
-  getTriples: s => p => s.store.getTriples(p.subject, p.predicate, p.object),
+  getTriples: s => p => s.store.getQuads(p.subject, p.predicate, p.object, p.graph),
   getTitle: (s, g) => (subject) => {
     const type = g.getType(subject);
-    switch (type) {
+    switch (type.id) {
       case 'https://vocabs.acdh.oeaw.ac.at/schema#person':
       case 'https://vocabs.acdh.oeaw.ac.at/schema#Person':
-        const fn = s.store.getTriples(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasFirstName')[0].object;
-        const ln = s.store.getTriples(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasLastName')[0].object;
-        return `${fn} ${ln}`;
-      default: return s.store.getTriples(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle')[0].object;
+        const fn = s.store.getQuads(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasFirstName')[0].object.id;
+        const ln = s.store.getQuads(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasLastName')[0].object.id;
+        const r = {id: `${fn} ${ln}`};
+        return r;
+      default: return s.store.getQuads(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle')[0].object;
     }
   },
-  getType: s => subject => s.store.getTriples(subject, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')[0].object,
-  getCount: s => s.tripleCount,
+  getType: s => subject => s.store.getQuads(subject, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')[0].object,
+  getCount: s => s.size,
 };
 
 export default {

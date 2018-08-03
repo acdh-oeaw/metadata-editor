@@ -4,7 +4,7 @@
 
 const mutations = {
   updateTripleCount(s) {
-    s.tripleCount = s.store.countTriples(null, null, null, null);
+    s.tripleCount = s.store.countQuads(null, null, null, null);
   },
   /*
     fetch all subjects and corresponding objects for wich the predicate is
