@@ -4,9 +4,6 @@ import mutations from './mutations';
 
 const N3 = require('n3');
 
-console.log(N3);
-// const N3 = require('./n3-browser.js');
-
 const prefixes = {
   acdh: 'https://vocabs.acdh.oeaw.ac.at/schema#',
   acdhi: 'https://id.acdh.oeaw.ac.at/',
