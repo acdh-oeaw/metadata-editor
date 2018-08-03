@@ -72,6 +72,9 @@ export default {
     getCount() {
       this.getRoot();
     },
+    n3() {
+      this.getRoot();
+    },
   },
   methods: {
     getRoot() {

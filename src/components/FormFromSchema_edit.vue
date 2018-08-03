@@ -1,14 +1,24 @@
 <!-- formFromSchema for edit functionality. -->
 <template>
   <v-card>
-    <v-toolbar dark color="primary" fixed v-if="edit">
+    <v-snackbar color="success" top :timeout="snackTimeout" v-model="snackbar">
+      Successfully added entity!
+      <v-btn
+        color="dark"
+        flat
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
+    <v-toolbar dark color="primary" fixed>
       <v-btn icon dark @click.native="setDialog({ name, obj: { query: {} } });">
         <v-icon>close</v-icon>
       </v-btn>
       <v-toolbar-title>Edit Subject</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat variant="primary" @click="saveChanges();">Save Changes</v-btn>
+        <v-btn flat variant="primary" @click="saveChanges(); setDialog({ name, obj: { query: {} } });">Save Changes</v-btn>
         <v-btn flat variant="primary" @click="submit">Add as new Entity</v-btn>
         <v-btn flat @click="resetForm();" variant="secondary">Reset Form</v-btn>
       </v-toolbar-items>
@@ -65,6 +75,8 @@ export default {
     name: 'editsubjectdialog',
     blacklistRegex: /^is*/, // for name like
     verboseEntityDescription: '',
+    snackbar: false,
+    snackTimeout: 3000,
   }),
   methods: {
     ...mapMutations('JSONschema', [
@@ -128,6 +140,7 @@ export default {
       we need to filter out objects and split them further into triples
       */
       this.objectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema });
+      this.snackbar = true;
     },
     /*
     sets the mapping in formFromShcema for each type (taken the actual schema)
