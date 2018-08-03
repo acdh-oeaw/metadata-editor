@@ -4,6 +4,8 @@ import axios from 'axios';
 
 /* eslint no-console: ["error", { allow: ["log"] }] */
 /* eslint-disable spaced-comment */
+/* eslint-disable arrow-body-style */
+
 // this could go to an external file, to be excluded from commits etc
 const CONFIG = {
   ARCHE: {

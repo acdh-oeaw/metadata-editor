@@ -114,7 +114,6 @@ export default {
       const query = this.TriplesToObject(this.getTriples({ subject: this.uri }));
       this.queryToEntry({ name: 'edit', query, type });
       this.setDialog({ name: 'editsubjectdialog', obj: { status: true } });
-
     },
   },
   mounted() {

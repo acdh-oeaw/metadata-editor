@@ -94,7 +94,6 @@ export default {
       this.verboseEntityDescription = s;
     },
     saveChanges() {
-
       this.$debug('saveChanges, old model, new model', this.oldModel, this.model);
       // this.$debug('saveChanges, old model, new model', this.oldModel, this.model);
       if (this.oldModel.hasIdentifier) {
@@ -135,7 +134,7 @@ export default {
     to the FormComponentWrapper, which handels the further mapping to actual components.
     */
     setComponents() {
-      this.$debug('setComponents: schema:', this.schema)
+      this.$debug('setComponents: schema:', this.schema);
       const TYPES1 = [];
 
       const fields = Object.keys(this.schema.properties);

@@ -35,7 +35,7 @@ export default {
   computed: {
     tabs() {
       return this.$store.state.JSONschema.tabs;
-    }
+    },
   },
   methods: {
     ...mapMutations('JSONschema', [
@@ -53,19 +53,20 @@ export default {
       this.deleteOldSessions();
       this.initAllSchemas();
     },
-    /* used to initialize schemas so they are ready to be worked with
+    /*
+    used to initialize schemas so they are ready to be worked with
     */
-    initSchema (type) {
+    initSchema(type) {
       this.$info('init Schema:', type);
       if (!type) { return; }
       if (this.$store.state.JSONschema.schemas && this.$store.state.JSONschema.schemas[type]) {
-        return; //already there
-      } else {
-        this.getMetadataByType(type).then((res) => {
-          // this.$log('Fetching Metadata', type, res);
-          this.setSchema( {name: type, schema: res });
-        });
+        return; // already there
       }
+
+      this.getMetadataByType(type).then((res) => {
+        // this.$log('Fetching Metadata', type, res);
+        this.setSchema({ name: type, schema: res });
+      });
     },
     initAllSchemas() {
       this.$debug('init all Schemas');
