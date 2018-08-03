@@ -11,7 +11,7 @@
         </p>
         <p>
           Your file's size: {{ result.length }}
-        </p>
+        </p> 
         <p>
           Calculated Localstorage Space left: {{ ($store.state.localStorageInfo.localStorageLimit || 5200000) - ($store.state.localStorageInfo.currentStoreLength || 0) }}
         </p>
