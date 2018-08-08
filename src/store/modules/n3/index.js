@@ -38,7 +38,7 @@ const getters = {
       case 'https://vocabs.acdh.oeaw.ac.at/schema#Person':
         const fn = s.store.getQuads(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasFirstName')[0].object.id;
         const ln = s.store.getQuads(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasLastName')[0].object.id;
-        const r = {id: `${fn} ${ln}`};
+        const r = { id: `${fn} ${ln}` };
         return r;
       default: return s.store.getQuads(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle')[0].object;
     }

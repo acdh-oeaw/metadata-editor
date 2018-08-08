@@ -8,10 +8,10 @@
 // some helper functions iso mixin
 function RemovePrefix(str) {
   if (str.id && str.id.search(/b\d/) > -1) {
-    str.id = str.id.replace(/b\d_/, '');
-    return str;
-  }
-  else if (str.id) return str;
+    const retStr = str;
+    retStr.id = str.id.replace(/b\d_/, '');
+    return retStr;
+  } else if (str.id) return str;
   else if (str.search(/b\d/) > -1) {
     return str.replace(/b\d_/, '');
   }
@@ -35,7 +35,7 @@ const actions = {
      blank namespaces before adding the triple, never called directly
      see http://rubenverborgh.github.io/N3.js/docs/N3Store.html#section-124 */
   AddFilteredTriple({ state }, quad) {
-    console.log(quad);
+    this._vm.$log(quad);
     state.store.addQuad(
       RemovePrefix(quad.subject),
       quad.predicate,
