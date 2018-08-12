@@ -23,7 +23,9 @@ const newobjpattern = /_:.*/;
 
 
 const actions = {
-  AddTriple({ state }, quad) {
+  /* Adds triple to Store
+     for internal use only, does not update exposed props! */
+  AddTriple({ state, commit }, quad) {
     state.store.addQuad(
       quad.subject,
       quad.predicate,
@@ -31,18 +33,8 @@ const actions = {
       quad.graph,
     );
   },
-  /* special action to remove the prefixes n3.js automatically adds when parsing
-     blank namespaces before adding the triple, never called directly
-     see http://rubenverborgh.github.io/N3.js/docs/N3Store.html#section-124 */
-  AddFilteredTriple({ state }, quad) {
-    this._vm.$log(quad);
-    state.store.addQuad(
-      RemovePrefix(quad.subject),
-      quad.predicate,
-      RemovePrefix(quad.object),
-      quad.graph,
-    );
-  },
+  /* Removes Secific Triple from Store
+     for internal use only, does not update exposed props! */
   RemoveTriple({ state }, quad) {
     state.store.removeQuad(
       quad.subject,
@@ -51,8 +43,38 @@ const actions = {
       quad.graph,
     );
   },
-  RemoveSubject({ state, dispatch, commit }, subject) {
+  /* special action to remove the prefixes n3.js automatically adds
+     when parsing blank namespaces
+     see http://rubenverborgh.github.io/N3.js/docs/N3Store.html#section-124
+     for internal use only, does not update exposed props! */
+  AddFilteredTriple({ state }, quad) {
+    state.store.addQuad(
+      RemovePrefix(quad.subject),
+      quad.predicate,
+      RemovePrefix(quad.object),
+      quad.graph,
+    );
+  },
+  /* high lvl action parsing a string into triples and subsequently
+     saving it to the N3.js store   */
+  StringToStore({ state, commit, dispatch }, string) {
     commit('startProcessing', 'Loading File to Store...');
+    state.parser.parse(string, (error, triple) => {
+      if (triple) {
+        dispatch('AddFilteredTriple', triple);
+      } else {
+        dispatch('writeTTL');
+        commit('updateSubject');
+        commit('stopProcessing');
+        commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
+        this._vm.$info('Added String to Store');
+      }
+    });
+  },
+  /* high lvl action removing all triples with a given subject from the store
+     saving it to the N3.js store   */
+  RemoveSubject({ state, dispatch, commit }, subject) {
+    commit('startProcessing', 'Removing set of Triples...');
     const triples = state.store.getQuads(
       subject,
       null,
@@ -64,28 +86,10 @@ const actions = {
       dispatch('RemoveTriple', triples[i]);
     }
     dispatch('writeTTL');
-    commit('updateTripleCount');
     commit('updateSubject');
     commit('stopProcessing');
     commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
     this._vm.$info(`Removed ${triples.length} triples from Store`);
-  },
-  /* high lvl action parsing a TTL file into triples and subsequently
-     saving it to the N3.js store   */
-  StringToStore({ state, commit, dispatch }, string) {
-    commit('startProcessing', 'Loading File to Store...');
-    state.parser.parse(string, (error, triple) => {
-      if (triple) {
-        dispatch('AddFilteredTriple', triple);
-      } else {
-        dispatch('writeTTL');
-        commit('updateTripleCount');
-        commit('updateSubject');
-        commit('stopProcessing');
-        commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
-        this._vm.$info('Added String to Store');
-      }
-    });
   },
   /*  high level action parsing JSON from a form into triples and subsequently
      saving it to the N3.js store */
@@ -130,7 +134,6 @@ const actions = {
       }
     }
     dispatch('writeTTL');
-    commit('updateTripleCount');
     commit('updateSubject');
     commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
     commit('stopProcessing');

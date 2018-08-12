@@ -11,12 +11,11 @@ const prefixes = {
 
 
 const state = {
+  prefixes,
   module: N3,
   store: N3.Store(),
   parser: N3.Parser(),
-  prefixes,
   writer: N3.Writer(null, { prefixes }),
-  tripleCount: 0,
   subjects: {},
   processing: false,
   processingMessage: '',
@@ -24,6 +23,7 @@ const state = {
   p: ['ttlString'],
   stored: true,
   deletePrompt: true,
+  update: 0,
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -44,7 +44,8 @@ const getters = {
     }
   },
   getType: s => subject => s.store.getQuads(subject, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')[0].object,
-  getCount: s => s.size,
+  getCount: s => s.store.size,
+  getUpdate: s => s.update,
 };
 
 export default {

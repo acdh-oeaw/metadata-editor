@@ -3,9 +3,6 @@
 /* eslint-disable no-underscore-dangle */
 
 const mutations = {
-  updateTripleCount(s) {
-    s.tripleCount = s.store.countQuads(null, null, null, null);
-  },
   /*
     fetch all subjects and corresponding objects for wich the predicate is
     http://www.w3.org/1999/02/22-rdf-syntax-ns#type and cache them
@@ -21,15 +18,15 @@ const mutations = {
     s.processingMessage = message || 'Processing...';
   },
   stopProcessing(s) {
-    this._vm.$info('stopProcessing called');
     s.processingMessage = '';
     s.processing = false;
+    s.update = Date.now();
   },
   updateTtlString(s, ttlString) {
     s.ttlString = ttlString;
   },
   resetWriter(s) {
-    s.writer = s.module.Writer(null, { prefixes: { acdh: 'https://vocabs.acdh.oeaw.ac.at/schema#' } });
+    s.writer = s.module.Writer(null, { prefixes: s.prefixes });
   },
   updateStorageStatus(s, bool) {
     s.stored = bool;
