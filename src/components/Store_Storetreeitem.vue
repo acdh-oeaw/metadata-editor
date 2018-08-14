@@ -64,7 +64,7 @@ export default {
   },
   computed: {
     ...mapGetters('n3', [
-      'getTriples',
+      'getQuads',
       'getTitle',
       'getType',
     ]),
@@ -81,7 +81,7 @@ export default {
       'queryToEntry',
     ]),
     getChildren(uri) {
-      const children = this.getTriples(
+      const children = this.getQuads(
         { predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
           object: uri,
         });
@@ -110,7 +110,7 @@ export default {
     edit() {
       this.dialog = true;
       const type = this.nameToType(this.getType(this.uri.id).id);
-      const query = this.TriplesToObject(this.getTriples({ subject: this.uri.id }));
+      const query = this.QuadsToObject(this.getQuads({ subject: this.uri.id }));
       this.queryToEntry({ name: 'edit', query, type });
       this.setDialog({ name: 'editsubjectdialog', obj: { status: true } });
     },

@@ -112,11 +112,11 @@ export default {
         const id = Array.isArray(this.oldModel.hasIdentifier) ?
           this.oldModel.hasIdentifier[0] : this.oldModel.hasIdentifier;
         this.$debug('id', id);
-        const subjectTriple = this.getTriples({ subject: null, predicate: null, object: id });
-        this.$debug('subjectTriple', subjectTriple);
-        if (subjectTriple && subjectTriple[0]) {
-          this.$debug('delete: ', subjectTriple[0].subject);
-          this.RemoveSubject(subjectTriple[0].subject);
+        const subjectQuad = this.getQuads({ subject: null, predicate: null, object: id });
+        this.$debug('subjectQuad', subjectQuad);
+        if (subjectQuad && subjectQuad[0]) {
+          this.$debug('delete: ', subjectQuad[0].subject);
+          this.RemoveSubject(subjectQuad[0].subject);
           this.objectToStore({
             obj: this.filterModelBeforeUpload(this.model),
             schema: this.schema,
@@ -141,7 +141,7 @@ export default {
       this.$info('FormFromSchema', 'submit()', JSON.stringify(this.model));
       // here everything -> n3 store.
       /* before calling objectToStore,
-      we need to filter out objects and split them further into triples
+      we need to filter out objects and split them further into quads
       */
       this.objectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema });
       this.snackbar = true;
@@ -218,7 +218,7 @@ export default {
   },
   computed: {
     ...mapGetters('n3', [
-      'getTriples',
+      'getQuads',
     ]),
   },
   created() {

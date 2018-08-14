@@ -29,7 +29,7 @@ const state = {
 /* eslint no-console: ["error", { allow: ["log"] }] */
 
 const getters = {
-  getTriples: s => p => s.store.getQuads(p.subject, p.predicate, p.object, p.graph),
+  getQuads: s => p => s.store.getQuads(p.subject, p.predicate, p.object, p.graph),
   getTitle: (s, g) => (subject) => {
     const type = g.getType(subject);
     switch (type.id) {
@@ -54,7 +54,7 @@ const getters = {
   },
   getType: s => subject => s.store.getQuads(subject, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')[0].object,
   // The object returned in getCount has to be inside an array for some reason
-  getCount: s => [{ triples: s.store.size, subjects: s.store.getSubjects().length }],
+  getCount: s => [{ quads: s.store.size, subjects: s.store.getSubjects().length }],
   getUpdate: s => s.update,
 };
 

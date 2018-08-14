@@ -898,7 +898,7 @@ Constructs the entire (parent) hierarchy for a class
 	@param target class, individuals of array of them, or null
 	@return jOWL.Array of Restrictions
 	*/
-	sourceof : function(property, target, options){		
+	sourceof : function(property, target, options){
 		options = $.extend({
 			inherited : true, // add restrictions specified on parents as well
 			transitive : true, //expand on transitive relations too

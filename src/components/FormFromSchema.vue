@@ -76,7 +76,7 @@ export default {
       this.$info('FormFromSchema', 'submit()', this.model);
       // here everything -> n3 store.
       /* before calling objectToStore,
-      we need to filter out objects and split them further into triples
+      we need to filter out objects and split them further into quads
       */
       this.objectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema });
     },

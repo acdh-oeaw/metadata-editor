@@ -138,7 +138,7 @@ Changes the <code>processing</code> back to <code>false</code> and deletes any p
 ## N3
 Store module for wrapping [n3.js](https://github.com/RubenVerborgh/N3.js/) and using its functionalities to
 * load existing ttl-files into the store
-* load new triples into the store  
+* load new quads into the store  
 
 ### Requirements
 
@@ -151,61 +151,61 @@ Store module for wrapping [n3.js](https://github.com/RubenVerborgh/N3.js/) and u
 |Name | Type | What Is Stored | Mutated by |
 |--|--|--|--|
 | module | <code>N3-Object</code>| contains the whole functionality of N3 in one object | initialized at the beginning from n3.js. after that it doesn't require changes. |
-|store | <code>N3-Object</code> | calls [N3.Store()](https://github.com/RubenVerborgh/N3.js/#storing), which enables using functions such as addTriple and getTriples  ([Reference](https://github.com/RubenVerborgh/N3.js/#addition-and-deletion-of-triplesquads)) | initialized at the beginning from n3.js. after that it doesn't require changes. |
+|store | <code>N3-Object</code> | calls [N3.Store()](https://github.com/RubenVerborgh/N3.js/#storing), which enables using functions such as addQuad and getQuads  ([Reference](https://github.com/RubenVerborgh/N3.js/#addition-and-deletion-of-quadsquads)) | initialized at the beginning from n3.js. after that it doesn't require changes. |
 | parser | <code>N3-Object</code> | is initialized from [N3.Parser()](https://github.com/RubenVerborgh/N3.js/#parsing), used for parsing strings to the Store | initialized at the beginning from n3.js. after that it doesn't require changes. |
-| tripleCount | <code>Int</code> |  number of triples in the store | [updateTripleCount](#updateTripleCount) |
+| quadCount | <code>Int</code> |  number of quads in the store | [updateQuadCount](#updateQuadCount) |
 | subjects | <code>Object</code> | maps names of each subject to its type.  | [updateSubject](#updateSubject) |
 | processing | <code>Boolean</code> | showing if something is being processed right now. | [startProcessing](#startProcessing-1)<br>[stopProcessing](#stopProcessing-1) |
 | processingMessage | <code>String</code>  | A message containing information about what is being processed right now. Can be shown to user. | [startProcessing](#startProcessing-1)<br>[stopProcessing](#stopProcessing-1)|
-| counter | <code>Int</code>  | An internal counter to ensure that new inserts can be grouped to one and the same name, gets increased after each manual add of triples via [FormFromSchema](/components#FormFromSchema) | [increaseCounter](#increaseCounter)|
+| counter | <code>Int</code>  | An internal counter to ensure that new inserts can be grouped to one and the same name, gets increased after each manual add of quads via [FormFromSchema](/components#FormFromSchema) | [increaseCounter](#increaseCounter)|
 | auid | <code>String</code>  | Short for "almost unique identifier", creates a unique id at the beginning of your session to use for your subjects and avoid overlapping | initialized at the beginning from n3.js. after that it doesn't require changes.|
 
 
 ### Actions
-#### AddTriple
-Adds a triple object to the store using N3s addTriple function via [state.store.addTriple](https://github.com/RubenVerborgh/N3.js/#writing) (which is just the n3.js function of adding triples)
-after that [updateTripleCount](#updateTripleCount) and [updateSubject](#updateSubject) are committed.
+#### AddQuad
+Adds a quad object to the store using N3s addQuad function via [state.store.addQuad](https://github.com/RubenVerborgh/N3.js/#writing) (which is just the n3.js function of adding quads)
+after that [updateQuadCount](#updateQuadCount) and [updateSubject](#updateSubject) are committed.
 
 ##### Parameters
 | Param | Type | Description |
 | --- | --- | --- |
-| triple | <code>Object</code> | The triple object that will be added to the store. it looks like this:<br>```{subject:'s', predicate: 'p', object: 'o'}```  (All attributes are strings) |
+| quad | <code>Object</code> | The quad object that will be added to the store. it looks like this:<br>```{subject:'s', predicate: 'p', object: 'o'}```  (All attributes are strings) |
 ##### Commits
-* [updateTripleCount](#updateTripleCount)
+* [updateQuadCount](#updateQuadCount)
 * [updateSubject](#updateSubject)
 
-#### AddFilteredTriple
-Calls the [RemovePrefix](#RemovePrefix) function on the subject and object of the triple to remove the prefixes n3.js automatically adds when parsing blank namespaces before adding it to the store using [AddTriple](#addTriple), never called directly, currently only used in [StringToStore](#StringToStore).
+#### AddFilteredQuad
+Calls the [RemovePrefix](#RemovePrefix) function on the subject and object of the quad to remove the prefixes n3.js automatically adds when parsing blank namespaces before adding it to the store using [AddQuad](#addQuad), never called directly, currently only used in [StringToStore](#StringToStore).
 ##### Parameters
 | Param | Type | Description |
 | --- | --- | --- |
-| triple | <code>Object</code> | The triple object that will be added to the store. it looks like this:<br>```{subject:'s', predicate: 'p', object: 'o'}```  (All attributes are strings) |
+| quad | <code>Object</code> | The quad object that will be added to the store. it looks like this:<br>```{subject:'s', predicate: 'p', object: 'o'}```  (All attributes are strings) |
 
 #### StringToStore
-High level action parsing a .ttl file into triples and subsequently saving them to the store.
+High level action parsing a .ttl file into quads and subsequently saving them to the store.
 for that it uses n3s parse function via [state.parser.parse](https://github.com/RubenVerborgh/N3.js/#parsing).
 
-after there are no triples, [updateTripleCount](#updateTripleCount-1) and [updateSubject](#updateSubject) are trigered as well as [stopProcessing](#stopProcessing-1) (before fetching triples [startProcessing](#startProcessing-1) is called).
+after there are no quads, [updateQuadCount](#updateQuadCount-1) and [updateSubject](#updateSubject) are trigered as well as [stopProcessing](#stopProcessing-1) (before fetching quads [startProcessing](#startProcessing-1) is called).
 ##### Parameters
 | Param | Type | Description |
 | --- | --- | --- |
 | string | <code>String</code> | The string which is being parsed |
 ##### Commits
 * [startProcessing](#startProcessing-1)
-* [updateTripleCount](#updateTripleCount)
+* [updateQuadCount](#updateQuadCount)
 * [updateSubject](#updateSubject)
 * [stopProcessing](#stopProcessing-1)
 
 ##### Dispatches
-* [AddFilteredTriple](#AddFilteredTriple)
+* [AddFilteredQuad](#AddFilteredQuad)
 
 #### objectToStore
-High level action parsing a JS-object into triples and subsequently saving them to the store.
+High level action parsing a JS-object into quads and subsequently saving them to the store.
 used to insert data from [FormFromSchema](/components#FormFromSchema) to manually insert them to the store.
 
-After committing [startProcessing](#startProcessing-1) a first triple for the type is manually added using AddTriple. this is necessary, because the [ARCHE-API](https://fedora.hephaistos.arz.oeaw.ac.at/browser/api/getMetadata/person/?_format=json) returns the type of a schema at an extra attribute ID.
+After committing [startProcessing](#startProcessing-1) a first quad for the type is manually added using AddQuad. this is necessary, because the [ARCHE-API](https://fedora.hephaistos.arz.oeaw.ac.at/browser/api/getMetadata/person/?_format=json) returns the type of a schema at an extra attribute ID.
 
-the first triple's predicate is: http://www.w3.org/1999/02/22-rdf-syntax-ns#type
+the first quad's predicate is: http://www.w3.org/1999/02/22-rdf-syntax-ns#type
 
 
 Then in a loop each predicate-object pair is added with the unique id of '\_\:b\$\{state.counter\}_manual' as subject.
@@ -214,7 +214,7 @@ NOTE: Only pairs, which values is equal to true (=not empty or null) are added, 
 after everything is done, the 4 updates are committed:
 ##### Commits
 * [increaseCounter](#increaseCounter-1)
-* [updateTripleCount](#updateTripleCount)
+* [updateQuadCount](#updateQuadCount)
 * [updateSubject](#updateSubject)
 * [stopProcessing](#stopProcessing-1)
 
@@ -239,15 +239,15 @@ after everything is done, the 4 updates are committed:
 "isHosting":"","isLicensor":"","isMember":"","isMetadataCreator":"","isOwner":"",
 "isPrincipalInvestigator":"","isRightsHolder":""}
 ```
-Since everything except address and description are empty only 3 triples would be added.
-All with the same unique subject name. the first triple would be about the type.
+Since everything except address and description are empty only 3 quads would be added.
+All with the same unique subject name. the first quad would be about the type.
 
 ##### Dispatches
-* [AddTriple](#AddTriple)
+* [AddQuad](#AddQuad)
 
 ### Mutations
-#### updateTripleCount
-Updates the triple counter with the current triple count using n3s [store.countTriples function](https://github.com/RubenVerborgh/N3.js/#searching-triplesquads-or-entities).
+#### updateQuadCount
+Updates the quad counter with the current quad count using n3s [store.countQuads function](https://github.com/RubenVerborgh/N3.js/#searching-quadsquads-or-entities).
 #### increaseCounter
 Increases the counter used to give subjects unique IDs by one.
 #### updateSubject
@@ -262,7 +262,7 @@ Changes the <code>processing</code> variable in the store to <code>true</code>, 
 Changes the <code>processing</code> back to <code>false</code> and deletes any processing Message.
 ### Others
 #### RemovePrefix
-Checks and removes prefixes from triples which are automatically added by n3.js when parsing blank namespaces.
+Checks and removes prefixes from quads which are automatically added by n3.js when parsing blank namespaces.
 ##### Parameters
 | Param | Type | Description |
 | --- | --- | --- |
@@ -351,7 +351,7 @@ calls [testLimit](#testLimit) only if there is localStorageLimit does not have a
 #### testLimit
 
 This function is designed to test the limit of the local storage with an accuracy of 1000 chars.
-this is to give the user a rough estimate of how many triples he will be able to store in the localStorage. after that he/she has to download the progress and readd it via the file upload functionality.
+this is to give the user a rough estimate of how many quads he will be able to store in the localStorage. after that he/she has to download the progress and readd it via the file upload functionality.
 
 ##### functionality
 
@@ -382,7 +382,7 @@ On the Modal the user has the option to reload their old session or discard them
 
 ### ClearCacheModal
 
-This modal provides the functionality to delete all the cached information, including  information about how many triples will be deleted.
+This modal provides the functionality to delete all the cached information, including  information about how many quads will be deleted.
 
 If the user clicks the 'Clear Everything' button, the local storage entry is deleted and the page is reloaded which leads to a fresh start of the application.
 

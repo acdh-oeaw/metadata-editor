@@ -5,7 +5,7 @@
         <a class="bd-toc-link" href="#">Store Stats</a>
       </div>
       <div class="bd-toc-item">
-        {{ getCount[0].triples }} Triples
+        {{ getCount[0].quads }} Quads
       </div>
       <div class="bd-toc-item">
         {{ getCount[0].subjects }} Subjects
@@ -25,7 +25,7 @@
       </div>
       <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
       Space for ~{{ Math.floor(($store.state.localStorageInfo.localStorageLimit - $store.state.localStorageInfo.currentStoreLength)
-      *(getCount[0].triples/$store.state.localStorageInfo.currentStoreLength) ) }} Triples left.
+      *(getCount[0].quads/$store.state.localStorageInfo.currentStoreLength) ) }} Quads left.
       </div>
       <v-alert color="success" show v-if="$store.state.n3.stored">All Stored</v-alert>
       <v-alert color="error" show v-if="!$store.state.n3.stored">Quota Exceeded</v-alert>

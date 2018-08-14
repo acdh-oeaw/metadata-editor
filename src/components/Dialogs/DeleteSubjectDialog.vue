@@ -6,9 +6,9 @@
         Delete Subject
       </v-card-title>
       <v-card-text color="primary">
-        Are you sure you want to delete the following triples?
+        Are you sure you want to delete the following quads?
         <v-data-table
-          :items="triples"
+          :items="quads"
           hide-actions
         >
           <template slot="items" slot-scope="props">
@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     ...mapGetters('n3', [
-      'getTriples',
+      'getQuads',
     ]),
     uri() {
       return this.$store.state.dialogs[this.name].uri;
@@ -55,7 +55,7 @@ export default {
   data() {
     return {
       checkbox: false,
-      triples: [],
+      quads: [],
       name: 'deletesubjectdialog',
     };
   },
@@ -65,7 +65,7 @@ export default {
     },
     uri(oldVal, newVal) {
       this.$debug('updated uri:', oldVal, newVal);
-      this.triples = (this.getTriples({ subject: this.uri }));
+      this.quads = (this.getQuads({ subject: this.uri }));
     },
   },
   mixins: [HELPERS],
