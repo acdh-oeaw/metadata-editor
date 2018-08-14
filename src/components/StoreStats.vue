@@ -8,7 +8,7 @@
         {{ getCount }} Triples
       </div>
       <div class="bd-toc-item">
-        {{ Object.keys($store.state.n3.subjects).length }} Subjects
+        {{ Object.keys(this.$store.state.n3.subjects).length }} Subjects
       </div>
       <div class="bd-toc-item">
         {{ $store.state.localStorageInfo.currentStoreLength }} Current Store Length
@@ -87,6 +87,7 @@ export default {
   computed: {
     ...mapGetters('n3', [
       'getCount',
+      'getSubjectCount',
     ]),
   },
 };

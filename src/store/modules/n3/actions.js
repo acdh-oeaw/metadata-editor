@@ -64,7 +64,7 @@ const actions = {
         dispatch('AddFilteredTriple', triple);
       } else {
         dispatch('writeTTL');
-        commit('updateSubject');
+        dispatch('updateSubject');
         commit('stopProcessing');
         commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
         this._vm.$info('Added String to Store');
@@ -86,7 +86,7 @@ const actions = {
       dispatch('RemoveTriple', triples[i]);
     }
     dispatch('writeTTL');
-    commit('updateSubject');
+    dispatch('updateSubject');
     commit('stopProcessing');
     commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
     this._vm.$info(`Removed ${triples.length} triples from Store`);
@@ -134,7 +134,7 @@ const actions = {
       }
     }
     dispatch('writeTTL');
-    commit('updateSubject');
+    dispatch('updateSubject');
     commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
     commit('stopProcessing');
   },
@@ -150,6 +150,16 @@ const actions = {
     this._vm.$info('constructN3({ pState })', JSON.stringify(pState));
     const ttlString = pState.n3.ttlString;
     dispatch('StringToStore', ttlString);
+  },
+  /*
+    fetch all subjects and corresponding objects for wich the predicate is
+    http://www.w3.org/1999/02/22-rdf-syntax-ns#type and cache them
+    should be commited every time a modification is made to the N3 store
+  */
+  updateSubject({ state }) {
+    state.store.forSubjects((res) => {
+      state.subjects[res.id] = state.store.getObjects(res.id, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', null)[0];
+    }, null, null, null);
   },
 };
 
