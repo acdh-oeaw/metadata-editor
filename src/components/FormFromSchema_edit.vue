@@ -117,7 +117,11 @@ export default {
         if (subjectTriple && subjectTriple[0]) {
           this.$debug('delete: ', subjectTriple[0].subject);
           this.RemoveSubject(subjectTriple[0].subject);
-          this.objectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema, id: id });
+          this.objectToStore({
+            obj: this.filterModelBeforeUpload(this.model),
+            schema: this.schema,
+            id: id,
+          });
           this.oldModel = JSON.parse(JSON.stringify(this.model));
         }
       }

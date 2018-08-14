@@ -5,7 +5,7 @@
         <a class="bd-toc-link" href="#">Store Stats</a>
       </div>
       <div class="bd-toc-item">
-        {{ $store.state.n3.tripleCount }} Triples
+        {{ getCount }} Triples
       </div>
       <div class="bd-toc-item">
         {{ Object.keys($store.state.n3.subjects).length }} Subjects
@@ -25,7 +25,7 @@
       </div>
       <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
       Space for ~{{ Math.floor(($store.state.localStorageInfo.localStorageLimit - $store.state.localStorageInfo.currentStoreLength)
-      *($store.state.n3.tripleCount/$store.state.localStorageInfo.currentStoreLength) ) }} Triples left.
+      *(getCount/$store.state.localStorageInfo.currentStoreLength) ) }} Triples left.
       </div>
       <v-alert color="success" show v-if="$store.state.n3.stored">All Stored</v-alert>
       <v-alert color="error" show v-if="!$store.state.n3.stored">Quota Exceeded</v-alert>
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions, mapMutations, mapGetters } from 'vuex';
 import HELPERS from '../helpers';
 import ClearCacheDialog from './Dialogs/ClearCacheDialog';
 
@@ -82,6 +82,11 @@ export default {
     ...mapActions('localStorageInfo', [
       'safeLimitTest',
       'testLimit',
+    ]),
+  },
+  computed: {
+    ...mapGetters('n3', [
+      'getCount',
     ]),
   },
 };

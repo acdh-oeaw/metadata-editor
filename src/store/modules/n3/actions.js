@@ -65,7 +65,6 @@ const actions = {
       } else {
         dispatch('writeTTL');
         commit('updateSubject');
-        commit('updateTripleCount');
         commit('stopProcessing');
         commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
         this._vm.$info('Added String to Store');
@@ -88,7 +87,6 @@ const actions = {
     }
     dispatch('writeTTL');
     commit('updateSubject');
-    commit('updateTripleCount');
     commit('stopProcessing');
     commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
     this._vm.$info(`Removed ${triples.length} triples from Store`);
@@ -136,7 +134,6 @@ const actions = {
       }
     }
     dispatch('writeTTL');
-    commit('updateTripleCount');
     commit('updateSubject');
     commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
     commit('stopProcessing');
