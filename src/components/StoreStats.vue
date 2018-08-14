@@ -5,10 +5,10 @@
         <a class="bd-toc-link" href="#">Store Stats</a>
       </div>
       <div class="bd-toc-item">
-        {{ getCount[0].quads }} Quads
+        {{ getCount.quads }} Quads
       </div>
       <div class="bd-toc-item">
-        {{ getCount[0].subjects }} Subjects
+        {{ getCount.subjects }} Subjects
       </div>
       <div class="bd-toc-item">
         {{ $store.state.localStorageInfo.currentStoreLength }} Current Store Length
