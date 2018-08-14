@@ -5,10 +5,10 @@
         <a class="bd-toc-link" href="#">Store Stats</a>
       </div>
       <div class="bd-toc-item">
-        {{ getCount }} Triples
+        {{ getCount[0].triples }} Triples
       </div>
       <div class="bd-toc-item">
-        {{ getSubjectCount }} Subjects
+        {{ getCount[0].subjects }} Subjects
       </div>
       <div class="bd-toc-item">
         {{ $store.state.localStorageInfo.currentStoreLength }} Current Store Length
@@ -87,7 +87,6 @@ export default {
   computed: {
     ...mapGetters('n3', [
       'getCount',
-      'getSubjectCount',
     ]),
   },
 };
