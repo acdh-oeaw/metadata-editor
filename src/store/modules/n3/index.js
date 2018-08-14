@@ -17,6 +17,7 @@ const state = {
   parser: N3.Parser(),
   writer: N3.Writer(null, { prefixes }),
   subjects: {},
+  tripleCount: 0,
   processing: false,
   processingMessage: '',
   ttlString: '',

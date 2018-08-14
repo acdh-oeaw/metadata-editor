@@ -65,6 +65,7 @@ const actions = {
       } else {
         dispatch('writeTTL');
         commit('updateSubject');
+        commit('updateTripleCount');
         commit('stopProcessing');
         commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
         this._vm.$info('Added String to Store');
@@ -87,14 +88,15 @@ const actions = {
     }
     dispatch('writeTTL');
     commit('updateSubject');
+    commit('updateTripleCount');
     commit('stopProcessing');
     commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
     this._vm.$info(`Removed ${triples.length} triples from Store`);
   },
   /*  high level action parsing JSON from a form into triples and subsequently
      saving it to the N3.js store */
-  objectToStore({ state, commit, dispatch }, { schema, obj }) {
-    const subject = `_:${schema.title}_${Date.now().valueOf().toString(36)}`;
+  objectToStore({ state, commit, dispatch }, { schema, obj, id }) {
+    const subject = id || `_:${schema.title}_${Date.now().valueOf().toString(36)}`;
     commit('startProcessing', 'Loading Object to Store...');
     // first triple for type
     const first = {
@@ -134,6 +136,7 @@ const actions = {
       }
     }
     dispatch('writeTTL');
+    commit('updateTripleCount');
     commit('updateSubject');
     commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
     commit('stopProcessing');

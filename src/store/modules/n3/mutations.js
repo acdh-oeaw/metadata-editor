@@ -3,6 +3,9 @@
 /* eslint-disable no-underscore-dangle */
 
 const mutations = {
+  updateTripleCount(s) {
+    s.tripleCount = s.store.countQuads(null, null, null, null);
+  },
   /*
     fetch all subjects and corresponding objects for wich the predicate is
     http://www.w3.org/1999/02/22-rdf-syntax-ns#type and cache them
