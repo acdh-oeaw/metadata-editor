@@ -23,9 +23,9 @@ const newobjpattern = /_:.*/;
 
 
 const actions = {
-  /* Adds triple to Store
+  /* Adds quad to Store
      for internal use only, does not update exposed props! */
-  AddTriple({ state, commit }, quad) {
+  AddQuad({ state, commit }, quad) {
     state.store.addQuad(
       quad.subject,
       quad.predicate,
@@ -33,9 +33,9 @@ const actions = {
       quad.graph,
     );
   },
-  /* Removes Secific Triple from Store
+  /* Removes Secific Quad from Store
      for internal use only, does not update exposed props! */
-  RemoveTriple({ state }, quad) {
+  RemoveQuad({ state }, quad) {
     state.store.removeQuad(
       quad.subject,
       quad.predicate,
@@ -47,7 +47,7 @@ const actions = {
      when parsing blank namespaces
      see http://rubenverborgh.github.io/N3.js/docs/N3Store.html#section-124
      for internal use only, does not update exposed props! */
-  AddFilteredTriple({ state }, quad) {
+  AddFilteredQuad({ state }, quad) {
     state.store.addQuad(
       RemovePrefix(quad.subject),
       quad.predicate,
@@ -55,55 +55,53 @@ const actions = {
       quad.graph,
     );
   },
-  /* high lvl action parsing a string into triples and subsequently
+  /* high lvl action parsing a string into quads and subsequently
      saving it to the N3.js store   */
   StringToStore({ state, commit, dispatch }, string) {
     commit('startProcessing', 'Loading File to Store...');
-    state.parser.parse(string, (error, triple) => {
-      if (triple) {
-        dispatch('AddFilteredTriple', triple);
+    state.parser.parse(string, (error, quad) => {
+      if (quad) {
+        dispatch('AddFilteredQuad', quad);
       } else {
         dispatch('writeTTL');
-        dispatch('updateSubject');
         commit('stopProcessing');
         commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
         this._vm.$info('Added String to Store');
       }
     });
   },
-  /* high lvl action removing all triples with a given subject from the store
+  /* high lvl action removing all quads with a given subject from the store
      saving it to the N3.js store   */
   RemoveSubject({ state, dispatch, commit }, subject) {
-    commit('startProcessing', 'Removing set of Triples...');
-    const triples = state.store.getQuads(
+    commit('startProcessing', 'Removing set of Quads...');
+    const quads = state.store.getQuads(
       subject,
       null,
       null,
       null,
     );
-    this._vm.$log(`${triples.length} triples found!`, triples);
-    for (let i = 0; i < triples.length; i += 1) {
-      dispatch('RemoveTriple', triples[i]);
+    this._vm.$log(`${quads.length} quads found!`, quads);
+    for (let i = 0; i < quads.length; i += 1) {
+      dispatch('RemoveQuad', quads[i]);
     }
     dispatch('writeTTL');
-    dispatch('updateSubject');
     commit('stopProcessing');
     commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
-    this._vm.$info(`Removed ${triples.length} triples from Store`);
+    this._vm.$info(`Removed ${quads.length} quads from Store`);
   },
-  /*  high level action parsing JSON from a form into triples and subsequently
+  /*  high level action parsing JSON from a form into quads and subsequently
      saving it to the N3.js store */
   objectToStore({ state, commit, dispatch }, { schema, obj, id }) {
     const subject = id || `_:${schema.title}_${Date.now().valueOf().toString(36)}`;
     commit('startProcessing', 'Loading Object to Store...');
-    // first triple for type
+    // first quad for type
     const first = {
       subject,
       predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
       object: schema.id,
     };
-    dispatch('AddFilteredTriple', first);
-    // parsing triples with props from form
+    dispatch('AddFilteredQuad', first);
+    // parsing quads with props from form
     const keys = Object.keys(obj);
     const values = Object.values(obj);
     for (let k = 0; k < keys.length; k += 1) {
@@ -111,36 +109,35 @@ const actions = {
         // if cardinality > 1
         if (Array.isArray(values[k])) {
           for (let i = 0; i < values[k].length; i += 1) {
-            const triple = {
+            const quad = {
               subject,
               predicate: `https://vocabs.acdh.oeaw.ac.at/schema#${keys[k]}`,
             };
             if (urlpattern.test(values[k][i]) || newobjpattern.test(values[k][i])) {
-              triple.object = values[k][i];
-            } else triple.object = `"${values[k][i]}"`;
-            dispatch('AddFilteredTriple', triple);
+              quad.object = values[k][i];
+            } else quad.object = `"${values[k][i]}"`;
+            dispatch('AddFilteredQuad', quad);
           }
         } else {
           // if cardinality = 1
-          const triple = {
+          const quad = {
             subject,
             predicate: `https://vocabs.acdh.oeaw.ac.at/schema#${keys[k]}`,
           };
           if (urlpattern.test(values[k]) || newobjpattern.test(values[k])) {
-            triple.object = values[k];
-          } else triple.object = `"${values[k]}"`;
-          dispatch('AddFilteredTriple', triple);
+            quad.object = values[k];
+          } else quad.object = `"${values[k]}"`;
+          dispatch('AddFilteredQuad', quad);
         }
       }
     }
     dispatch('writeTTL');
-    dispatch('updateSubject');
     commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
     commit('stopProcessing');
   },
   writeTTL({ state, commit }) {
-    const triples = state.store.getQuads();
-    state.writer.addQuads(triples);
+    const quads = state.store.getQuads();
+    state.writer.addQuads(quads);
     state.writer.end((error, result) => {
       commit('updateTtlString', result);
       commit('resetWriter');
@@ -150,16 +147,6 @@ const actions = {
     this._vm.$info('constructN3({ pState })', JSON.stringify(pState));
     const ttlString = pState.n3.ttlString;
     dispatch('StringToStore', ttlString);
-  },
-  /*
-    fetch all subjects and corresponding objects for wich the predicate is
-    http://www.w3.org/1999/02/22-rdf-syntax-ns#type and cache them
-    should be commited every time a modification is made to the N3 store
-  */
-  updateSubject({ state }) {
-    state.store.forSubjects((res) => {
-      state.subjects[res.id] = state.store.getObjects(res.id, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', null)[0];
-    }, null, null, null);
   },
 };
 

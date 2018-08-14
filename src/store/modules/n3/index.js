@@ -16,7 +16,6 @@ const state = {
   store: N3.Store(),
   parser: N3.Parser(),
   writer: N3.Writer(null, { prefixes }),
-  subjects: {},
   processing: false,
   processingMessage: '',
   ttlString: '',
@@ -30,21 +29,32 @@ const state = {
 /* eslint no-console: ["error", { allow: ["log"] }] */
 
 const getters = {
-  getTriples: s => p => s.store.getQuads(p.subject, p.predicate, p.object, p.graph),
+  getQuads: s => p => s.store.getQuads(p.subject, p.predicate, p.object, p.graph),
   getTitle: (s, g) => (subject) => {
     const type = g.getType(subject);
     switch (type.id) {
       case 'https://vocabs.acdh.oeaw.ac.at/schema#person':
       case 'https://vocabs.acdh.oeaw.ac.at/schema#Person':
-        const fn = s.store.getQuads(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasFirstName')[0].object.id;
-        const ln = s.store.getQuads(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasLastName')[0].object.id;
+        let fn = s.store.getQuads(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasFirstName', null, null);
+        if (fn[0] && fn[0].object && fn[0].object.id) {
+          fn = fn[0].object.id;
+        }
+
+        let ln = s.store.getQuads(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasLastName');
+        if (ln[0] && ln[0].object && ln[0].object.id) ln = ln[0].object.id;
         const r = { id: `${fn} ${ln}` };
         return r;
-      default: return s.store.getQuads(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle')[0].object;
+      default:
+        const d = s.store.getQuads(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle');
+        if (d[0] && d[0].object && d[0].object.id) {
+          return { id: d[0].object.id };
+        }
+        return { id: 'no id found' };
     }
   },
   getType: s => subject => s.store.getQuads(subject, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')[0].object,
-  getCount: s => s.store.size,
+  // The object returned in getCount has to be inside an array for some reason
+  getCount: s => [{ quads: s.store.size, subjects: s.store.getSubjects().length }],
   getUpdate: s => s.update,
 };
 

@@ -112,7 +112,7 @@ A Modal which gives you the option to clear your local store, it is opened by pr
 
 ## Create
 
-A content-level component containing the functionality to write new meta data entries to the triple store of the application and in the future to also upload those to the server. for that reason it contains the [FormFromSchema](#FormFromSchema)-component.
+A content-level component containing the functionality to write new meta data entries to the quad store of the application and in the future to also upload those to the server. for that reason it contains the [FormFromSchema](#FormFromSchema)-component.
 
 ### Imports
 
@@ -335,7 +335,7 @@ This Component is used to load .ttl files into the scope. Once you select a file
 
 ### Imports
 * [HELPERS](/helpers#helpers)
-* [tripleCount](#tripleCount)
+* [quadCount](#quadCount)
 * [StringToStore](#StringToStore)
 
 ## Modals
@@ -429,7 +429,7 @@ This component is used to load external .ttl files into the store. You can uploa
 * [Load](#load)
 * [Entities](#entities)
 * [HELPERS](/helpers#helpers)
-* [tripleCount](#tripleCount)
+* [quadCount](#quadCount)
 * [StringToStore](#StringToStore)
 
 ### Components
@@ -481,7 +481,7 @@ Loads the store of an old session to your current store, deletes the old session
 
 ## StoreStats
 
-StoreStats displays how many triples and subjects have been loaded into the store. It also provides a helpful download button, used to convert the whole store into a single .ttl file.
+StoreStats displays how many quads and subjects have been loaded into the store. It also provides a helpful download button, used to convert the whole store into a single .ttl file.
 
 ### Imports
 * [HELPERS](/helpers#helpers)

@@ -463,13 +463,13 @@ export default {
       }
       return `${y}/${m}/${d} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     },
-    TriplesToObject(triples) {
+    QuadsToObject(quads) {
       const params = {};
-      for (let i = 0; i < triples.length; i += 1) {
-        if (params[triples[i].predicate.id.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')]) {
-          params[triples[i].predicate.id.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')].push(triples[i].object.id.replace(/"/g, ''));
+      for (let i = 0; i < quads.length; i += 1) {
+        if (params[quads[i].predicate.id.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')]) {
+          params[quads[i].predicate.id.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')].push(quads[i].object.id.replace(/"/g, ''));
         } else {
-          params[triples[i].predicate.id.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')] = [triples[i].object.id.replace(/"/g, '')];
+          params[quads[i].predicate.id.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')] = [quads[i].object.id.replace(/"/g, '')];
         }
       }
       return params;
