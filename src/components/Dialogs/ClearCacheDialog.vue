@@ -6,8 +6,8 @@
         Clear Cache
       </v-card-title>
       <v-card-text color="primary">
-        Are you Sure to delete  {{ getCount }} Triples containing
-  {{ getSubjectCount }} Subjects from your Store? This can not be undone!
+        Are you Sure to delete  {{ getCount[0].triples }} Triples containing
+  {{ getCount[0].subjects }} Subjects from your Store? This can not be undone!
       </v-card-text>
       <v-card-actions>
         <v-btn @click="clearCache(); closeDialog(name);" large color="error">
@@ -48,7 +48,6 @@ export default {
   computed: {
     ...mapGetters('n3', [
       'getCount',
-      'getSubjectCount',
     ]),
   },
   created() {

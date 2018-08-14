@@ -64,7 +64,6 @@ export default {
   },
   computed: {
     ...mapGetters('n3', [
-      'getCount',
       'getTriples',
       'getTitle',
       'getType',
