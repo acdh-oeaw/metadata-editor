@@ -16,7 +16,6 @@ const state = {
   store: N3.Store(),
   parser: N3.Parser(),
   writer: N3.Writer(null, { prefixes }),
-  subjects: {},
   processing: false,
   processingMessage: '',
   ttlString: '',
@@ -31,6 +30,10 @@ const state = {
 
 const getters = {
   getTriples: s => p => s.store.getQuads(p.subject, p.predicate, p.object, p.graph),
+  getCount: s => s.store.size,
+  getSubjectCount: s => s.store.getSubjects().length,
+  getType: s => subject => s.store.getQuads(subject, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')[0].object,
+  getUpdate: s => s.update,
   getTitle: (s, g) => (subject) => {
     const type = g.getType(subject);
     switch (type.id) {
@@ -43,9 +46,6 @@ const getters = {
       default: return s.store.getQuads(subject, 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle')[0].object;
     }
   },
-  getType: s => subject => s.store.getQuads(subject, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')[0].object,
-  getCount: s => s.store.size,
-  getUpdate: s => s.update,
 };
 
 export default {
