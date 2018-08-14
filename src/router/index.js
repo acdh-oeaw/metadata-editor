@@ -41,6 +41,7 @@ export default new Router({
           name: 'create',
           components: {
             Content: Create,
+            rightdrawerbottom: Storestats,
           },
         },
         {
