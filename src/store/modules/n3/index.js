@@ -53,7 +53,6 @@ const getters = {
     }
   },
   getType: s => subject => s.store.getQuads(subject, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')[0].object,
-  // The object returned in getCount has to be inside an array for some reason
   getCount: s => { return { quads: s.store.size, subjects: s.store.getSubjects().length } },
   getUpdate: s => s.update,
 };
