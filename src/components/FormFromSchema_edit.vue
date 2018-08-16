@@ -88,6 +88,7 @@ export default {
       'setDialog',
     ]),
     ...mapActions('n3', [
+      'WriteSubject',
       'objectToStore',
       'RemoveSubject',
     ]),
@@ -237,7 +238,6 @@ export default {
   },
 };
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
   label {
     display: block;

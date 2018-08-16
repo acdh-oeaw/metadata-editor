@@ -89,6 +89,43 @@ const actions = {
     commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
     this._vm.$info(`Removed ${quads.length} quads from Store`);
   },
+  /* high lvl action converting an object to quads and subsequently
+     saving it to the N3.js store */
+  WriteSubject({ state, dispatch, commit }, subject, properties) {
+    commit('startProcessing', 'Loading Object to Store...');
+    const keys = Object.keys(properties);
+    const values = Object.values(properties);
+    for (let k = 0; k < keys.length; k += 1) {
+      if (values[k]) {
+        // if cardinality > 1
+        if (Array.isArray(values[k])) {
+          for (let i = 0; i < values[k].length; i += 1) {
+            const quad = {
+              subject,
+              predicate: `https://vocabs.acdh.oeaw.ac.at/schema#${keys[k]}`,
+            };
+            if (urlpattern.test(values[k][i]) || newobjpattern.test(values[k][i])) {
+              quad.object = values[k][i];
+            } else quad.object = `"${values[k][i]}"`;
+            dispatch('AddFilteredQuad', quad);
+          }
+        } else {
+          // if cardinality = 1
+          const quad = {
+            subject,
+            predicate: `https://vocabs.acdh.oeaw.ac.at/schema#${keys[k]}`,
+          };
+          if (urlpattern.test(values[k]) || newobjpattern.test(values[k])) {
+            quad.object = values[k];
+          } else quad.object = `"${values[k]}"`;
+          dispatch('AddFilteredQuad', quad);
+        }
+      }
+    }
+    dispatch('writeTTL');
+    commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
+    commit('stopProcessing');
+  },
   /*  high level action parsing JSON from a form into quads and subsequently
      saving it to the N3.js store */
   objectToStore({ state, commit, dispatch }, { schema, obj, id }) {

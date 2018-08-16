@@ -15,18 +15,13 @@ const getters = {
 };
 
 const mutations = {
+  /* rebuilds store from localstorage upon page reload. Currently used in StoreDialog
+   */
   constructJSONschema(s, { pState }) {
     this._vm.$info('constructJSONschema(s, { pState })', JSON.stringify(s), JSON.stringify(pState));
     for (let i = 0; i < s.p.length; i += 1) {
       s[s.p[i]] = pState.JSONschema[s.p[i]];
-      // this._vm.$debug(`Found One: s[${s.p[i]}] = ${JSON.stringify(pState.JSONschema[s.p[i]])}`);
     }
-  },
-  addTab(s, { tab }) {
-    s.tabs.push(tab);
-  },
-  removeTab(s, { name }) {
-    s.tabs.filter(t => t.name !== name);
   },
   setSchema(s, { name, schema }) {
     this._vm.$info('JSONschema.setSchema(name, schema)', name, schema);
@@ -39,12 +34,7 @@ const mutations = {
   },
   setEntry(s, { name, entry, schema }) {
     this._vm.$info(name, entry);
-    if (name && entry && schema) {
-      s.entries[name] = {};
-      s.entries[name].model = entry;
-      s.entries[name].schema = schema;
-    }
-    // s.entries = JSON.parse(JSON.stringify(s.entries));
+    if (name && entry && schema) s.entries[name] = { model: entry, schema: schema }
   },
   /*
   converts a guven query (data from n3-store) to a usable model for a formFromSchema

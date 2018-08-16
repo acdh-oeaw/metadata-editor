@@ -123,9 +123,6 @@ export default {
       'setOntology',
       'constructJOWL',
     ]),
-    ...mapMutations('JSONschema', [
-      'constructJSONschema',
-    ]),
     ...mapActions('n3', [
       'constructN3',
     ]),
