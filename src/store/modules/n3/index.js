@@ -53,7 +53,7 @@ const getters = {
     }
   },
   getType: s => subject => s.store.getQuads(subject, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')[0].object,
-  getCount: s => { return { quads: s.store.size, subjects: s.store.getSubjects().length } },
+  getCount: s => ({ quads: s.store.size, subjects: s.store.getSubjects().length }),
   getUpdate: s => s.update,
 };
 
