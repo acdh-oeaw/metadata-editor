@@ -154,7 +154,7 @@ export default {
       this.$log('AutocompDefault -> newSubject before, after, manuallySelectedItem', before, after, this.manuallySelectedItem);
       this.$debug('bef aft: ', JSON.stringify(this.newItem));
       this.$debug('after exists, select:', this.select);
-      this.items[this.nStoreSelected].title = this.getTitle(after.changedItem.subject);
+      this.items[this.nStoreSelected].title = this.getArcheTitle(after.changedItem.subject);
       this.items[this.nStoreSelected].uri = after.changedItem.subject;
       if (this.items.length > this.nStoreSelected + 1) {
         this.$debug('items', this.items);
@@ -200,7 +200,7 @@ export default {
   },
   computed: {
     ...mapGetters('n3', [
-      'getTitle',
+      'getArcheTitle',
     ]),
     newItem() {
       return this.$store.state.dialogs.addnewsubjectmodal;

@@ -63,9 +63,6 @@ export default {
     FormComponentWrapper,
   },
   computed: {
-    ...mapGetters('n3', [
-      'getTitle',
-    ]),
     tabs() {
       return this.$store.state.JSONschema.tabs;
     },
