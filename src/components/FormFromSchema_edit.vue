@@ -155,7 +155,12 @@ export default {
       /* before calling ObjectToStore,
       we need to filter out objects and split them further into quads
       */
-      this.$log('compare changes', JSON.stringify(this.model), JSON.stringify(this.oldModel));
+      /*
+        Stringify gets rid of unnecessary Metadata.
+        If you are editing the model, every new ur updated value will be put inside an Array,
+        a bold method to stop this from interfering with our comparison is to just delete every
+        square bracket inside our String.
+      */
       if (JSON.stringify(this.model).replace(/\[|\]/g, '') === JSON.stringify(this.oldModel).replace(/\[|\]/g, '')) this.failSnackbar = true;
       else {
         this.ObjectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema });
