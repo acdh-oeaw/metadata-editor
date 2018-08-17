@@ -30,7 +30,7 @@ const state = {
 
 const getters = {
   getQuads: s => p => s.store.getQuads(p.subject, p.predicate, p.object, p.graph),
-  getTitle: (s, g) => (subject) => {
+  getArcheTitle: (s, g) => (subject) => {
     const type = g.getType(subject);
     switch (type.id) {
       case 'https://vocabs.acdh.oeaw.ac.at/schema#person':
@@ -53,6 +53,11 @@ const getters = {
     }
   },
   getType: s => subject => s.store.getQuads(subject, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')[0].object,
+  getArcheTypeString: s => subject => {
+    let type = s.store.getQuads(subject, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')[0].object;
+    if (type) return type.id.split('#')[1].toLowerCase();
+    return null;
+  },
   getCount: s => ({ quads: s.store.size, subjects: s.store.getSubjects().length }),
   getUpdate: s => s.update,
 };

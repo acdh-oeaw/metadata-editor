@@ -64,8 +64,6 @@ export default {
     ...mapGetters('n3', [
       'getUpdate',
       'getQuads',
-      'getTitle',
-      'getType',
     ]),
   },
   watch: {

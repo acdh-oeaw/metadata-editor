@@ -5,9 +5,9 @@
         <v-icon v-if="!expanded && children.length>0"  class="pointer">chevron_right</v-icon>
         <v-icon v-if="expanded && children.length>0"  class="pointer">expand_more</v-icon>
         <v-icon v-if="children.length==0" style="opacity:0;">expand_more</v-icon>
-        <v-icon v-bind:class="{ expanded: 'teal lighten-3' }">{{ typeicon(getType(uri.id).id)}}</v-icon>
+        <v-icon v-bind:class="{ expanded: 'teal lighten-3' }">{{ typeicon(getArcheTypeString(uri.id)) }}</v-icon>
         <v-layout grid-list-xs class="ml-2" column justify-center>
-            <div class="itemcaption caption">{{ getTitle(uri.id).id.replace(/"/g, '') }}</div>
+            <div class="itemcaption caption">{{ getArcheTitle(uri.id).id.replace(/"/g, '') }}</div>
         </v-layout>
         <v-spacer></v-spacer>
         <v-flex xs1 >
@@ -44,12 +44,9 @@ export default {
   mixins: [HELPERS],
   data() {
     return {
-      title: '',
       expanded: false,
       children: [],
-      popup: true,
       dialog: false,
-      params: {},
       chosenItem: {},
     };
   },
@@ -65,8 +62,9 @@ export default {
   computed: {
     ...mapGetters('n3', [
       'getQuads',
-      'getTitle',
+      'getArcheTitle',
       'getType',
+      'getArcheTypeString',
     ]),
   },
   methods: {
@@ -96,7 +94,6 @@ export default {
     update() {
       // TODO: there needs to be some URI validation here and in the
       // root storetree + probably in the module itself
-      this.title = this.getTitle(this.uri.id);
       this.getChildren(this.uri.id);
     },
     clear() {
@@ -109,14 +106,13 @@ export default {
     },
     edit() {
       this.dialog = true;
-      const type = this.nameToType(this.getType(this.uri.id).id);
+      const type = this.getArcheTypeString(this.uri.id);
       const query = this.QuadsToObject(this.getQuads({ subject: this.uri.id }));
       this.queryToEntry({ name: 'edit', query, type });
       this.setDialog({ name: 'editsubjectdialog', obj: { status: true } });
     },
   },
   mounted() {
-    // this.$debug('itemFull', this.itemFull);
     this.chosenItem = this.itemFull;
     this.update();
   },

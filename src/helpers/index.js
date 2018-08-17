@@ -242,30 +242,28 @@ export default {
     typeicon(typ) {
       console.log(typ);
       if (typ) {
-        const type = typ.toUpperCase();
-        console.log(type);
-        switch (type) {
+        switch (typ) {
+          case 'resource':
+            return 'developer_board';
+          case 'persons':
+          case 'person':
+            return 'person';
+          case 'places':
+          case 'place':
+            return 'place';
+          case 'organisations':
+          case 'organisation':
+            return 'device_hub';
+          case 'ARCHE_CATEGORY':
+            return 'folder_open';
+          case 'ARCHE_LIFECYCLE_STATUS':
+            return 'donut_large';
           case 'X':
             return 'highlight_off';
           case 'CHECK':
             return 'check_circle';
           case 'KEYBOARD':
             return 'keyboard';
-          case 'https://vocabs.acdh.oeaw.ac.at/schema#Resource':
-            return 'developer_board';
-          case 'PERSONS':
-          case 'HTTPS://VOCABS.ACDH.OEAW.AC.AT/SCHEMA#PERSON':
-            return 'person';
-          case 'PLACES':
-          case 'HTTPS://VOCABS.ACDH.OEAW.AC.AT/SCHEMA#PLACE':
-            return 'place';
-          case 'ORGANISATIONS':
-          case 'HTTPS://VOCABS.ACDH.OEAW.AC.AT/SCHEMA#ORGANISATION':
-            return 'device_hub';
-          case 'ARCHE_CATEGORY':
-            return 'folder_open';
-          case 'ARCHE_LIFECYCLE_STATUS':
-            return 'donut_large';
           default: return 'folder';
         }
       }
