@@ -53,8 +53,8 @@ const getters = {
     }
   },
   getType: s => subject => s.store.getQuads(subject, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')[0].object,
-  getArcheTypeString: s => subject => {
-    let type = s.store.getQuads(subject, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')[0].object;
+  getArcheTypeString: s => (subject) => {
+    const type = s.store.getQuads(subject, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')[0].object;
     if (type) return type.id.split('#')[1].toLowerCase();
     return null;
   },

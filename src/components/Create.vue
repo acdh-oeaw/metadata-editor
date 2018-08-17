@@ -39,7 +39,6 @@
 
 <script>
 import {
-  mapGetters,
   mapMutations,
 } from 'vuex';
 import loadfile from './Store_LoadFile';
