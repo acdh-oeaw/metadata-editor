@@ -34,7 +34,7 @@ const mutations = {
   },
   setEntry(s, { name, entry, schema }) {
     this._vm.$info(name, entry);
-    if (name && entry && schema) s.entries[name] = { model: entry, schema: schema }
+    if (name && entry && schema) s.entries[name] = { model: entry, schema };
   },
   /*
   converts a guven query (data from n3-store) to a usable model for a formFromSchema
