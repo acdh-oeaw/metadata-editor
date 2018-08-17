@@ -63,7 +63,7 @@ const actions = {
       if (quad) {
         dispatch('AddFilteredQuad', quad);
       } else {
-        dispatch('writeTTL');
+        dispatch('WriteTTL');
         commit('stopProcessing');
         commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
         this._vm.$info('Added String to Store');
@@ -84,7 +84,7 @@ const actions = {
     for (let i = 0; i < quads.length; i += 1) {
       dispatch('RemoveQuad', quads[i]);
     }
-    dispatch('writeTTL');
+    dispatch('WriteTTL');
     commit('stopProcessing');
     commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
     this._vm.$info(`Removed ${quads.length} quads from Store`);
@@ -122,13 +122,13 @@ const actions = {
         }
       }
     }
-    dispatch('writeTTL');
+    dispatch('WriteTTL');
     commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
     commit('stopProcessing');
   },
   /*  high level action parsing JSON from a form into quads and subsequently
      saving it to the N3.js store */
-  objectToStore({ state, commit, dispatch }, { schema, obj, id }) {
+  ObjectToStore({ state, commit, dispatch }, { schema, obj, id }) {
     const subject = id || `_:${schema.title}_${Date.now().valueOf().toString(36)}`;
     commit('startProcessing', 'Loading Object to Store...');
     // first quad for type
@@ -168,11 +168,11 @@ const actions = {
         }
       }
     }
-    dispatch('writeTTL');
+    dispatch('WriteTTL');
     commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
     commit('stopProcessing');
   },
-  writeTTL({ state, commit }) {
+  WriteTTL({ state, commit }) {
     const quads = state.store.getQuads();
     state.writer.addQuads(quads);
     state.writer.end((error, result) => {
@@ -180,8 +180,8 @@ const actions = {
       commit('resetWriter');
     });
   },
-  constructN3({ state, commit, dispatch }, { pState }) {
-    this._vm.$info('constructN3({ pState })', JSON.stringify(pState));
+  ConstructN3({ state, commit, dispatch }, { pState }) {
+    this._vm.$info('ConstructN3({ pState })', JSON.stringify(pState));
     const ttlString = pState.n3.ttlString;
     dispatch('StringToStore', ttlString);
   },

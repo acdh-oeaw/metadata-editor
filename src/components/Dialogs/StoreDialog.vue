@@ -43,7 +43,7 @@ export default {
       'setSchema',
     ]),
     ...mapActions('n3', [
-      'constructN3',
+      'ConstructN3',
     ]),
     ...mapMutations('localStorageInfo', [
       'constructLocalStorageInfo',
@@ -78,7 +78,7 @@ export default {
       // this.constructJOWL(this.latestSession);
       this.constructJSONschema(this.latestSession);
       this.initAllSchemas();
-      this.constructN3(this.latestSession);
+      this.ConstructN3(this.latestSession);
       this.constructLocalStorageInfo(this.latestSession);
       this.discard();
       if (reload) {

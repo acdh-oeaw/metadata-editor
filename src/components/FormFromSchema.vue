@@ -55,7 +55,7 @@ export default {
       'setDialog',
     ]),
     ...mapActions('n3', [
-      'objectToStore',
+      'ObjectToStore',
     ]),
     saveEntry() {
       this.$info('FormFromSchema', 'saveEntry');
@@ -75,10 +75,10 @@ export default {
     submit() {
       this.$info('FormFromSchema', 'submit()', this.model);
       // here everything -> n3 store.
-      /* before calling objectToStore,
+      /* before calling ObjectToStore,
       we need to filter out objects and split them further into quads
       */
-      this.objectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema });
+      this.ObjectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema });
     },
     /*
     sets the mapping in formFromShcema for each type (taken the actual schema)

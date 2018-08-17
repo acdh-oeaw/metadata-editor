@@ -35,7 +35,7 @@ export default {
       'constructJOWL',
     ]),
     ...mapActions('n3', [
-      'constructN3',
+      'ConstructN3',
     ]),
     ...mapActions('app', [
       'toggleAppMode',

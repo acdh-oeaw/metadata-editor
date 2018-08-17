@@ -11,6 +11,16 @@
         Close
       </v-btn>
     </v-snackbar>
+    <v-snackbar color="error" top :timeout="snackTimeout" v-model="failSnackbar">
+      You need to change something first!
+      <v-btn
+        color="dark"
+        flat
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
     <v-toolbar dark color="primary" fixed>
       <v-btn icon dark @click.native="setDialog({ name, obj: { query: {} } });">
         <v-icon>close</v-icon>
@@ -76,6 +86,7 @@ export default {
     blacklistRegex: /^is*/, // for name like
     verboseEntityDescription: '',
     snackbar: false,
+    failSnackbar: false,
     snackTimeout: 3000,
   }),
   methods: {
@@ -89,7 +100,7 @@ export default {
     ]),
     ...mapActions('n3', [
       'WriteSubject',
-      'objectToStore',
+      'ObjectToStore',
       'RemoveSubject',
     ]),
     saveEntry() {
@@ -118,10 +129,10 @@ export default {
         if (subjectQuad && subjectQuad[0]) {
           this.$debug('delete: ', subjectQuad[0].subject);
           this.RemoveSubject(subjectQuad[0].subject);
-          this.objectToStore({
+          this.ObjectToStore({
             obj: this.filterModelBeforeUpload(this.model),
             schema: this.schema,
-            id: id,
+            id: subjectQuad[0].subject,
           });
           this.oldModel = JSON.parse(JSON.stringify(this.model));
         }
@@ -141,11 +152,15 @@ export default {
     submit() {
       this.$info('FormFromSchema', 'submit()', JSON.stringify(this.model));
       // here everything -> n3 store.
-      /* before calling objectToStore,
+      /* before calling ObjectToStore,
       we need to filter out objects and split them further into quads
       */
-      this.objectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema });
-      this.snackbar = true;
+      this.$log('compare changes', JSON.stringify(this.model), JSON.stringify(this.oldModel));
+      if (JSON.stringify(this.model).replace(/\[|\]/g, '') === JSON.stringify(this.oldModel).replace(/\[|\]/g, '')) this.failSnackbar = true;
+      else {
+        this.ObjectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema });
+        this.snackbar = true;
+      }
     },
     /*
     sets the mapping in formFromShcema for each type (taken the actual schema)

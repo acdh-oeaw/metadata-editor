@@ -199,7 +199,7 @@ after there are no quads, [updateQuadCount](#updateQuadCount-1) and [updateSubje
 ##### Dispatches
 * [AddFilteredQuad](#AddFilteredQuad)
 
-#### objectToStore
+#### ObjectToStore
 High level action parsing a JS-object into quads and subsequently saving them to the store.
 used to insert data from [FormFromSchema](/components#FormFromSchema) to manually insert them to the store.
 
@@ -369,7 +369,7 @@ This page describes how persistence using the local storage is achieved:
 
 Each Module should have a p attribute standing for (persistent properties), which specifies all the attributes that need to be kept persistent.
 
-Also each module should have a constructModule function (instead of Module, they user their names: eg.: `constructN3`).
+Also each module should have a constructModule function (instead of Module, they user their names: eg.: `ConstructN3`).
 this function is given a stateObject and has to reestablish the state of the saved session. in the easiest case, this is just a loop through all persistent properties (all in the p-attribute). However sometimes more needs to be done (as in the case of n3, the persistent ttl-String has to be loaded into the n3-store using [StringToStore](#StringToStore) method).
 
 ### StoreModal
