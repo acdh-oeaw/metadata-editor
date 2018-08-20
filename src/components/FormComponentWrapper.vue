@@ -58,7 +58,7 @@ export default {
       if (name === 'hasIdentifier') {
         this.component = 'HasIdentifierField';
         if (Array.isArray(this.value)) {
-          this.selectedValue = this.value[0];
+          this.selectedValue = this.value;
         } else {
           this.selectedValue = this.value;
         }

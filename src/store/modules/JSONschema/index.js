@@ -37,12 +37,12 @@ const mutations = {
     if (name && entry && schema) s.entries[name] = { model: entry, schema };
   },
   /*
-  converts a guven query (data from n3-store) to a usable model for a formFromSchema
+  converts a given query (data from n3-store) to a usable model for a formFromSchema
   and sets it to entrys using the given name.
   assumes that the wanted schema, is already fetched. if it is not, nothing happens
   */
-  queryToEntry(s, { name, query, type }) {
-    this._vm.$info('queryToEntry: name, query, type', name, query, type);
+  queryToEntry(s, { name, query, type, subject }) {
+    this._vm.$debug('queryToEntry: name, query, type\n\t', name, query, type, subject);
 
     if (!s.schemas[type] || !name || !type) { return; }
 
@@ -60,6 +60,7 @@ const mutations = {
     s.entries[name] = {};
     s.entries[name].model = m;
     s.entries[name].schema = type;
+    s.entries[name].subject = subject;
   },
 };
 

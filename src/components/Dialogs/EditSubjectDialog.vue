@@ -3,7 +3,7 @@
   <v-dialog fullscreen transition="dialog-bottom-transition" v-model="$store.state.dialogs[name].status">
     <v-card>
       <v-card-text color="primary">
-        <formfromschemaedit v-if="$store.state.dialogs[name].status" v-model="data" :type="type" uniqueName="edit" edit="true">
+        <formfromschemaedit v-if="$store.state.dialogs[name].status" v-model="data" uniqueName="edit">
         </formfromschemaedit>
       </v-card-text>
     </v-card>

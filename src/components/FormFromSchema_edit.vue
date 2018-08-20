@@ -63,9 +63,6 @@ import HELPERS from '../helpers';
 export default {
   mixins: [HELPERS],
   props: {
-    type: {
-      default: '',
-    },
     edit: {
       default: '',
     }, // if exists contains query from store.
@@ -80,6 +77,8 @@ export default {
   data: () => ({
     schema: false,
     model: false,
+    type: '',
+    subject: '',
     oldModel: false, // this is necessary for saving changes.
     loading: true,
     name: 'editsubjectdialog',
@@ -120,23 +119,13 @@ export default {
     saveChanges() {
       this.$debug('saveChanges, old model, new model', this.oldModel, this.model);
       // this.$debug('saveChanges, old model, new model', this.oldModel, this.model);
-      if (this.oldModel.hasIdentifier) {
-        const id = Array.isArray(this.oldModel.hasIdentifier) ?
-          this.oldModel.hasIdentifier[0] : this.oldModel.hasIdentifier;
-        this.$debug('id', id);
-        const subjectQuad = this.getQuads({ subject: null, predicate: null, object: id });
-        this.$debug('subjectQuad', subjectQuad);
-        if (subjectQuad && subjectQuad[0]) {
-          this.$debug('delete: ', subjectQuad[0].subject);
-          this.RemoveSubject(subjectQuad[0].subject);
-          this.ObjectToStore({
-            obj: this.filterModelBeforeUpload(this.model),
-            schema: this.schema,
-            id: subjectQuad[0].subject,
-          });
-          this.oldModel = JSON.parse(JSON.stringify(this.model));
-        }
-      }
+      this.RemoveSubject(this.subject);
+      this.ObjectToStore({
+        obj: this.filterModelBeforeUpload(this.model),
+        schema: this.schema,
+        id: this.subject,
+      });
+      this.oldModel = JSON.parse(JSON.stringify(this.model));
     },
     resetForm() {
       // this.$debug('schema', JSON.stringify(this.schema.properties));
@@ -243,12 +232,11 @@ export default {
     ]),
   },
   created() {
-    this.$debug('FormFromSchemaEDIT', 'mounted');
+    this.$debug('FormFromSchemaEDIT', 'created');
     this.model = this.$store.state.JSONschema.entries[this.uniqueName].model;
     this.type = this.$store.state.JSONschema.entries[this.uniqueName].schema;
-    this.schema = this.$store.state.JSONschema.schemas[
-      this.type
-    ];
+    this.schema = this.$store.state.JSONschema.schemas[this.type];
+    this.subject = this.$store.state.JSONschema.entries[this.uniqueName].subject
     this.oldModel = JSON.parse(JSON.stringify(this.model));
     this.initSchema();
     this.setComponents();

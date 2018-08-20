@@ -46,7 +46,6 @@ export default {
     return {
       expanded: false,
       children: [],
-      dialog: false,
       chosenItem: {},
     };
   },
@@ -98,17 +97,15 @@ export default {
     },
     clear() {
       if (this.$store.state.n3.deletePrompt) {
-        this.dialog = true;
         this.setDialog({ name: 'deletesubjectdialog', obj: { status: true, uri: this.uri.id } });
       } else {
         this.RemoveSubject(this.uri.id);
       }
     },
     edit() {
-      this.dialog = true;
       const type = this.getArcheTypeString(this.uri.id);
       const query = this.QuadsToObject(this.getQuads({ subject: this.uri.id }));
-      this.queryToEntry({ name: 'edit', query, type });
+      this.queryToEntry({ name: 'edit', query, type, subject: this.uri.id });
       this.setDialog({ name: 'editsubjectdialog', obj: { status: true } });
     },
   },

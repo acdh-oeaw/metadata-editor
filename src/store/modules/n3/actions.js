@@ -33,7 +33,7 @@ const actions = {
       quad.graph,
     );
   },
-  /* Removes Secific Quad from Store
+  /* Removes Specific Quad from Store
      for internal use only, does not update exposed props! */
   RemoveQuad({ state }, quad) {
     state.store.removeQuad(
