@@ -33,6 +33,9 @@ const mutations = {
   toggleRightDrawer(s) {
     s.rightDrawer = !s.rightDrawer;
   },
+  openRightDrawer(s) {
+    s.rightDrawer = true;
+  },
   toggleDrawer(s) {
     s.drawer = !s.drawer;
   },

@@ -44,8 +44,8 @@ export default {
     ...mapActions('n3', [
       'StringToStore',
     ]),
-    ...mapActions('app', [
-      'toggleAppMode',
+    ...mapMutations('app', [
+      'openRightDrawer',
     ]),
     ...mapMutations('dialogs', [
       'setDialog',
@@ -71,7 +71,7 @@ export default {
             },
           });
         } else {
-          this.StringToStore(e.target.result).then(this.toggleAppMode());
+          this.StringToStore(e.target.result).then(this.openRightDrawer());
         }
       };
       reader.readAsText(file);
