@@ -8,6 +8,13 @@ const state = {
   config: {},
   miniVariant: false,
   rightDrawer: false,
+  p: ['drawer',
+      'drawerclipped',
+      'fixed',
+      'config',
+      'miniVariant',
+      'rightDrawer',
+  ],
 };
 
 const getters = {
@@ -38,6 +45,12 @@ const mutations = {
   },
   toggleDrawer(s) {
     s.drawer = !s.drawer;
+  },
+  constructApp(s, { pState }) {
+    this._vm.$info('constructApp ({ pState })');
+    for (let i = 0; i < s.p.length; i += 1) {
+      s[s.p[i]] = pState.app[s.p[i]];
+    }
   },
 };
 

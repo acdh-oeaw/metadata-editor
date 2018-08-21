@@ -42,6 +42,9 @@ export default {
       'constructJSONschema',
       'setSchema',
     ]),
+    ...mapMutations('app', [
+      'constructApp',
+    ]),
     ...mapActions('n3', [
       'ConstructN3',
     ]),
@@ -79,6 +82,7 @@ export default {
       this.constructJSONschema(this.latestSession);
       this.initAllSchemas();
       this.ConstructN3(this.latestSession);
+      this.constructApp(this.latestSession);
       this.constructLocalStorageInfo(this.latestSession);
       this.discard();
       if (reload) {
