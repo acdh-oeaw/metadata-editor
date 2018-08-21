@@ -23,6 +23,9 @@
                 <v-btn icon @click.stop="toggleNavDrawerClipped()">
                   <v-icon v-html="$store.state.app.drawerclipped?'first_page':'last_page'" v-if="!$store.state.app.miniVariant"></v-icon>
                 </v-btn>
+                <v-btn icon @click.stop="toggleRightDrawer()">
+                  <v-icon v-html="'menu'" v-if="!$store.state.app.miniVariant"></v-icon>
+                </v-btn>
               </v-list-tile>
             </v-list>
             <v-list>
@@ -89,7 +92,7 @@
             <v-spacer></v-spacer>
           </v-layout>
         </v-container>
-        <v-btn icon @click.stop="rightDrawer = !rightDrawer">
+        <v-btn icon @click.stop="toggleRightDrawer()">
           <v-icon>menu</v-icon>
         </v-btn>
       </v-toolbar>

@@ -49,7 +49,6 @@ const getters = {
         if (d[0] && d[0].object && d[0].object.id) {
           return { id: d[0].object.id };
         }
-        
         return { id: 'no id found' };
     }
   },

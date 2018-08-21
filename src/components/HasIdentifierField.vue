@@ -106,7 +106,7 @@ export default {
   },
   created() {
     this.querySelections(this.value);
-    if(Array.isArray(this.value)) {
+    if (Array.isArray(this.value)) {
       // array
       this.nIdentis = this.value.length;
     }

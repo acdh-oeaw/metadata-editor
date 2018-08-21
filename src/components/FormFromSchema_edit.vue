@@ -236,7 +236,7 @@ export default {
     this.model = this.$store.state.JSONschema.entries[this.uniqueName].model;
     this.type = this.$store.state.JSONschema.entries[this.uniqueName].schema;
     this.schema = this.$store.state.JSONschema.schemas[this.type];
-    this.subject = this.$store.state.JSONschema.entries[this.uniqueName].subject
+    this.subject = this.$store.state.JSONschema.entries[this.uniqueName].subject;
     this.oldModel = JSON.parse(JSON.stringify(this.model));
     this.initSchema();
     this.setComponents();

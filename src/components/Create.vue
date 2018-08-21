@@ -1,6 +1,6 @@
 <template>
 <v-container class="mt-4">
-  <div id="testing">
+  <div id="testing" v-if="testing">
     <p>Model for debugging: {{ formModel }}</p>
     <h3>Test Autocomplete for Vocabs</h3> ARCHE_CATEGORY (eg.: sound):
     <AutocompVocabs type='ARCHE_CATEGORY' name='ArcheLifeCycleStatus' v-model="testVocabs"></AutocompVocabs>
@@ -16,9 +16,9 @@
     <HasIdentifierField name="allow existing Identifiers" v-model="hifTest"></HasIdentifierField>
 
     <HasIdentifierField forbidExistingIdentifiers="true" name="forbid Existing IDs"></HasIdentifierField>
-
+    <p>v-model for first field: {{ hifTest }}</p>
   </div>
-  <p>v-model for first field: {{ hifTest }}</p>
+
   <v-layout row wrap>
     <v-flex xs12 md3 class="mr-2">
       <storetree class="tree"></storetree>
@@ -75,6 +75,7 @@ export default {
       hifTest: '',
       testARCHE_LIFECYCLE_STATUS: '',
       endpoints: ['Person', 'Organisation', 'Place', 'Concept', 'Publication', 'Metadata'],
+      testing: false,
     };
   },
   methods: {

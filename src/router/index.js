@@ -34,6 +34,7 @@ export default new Router({
           name: 'start',
           components: {
             Content: Start,
+            rightdrawerbottom: Storestats,
           },
         },
         {
@@ -57,6 +58,7 @@ export default new Router({
           name: 'schema',
           components: {
             Content: Schema,
+            rightdrawerbottom: Storestats,
           },
         },
         {
@@ -64,6 +66,7 @@ export default new Router({
           name: 'authcallback',
           components: {
             Content: Schema,
+            rightdrawerbottom: Storestats,
           },
         },
         {

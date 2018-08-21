@@ -41,7 +41,7 @@ const mutations = {
 const actions = {
   toggleAppMode({ commit }) {
     commit('toggleDrawer');
-    commit('toggleRightDrawer');
+    // commit('toggleRightDrawer');
   },
 };
 

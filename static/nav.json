@@ -34,9 +34,9 @@
 				"items":""
 			},
 			{
-				"caption":"Edit",
+				"caption":"Create",
 				"arialabel":"",
-				"icon":"edit",
+				"icon":"library_add",
 				"abstract":"",
 				"startpage":{
 					"name": "create",
