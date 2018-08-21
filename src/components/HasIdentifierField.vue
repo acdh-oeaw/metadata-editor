@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="select[i-1]" v-for="i in (nIdentis+1)">
+    <div v-for="i in nIdentis">
       <v-text-field
         v-model="select[i-1]"
         :label="name"
@@ -105,17 +105,21 @@ export default {
     },
   },
   created() {
-    this.querySelections(this.value);
-    if (Array.isArray(this.value)) {
+    let val = this.value;
+    if (Array.isArray(val)) {
       // array
       this.nIdentis = this.value.length;
+    } else {
+      val = [];
+      val.push(this.value);
     }
     for (let i = 0; i < this.nIdentis; i += 1) {
-      this.select[i] = this.value[i];
+      this.select[i] = val[i] || ' ';
       this.loading[i] = true;
       this.exists[i] = false;
       this.valid[i] = false;
       this.status[i] = false;
+      this.querySelections(this.select[i], i);
     }
   },
 };
