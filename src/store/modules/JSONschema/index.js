@@ -5,11 +5,13 @@ const state = {
   entries: {}, /* = { model: {..actual entries go here..},
     schema: 'schematype* corresponding to a key in schemas goes here' */
   p: ['entries', 'schemas'],
+  edits: {},
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint no-console: ["error", { allow: ["log"] }] */
 /* eslint-disable no-underscore-dangle */
+
 const getters = {
   getQuery: s => name => s.schemas[name],
 };
@@ -61,6 +63,12 @@ const mutations = {
     s.entries[name].model = m;
     s.entries[name].schema = type;
     s.entries[name].subject = subject;
+  },
+  saveEdit(s, { subject, model }) {
+    s.edits[subject] = model;
+  },
+  deleteEdit(s, { subject }) {
+    delete s.edits[subject];
   },
 };
 

@@ -32,18 +32,16 @@
         <v-btn flat variant="primary" @click="submit">Add as new Entity</v-btn>
         <v-btn flat @click="resetForm();" variant="secondary">Reset Form</v-btn>
       </v-toolbar-items>
-
-
     </v-toolbar>
     <v-card-text>You are currently editing the entity {{ verboseEntityDescription }}
     </v-card-text>
     You are currently editing the entity: {{ verboseEntityDescription }}
     <form-schema v-if="model && type" @input="saveEntry(); $emit('input', model)" :schema="schema" v-model="model" @submit="submit">
       <v-btn variant="primary"  @click="saveChanges();">Save Changes</v-btn>
-        <v-btn variant="primary" @click="submit">Add as new Entity</v-btn>
+      <v-btn variant="primary" @click="submit">Add as new Entity</v-btn>
       <v-btn @click="resetForm();" variant="secondary">Reset Form</v-btn>
     </form-schema>
-</v-card>
+  </v-card>
 </template>
 
 <script>
@@ -79,7 +77,7 @@ export default {
     model: false,
     type: '',
     subject: '',
-    oldModel: false, // this is necessary for saving changes.
+    oldModel: false, // this is necessary for saving changes and to prevent duplicates
     loading: true,
     name: 'editsubjectdialog',
     blacklistRegex: /^is*/, // for name like
@@ -93,6 +91,8 @@ export default {
       'setSchema',
       'setEntry',
       'setDialog',
+      'saveEdit',
+      'deleteEdit',
     ]),
     ...mapMutations('dialogs', [
       'setDialog',
@@ -103,8 +103,9 @@ export default {
       'RemoveSubject',
     ]),
     saveEntry() {
-      this.$info('FormFromSchema', 'saveEntry');
+      this.$info('FormFromSchema', 'saveEntry', this.subject);
       this.setEntry({ name: this.uniqueName, entry: this.model, schema: this.type });
+      this.saveEdit({ subject: this.subject, model: this.model });
     },
     verboseEntityDesc() {
       let s = '';
@@ -125,6 +126,7 @@ export default {
         schema: this.schema,
         id: this.subject,
       });
+      this.deleteEdit({ subject: this.subject });
       this.oldModel = JSON.parse(JSON.stringify(this.model));
     },
     resetForm() {
@@ -152,8 +154,13 @@ export default {
       */
       if (JSON.stringify(this.model).replace(/\[|\]/g, '') === JSON.stringify(this.oldModel).replace(/\[|\]/g, '')) this.failSnackbar = true;
       else {
-        this.ObjectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema });
-        this.snackbar = true;
+        this.deleteEdit({ subject: this.subject });
+        this.ObjectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema })
+        .then((res) => {
+          this.subject = res;
+          this.$log('New Subject:', this.subject);
+          this.snackbar = true;
+        });
       }
     },
     /*
@@ -222,9 +229,6 @@ export default {
         });
       }
     },
-  },
-  watch: {
-
   },
   computed: {
     ...mapGetters('n3', [

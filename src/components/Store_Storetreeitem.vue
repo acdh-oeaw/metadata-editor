@@ -104,7 +104,14 @@ export default {
     },
     edit() {
       const type = this.getArcheTypeString(this.uri.id);
-      const query = this.QuadsToObject(this.getQuads({ subject: this.uri.id }));
+      let query;
+      if (this.$store.state.JSONschema.edits[this.uri.id]) {
+        this.$log('Previous Edit found!');
+        query = this.$store.state.JSONschema.edits[this.uri.id];
+      } else {
+        this.$log('No previous Edit found!');
+        query = this.QuadsToObject(this.getQuads({ subject: this.uri.id }));
+      }
       this.queryToEntry({ name: 'edit', query, type, subject: this.uri.id });
       this.setDialog({ name: 'editsubjectdialog', obj: { status: true } });
     },

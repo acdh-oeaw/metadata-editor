@@ -171,6 +171,7 @@ const actions = {
     dispatch('WriteTTL');
     commit('localStorageInfo/getCurrentStoreLength', null, { root: true });
     commit('stopProcessing');
+    return subject;
   },
   WriteTTL({ state, commit }) {
     const quads = state.store.getQuads();
