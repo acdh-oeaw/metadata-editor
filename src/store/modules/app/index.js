@@ -1,5 +1,6 @@
 /* eslint no-console: ["error", { allow: ["log"] }] */
 /* eslint no-param-reassign: ["error", { "props": false }] */
+/* eslint-disable no-underscore-dangle */
 
 const state = {
   drawer: false,
@@ -8,12 +9,13 @@ const state = {
   config: {},
   miniVariant: false,
   rightDrawer: false,
-  p: ['drawer',
-      'drawerclipped',
-      'fixed',
-      'config',
-      'miniVariant',
-      'rightDrawer',
+  p: [
+    'drawer',
+    'drawerclipped',
+    'fixed',
+    'config',
+    'miniVariant',
+    'rightDrawer',
   ],
 };
 
