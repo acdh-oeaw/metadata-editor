@@ -4,8 +4,9 @@ const state = {
   schemas: {},
   entries: {}, /* = { model: {..actual entries go here..},
     schema: 'schematype* corresponding to a key in schemas goes here' */
-  p: ['entries', 'schemas'],
-  edits: {},
+  unsaved: {},
+  unsaveChanges: false,
+  p: ['entries', 'schemas', 'unsaved'],
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -14,6 +15,7 @@ const state = {
 
 const getters = {
   getQuery: s => name => s.schemas[name],
+  getUnsaved: s => s.unsaveChanges,
 };
 
 const mutations = {
@@ -65,10 +67,11 @@ const mutations = {
     s.entries[name].subject = subject;
   },
   saveEdit(s, { subject, model }) {
-    s.edits[subject] = model;
+    s.unsaved[subject] = model;
+    s.unsaveChanges = !s.unsaveChanges;
   },
   deleteEdit(s, { subject }) {
-    delete s.edits[subject];
+    delete s.unsaved[subject];
   },
 };
 

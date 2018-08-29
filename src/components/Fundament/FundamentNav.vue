@@ -100,7 +100,7 @@
     <v-navigation-drawer
       :right="true"
       v-model="$store.state.app.rightDrawer"
-      enable-resize-watcher
+      
       app
       >
       <router-view name="rightdrawertop"></router-view>

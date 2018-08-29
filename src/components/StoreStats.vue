@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 50%;overflow: auto;">
+  <div style="overflow: auto;">
     <nav class="collapse bd-links" id="bd-docs-nav">
       <div class="bd-toc-item">
         <a class="bd-toc-link" href="#">Store Stats</a>
@@ -40,6 +40,16 @@
           <v-btn block @click="testLimit()">testStoreLimit</v-btn>
         </div>
       </div>
+      <v-expansion-panel popout>
+        <v-expansion-panel-content @click.native="getRoot()">
+          <div slot="header"><v-icon large color='teal lighten-3'>build</v-icon>Unsaved edits</div>
+          <v-card>
+            <v-flex v-if="item && item.subject" xs12 v-for="(item, i) in items" :key="i">
+              <item @input="$emit('input', passThroughItem)" :uri="item.subject" :itemFull="item"></item>
+            </v-flex>
+          </v-card>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
     </nav>
   </div>
 </template>
@@ -48,17 +58,27 @@
 import { mapActions, mapMutations, mapGetters } from 'vuex';
 import HELPERS from '../helpers';
 import ClearCacheDialog from './Dialogs/ClearCacheDialog';
+import item from './Store_Storetreeitem';
 
 export default {
   mixins: [HELPERS],
   components: {
     ClearCacheDialog,
+    item,
   },
   data() {
     return {
       blob: '',
       dialog: false,
+      passThroughItem: {},
+      items: [],
     };
+  },
+  watch: {
+    getUnsaved(oldV, newV) {
+      this.$info(oldV, newV);
+      this.getRoot();
+    },
   },
   methods: {
     downloadBlob() {
@@ -74,6 +94,15 @@ export default {
 
       downloadLink.click();
     },
+    getRoot() {
+      this.items = [];
+      const keys = Object.keys(this.$store.state.JSONschema.unsaved);
+      this.$log('keys', keys);
+      for (let i = 0; i < keys.length; i += 1) {
+        this.items[i] = this.getQuads({ subject: keys[i], predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type' })[0];
+        this.$log('item: ', this.items[i]);
+      }
+    },
     ...mapMutations('dialogs', [
       'openDialog',
       'closeDialog',
@@ -83,10 +112,17 @@ export default {
       'safeLimitTest',
       'testLimit',
     ]),
+    ...mapGetters('JSONschema', [
+      'getUnsaved',
+    ]),
   },
   computed: {
     ...mapGetters('n3', [
       'getCount',
+      'getQuads',
+    ]),
+    ...mapGetters('JSONschema', [
+      'getUnsaved',
     ]),
   },
 };

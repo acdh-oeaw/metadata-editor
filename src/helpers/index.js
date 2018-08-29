@@ -472,6 +472,15 @@ export default {
       }
       return params;
     },
+    saveSubjectChanges(subject, model, schema) {
+      this.RemoveSubject(subject);
+      this.ObjectToStore({
+        obj: this.filterModelBeforeUpload(model),
+        schema,
+        id: subject,
+      });
+      this.deleteEdit({ subject });
+    },
   },
   created() {
     this.$info('Helpers', 'created');

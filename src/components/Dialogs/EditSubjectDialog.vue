@@ -48,8 +48,6 @@ export default {
       return this.$store.state.dialogs[this.name].status;
     },
   },
-  watch: {
-  },
 };
 </script>
 

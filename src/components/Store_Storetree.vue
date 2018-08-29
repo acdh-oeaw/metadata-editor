@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap>
     <v-expansion-panel popout>
-      <v-expansion-panel-content value="true">
+      <v-expansion-panel-content>
         <div slot="header"><v-icon large color='teal lighten-3'>folder</v-icon> Collections / Resources</div>
         <v-card>
           <v-flex xs12 v-for="(item, i) in collections" :key="i" >
@@ -65,10 +65,18 @@ export default {
       'getUpdate',
       'getQuads',
     ]),
+    ...mapGetters('JSONschema', [
+      'getUnsaved',
+    ]),
+
   },
   watch: {
     getUpdate(oldV, newV) {
-      console.log(oldV, newV);
+      this.$info(oldV, newV);
+      this.getRoot();
+    },
+    getUnsaved(oldV, newV) {
+      this.$info(oldV, newV);
       this.getRoot();
     },
     n3() {

@@ -6,13 +6,15 @@
         <v-icon v-if="expanded && children.length>0"  class="pointer">expand_more</v-icon>
         <v-icon v-if="children.length==0" style="opacity:0;">expand_more</v-icon>
         <v-icon v-bind:class="{ expanded: 'teal lighten-3' }">{{ typeicon(getArcheTypeString(uri.id)) }}</v-icon>
+        <v-icon v-if="$store.state.JSONschema.unsaved[this.uri.id]">build</v-icon>
         <v-layout grid-list-xs class="ml-2" column justify-center>
             <div class="itemcaption caption">{{ getArcheTitle(uri.id).id.replace(/"/g, '') }}</div>
         </v-layout>
         <v-spacer></v-spacer>
         <v-flex xs1 >
           <div class="itemtoolbar">
-            <v-layout row nowrap>
+            <v-layout row>
+              <v-icon v-if="$store.state.JSONschema.unsaved[this.uri.id]" @click="save">save</v-icon>
               <v-icon @click="clear">clear</v-icon>
               <v-icon @click="edit">create</v-icon>
             </v-layout>
@@ -69,6 +71,7 @@ export default {
   methods: {
     ...mapActions('n3', [
       'RemoveSubject',
+      'ObjectToStore',
     ]),
     ...mapMutations('dialogs', [
       'setDialog',
@@ -76,6 +79,7 @@ export default {
     ]),
     ...mapMutations('JSONschema', [
       'queryToEntry',
+      'deleteEdit',
     ]),
     getChildren(uri) {
       const children = this.getQuads(
@@ -105,15 +109,22 @@ export default {
     edit() {
       const type = this.getArcheTypeString(this.uri.id);
       let query;
-      if (this.$store.state.JSONschema.edits[this.uri.id]) {
+      if (this.$store.state.JSONschema.unsaved[this.uri.id]) {
         this.$log('Previous Edit found!');
-        query = this.$store.state.JSONschema.edits[this.uri.id];
+        query = this.$store.state.JSONschema.unsaved[this.uri.id];
       } else {
         this.$log('No previous Edit found!');
         query = this.QuadsToObject(this.getQuads({ subject: this.uri.id }));
       }
       this.queryToEntry({ name: 'edit', query, type, subject: this.uri.id });
       this.setDialog({ name: 'editsubjectdialog', obj: { status: true } });
+    },
+    save() {
+      const type = this.$store.state.JSONschema.entries.edit.schema;
+      this.saveSubjectChanges(
+        this.uri.id,
+        this.$store.state.JSONschema.unsaved[this.uri.id],
+        this.$store.state.JSONschema.schemas[type]);
     },
   },
   mounted() {
@@ -131,18 +142,20 @@ export default {
 
 .itemtoolbar {
   position: absolute;
-  right: 0px;
+  right: -80px;
   width: 0px;
   overflow: hidden;
   cursor: pointer;
-  background-color: white;
   opacity: 0.8;
-  -webkit-transition: width 0.3s;
-  transition: width 0.3s;
+  -webkit-transition: right 0.3s;
+  transition: right 0.3s;
 }
 
 .itemline:hover .itemtoolbar {
-  width: 60px;
+  right: 0px;
+  width: auto;
+  padding-right: 10px;
+  overflow: hidden;
 }
 
 .itemcaption {

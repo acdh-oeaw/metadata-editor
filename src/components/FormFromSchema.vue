@@ -149,9 +149,6 @@ export default {
       }
     },
   },
-  watch: {
-
-  },
   mounted() {
     this.$info('FormFromSchema', 'mounted');
     this.initSchema();

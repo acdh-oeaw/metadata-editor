@@ -87,8 +87,6 @@ export default {
       return name.substring(name.lastIndexOf('#') + 1).toLowerCase();
     },
   },
-  watch: {
-  },
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

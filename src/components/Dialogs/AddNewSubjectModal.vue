@@ -51,8 +51,6 @@ export default {
       storeTreeSelection: '',
     };
   },
-  watch: {
-  },
   mixins: [HELPERS],
   methods: {
     ...mapMutations('dialogs', [

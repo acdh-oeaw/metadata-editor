@@ -119,14 +119,10 @@ export default {
     },
     saveChanges() {
       this.$debug('saveChanges, old model, new model', this.oldModel, this.model);
+      this.$log('schema', this.schema);
       // this.$debug('saveChanges, old model, new model', this.oldModel, this.model);
-      this.RemoveSubject(this.subject);
-      this.ObjectToStore({
-        obj: this.filterModelBeforeUpload(this.model),
-        schema: this.schema,
-        id: this.subject,
-      });
-      this.deleteEdit({ subject: this.subject });
+      this.$log('subject, model, schema', this.subject, this.model, this.schema);
+      this.saveSubjectChanges(this.subject, this.model, this.schema);
       this.oldModel = JSON.parse(JSON.stringify(this.model));
     },
     resetForm() {

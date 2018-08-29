@@ -99,11 +99,6 @@ export default {
         });
     },
   },
-  watch: {
-    search() {
-      // this.querySelections(this.search);
-    },
-  },
   created() {
     let val = this.value;
     if (Array.isArray(val)) {
