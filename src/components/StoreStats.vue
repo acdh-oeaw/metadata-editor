@@ -47,6 +47,11 @@
             <v-flex v-if="item && item.subject" xs12 v-for="(item, i) in items" :key="i">
               <item @input="$emit('input', passThroughItem)" :uri="item.subject" :itemFull="item"></item>
             </v-flex>
+            <div v-if="this.$store.state.JSONschema.unsaved">
+                <v-btn @click="saveAll()" color="primary">save all</v-btn>
+
+                <v-btn @click.stop="discardAll()" color="error">Discard All</v-btn>
+            </div>
           </v-card>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -102,6 +107,12 @@ export default {
         this.items[i] = this.getQuads({ subject: keys[i], predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type' })[0];
         this.$log('item: ', this.items[i]);
       }
+    },
+    saveAll() {
+
+    },
+    discardAll() {
+
     },
     ...mapMutations('dialogs', [
       'openDialog',
