@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import debounce from 'debounce';
 import FormSchema from '@formschema/native';
 import { mapMutations, mapActions, mapGetters } from 'vuex';
 import FormComponentWrapper from './FormComponentWrapper';
@@ -102,11 +103,11 @@ export default {
       'ObjectToStore',
       'RemoveSubject',
     ]),
-    saveEntry() {
+    saveEntry: debounce(function() {
       this.$info('FormFromSchema', 'saveEntry', this.subject);
       this.setEntry({ name: this.uniqueName, entry: this.model, schema: this.type });
       this.saveEdit({ subject: this.subject, model: this.model });
-    },
+    }, 600),
     verboseEntityDesc() {
       let s = '';
       if (this.oldModel.hasFirstName) {

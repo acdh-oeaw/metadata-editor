@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import debounce from 'debounce';
 import FormSchema from '@formschema/native';
 import { mapMutations, mapActions } from 'vuex';
 import FormComponentWrapper from './FormComponentWrapper';
@@ -57,10 +58,10 @@ export default {
     ...mapActions('n3', [
       'ObjectToStore',
     ]),
-    saveEntry() {
+    saveEntry: debounce(function() {
       this.$info('FormFromSchema', 'saveEntry');
       this.setEntry({ name: this.uniqueName, entry: this.model, schema: this.type });
-    },
+    }, 600),
     resetForm() {
       // this.$debug('schema', JSON.stringify(this.schema.properties));
       /*

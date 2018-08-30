@@ -72,6 +72,7 @@ const mutations = {
   },
   deleteEdit(s, { subject }) {
     delete s.unsaved[subject];
+    s.unsaveChanges = !s.unsaveChanges;
   },
 };
 
