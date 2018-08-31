@@ -327,9 +327,10 @@ export default {
       }
       const m = schema; // to be returned
 
+
       const keys = Object.keys(schema.properties);
 
-      // debug object, lists all types
+      //debug object, lists all types
       const types = {};
 
       // this.$log(keys, schema);
@@ -352,6 +353,7 @@ export default {
         }
       }
       // this.$debug('FMFT: valid types:', types);
+
       return m;
     },
     /*
@@ -473,6 +475,7 @@ export default {
       return params;
     },
     saveSubjectChanges(subject, model, schema) {
+      this.$debug('saveSubjectChanges(subject, model, schema)', subject, model, schema);
       this.RemoveSubject(subject);
       this.ObjectToStore({
         obj: this.filterModelBeforeUpload(model),

@@ -103,10 +103,10 @@ export default {
       'ObjectToStore',
       'RemoveSubject',
     ]),
-    saveEntry: debounce(function() {
+    saveEntry: debounce(function () {
       this.$info('FormFromSchema', 'saveEntry', this.subject);
       this.setEntry({ name: this.uniqueName, entry: this.model, schema: this.type });
-      this.saveEdit({ subject: this.subject, model: this.model });
+      this.saveEdit({ subject: this.subject, model: this.model, schema: this.type });
     }, 600),
     verboseEntityDesc() {
       let s = '';

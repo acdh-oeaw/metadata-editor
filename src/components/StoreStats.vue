@@ -126,6 +126,7 @@ export default {
     ...mapGetters('JSONschema', [
       'getUnsaved',
     ]),
+//    ...mapActions
   },
   computed: {
     ...mapGetters('n3', [

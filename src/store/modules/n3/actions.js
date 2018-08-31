@@ -7,12 +7,14 @@
 
 // some helper functions iso mixin
 function RemovePrefix(str) {
+  if (!str) return str;
   if (str.id && str.id.search(/b\d/) > -1) {
     const retStr = str;
     retStr.id = str.id.replace(/b\d_/, '');
     return retStr;
-  } else if (str.id) return str;
-  else if (str.search(/b\d/) > -1) {
+  }
+  if (str.id) return str;
+  if (str && str.search(/b\d/) > -1) {
     return str.replace(/b\d_/, '');
   }
   return str;
@@ -130,6 +132,7 @@ const actions = {
      saving it to the N3.js store */
   ObjectToStore({ state, commit, dispatch }, { schema, obj, id }) {
     const subject = id || `_:${schema.title}_${Date.now().valueOf().toString(36)}`;
+    // this._vm.$debug('ObjectToStore (schema, obj, id)', schema, obj, id);
     commit('startProcessing', 'Loading Object to Store...');
     // first quad for type
     const first = {

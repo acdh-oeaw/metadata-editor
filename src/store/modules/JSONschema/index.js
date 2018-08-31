@@ -37,8 +37,19 @@ const mutations = {
     }
   },
   setEntry(s, { name, entry, schema }) {
-    this._vm.$info(name, entry);
+    this._vm.$info('setEntry: name, entry', name, entry);
     if (name && entry && schema) s.entries[name] = { model: entry, schema };
+  },
+  saveEdit(s, { subject, model, schema }) {
+    this._vm.$info('saveEdit(name, entry, schema)', name, schema);
+    if (subject && model && schema) {
+      s.unsaved[subject] = { model, schema };
+      s.unsaveChanges = !s.unsaveChanges;
+    }
+  },
+  deleteEdit(s, { subject }) {
+    delete s.unsaved[subject];
+    s.unsaveChanges = !s.unsaveChanges;
   },
   /*
   converts a given query (data from n3-store) to a usable model for a formFromSchema
@@ -65,14 +76,6 @@ const mutations = {
     s.entries[name].model = m;
     s.entries[name].schema = type;
     s.entries[name].subject = subject;
-  },
-  saveEdit(s, { subject, model }) {
-    s.unsaved[subject] = model;
-    s.unsaveChanges = !s.unsaveChanges;
-  },
-  deleteEdit(s, { subject }) {
-    delete s.unsaved[subject];
-    s.unsaveChanges = !s.unsaveChanges;
   },
 };
 

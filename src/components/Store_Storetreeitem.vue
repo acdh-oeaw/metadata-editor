@@ -120,11 +120,13 @@ export default {
       this.setDialog({ name: 'editsubjectdialog', obj: { status: true } });
     },
     save() {
-      const type = this.$store.state.JSONschema.entries.edit.schema;
+      //
+      const edit = this.$store.state.JSONschema.unsaved[this.uri.id];
       this.saveSubjectChanges(
         this.uri.id,
-        this.$store.state.JSONschema.unsaved[this.uri.id],
-        this.$store.state.JSONschema.schemas[type]);
+        edit.model,
+        this.$store.state.JSONschema.schemas[edit.schema],
+      );
     },
   },
   mounted() {

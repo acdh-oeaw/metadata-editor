@@ -58,7 +58,7 @@ export default {
     ...mapActions('n3', [
       'ObjectToStore',
     ]),
-    saveEntry: debounce(function() {
+    saveEntry: debounce(function () {
       this.$info('FormFromSchema', 'saveEntry');
       this.setEntry({ name: this.uniqueName, entry: this.model, schema: this.type });
     }, 600),
