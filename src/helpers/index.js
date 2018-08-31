@@ -484,6 +484,18 @@ export default {
       });
       this.deleteEdit({ subject });
     },
+    saveAllSubjectChanges() {
+      const unsaved = this.getUnsaved;
+      const keys = Object.keys(unsaved);
+      this.$log('unsaved keys', unsaved, keys);
+      for (let i = 0; i < keys.length; i += 1) {
+        this.saveSubjectChanges(
+          keys[i],
+          unsaved[keys[i]].model,
+          this.getSchema(unsaved[keys[i]].schema),
+        );
+      }
+    }
   },
   created() {
     this.$info('Helpers', 'created');

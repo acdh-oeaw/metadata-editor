@@ -48,9 +48,9 @@
               <item @input="$emit('input', passThroughItem)" :uri="item.subject" :itemFull="item"></item>
             </v-flex>
             <div v-if="this.$store.state.JSONschema.unsaved">
-                <v-btn @click="saveAll()" color="primary">save all</v-btn>
+                <v-btn @click="saveAllSubjectChanges()" color="primary">save all</v-btn>
 
-                <v-btn @click.stop="discardAll()" color="error">Discard All</v-btn>
+                <v-btn @click="deleteAllEdits()" color="error">Discard All</v-btn>
             </div>
           </v-card>
         </v-expansion-panel-content>
@@ -80,7 +80,7 @@ export default {
     };
   },
   watch: {
-    getUnsaved(oldV, newV) {
+    getUnsavedChanges(oldV, newV) {
       this.$info(oldV, newV);
       this.getRoot();
     },
@@ -111,9 +111,6 @@ export default {
     saveAll() {
 
     },
-    discardAll() {
-
-    },
     ...mapMutations('dialogs', [
       'openDialog',
       'closeDialog',
@@ -123,10 +120,14 @@ export default {
       'safeLimitTest',
       'testLimit',
     ]),
-    ...mapGetters('JSONschema', [
-      'getUnsaved',
+    ...mapActions('n3', [
+      'RemoveSubject',
+      'ObjectToStore',
     ]),
-//    ...mapActions
+    ...mapMutations('JSONschema', [
+      'deleteAllEdits',
+      'deleteEdit', 
+    ]),
   },
   computed: {
     ...mapGetters('n3', [
@@ -134,7 +135,9 @@ export default {
       'getQuads',
     ]),
     ...mapGetters('JSONschema', [
+      'getUnsavedChanges',
       'getUnsaved',
+      'getSchema',
     ]),
   },
 };

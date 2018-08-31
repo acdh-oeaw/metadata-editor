@@ -66,7 +66,7 @@ export default {
       'getQuads',
     ]),
     ...mapGetters('JSONschema', [
-      'getUnsaved',
+      'getUnsavedChanges',
     ]),
 
   },
@@ -75,7 +75,7 @@ export default {
       this.$info(oldV, newV);
       this.getRoot();
     },
-    getUnsaved(oldV, newV) {
+    getUnsavedChanges(oldV, newV) {
       this.$info(oldV, newV);
       this.getRoot();
     },

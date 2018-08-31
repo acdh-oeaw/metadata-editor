@@ -5,7 +5,7 @@ const state = {
   entries: {}, /* = { model: {..actual entries go here..},
     schema: 'schematype* corresponding to a key in schemas goes here' */
   unsaved: {},
-  unsaveChanges: false,
+  unsaveChanges: false, // this is used like a switch to tedect, if unsaved was  changed, since sadly watchers on objects fail.
   p: ['entries', 'schemas', 'unsaved'],
 };
 
@@ -15,7 +15,19 @@ const state = {
 
 const getters = {
   getQuery: s => name => s.schemas[name],
-  getUnsaved: s => s.unsaveChanges,
+  getUnsavedChanges: s => s.unsaveChanges,
+  getUnsaved: s => s.unsaved,
+  getSchema: s => schema => s.schemas[schema],
+
+};
+
+const actions = {
+  getUnsaved({ state }) {
+    return state.unsaved;
+  },
+  getSchema({ state }, schema) {
+     return state.schemas[schema];
+  }
 };
 
 const mutations = {
@@ -52,6 +64,13 @@ const mutations = {
     delete s.unsaved[subject];
     s.unsaveChanges = !s.unsaveChanges;
   },
+  deleteAllEdits(s) {
+    s.unsaved = {};
+    s.unsaveChanges = !s.unsaveChanges;
+  },
+  saveAllEdits(s) {
+
+  },
   /*
   converts a given query (data from n3-store) to a usable model for a formFromSchema
   and sets it to entrys using the given name.
@@ -85,4 +104,5 @@ export default {
   state,
   getters,
   mutations,
+  actions,
 };
