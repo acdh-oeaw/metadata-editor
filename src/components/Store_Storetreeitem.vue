@@ -16,7 +16,7 @@
             <v-layout row>
                 <v-tooltip bottom v-if="$store.state.JSONschema.unsaved[this.uri.id]">
                   <v-icon slot="activator" @click="save" color="success">save</v-icon>
-                  <span>Save Change</span>
+                  <span>Save Changes</span>
                 </v-tooltip bottom>
                 <v-tooltip bottom v-if="$store.state.JSONschema.unsaved[this.uri.id]">
                   <v-icon slot="activator"  @click="discard" color="warning">clear</v-icon>
