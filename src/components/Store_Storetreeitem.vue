@@ -124,7 +124,7 @@ export default {
       let query;
       if (this.$store.state.JSONschema.unsaved[this.uri.id]) {
         this.$log('Previous Edit found!');
-        query = this.$store.state.JSONschema.unsaved[this.uri.id];
+        query = this.$store.state.JSONschema.unsaved[this.uri.id].model;
       } else {
         this.$log('No previous Edit found!');
         query = this.QuadsToObject(this.getQuads({ subject: this.uri.id }));
