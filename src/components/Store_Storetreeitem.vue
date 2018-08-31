@@ -14,9 +14,22 @@
         <v-flex xs1 >
           <div class="itemtoolbar">
             <v-layout row>
-              <v-icon v-if="$store.state.JSONschema.unsaved[this.uri.id]" @click="save">save</v-icon>
-              <v-icon @click="clear">clear</v-icon>
-              <v-icon @click="edit">create</v-icon>
+                <v-tooltip bottom v-if="$store.state.JSONschema.unsaved[this.uri.id]">
+                  <v-icon slot="activator" @click="save">save</v-icon>
+                  <span>Save Change</span>
+                </v-tooltip bottom>
+                <v-tooltip bottom v-if="$store.state.JSONschema.unsaved[this.uri.id]">
+                  <v-icon slot="activator"  @click="discard">clear</v-icon>
+                  <span>Discard Changes</span>
+              </v-tooltip bottom>
+              <v-tooltip bottom>
+                <v-icon slot="activator" @click="clear">delete_forever</v-icon>
+                <span>Delete Subject</span>
+              </v-tooltip bottom>
+              <v-tooltip bottom>
+                <v-icon slot="activator" @click="edit">create</v-icon>
+                <span>Edit Subject</span>
+              </v-tooltip bottom>
             </v-layout>
           </div>
         </v-flex>
@@ -120,7 +133,6 @@ export default {
       this.setDialog({ name: 'editsubjectdialog', obj: { status: true } });
     },
     save() {
-      //
       const edit = this.$store.state.JSONschema.unsaved[this.uri.id];
       this.saveSubjectChanges(
         this.uri.id,
@@ -128,6 +140,9 @@ export default {
         this.$store.state.JSONschema.schemas[edit.schema],
       );
     },
+    discard() {
+      this.deleteEdit({ subject: this.uri.id });
+    }
   },
   mounted() {
     this.chosenItem = this.itemFull;

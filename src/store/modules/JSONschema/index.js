@@ -48,6 +48,7 @@ const mutations = {
     }
   },
   deleteEdit(s, { subject }) {
+    this._vm.$info('deleteEdit(subject)', subject);
     delete s.unsaved[subject];
     s.unsaveChanges = !s.unsaveChanges;
   },
