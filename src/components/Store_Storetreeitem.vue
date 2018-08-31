@@ -15,20 +15,20 @@
           <div class="itemtoolbar">
             <v-layout row>
                 <v-tooltip bottom v-if="$store.state.JSONschema.unsaved[this.uri.id]">
-                  <v-icon slot="activator" @click="save">save</v-icon>
+                  <v-icon slot="activator" @click="save" color="success">save</v-icon>
                   <span>Save Change</span>
                 </v-tooltip bottom>
                 <v-tooltip bottom v-if="$store.state.JSONschema.unsaved[this.uri.id]">
-                  <v-icon slot="activator"  @click="discard">clear</v-icon>
+                  <v-icon slot="activator"  @click="discard" color="warning">clear</v-icon>
                   <span>Discard Changes</span>
               </v-tooltip bottom>
               <v-tooltip bottom>
-                <v-icon slot="activator" @click="clear">delete_forever</v-icon>
-                <span>Delete Subject</span>
+                <v-icon slot="activator" @click="edit" color="primary">create</v-icon>
+                <span>Edit Subject</span>
               </v-tooltip bottom>
               <v-tooltip bottom>
-                <v-icon slot="activator" @click="edit">create</v-icon>
-                <span>Edit Subject</span>
+                <v-icon slot="activator" @click="clear" color="error">delete_forever</v-icon>
+                <span>Delete Subject</span>
               </v-tooltip bottom>
             </v-layout>
           </div>
@@ -174,6 +174,11 @@ export default {
   padding-right: 10px;
   overflow: hidden;
 }
+
+.itemtoolbar .tooltip:nth-child(2) {
+  padding-right: 3px;
+}
+
 
 .itemcaption {
   text-overflow: ellipsis;
