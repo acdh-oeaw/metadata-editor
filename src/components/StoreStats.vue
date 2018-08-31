@@ -2,7 +2,7 @@
   <div style="overflow: auto;">
     <nav class="collapse bd-links" id="bd-docs-nav">
       <div class="bd-toc-item">
-        <a class="bd-toc-link" href="#">Store Stats</a>
+        <h2>Store Stats</h2>
       </div>
       <div class="bd-toc-item">
         {{ getCount.quads }} Quads
@@ -48,7 +48,7 @@
               <item @input="$emit('input', passThroughItem)" :uri="item.subject" :itemFull="item"></item>
             </v-flex>
             <div v-if="this.$store.state.JSONschema.unsaved">
-                <v-btn @click="saveAllSubjectChanges()" color="primary">save all</v-btn>
+                <v-btn @click="saveAllSubjectChanges()" color="success">save all</v-btn>
 
                 <v-btn @click="deleteAllEdits()" color="error">Discard All</v-btn>
             </div>
@@ -126,7 +126,7 @@ export default {
     ]),
     ...mapMutations('JSONschema', [
       'deleteAllEdits',
-      'deleteEdit', 
+      'deleteEdit',
     ]),
   },
   computed: {

@@ -142,7 +142,7 @@ export default {
     },
     discard() {
       this.deleteEdit({ subject: this.uri.id });
-    }
+    },
   },
   mounted() {
     this.chosenItem = this.itemFull;
