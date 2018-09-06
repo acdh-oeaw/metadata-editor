@@ -4,7 +4,7 @@
       <v-text-field
         v-model="select[i-1]"
         :label="name"
-        :rules = "[() => status[i-1] || 'Failed to fetch Data from the API',() => select[i-1].length > 0 || 'This field may not be empty', () => valid[i-1] || 'Please choose a valid identifier', (!exists[i] || !forbidExistingIdentifiers) || 'Please choose an non existing Identifier']"
+        :rules = "[() => status[i-1] || 'Failed to fetch Data from the API',() => select[i-1].length > 0 || 'This field may not be empty', () => valid[i-1] || 'Please choose a valid identifier', (!exists[i-1] || !forbidExistingIdentifiers) || 'Please choose an non existing Identifier']"
         required
         @input="querySelections(select[i-1], i-1); $emit('input', select)"
         >
@@ -59,16 +59,18 @@ export default {
       'setDialogPromise',
     ]),
     querySelections(val, i) {
+      this.$debug('querySelect. val, i, loading', val, i, this.loading);
       let value;
       if (val && !Array.isArray(val)) {
         value = val.replace(/^\s+|\s+$/g, '');
       } else {
         return;
       }
-      this.$debug('querySelections(val)', value);
       this.loading[i] = true;
+
       this.isIdentifier(value)
         .then((res) => {
+          this.$debug('res is:', res);
           this.loading[i] = false;
           switch (res) {
             case 1: // valid free identifier
@@ -96,6 +98,7 @@ export default {
               break;
           }
           this.$debug('res exists identifier', res);
+          this.$forceUpdate(); // this is somehow necessary to display reality
         });
     },
   },
@@ -109,7 +112,7 @@ export default {
       val.push(this.value);
     }
     for (let i = 0; i < this.nIdentis; i += 1) {
-      this.select[i] = val[i] || ' ';
+      this.select[i] = val[i] || '';
       this.loading[i] = true;
       this.exists[i] = false;
       this.valid[i] = false;

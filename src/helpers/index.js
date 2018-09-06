@@ -174,7 +174,7 @@ export default {
     isIdentifier(id) {
       if (!id) { return Promise.reject(-2); }
       this.$debug('isIdentifier, id', id);
-      return APIS.ARCHE2.ID.get(`${encodeURIComponent(id.replace('https://', '')).replace('%2F', '%20')}`).then((response) => {
+      return APIS.ARCHE2.ID.get(`${encodeURIComponent(id.replace('https://', ''))}`).then((response) => {
         /*
           For some reason, the api only accepts %20 instead of %2F,
           this might be fixed but for now we'll have to do it like this
