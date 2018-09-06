@@ -48,7 +48,7 @@ export default {
       },
       // for Mapping matching names to components.
       componentNameMap: {
-        ArcheLifeCycleStatus: { name: 'AutocompVocabs', type: 'ARCHE_LIFECYCLE_STATUS' },
+        hasLifeCycleStatus: { name: 'AutocompVocabs', type: 'ARCHE_LIFECYCLE_STATUS' },
         ArcheCategory: { name: 'AutocompVocabs', type: 'ARCHE_CATEGORY' },
       },
     };
