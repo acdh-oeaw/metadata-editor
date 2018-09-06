@@ -69,7 +69,7 @@ export default {
     },
   },
   created() {
-    // hasIdentifier;
+    // if this -> mapping happens in the hasIdentifierFunciton
     if (this.hasIdentifier(this.name)) { return; }
 
     let c = this.componentNameMap[this.name];
@@ -81,18 +81,20 @@ export default {
     if (!c) {
       c = { type: this.type, name: 'autocompdefault' };
     }
-    // this.$info('FormComponentWrapper created', c);
-    if (this.selectedValue) {
-      // this.$info('  selectedValue:', this.selectedValue);
-    }
+
     this.component = c.name;
     this.mappedType = c.type;
-    this.selectedValue = this.value;
+    if (this.type === 'date' && Array.isArray(this.value)) {
+      this.selectedValue = this.value[0];
+    } else {
+      this.selectedValue = this.value;
+    }
   },
   updated() {
     if (this.value) {
-      // hasIdentifier;
-      if (!this.hasIdentifier(this.name)) {
+      if (this.type === 'date' && Array.isArray(this.value)) {
+        this.selectedValue = this.value[0];
+      } else {
         this.selectedValue = this.value;
       }
     }
