@@ -7,25 +7,25 @@
       <v-card-title>
         Select From Store or Create New Subject
       </v-card-title>
-      <v-card-text color="primary">
+      <v-card-text  color="primary">
         <storetree v-model="storeTreeSelection" class="tree"></storetree>
         <p>Select an item from the stored items above. this will return the identifier of the subject. Or you can create a new Entry [based on your tree selection] below. (not impemented yet)</p>
-        <form>
-          <v-text-field label="subject" placeholder="Placeholder" v-model="storeTreeSelection.subject"></v-text-field>
-          <v-text-field label="predicate" placeholder="Placeholder" v-model="storeTreeSelection.predicate"></v-text-field>
-          <v-text-field label="object" placeholder="Placeholder" v-model="storeTreeSelection.object"></v-text-field>
+        <form v-if="storeTreeSelection">
+          <v-text-field label="subject" v-if="storeTreeSelection.subject" placeholder="Placeholder" v-model="storeTreeSelection.subject.value"></v-text-field>
+          <v-text-field label="predicate" v-if="storeTreeSelection.predicate" placeholder="Placeholder" v-model="storeTreeSelection.predicate.value"></v-text-field>
+          <v-text-field label="object"  v-if="storeTreeSelection.object" placeholder="Placeholder" v-model="storeTreeSelection.object.value"></v-text-field>
         </form>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="deleteItem();" color="secondary" large>
+        <v-btn @click="cancel();" color="secondary" large>
           Cancel
         </v-btn>
-        <v-btn :disabled="!storeTreeSelection" @click="ChangeItem();" color="primary" large>
+        <v-btn :disabled="!storeTreeSelection" @click="addItem();" color="primary" large>
           Select
         </v-btn>
       </v-card-actions>
 
-      <p>old item: {{ item }}</p>
+      <p>selected Item: {{ storeTreeSelection }}</p>
     </v-card>
   </v-dialog>
 </template>
@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       name: 'addnewsubjectmodal',
-      storeTreeSelection: '',
+      storeTreeSelection: {},
     };
   },
   mixins: [HELPERS],
@@ -57,23 +57,21 @@ export default {
       'closeDialog',
       'setDialog',
     ]),
-    ChangeItem() {
+    addItem() {
       this.setDialog({
         name: this.name,
         obj: {
           status: false,
-          item: this.item,
-          changedItem: this.storeTreeSelection,
+          addedItem: this.storeTreeSelection,
         },
       });
     },
-    deleteItem() {
+    cancel() {
       this.setDialog({
         name: this.name,
         obj: {
           status: false,
-          item: this.item,
-          delete: true,
+          addedItem: false,
         },
       });
     },

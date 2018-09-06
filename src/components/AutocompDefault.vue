@@ -1,49 +1,52 @@
 <template>
-  <v-select
-    :loading="loading"
-    :items="items"
-    :rules="[() => select.length > 0 || 'You must choose at least one']"
-    :search-input.sync="search"
-    v-model="select"
-    :label="name"
-    autocomplete
-    multiple
-    cache-items
-    chips
-    required
-    item-text="title"
-    item-value="uri"
-    @input="$emit('input', select)"
-    >
-    <template slot="selection" slot-scope="data">
-      <v-chip
-        :selected="data.selected"
-        :key="JSON.stringify(data.item)"
-        close
-        class="chip--select-multi"
-        @input="data.parent.selectItem(data.item)"
+  <div>
+    <v-select
+      :loading="loading"
+      :items="items"
+      :rules="[() => select.length > 0 || 'You must choose at least one']"
+      :search-input.sync="search"
+      v-model="select"
+      :label="name"
+      autocomplete
+      multiple
+      cache-items
+      chips
+      required
+      item-text="title"
+      item-value="uri"
+      @input="$emit('input', select)"
       >
-        <v-avatar>
-          <v-icon>{{typeicon(data.item.type)}}</v-icon>
-        </v-avatar>
-        {{ data.item.title }}
-      </v-chip>
-    </template>
-    <template slot="item" slot-scope="data">
-      <template v-if="typeof data.item !== 'object'">
-        <v-list-tile-content v-text="data.item"></v-list-tile-content>
+      <template slot="selection" slot-scope="data">
+        <v-chip
+          :selected="data.selected"
+          :key="JSON.stringify(data.item)"
+          close
+          class="chip--select-multi"
+          @input="data.parent.selectItem(data.item)"
+        >
+          <v-avatar>
+            <v-icon>{{typeicon(data.item.type)}}</v-icon>
+          </v-avatar>
+          {{ data.item.title }}
+        </v-chip>
       </template>
-      <template>
-        <v-list-tile-avatar>
-          <v-icon>{{typeicon(data.item.type)}}</v-icon>
-        </v-list-tile-avatar>
-        <v-list-tile-content @click="openPopUp(data.item)">
-          <v-list-tile-title v-html="data.item.title"></v-list-tile-title>
-          <v-list-tile-sub-title v-html="data.item.uri"></v-list-tile-sub-title>
-        </v-list-tile-content>
+      <template slot="item" slot-scope="data">
+        <template v-if="typeof data.item !== 'object'">
+          <v-list-tile-content v-text="data.item"></v-list-tile-content>
+        </template>
+        <template>
+          <v-list-tile-avatar>
+            <v-icon>{{typeicon(data.item.type)}}</v-icon>
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title v-html="data.item.title"></v-list-tile-title>
+            <v-list-tile-sub-title v-html="data.item.uri"></v-list-tile-sub-title>
+          </v-list-tile-content>
+        </template>
       </template>
-    </template>
-  </v-select>
+    </v-select>
+    <v-btn @click="openAddNewSujectDialog()">select from store</v-btn>
+  </div>
 </template>
 
 <script>
@@ -68,7 +71,7 @@ export default {
       search: null,
       select: this.value || [],
       iForDes: -1,
-      manuallySelectedItem: false,
+      listenForStoreSelectedItem: false,
       nStoreSelected: 0,
     };
   },
@@ -79,10 +82,6 @@ export default {
     ]),
     querySelections(val) {
       this.loading = true;
-      // this.$info(vm);
-
-      // manual typed word
-      this.addFieldForStoreSelection();
       // results from api
       this.getArcheByID(this.type + '/' + val, 'AUTOCOMPLETE')
       .then((res) => {
@@ -100,11 +99,6 @@ export default {
         this.loading = false;
       });
     },
-    addFieldForStoreSelection() {
-      if (!this.items[0]) {
-        this.items[0] = this.storeSelectItem();
-      }
-    },
     mapResultsToItems(results) {
       // map to items //title url type
       for (let i = 0; i < results.length; i += 1) {
@@ -116,22 +110,15 @@ export default {
         }
       }
     },
-    openPopUp(item) {
-      if (item.openPopUp) {
-        this.$debug('openPopUp(item)', item);
-        // item.title = 'changedByPopUP'; // -> works
-        this.manuallySelectedItem = true;
-        this.setDialog({
-          name: 'addnewsubjectmodal',
-          obj: {
-            status: true,
-            item,
-          },
-        });
-      }
-    },
-    storeSelectItem() {
-      return { title: 'Click Here to select from store or to add a new Entry', uri: 'selectFromStoreOrTypeInNewOne', type: 'keyboard', openPopUp: true };
+    openAddNewSujectDialog() {
+      this.$debug('openAddNewSujectDialog(item)');
+      this.listenForStoreSelectedItem = true;
+      this.setDialog({
+        name: 'addnewsubjectmodal',
+        obj: {
+          status: true,
+        },
+      });
     },
   },
   watch: {
@@ -139,20 +126,25 @@ export default {
       this.querySelections(this.search);
     },
     newItem(after, before) {
-      if (!this.manuallySelectedItem) {
+      // other autocomp or dialog got canceld:
+      if (!this.listenForStoreSelectedItem || !after.addedItem) {
         return;
       }
-      if (after.delete) { // dialog got canceld
-        this.select.splice(this.select.length - 1);
-        this.manuallySelectedItem = false;
-        return;
-      }
-      if (!after.changedItem) { // item did not get changed
-        return;
-      }
+      this.$debug('Item has changed!');
+      // getArcheTitle
       // change occoured
-      this.$log('AutocompDefault -> newSubject before, after, manuallySelectedItem', before, after, this.manuallySelectedItem);
-      this.$debug('bef aft: ', JSON.stringify(this.newItem));
+      this.$log('AutocompDefault -> newSubject before, after, listenForStoreSelectedItem', before, after, this.listenForStoreSelectedItem);
+      this.$debug('newITem: ', JSON.stringify(this.newItem));
+      const item = this.newItem.addedItem;
+      // let title = this.getArcheTitle(item.subject.value);
+      this.select.push(item.subject.value);
+       this.items.push(
+        {
+          title: item.subject.value,
+          uri: item.subject.value,
+        });
+
+      /*
       this.$debug('after exists, select:', this.select);
       this.items[this.nStoreSelected].title = this.getArcheTitle(after.changedItem.subject);
       this.items[this.nStoreSelected].uri = after.changedItem.subject;
@@ -167,7 +159,8 @@ export default {
 
       this.select.splice(this.select.length - 1);
       this.select.push(after.changedItem.subject);
-      this.manuallySelectedItem = false;
+      this.listenForStoreSelectedItem = false;
+      */
       this.$emit('input', this.select);
     },
     $route(to) {
@@ -201,6 +194,9 @@ export default {
   computed: {
     ...mapGetters('n3', [
       'getArcheTitle',
+      'getQuads',
+      'getType',
+      'getArcheTypeString',
     ]),
     newItem() {
       return this.$store.state.dialogs.addnewsubjectmodal;

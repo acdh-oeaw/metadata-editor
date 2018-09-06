@@ -6,7 +6,7 @@ const state = {
   storedialog: { status: false },
   deletesubjectdialog: { status: false, uri: '' },
   editsubjectdialog: { status: false, query: {}, type: '' },
-  addnewsubjectmodal: { status: false, item: {}, changedItem: {} },
+  addnewsubjectmodal: { status: false, addedItem: {} },
   filesizedialog: { status: false, file: '', size: '', result: '' },
 };
 
