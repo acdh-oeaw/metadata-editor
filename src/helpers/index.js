@@ -495,7 +495,7 @@ export default {
           this.getSchema(unsaved[keys[i]].schema),
         );
       }
-    }
+    },
   },
   created() {
     this.$info('Helpers', 'created');

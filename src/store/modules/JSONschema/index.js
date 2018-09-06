@@ -5,7 +5,8 @@ const state = {
   entries: {}, /* = { model: {..actual entries go here..},
     schema: 'schematype* corresponding to a key in schemas goes here' */
   unsaved: {},
-  unsaveChanges: false, // this is used like a switch to tedect, if unsaved was  changed, since sadly watchers on objects fail.
+  unsaveChanges: false, /* this is used like a switch to tedect,
+  if unsaved was  changed, since sadly watchers on objects fail. */
   p: ['entries', 'schemas', 'unsaved'],
 };
 
@@ -26,8 +27,8 @@ const actions = {
     return state.unsaved;
   },
   getSchema({ state }, schema) {
-     return state.schemas[schema];
-  }
+    return state.schemas[schema];
+  },
 };
 
 const mutations = {
@@ -68,7 +69,7 @@ const mutations = {
     s.unsaved = {};
     s.unsaveChanges = !s.unsaveChanges;
   },
-  saveAllEdits(s) {
+  saveAllEdits() {
 
   },
   /*
