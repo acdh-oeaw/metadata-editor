@@ -144,23 +144,7 @@ export default {
           uri: item.subject.value,
         });
 
-      /*
-      this.$debug('after exists, select:', this.select);
-      this.items[this.nStoreSelected].title = this.getArcheTitle(after.changedItem.subject);
-      this.items[this.nStoreSelected].uri = after.changedItem.subject;
-      if (this.items.length > this.nStoreSelected + 1) {
-        this.$debug('items', this.items);
-        this.nStoreSelected = this.nStoreSelected + 1;
-        this.items.push(this.items[this.nStoreSelected]);
-        this.items[this.nStoreSelected] = this.storeSelectItem();
-      } else {
-        this.items.push(this.storeSelectItem());
-      }
-
-      this.select.splice(this.select.length - 1);
-      this.select.push(after.changedItem.subject);
       this.listenForStoreSelectedItem = false;
-      */
       this.$emit('input', this.select);
     },
     $route(to) {
