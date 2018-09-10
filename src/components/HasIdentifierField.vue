@@ -1,29 +1,29 @@
 <template>
   <div>
-    <div v-for="i in nIdentis">
+    <div v-for="item, index in items">
       <v-text-field
-        v-model="select[i-1]"
+        v-model="item.select"
         :label="name"
-        :rules = "[() => status[i-1] || 'Failed to fetch Data from the API',() => select[i-1].length > 0 || 'This field may not be empty', () => valid[i-1] || 'Please choose a valid identifier', (!exists[i-1] || !forbidExistingIdentifiers) || 'Please choose an non existing Identifier']"
+        :rules = "[() => item.status || 'Failed to fetch Data from the API',() => item.select.length > 0 || 'This field may not be empty', () => item.valid || 'Please choose a valid identifier', (!item.exists || !forbidExistingIdentifiers) || 'Please choose an non existing Identifier']"
         required
-        @input="querySelections(select[i-1], i-1); $emit('input', select)"
+        @input="querySelections(index); emit();"
         >
       </v-text-field>
-      <template v-if="!loading[i-1] && select[i-1].length > 0">
-        <p v-if="status[i-1]">
-          <span class="notExists" v-if="valid[i-1]">valid Identifier:</span>
+      <template v-if="!item.loading && item.select.length > 0">
+        <p v-if="item.status">
+          <span class="notExists" v-if="item.valid">valid Identifier:</span>
           <span class="exists" v-else>invalid Identifier</span>
-          <span :class="{exists: forbidExistingIdentifiers}" v-if="exists[i-1] && valid[i-1]">does already exist as an identifier in ARCHE</span>
-          <span class="notExists" v-if="!exists[i-1] && valid[i-1]">does not exist as an identifier in ARCHE</span>
+          <span :class="{exists: forbidExistingIdentifiers}" v-if="item.exists && item.valid">does already exist as an identifier in ARCHE</span>
+          <span class="notExists" v-if="!item.exists && item.valid">does not exist as an identifier in ARCHE</span>
         </p>
       </template>
-      <template v-if="loading[i-1] && select[i-1].length > 0">
+      <template v-if="item.loading && item.select.length > 0">
         <p>loading...</p>
       </template>
       <!--<template v-if="!loading && !status && select[i-1].length > 0">
         <p>Failed to fetch Data from the API...</p>
       </template> -->
-      <v-btn color="warning" @click="remove(i-1);">Delete Identifier</v-btn>
+      <v-btn :disabled="items.length==1" color="warning" @click="remove(index);">Delete Identifier</v-btn>
     </div>
     <v-btn color="success" @click="add();">Add Identifier</v-btn>
 
@@ -47,7 +47,7 @@ export default {
   name: 'HasIdentifierField',
   data() {
     return {
-      nIdentis: 1,
+      items: [],
       loading: [],
       exists: [],
       valid: [],
@@ -61,7 +61,17 @@ export default {
       'setDialog',
       'setDialogPromise',
     ]),
-    querySelections(val, i) {
+    emit() {
+      let select = [];
+      for(let i = 0; i < this.items.length; i += 1){
+        select.push(this.items[i].select);
+      }
+      this.$debug(select);
+      this.$emit('input', select);
+      this.$forceUpdate();
+    },
+    querySelections(i) {
+      const val = this.items[i].select;
       this.$debug('querySelect. val, i, loading', val, i, this.loading);
       let value;
       if (val && !Array.isArray(val)) {
@@ -69,75 +79,66 @@ export default {
       } else {
         return;
       }
-      this.loading[i] = true;
-
+      this.items[i].loading = true;
       this.isIdentifier(value)
         .then((res) => {
           this.$debug('res is:', res);
-          this.loading[i] = false;
+          this.items[i].loading = false;
           switch (res) {
             case 1: // valid free identifier
-              this.valid[i] = true;
-              this.exists[i] = false;
-              this.status[i] = true;
+              this.setVES(i, true, false, true);
               break;
             case -1: // valid already taken identifier
-              this.valid[i] = true;
-              this.exists[i] = true;
-              this.status[i] = true;
+              this.setVES(i, true, true, true);
               break;
             case -3: // no answer from server
-              this.valid[i] = false;
-              this.exists[i] = false;
-              this.status[i] = false;
+              this.setVES(i, false, false, false);
               break;
           // ----------------
             case 0:
             case -2:
             default:
-              this.valid[i] = false;
-              this.exists[i] = false;
-              this.status[i] = true;
+              this.setVES(i, false, false, true);
               break;
           }
           this.$debug('res exists identifier', res);
           this.$forceUpdate(); // this is somehow necessary to display reality
         });
     },
+    setVES(index, valid, exists, status) {
+      this.items[index].valid = valid;
+      this.items[index].exists = exists;
+      this.items[index].status = status;
+    },
     remove(index) {
-      this.select.splice(index, 1);
-      this.loading.splice(index, 1);
-      this.exists.splice(index, 1);
-      this.valid.splice(index, 1);
-      this.status.splice(index, 1);
-      this.nIdentis--;
+      this.items.splice(index, 1);
+      this.emit();
     },
     add() {
-      const i = ++this.nIdentis;
-      this.select.push('');
-      this.loading.push(true);
-      this.exists.push(false);
-      this.valid.push(false);
-      this.status.push(false);
+      this.items.push(this.newItem());
       this.$forceUpdate();
     },
+    newItem(value) {
+      return {
+        select: value  || '',
+        loading: true,
+        exists: false,
+        valid: false,
+        status: false,
+      };
+    }
   },
   created() {
     let val = this.value;
     if (Array.isArray(val)) {
       // array
-      this.nIdentis = this.value.length;
     } else {
       val = [];
       val.push(this.value);
     }
-    for (let i = 0; i < this.nIdentis; i += 1) {
-      this.select[i] = val[i] || '';
-      this.loading[i] = true;
-      this.exists[i] = false;
-      this.valid[i] = false;
-      this.status[i] = false;
-      this.querySelections(this.select[i], i);
+    for (let i = 0; i < val.length; i += 1) {
+      this.items.push(this.newItem(val[i]));
+      this.querySelections(i);
     }
   },
 };
