@@ -6,15 +6,21 @@
         :label="name"
         :rules = "[() => item.status || 'Failed to fetch Data from the API',() => item.select.length > 0 || 'This field may not be empty', () => item.valid || 'Please choose a valid identifier', (!item.exists || !forbidExistingIdentifiers) || 'Please choose an non existing Identifier']"
         required
-        @input="querySelections(index); emit();"
+        @input="querySelectionsDebounce(index); emit();"
         >
       </v-text-field>
-      <template v-if="!item.loading && item.select.length > 0">
-        <p v-if="item.status">
+      <template v-if="!item.loading && item.select.length > 0 && item.status">
+        <!-- Arche -->
+        <p v-if="item.arche">
           <span class="notExists" v-if="item.valid">valid Identifier:</span>
           <span class="exists" v-else>invalid Identifier</span>
           <span :class="{exists: forbidExistingIdentifiers}" v-if="item.exists && item.valid">does already exist as an identifier in ARCHE</span>
           <span class="notExists" v-if="!item.exists && item.valid">does not exist as an identifier in ARCHE</span>
+        </p>
+        <!-- Non Arche -->
+        <p v-if="!item.arche">
+          <span class="notExists" v-if="item.valid">Valid non-Arche URI, click <a target="_blank" :href="item.select">here</a> to see if it is actually correct.</span>
+          <span class="exists" v-else>invalid URI</span>
         </p>
       </template>
       <template v-if="item.loading && item.select.length > 0">
@@ -70,7 +76,11 @@ export default {
       this.$emit('input', select);
       this.$forceUpdate();
     }, 300),
-    querySelections: debounce(function (i) {
+    querySelectionsDebounce: debounce(function(i) {
+      this.querySelections(i);
+    }, 600),
+    querySelections(i) {
+      this.$info('querySelections', i);
       const val = this.items[i].select;
       this.$debug('querySelect. val, i, loading', val, i, this.loading);
       let value;
@@ -79,6 +89,28 @@ export default {
       } else {
         return;
       }
+
+      if (this.isArcheURI(value)) {
+        this.$info('isArcheURI', value);
+        this.checkArcheIdenti(i, value);
+      } else {
+        this.checkValidURI(i, value);
+        this.items[i].loading = false;
+      }
+    },
+    checkValidURI(i, value) {
+      if (this.isURL(value)) {
+        this.setAVES(i, false, true, false, true);
+      } else {
+        this.setAVES(i, false, false, false, true);
+      }
+    },
+    isURL(url) {
+      this.$info('isURL', url);
+      return url.search(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi)) >= 0;
+    },
+    checkArcheIdenti(i, value) {
+      this.$info('checkArcheIdenti', i, value);
       this.items[i].loading = true;
       this.isIdentifier(value)
         .then((res) => {
@@ -86,26 +118,28 @@ export default {
           this.items[i].loading = false;
           switch (res) {
             case 1: // valid free identifier
-              this.setVES(i, true, false, true);
+              this.setAVES(i, true, true, false, true);
               break;
             case -1: // valid already taken identifier
-              this.setVES(i, true, true, true);
+              this.setAVES(i, true, true, true, true);
               break;
             case -3: // no answer from server
-              this.setVES(i, false, false, false);
+              this.setAVES(i, true, false, false, false);
               break;
           // ----------------
             case 0:
             case -2:
             default:
-              this.setVES(i, false, false, true);
+              this.setAVES(i, true, false, false, true);
               break;
           }
           this.$debug('res exists identifier', res);
           this.$forceUpdate(); // this is somehow necessary to display reality
         });
-    }, 600),
-    setVES(index, valid, exists, status) {
+    },
+    setAVES(index, arche, valid, exists, status) {
+      this.$info('setAVES', index, arche, valid, exists, status);
+      this.items[index].arche = arche;
       this.items[index].valid = valid;
       this.items[index].exists = exists;
       this.items[index].status = status;
@@ -113,6 +147,10 @@ export default {
     remove(index) {
       this.items.splice(index, 1);
       this.emit();
+    },
+    isArcheURI(uri) {
+      this.$info('isArcheURI', uri);
+      return uri.startsWith('https://id.acdh.oeaw.ac.at/');
     },
     add() {
       this.items.push(this.newItem());
@@ -125,6 +163,7 @@ export default {
         exists: false,
         valid: false,
         status: false,
+        arche: false,
       };
     }
   },
@@ -138,6 +177,9 @@ export default {
     }
     for (let i = 0; i < val.length; i += 1) {
       this.items.push(this.newItem(val[i]));
+    }
+
+    for (let i = 0; i < this.items.length; i += 1) {
       this.querySelections(i);
     }
   },
