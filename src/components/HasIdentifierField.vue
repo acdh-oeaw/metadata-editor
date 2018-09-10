@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import debounce from 'debounce';
 import { mapMutations } from 'vuex';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -61,16 +62,15 @@ export default {
       'setDialog',
       'setDialogPromise',
     ]),
-    emit() {
+    emit: debounce(function() {
       let select = [];
       for(let i = 0; i < this.items.length; i += 1){
         select.push(this.items[i].select);
       }
-      this.$debug(select);
       this.$emit('input', select);
       this.$forceUpdate();
-    },
-    querySelections(i) {
+    }, 300),
+    querySelections: debounce(function (i) {
       const val = this.items[i].select;
       this.$debug('querySelect. val, i, loading', val, i, this.loading);
       let value;
@@ -104,7 +104,7 @@ export default {
           this.$debug('res exists identifier', res);
           this.$forceUpdate(); // this is somehow necessary to display reality
         });
-    },
+    }, 600),
     setVES(index, valid, exists, status) {
       this.items[index].valid = valid;
       this.items[index].exists = exists;
