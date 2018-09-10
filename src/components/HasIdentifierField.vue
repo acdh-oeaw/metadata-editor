@@ -23,7 +23,10 @@
       <!--<template v-if="!loading && !status && select[i-1].length > 0">
         <p>Failed to fetch Data from the API...</p>
       </template> -->
+      <v-btn color="warning" @click="remove(i-1);">Delete Identifier</v-btn>
     </div>
+    <v-btn color="success" @click="add();">Add Identifier</v-btn>
+
   </div>
 </template>
 
@@ -100,6 +103,23 @@ export default {
           this.$debug('res exists identifier', res);
           this.$forceUpdate(); // this is somehow necessary to display reality
         });
+    },
+    remove(index) {
+      this.select.splice(index, 1);
+      this.loading.splice(index, 1);
+      this.exists.splice(index, 1);
+      this.valid.splice(index, 1);
+      this.status.splice(index, 1);
+      this.nIdentis--;
+    },
+    add() {
+      const i = ++this.nIdentis;
+      this.select.push('');
+      this.loading.push(true);
+      this.exists.push(false);
+      this.valid.push(false);
+      this.status.push(false);
+      this.$forceUpdate();
     },
   },
   created() {
