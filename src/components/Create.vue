@@ -28,7 +28,7 @@
         <v-tab v-for="tab in tabs" :key="tab.name" ripple>
           {{ tab.name }}
         </v-tab>
-        <v-tab-item v-for="(tab, index) in tabs" :key="tab.name">
+        <v-tab-item v-for="(tab, index) in tabs" :key="tab.name" lazy>
           <formfromschema v-model="formModel[index]" :type="tab.type" :uniqueName="tab.name" :edit="false"></formfromschema>
         </v-tab-item>
       </v-tabs>
@@ -74,7 +74,6 @@ export default {
       formModel: [],
       hifTest: '',
       testARCHE_LIFECYCLE_STATUS: '',
-      endpoints: ['Person', 'Organisation', 'Place', 'Concept', 'Publication', 'Metadata'],
       testing: false,
     };
   },
