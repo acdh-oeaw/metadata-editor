@@ -155,7 +155,7 @@ export default {
       }
     },
     /*
-    sets the mapping in formFromShcema for each type (taken the actual schema)
+    sets the mapping in formFromSchema for each type (taken the actual schema)
     to the FormComponentWrapper, which handels the further mapping to actual components.
     */
     setComponents() {

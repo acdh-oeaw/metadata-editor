@@ -23,10 +23,10 @@ const getters = {
 };
 
 const actions = {
-  getUnsaved({ state }) {
+  getUnsaved() {
     return state.unsaved;
   },
-  getSchema({ state }, schema) {
+  getSchema(schema) {
     return state.schemas[schema];
   },
 };

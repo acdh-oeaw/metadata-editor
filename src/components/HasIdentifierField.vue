@@ -42,6 +42,8 @@ import { mapMutations } from 'vuex';
 import HELPERS from '../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint-disable indent */
+/* eslint-disable func-names */
+// ^this is necessary due to debounce.
 
 
 export default {
@@ -68,15 +70,15 @@ export default {
       'setDialog',
       'setDialogPromise',
     ]),
-    emit: debounce(function() {
-      let select = [];
-      for(let i = 0; i < this.items.length; i += 1){
+    emit: debounce(function () {
+      const select = [];
+      for (let i = 0; i < this.items.length; i += 1) {
         select.push(this.items[i].select);
       }
       this.$emit('input', select);
       this.$forceUpdate();
     }, 300),
-    querySelectionsDebounce: debounce(function(i) {
+    querySelectionsDebounce: debounce(function (i) {
       this.querySelections(i);
     }, 600),
     querySelections(i) {
@@ -107,7 +109,7 @@ export default {
     },
     isURL(url) {
       this.$info('isURL', url);
-      return url.search(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi)) >= 0;
+      return url.search(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/gi)) >= 0;
     },
     checkArcheIdenti(i, value) {
       this.$info('checkArcheIdenti', i, value);
@@ -158,14 +160,14 @@ export default {
     },
     newItem(value) {
       return {
-        select: value  || '',
+        select: value || '',
         loading: true,
         exists: false,
         valid: false,
         status: false,
         arche: false,
       };
-    }
+    },
   },
   created() {
     let val = this.value;
