@@ -30,7 +30,7 @@
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn flat variant="primary" @click="saveChanges(); setDialog({ name, obj: { query: {} } });">Save Changes</v-btn>
         <v-btn flat variant="primary" @click="submit">Add as new Entity</v-btn>
-        <v-btn flat @click="resetForm();" variant="secondary">Reset Form</v-btn>
+        <v-btn flat @click="discardChanges();">Discard Changes</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-card-text>You are currently editing the entity {{ verboseEntityDescription }}
@@ -150,7 +150,7 @@ export default {
           this.subject = res;
           this.$log('New Subject:', this.subject);
           this.snackbar = true;
-          this.oldModel = this.model;          
+          this.oldModel = this.model;
         });
       }
     },
