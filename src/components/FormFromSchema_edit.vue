@@ -39,7 +39,7 @@
     <form-schema v-if="model && type" @input="saveEntry(); $emit('input', model)" :schema="schema" v-model="model" @submit="submit">
       <v-btn variant="primary"  @click="saveChanges();">Save Changes</v-btn>
       <v-btn variant="primary" @click="submit">Add as new Entity</v-btn>
-      <v-btn @click="resetForm();" variant="secondary">Reset Form</v-btn>
+      <v-btn @click="discardChanges();" variant="secondary">Discard Changes</v-btn>
     </form-schema>
   </v-card>
 </template>
@@ -126,16 +126,9 @@ export default {
       this.saveSubjectChanges(this.subject, this.model, this.schema);
       this.oldModel = JSON.parse(JSON.stringify(this.model));
     },
-    resetForm() {
-      // this.$debug('schema', JSON.stringify(this.schema.properties));
-      /*
-      this.$info('FormFromSchema', 'resetForm');
-      const keys = Object.keys(this.model);
-      for (let i = 0; i < keys.length; i += 1) {
-        this.$debug(keys[i]);
-        this.model[keys[i]] = '';
-      }
-      */
+    discardChanges() {
+      this.deleteEdit({ subject: this.subject });
+      this.setDialog({ name: this.name, obj: { query: {} } });
     },
     submit() {
       this.$info('FormFromSchema', 'submit()', JSON.stringify(this.model));
@@ -157,6 +150,7 @@ export default {
           this.subject = res;
           this.$log('New Subject:', this.subject);
           this.snackbar = true;
+          this.oldModel = this.model;          
         });
       }
     },
