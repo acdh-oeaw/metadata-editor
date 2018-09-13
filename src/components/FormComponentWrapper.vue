@@ -8,6 +8,7 @@
 import HELPERS from '../helpers';
 import autocompdefault from './AutocompDefault';
 import HasIdentifierField from './HasIdentifierField';
+import HasTitleImageField from './HasTitleImageField';
 import AutocompVocabs from './AutocompVocabs';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
@@ -28,6 +29,7 @@ export default {
   components: {
     autocompdefault,
     HasIdentifierField,
+    HasTitleImageField,
     AutocompVocabs,
   },
   name: 'FormComponentWrapper',
@@ -67,10 +69,20 @@ export default {
       }
       return false;
     },
+    hasTitleImage(name) {
+      if (name === 'hasTitleImage') {
+        this.component = 'hasTitleImageField';
+        this.selectedValue = this.value;
+        // this.$info('FormComponentWrapper created', this.component, this.selectedValue);
+        return true;
+      }
+      return false;
+    },
   },
   created() {
     // if this -> mapping happens in the hasIdentifierFunciton
     if (this.hasIdentifier(this.name)) { return; }
+    if (this.hasTitleImage(this.name)) { return; }
 
     let c = this.componentNameMap[this.name];
     if (!c) {

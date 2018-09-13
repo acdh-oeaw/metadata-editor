@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap>
-    <v-expansion-panel popout>
+    <v-expansion-panel>
       <v-expansion-panel-content>
         <div slot="header"><v-icon large color='teal lighten-3'>folder</v-icon> Collections / Resources</div>
         <v-card>

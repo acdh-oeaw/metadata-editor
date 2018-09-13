@@ -4,6 +4,27 @@
     <v-btn variant="primary" @click="submit">Load into Store</v-btn>
     <v-btn @click="resetForm();" variant="secondary">Reset Form</v-btn>
   </form-schema>
+  <v-snackbar
+    v-model="snackbar"
+    :timeout="8000"
+    bottom
+    >
+    You need to specify a title image to upload a collection!
+    <v-btn
+        dark
+        flat
+        @click="snackbar = false; useBlank()"
+      >
+        Use blank
+    </v-btn>
+    <v-btn
+        dark
+        flat
+        @click="snackbar = false"
+      >
+        Close
+    </v-btn>
+  </v-snackbar>
 </v-card>
 </template>
 
@@ -44,7 +65,8 @@ export default {
     model: false,
     loading: true,
     name: 'editsubjectdialog',
-    blacklistRegex: /^is*/, // for name like
+    blacklistRegex: /^is*/, // for name like,
+    snackbar: false,
   }),
   methods: {
     ...mapMutations('JSONschema', [
@@ -75,11 +97,21 @@ export default {
     },
     submit() {
       this.$info('FormFromSchema', 'submit()', this.model);
+      this.snackbar = false;
       // here everything -> n3 store.
       /* before calling ObjectToStore,
       we need to filter out objects and split them further into quads
       */
-      this.ObjectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema });
+      if (this.type === 'collection' && !this.model.hasTitleImage) {
+        this.$log(this.type);
+        this.snackbar = true;
+      } else {
+        this.ObjectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema });
+      }
+    },
+    useBlank() {
+      this.model.hasTitleImage = 'acdhi:glaser-titleImage';
+      this.submit();
     },
     /*
     sets the mapping in formFromShcema for each type (taken the actual schema)
