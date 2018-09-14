@@ -55,7 +55,7 @@ export default {
       this.$info('Load', 'onFileChange(e)', e);
       const files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
-      if (files[0].name.split('.')[1] == 'ttl') this.loadTtl(files[0]);
+      if (files[0].name.split('.')[1] === 'ttl') this.loadTtl(files[0]);
       else this.loadXML(files[0]);
     },
     loadTtl(file) {
@@ -81,10 +81,10 @@ export default {
       this.$info('Load', 'loadXML(file)', file);
       const reader = new FileReader();
       reader.onload = (e) => {
-        this.convertRDF(e.target.result).then((res) => {          
+        this.convertRDF(e.target.result).then((res) => {
           this.StringToStore(res).then(this.openRightDrawer());
-          //this.StringToStore().then(this.openRightDrawer());
-        })
+          // this.StringToStore().then(this.openRightDrawer());
+        });
       };
       reader.readAsText(file);
     },

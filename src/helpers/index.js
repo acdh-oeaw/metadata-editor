@@ -497,16 +497,20 @@ export default {
         );
       }
     },
+    /**
+    returns emtpy string if argument is missing
+    **/
     convertRDF(rdfstring) {
-      console.log(rdfstring);
-      if(rdfstring) {
+      this.$log(rdfstring);
+      if (rdfstring) {
         return rdfTranslator(rdfstring, 'xml', 'n3')
-          .then(data => {
+          .then((data) => {
             return Promise.resolve(data);
-          }).catch(err => {
+          }).catch((err) => {
             return Promise.reject(err);
           });
       }
+      return '';
     },
   },
   created() {
