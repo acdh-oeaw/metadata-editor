@@ -9,7 +9,7 @@ import axios from 'axios';
 // this could go to an external file, to be excluded from commits etc
 const CONFIG = {
   ARCHE: {
-    BASEURL: 'https://fedora.apollo.arz.oeaw.ac.at/browser/api/',
+    BASEURL: 'https://arche-curation.minerva.arz.oeaw.ac.at/browser/api/',
     ENDPOINTS: {
       PERSONS: 'persons/',
       BASE: '',
@@ -28,7 +28,7 @@ const CONFIG = {
     HEADERS: {},
   },
   ARCHE2: {
-    BASEURL: 'https://fedora.hephaistos.arz.oeaw.ac.at/browser/api/',
+    BASEURL: 'https://arche-curation.minerva.arz.oeaw.ac.at/browser/api/',
     ENDPOINTS: {
       PERSONS: 'persons/',
       BASE: '',
