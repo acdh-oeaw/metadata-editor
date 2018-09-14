@@ -14,7 +14,7 @@
       required
       item-text="title"
       item-value="uri"
-      @input="$emit('input', select)"
+      @input="$emit('input', select); $debug('LOL');"
       >
       <template slot="selection" slot-scope="data">
         <v-chip

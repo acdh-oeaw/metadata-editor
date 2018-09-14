@@ -39,7 +39,7 @@
 
 <script>
 import {
-  mapMutations,
+  mapMutations, mapGetters,
 } from 'vuex';
 import loadfile from './Store_LoadFile';
 import storetree from './Store_Storetree';
@@ -65,6 +65,9 @@ export default {
     tabs() {
       return this.$store.state.JSONschema.tabs;
     },
+    ...mapGetters('n3', [
+      'getQuads',
+    ]),
   },
   data() {
     return {

@@ -1,9 +1,20 @@
 <template>
-  <v-layout row wrap>
+  <v-layout row wrap @click="setCollections">
     <v-expansion-panel>
       <v-expansion-panel-content>
         <div slot="header"><v-icon large color='teal lighten-3'>folder</v-icon> Collections / Resources</div>
-        <v-card>
+        <v-select
+          @input="setRootCollections(); $debug('hai');"
+          v-if="selectRootManually"
+          :items="collectionNames"
+          v-model="collectionNames_select"
+          label="Please select all root collections"
+          autocomplete
+          multiple
+          chips
+          >
+        </v-select>
+        <v-card v-if="collections">
           <v-flex xs12 v-for="(item, i) in collections" :key="i" >
             <item @input="$emit('input', passThroughItem)"  v-model="passThroughItem" :uri="item.subject" :itemFull="item" :bg="i%2"></item>
           </v-flex>
@@ -38,7 +49,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import item from './Store_Storetreeitem';
 
 import HELPERS from '../helpers';
@@ -47,9 +58,16 @@ import HELPERS from '../helpers';
 
 export default {
   mixins: [HELPERS],
+  props: {
+    selectRootManually: {
+      default: false,
+    },
+  },
   data() {
     return {
-      collections: [],
+      collectionNames: [], // list of all collection and projectnames
+      collectionNames_select: [], // selection of v-select
+      collections: [], // actual root elements
       persons: [],
       places: [],
       organisations: [],
@@ -84,6 +102,35 @@ export default {
     },
   },
   methods: {
+    ...mapActions('n3', [
+      'AddFilteredQuad',
+      'AddQuad',
+    ]),
+    setCollections() {
+      this.collectionNames = this.getAllCollections().map((v) => v.subject.value);
+    },
+    setRootCollections() {
+      this.$debug('setRootCollections', this.collectionNames_select);
+      let collections = [];
+      for (let i = 0; i < this.collectionNames_select.length; i += 1) {
+
+        /* this.AddQuad( {
+          subject: ':_'+this.collectionNames_select[i],
+          predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitleImage',
+          object: ' '});
+          */
+        collections = collections.concat(this.getQuads({ subject: '_:' + this.collectionNames_select[i],
+              predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type' }
+          )
+        );
+
+
+      }
+
+      this.collections = collections;
+      // this.getRoot();
+      this.$forceUpdate();
+    },
     getRoot() {
       this.collections = this.getQuads({ predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitleImage' });
       this.persons = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#person' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Person' }));

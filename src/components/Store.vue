@@ -34,7 +34,12 @@
       </v-tab-item>
       <v-tab-item key="viewtree">
         <v-flex xs12 class="mt-2">
-          <storetree></storetree>
+          <div>
+            <select class="" name="">
+
+            </select>
+            <storetree selectRootManually="true"></storetree>
+          </div>
         </v-flex>
       </v-tab-item>
     </v-tabs>
@@ -58,9 +63,13 @@ export default {
   data() {
     return {
       file: '',
+      res: [], // complete collection-Query
+      collections: [], // only names of Collections
     };
   },
   computed: {
+  },
+  mounted() {
   },
   methods: {
   },

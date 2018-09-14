@@ -512,6 +512,23 @@ export default {
       }
       return '';
     },
+    /**
+    uses the getQuads function from n3-getters to recieve all collections in the database
+    **/
+    getAllCollections() {
+      this.$info('helpers:getAllCollections');
+      const res = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Collection' })
+
+        .concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#collection' }))
+
+        .concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#project' }))
+        .concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Project' }));
+      // const names = res.map((v) => v.subject.value);
+
+
+      this.$debug('getAllCollections', res);
+      return res;
+    },
   },
   created() {
     this.$info('Helpers', 'created');
