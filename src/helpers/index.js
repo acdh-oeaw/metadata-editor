@@ -1,4 +1,5 @@
 import axios from 'axios';
+import rdfTranslator from 'rdf-translator';
 // import exampleAPI from '../../static/example_api.json';
 // import exampleAPI from '../../static/newsletter.json';
 
@@ -494,6 +495,17 @@ export default {
           unsaved[keys[i]].model,
           this.getSchema(unsaved[keys[i]].schema),
         );
+      }
+    },
+    convertRDF(rdfstring) {
+      console.log(rdfstring);
+      if(rdfstring) {
+        return rdfTranslator(rdfstring, 'xml', 'n3')
+          .then(data => {
+            return Promise.resolve(data);
+          }).catch(err => {
+            return Promise.reject(err);
+          });
       }
     },
   },
