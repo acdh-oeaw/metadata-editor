@@ -145,11 +145,17 @@ export default {
       const collections = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#collection' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Collection' }));
 
       // all isPartOf-property quads
-      const partOfCollsSubjects = this.getQuads({ predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf' }).map((coll) => coll.subject.value);
-      const hasPartCollsObject = this.getQuads({ predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasPart' }).map((coll) => coll.object.value);
+      const partOfCollsSubjects = this.getQuads({ predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf' }).map(coll => coll.subject.value);
+      const hasPartCollsObject = this.getQuads({ predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasPart' }).map(coll => coll.object.value);
 
-      // filter out collections, which subjects appear in the partOfCollsSubjects or in the hasPartCollsObject.
-      const collectionsWithoutPartOf = collections.filter((coll) => (!partOfCollsSubjects.includes(coll.subject.value)) && !hasPartCollsObject.includes(coll.object.value));
+      /*
+        filter out collections, which subjects appear in the
+        partOfCollsSubjects or in the hasPartCollsObject.
+      */
+      const collectionsWithoutPartOf = collections.filter(coll =>
+        !partOfCollsSubjects.includes(coll.subject.value)
+        && !hasPartCollsObject.includes(coll.object.value),
+      );
 
       this.$debug('collections', collections, 'partOfColls', 'partOfCollsSubjects', partOfCollsSubjects, 'collectionsWithoutPartOf', collectionsWithoutPartOf);
       return collectionsWithoutPartOf;
