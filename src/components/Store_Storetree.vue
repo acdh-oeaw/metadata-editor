@@ -3,18 +3,17 @@
     <v-expansion-panel>
       <v-expansion-panel-content>
         <div slot="header"><v-icon large color='teal lighten-3'>folder</v-icon> Collections / Resources</div>
-        <v-select
+        <v-autocomplete
           @input="setRootCollections(); $debug('hai');"
           v-if="selectRootManually"
           :items="collectionNames"
           v-model="collectionNames_select"
           label="Please select all root collections"
-          autocomplete
           multiple
           chips
           deletable-chips
           >
-        </v-select>
+        </v-autocomplete>
         <v-card v-if="collections">
           <v-flex xs12 v-for="(item, i) in collections" :key="i" >
             <item @input="$emit('input', passThroughItem)"  v-model="passThroughItem" :uri="item.subject" :itemFull="item" :bg="i%2"></item>
