@@ -7,6 +7,7 @@ const state = {
   unsaved: {},
   unsaveChanges: false, /* this is used like a switch to tedect,
   if unsaved was  changed, since sadly watchers on objects fail. */
+  useDefaultTitleImage: false,
   p: ['entries', 'schemas', 'unsaved'],
 };
 
@@ -59,6 +60,9 @@ const mutations = {
       s.unsaved[subject] = { model, schema };
       s.unsaveChanges = !s.unsaveChanges;
     }
+  },
+  toggleTitleImage(s) {
+    s.useDefaultTitleImage = !s.useDefaultTitleImage;
   },
   deleteEdit(s, { subject }) {
     this._vm.$info('deleteEdit(subject)', subject);

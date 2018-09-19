@@ -103,8 +103,8 @@ export default {
       we need to filter out objects and split them further into quads
       */
       if (this.type === 'collection' && !this.model.hasTitleImage) {
-        this.$log(this.type);
-        this.snackbar = true;
+        if (this.$store.state.JSONschema.useDefaultTitleImage) this.useBlank();
+        else this.snackbar = true;
       } else {
         this.ObjectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema });
       }

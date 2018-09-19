@@ -89,6 +89,9 @@ export default {
       'setDialog',
       'setDialogPromise',
     ]),
+    ...mapMutations('JSONschema', [
+      'toggleTitleImage',
+    ]),
     querySelections(val) {
       this.loading = true;
       // results from api
@@ -131,6 +134,9 @@ export default {
     },
   },
   watch: {
+    switch1() {
+      this.toggleTitleImage();
+    },
     search() {
       this.querySelections(this.search);
     },

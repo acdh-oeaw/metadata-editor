@@ -107,22 +107,22 @@ export default {
       'AddQuad',
     ]),
     setCollections() {
-      this.collectionNames = this.getAllCollections().map((v) => v.subject.value);
+      this.collectionNames = this.getAllCollections().map(v => v.subject.value);
     },
     setRootCollections() {
       this.$debug('setRootCollections', this.collectionNames_select);
       let collections = [];
       for (let i = 0; i < this.collectionNames_select.length; i += 1) {
-
         /* this.AddQuad( {
           subject: ':_'+this.collectionNames_select[i],
           predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitleImage',
           object: ' '});
           */
 
-        collections = collections.concat(this.getQuads({ subject: '_:' + this.collectionNames_select[i],
-              predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type' }
-          )
+        collections = collections.concat(this.getQuads({
+          subject: `_:${this.collectionNames_select[i]}`,
+          predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type' },
+          ),
         );
       }
       this.getRoot();
@@ -131,9 +131,9 @@ export default {
       this.collections = this.collections.concat(collections);
 
       this.$debug('this.collections', JSON.stringify(this.collections));
-      this.collections = this.collections.filter((item, pos) => {
-        return this.collections.indexOf(item) === pos;
-      });
+      this.collections = this.collections.filter((val, pos) =>
+        (this.collections.indexOf(val) === pos),
+      );
       // this.getRoot();
       this.$forceUpdate();
     },
