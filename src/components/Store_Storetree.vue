@@ -111,16 +111,18 @@ export default {
     },
     // to be implemented
     SetAsRootCollection(subject) {
-      this.AddQuad( {
-       subject: '_:'+this.collectionNames_select[i],
-       predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitleImage',
-       object: ''});
+      /*
+        this.AddQuad({
+        subject: `_:${this.collectionNames_select[i]}`,
+        predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitleImage',
+        object: ''});
+      */
     },
     altesSetRootCollections() {
       this.$debug('setRootCollections', this.collectionNames_select);
       let collections = [];
       for (let i = 0; i < this.collectionNames_select.length; i += 1) {
-        setHasTitleImage(this.collectionNames_select[i]);
+        // setHasTitleImage(this.collectionNames_select[i]);
 
         collections = collections.concat(this.getQuads({
           subject: `_:${this.collectionNames_select[i]}`,
@@ -146,13 +148,13 @@ export default {
       const partOfColls = this.getQuads({ predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf' });
 
       // only subjects of collections are relevant
-      const partOfCollsSubjects = partOfColls.map((coll) => coll.subject.value);
+      const partOfCollsSubjects = partOfColls.map(coll => coll.subject.value);
 
-      const collectionsWithoutPartOf = collections.filter((coll) => !partOfCollsSubjects.includes(coll.subject.value));
+      const collectionsWithoutPartOf = collections.filter(
+        coll => !partOfCollsSubjects.includes(coll.subject.value),
+      );
       this.$debug('collections', collections, 'partOfColls', partOfColls, 'partOfCollsSubjects', partOfCollsSubjects, 'collectionsWithoutPartOf', collectionsWithoutPartOf);
       return collectionsWithoutPartOf;
-
-
     },
 
     getRoot() {
