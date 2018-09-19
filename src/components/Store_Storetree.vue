@@ -110,15 +110,18 @@ export default {
     setCollections() {
       this.collectionNames = this.getAllCollections().map(v => v.subject.value);
     },
-    setRootCollections() {
+    // to be implemented
+    SetAsRootCollection(subject) {
+      this.AddQuad( {
+       subject: '_:'+this.collectionNames_select[i],
+       predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitleImage',
+       object: ''});
+    },
+    altesSetRootCollections() {
       this.$debug('setRootCollections', this.collectionNames_select);
       let collections = [];
       for (let i = 0; i < this.collectionNames_select.length; i += 1) {
-        /* this.AddQuad( {
-          subject: ':_'+this.collectionNames_select[i],
-          predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitleImage',
-          object: ' '});
-          */
+        setHasTitleImage(this.collectionNames_select[i]);
 
         collections = collections.concat(this.getQuads({
           subject: `_:${this.collectionNames_select[i]}`,
@@ -127,10 +130,7 @@ export default {
         );
       }
       this.getRoot();
-
-
       this.collections = this.collections.concat(collections);
-
       this.$debug('this.collections', JSON.stringify(this.collections));
       this.collections = this.collections.filter((val, pos) =>
         (this.collections.indexOf(val) === pos),
@@ -138,8 +138,27 @@ export default {
       // this.getRoot();
       this.$forceUpdate();
     },
+    // find all root collections by checking for isPartOf and hasPart properties
+    setRootCollections() {
+      // all collections:
+      const collections = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#collection' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Collection' }));
+
+      // all isPartOf-property quads
+      const partOfColls = this.getQuads({ predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf' });
+
+      // only subjects of collections are relevant
+      const partOfCollsSubjects = partOfColls.map((coll) => coll.subject.value);
+
+      const collectionsWithoutPartOf = collections.filter((coll) => !partOfCollsSubjects.includes(coll.subject.value));
+      this.$debug('collections', collections, 'partOfColls', partOfColls, 'partOfCollsSubjects', partOfCollsSubjects, 'collectionsWithoutPartOf', collectionsWithoutPartOf);
+      return collectionsWithoutPartOf;
+
+
+    },
+
     getRoot() {
-      this.collections = this.getQuads({ predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitleImage' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#project' })).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Project' }));
+      this.$debug('getRoot()');
+      this.collections = (this.setRootCollections()).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Project' }));
       this.persons = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#person' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Person' }));
       this.places = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Place' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#place' }));
       this.organisations = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Organisation' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#organisation' }));
