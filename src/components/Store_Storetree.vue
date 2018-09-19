@@ -3,18 +3,17 @@
     <v-expansion-panel>
       <v-expansion-panel-content>
         <div slot="header"><v-icon large color='teal lighten-3'>folder</v-icon> Collections / Resources</div>
-        <v-select
+        <v-autocomplete
           @input="setRootCollections(); $debug('hai');"
           v-if="selectRootManually"
           :items="collectionNames"
           v-model="collectionNames_select"
           label="Please select all root collections"
-          autocomplete
           multiple
           chips
           deletable-chips
           >
-        </v-select>
+        </v-autocomplete>
         <v-card v-if="collections">
           <v-flex xs12 v-for="(item, i) in collections" :key="i" >
             <item @input="$emit('input', passThroughItem)"  v-model="passThroughItem" :uri="item.subject" :itemFull="item" :bg="i%2"></item>
@@ -112,16 +111,18 @@ export default {
     },
     // to be implemented
     SetAsRootCollection(subject) {
-      this.AddQuad( {
-       subject: '_:'+this.collectionNames_select[i],
-       predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitleImage',
-       object: ''});
+      /*
+        this.AddQuad({
+        subject: `_:${this.collectionNames_select[i]}`,
+        predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitleImage',
+        object: ''});
+      */
     },
     altesSetRootCollections() {
       this.$debug('setRootCollections', this.collectionNames_select);
       let collections = [];
       for (let i = 0; i < this.collectionNames_select.length; i += 1) {
-        setHasTitleImage(this.collectionNames_select[i]);
+        // setHasTitleImage(this.collectionNames_select[i]);
 
         collections = collections.concat(this.getQuads({
           subject: `_:${this.collectionNames_select[i]}`,
