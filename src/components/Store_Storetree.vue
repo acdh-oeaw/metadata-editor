@@ -12,6 +12,7 @@
           autocomplete
           multiple
           chips
+          deletable-chips
           >
         </v-select>
         <v-card v-if="collections">

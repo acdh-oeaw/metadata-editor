@@ -51,7 +51,7 @@
         <v-btn :disabled="switch1" @click="openAddNewSujectDialog()">select from store</v-btn>
       </v-flex>
       <v-flex xs3>
-        <v-switch label="Use blank" v-model="switch1"></v-switch>
+        <v-switch @change="toggleTitleImage" value="true" label="Use blank" v-model="switch1"></v-switch>
       </v-flex>
     </v-layout>
   </div>
@@ -134,9 +134,6 @@ export default {
     },
   },
   watch: {
-    switch1() {
-      this.toggleTitleImage();
-    },
     search() {
       this.querySelections(this.search);
     },
