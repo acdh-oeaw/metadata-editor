@@ -2,7 +2,7 @@
   <fundamentcard
       caption="Load ttl from disk"
       >
-      <div>
+      <div >
         <p>Load Data from a file. See available file types and data formats in the documentation</p>
         <p>[TEST FOR LOCALSTORAGE AND SOME STORE STATS SHOULD GO HERE]</p>
         <p>.</p>

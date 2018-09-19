@@ -145,15 +145,13 @@ export default {
       const collections = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#collection' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Collection' }));
 
       // all isPartOf-property quads
-      const partOfColls = this.getQuads({ predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf' });
+      const partOfCollsSubjects = this.getQuads({ predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf' }).map((coll) => coll.subject.value);
+      const hasPartCollsObject = this.getQuads({ predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasPart' }).map((coll) => coll.object.value);
 
-      // only subjects of collections are relevant
-      const partOfCollsSubjects = partOfColls.map(coll => coll.subject.value);
+      // filter out collections, which subjects appear in the partOfCollsSubjects or in the hasPartCollsObject.
+      const collectionsWithoutPartOf = collections.filter((coll) => (!partOfCollsSubjects.includes(coll.subject.value)) && !hasPartCollsObject.includes(coll.object.value));
 
-      const collectionsWithoutPartOf = collections.filter(
-        coll => !partOfCollsSubjects.includes(coll.subject.value),
-      );
-      this.$debug('collections', collections, 'partOfColls', partOfColls, 'partOfCollsSubjects', partOfCollsSubjects, 'collectionsWithoutPartOf', collectionsWithoutPartOf);
+      this.$debug('collections', collections, 'partOfColls', 'partOfCollsSubjects', partOfCollsSubjects, 'collectionsWithoutPartOf', collectionsWithoutPartOf);
       return collectionsWithoutPartOf;
     },
 

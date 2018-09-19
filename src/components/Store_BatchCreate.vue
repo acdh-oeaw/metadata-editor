@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <template lang="html">
   <fundamentcard
     caption="Create batch from file"
@@ -150,3 +151,5 @@ export default {
 
 <style lang="css">
 </style>
+=======
+>>>>>>> 87c8e29a0dc2f358bba1c1bdef544aea8679d061

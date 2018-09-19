@@ -1,10 +1,11 @@
 <template>
-  <v-autocomplete
+  <v-select
     v-model="state"
     label="Select"
     :items="states"
     @input.native="loadStates"
-  ></v-autocomplete>
+    autocomplete
+  ></v-select>
 </template>
 
 <script>
