@@ -29,7 +29,7 @@
       </v-tab-item>
       <v-tab-item key="batchcreate">
         <v-flex xs12 class="mt-2">
-            [API / File loader + Mapper goes here]
+            <batchcreate></batchcreate>
         </v-flex>
       </v-tab-item>
       <v-tab-item key="viewtree">
@@ -49,6 +49,7 @@
 <script>
 import loadfile from './Store_LoadFile';
 import storetree from './Store_Storetree';
+import batchcreate from './Store_BatchCreate';
 
 import HELPERS from '../helpers';
 
@@ -59,6 +60,7 @@ export default {
   components: {
     loadfile,
     storetree,
+    batchcreate,
   },
   data() {
     return {
