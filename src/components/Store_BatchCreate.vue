@@ -4,19 +4,8 @@
     >
     <v-flex xs12>
       <v-layout row wrap>
-        <v-flex xs4>
+        <v-flex xs12>
           <input type="file" @change="onFileChange">
-        </v-flex>
-        <v-flex xs8>
-          <v-autocomplete
-            :items="filteredNames"
-            v-model="name"
-            label="Name"
-            item-text="name"
-            item-value="val"
-            :hint="name"
-            persistent-hint
-          ></v-autocomplete>
         </v-flex>
       </v-layout>
     </v-flex>
@@ -37,7 +26,11 @@
                 hide-details
               ></v-checkbox>
             </td>
-            <td>{{ props.item.name }}</td>
+            <td @click="props.expanded = !props.expanded">
+              {{ props.item.name }}
+              <v-icon v-if="!props.expanded">expand_more</v-icon>
+              <v-icon v-else>expand_less</v-icon>
+            </td>
             <td>
               <v-Autocomplete
               :items="items.dirs"
@@ -51,9 +44,25 @@
             </td>
           </tr>
         </template>
+        <template slot="expand" slot-scope="props">
+          <v-data-table
+            hide-headers
+            :items="filteredNamesMethod(props.item.name)"
+            item-key="val"
+          >
+            <template slot="items" slot-scope="props">
+              <td>
+                {{ props.item.val }}
+              </td>
+            </template>
+          </v-data-table>
+        </template>
       </v-data-table>
     </v-flex>
-    <v-btn @click="getModel" color="primary">Submit</v-btn>
+    <p class="text-lg-right">
+      <v-btn :disabled="selected.length === 0" @click="getSelected" color="secondary">Submit Selected</v-btn>
+      <v-btn :disabled="model.length === 0" @click="getModel" color="primary">Submit All</v-btn>
+    </p>
     <v-snackbar
       v-model="snackbar"
       top
@@ -120,7 +129,7 @@ export default {
             });
             this.model.push({ name: arr[i].directory, partOf: '' });
           }
-          this.items.names.push({ name: this.getLastDir(arr[i].name), val: arr[i].name });
+          this.items.names.push({ name: arr[i].filename, val: arr[i].name });
         }
         this.$log('items', this.items);
       };
@@ -131,12 +140,19 @@ export default {
       return dir.split('/').slice(-1)[0] || dir.split('/').slice(-2)[0];
     },
     getModel() {
-      this.$log(this.model, this.selected);
+      this.$log(this.model);
+    },
+    getSelected() {
+      this.$log(this.selected);
     },
     changeSelected(val) {
       for (let i = 0; i < this.selected.length; i += 1) {
         this.model[this.model.findIndex(x => x.name === this.selected[i].name)].partOf = val;
       }
+    },
+    filteredNamesMethod(dir) {
+      if (dir) return this.items.names.filter(x => x.val.indexOf(dir) >= 0);
+      return this.items.names;
     },
   },
   computed: {
