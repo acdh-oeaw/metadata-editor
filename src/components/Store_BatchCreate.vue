@@ -15,7 +15,7 @@
         :items="model"
         v-model="selected"
         select-all
-        item-key="name"
+        item-key="hasTitle"
       >
         <template slot="items" slot-scope="props">
           <tr>
@@ -27,18 +27,17 @@
               ></v-checkbox>
             </td>
             <td @click="props.expanded = !props.expanded">
-              {{ props.item.name }}
+              {{ props.item.hasTitle }}
               <v-icon v-if="!props.expanded">expand_more</v-icon>
               <v-icon v-else>expand_less</v-icon>
             </td>
             <td>
               <v-Autocomplete
-              :items="items.dirs"
+              :items="objectsInStore"
               v-model="props.item.partOf"
-              :hint="props.item.partOf"
               label="collection"
-              item-text="dir"
-              item-value="val"
+              item-text="title"
+              item-value="id"
               @change="changeSelected(props.item.partOf)"
             ></v-Autocomplete>
             </td>
@@ -47,7 +46,7 @@
         <template slot="expand" slot-scope="props">
           <v-data-table
             hide-headers
-            :items="filteredNamesMethod(props.item.name)"
+            :items="filteredTitlesMethod(props.item.hasTitle)"
             item-key="val"
           >
             <template slot="items" slot-scope="props">
@@ -60,8 +59,8 @@
       </v-data-table>
     </v-flex>
     <p class="text-lg-right">
-      <v-btn :disabled="selected.length === 0" @click="getSelected" color="secondary">Submit Selected</v-btn>
-      <v-btn :disabled="model.length === 0" @click="getModel" color="primary">Submit All</v-btn>
+      <v-btn :disabled="selected.length === 0" @click="collectionsToStore(selected)" color="secondary">Submit Selected</v-btn>
+      <v-btn :disabled="model.length === 0" @click="collectionsToStore(model)" color="primary">Submit All</v-btn>
     </p>
     <v-snackbar
       v-model="snackbar"
@@ -79,23 +78,23 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 import fundamentcard from './Fundament/FundamentCard';
 
 export default {
   data() {
     return {
       items: {
-        names: [],
+        titles: [],
         dirs: [],
       },
-      dir: '',
-      name: '',
       snackbar: false,
       model: [],
-      search: '',
       selected: [],
+      objectsInStore: [],
       headers: [
-        { text: 'Collection', value: 'col' },
+        { text: 'Collection', value: 'coll' },
         { text: 'Is part of', value: 'partOf' },
       ],
     };
@@ -104,6 +103,9 @@ export default {
     fundamentcard,
   },
   methods: {
+    ...mapActions('n3', [
+      'ObjectToStore',
+    ]),
     onFileChange(e) {
       this.$info('Load', 'onFileChange(e)', e);
       const files = e.target.files || e.dataTransfer.files;
@@ -116,21 +118,18 @@ export default {
       const reader = new FileReader();
       reader.onload = (e) => {
         const arr = JSON.parse(e.target.result).data;
-        this.items = {
-          names: [],
-          dirs: [],
-        };
-        this.model = [];
+        this.clear();
         for (let i = 0; i < arr.length; i += 1) {
           if (!this.items.dirs.some(x => x.val === arr[i].directory)) {
             this.items.dirs.push({
               dir: this.getLastDir(arr[i].directory),
               val: arr[i].directory,
             });
-            this.model.push({ name: arr[i].directory, partOf: '' });
+            this.model.push({ hasTitle: this.getLastDir(arr[i].directory), partOf: '' });
           }
           this.items.names.push({ name: arr[i].filename, val: arr[i].name });
         }
+        this.getCollectionTitles();
         this.$log('items', this.items);
       };
       reader.readAsText(file);
@@ -139,27 +138,54 @@ export default {
       // Returns the second to last if the last is empty
       return dir.split('/').slice(-1)[0] || dir.split('/').slice(-2)[0];
     },
-    getModel() {
-      this.$log(this.model);
-    },
-    getSelected() {
-      this.$log(this.selected);
+    collectionsToStore(colls) {
+      for (let i = 0; i < colls.length; i += 1) {
+        this.ObjectToStore({
+          schema: this.$store.state.JSONschema.schemas.collection,
+          obj: colls[i],
+        }, colls[i]);
+      }
+
+      this.clear();
     },
     changeSelected(val) {
       for (let i = 0; i < this.selected.length; i += 1) {
-        this.model[this.model.findIndex(x => x.name === this.selected[i].name)].partOf = val;
+        this.model[this.model.findIndex(x =>
+          x.hasTitle === this.selected[i].hasTitle)].partOf = val;
       }
     },
-    filteredNamesMethod(dir) {
+    filteredTitlesMethod(dir) {
       if (dir) return this.items.names.filter(x => x.val.indexOf(dir) >= 0);
       return this.items.names;
     },
+    getCollectionTitles() {
+      const collQuads = this.getQuads({
+        predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+        object: 'https://vocabs.acdh.oeaw.ac.at/schema#collection',
+      });
+      for (let i = 0; i < collQuads.length; i += 1) {
+        this.objectsInStore.push({
+          title: this.getQuads({
+            subject: collQuads[i].subject.id,
+            predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle',
+          })[0].object.id.slice(1, -1),
+          id: collQuads[i].subject.id,
+        });
+      }
+    },
+    clear() {
+      this.items = {
+        names: [],
+        dirs: [],
+      };
+      this.model = [];
+      this.objectsInStore = [];
+    },
   },
   computed: {
-    filteredNames() {
-      if (this.dir) return this.items.names.filter(x => x.val.indexOf(this.dir) >= 0);
-      return this.items.names;
-    },
+    ...mapGetters('n3', [
+      'getQuads',
+    ]),
   },
 };
 </script>

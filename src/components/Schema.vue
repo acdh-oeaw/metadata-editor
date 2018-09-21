@@ -19,15 +19,14 @@
             </div>
             <div v-if="this.getOntology" >
               <h1>Explore Ontology</h1>
-              <v-select
+              <v-autocomplete
                 v-model="selectedOntology"
                 class="mb-3"
                 label="Please select a Class"
                 :items="getClasses()"
                 item-text="?x.name"
-                item-value="?x.URI"
-                autocomplete>
-              </v-select>
+                item-value="?x.URI">
+              </v-autocomplete>
               <div>Selected: <strong>{{ selectedOntology }}</strong></div>
               <DataTable :uri="selectedOntology"></DataTable>
             </div>

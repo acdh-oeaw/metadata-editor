@@ -66,7 +66,7 @@ export default {
   data() {
     return {
       collectionNames: [], // list of all collection and projectnames
-      collectionNames_select: [], // selection of v-select
+      collectionNames_select: [], // selection of v-autocomplete
       collections: [], // actual root elements
       persons: [],
       places: [],

@@ -1,13 +1,12 @@
 <template>
   <div>
-    <v-select
+    <v-autocomplete
       :loading="loading"
       :items="items"
       :rules="[() => select.length > 0 || 'You must choose at least one']"
       :search-input.sync="search"
       v-model="select"
       :label="name"
-      autocomplete
       multiple
       cache-items
       chips
@@ -44,7 +43,7 @@
           </v-list-tile-content>
         </template>
       </template>
-    </v-select>
+    </v-autocomplete>
     <v-btn @click="openAddNewSujectDialog()">select from store</v-btn>
   </div>
 </template>

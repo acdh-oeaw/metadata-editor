@@ -132,7 +132,7 @@ const actions = {
      saving it to the N3.js store */
   ObjectToStore({ state, commit, dispatch }, { schema, obj, id }) {
     const subject = id || `_:${schema.title}_${Date.now().valueOf().toString(36)}`;
-    // this._vm.$debug('ObjectToStore (schema, obj, id)', schema, obj, id);
+    this._vm.$log('ObjectToStore (schema, obj, id)', schema, obj, id);
     commit('startProcessing', 'Loading Object to Store...');
     // first quad for type
     const first = {
