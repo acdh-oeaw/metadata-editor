@@ -529,6 +529,9 @@ export default {
       this.$debug('getAllCollections', res);
       return res;
     },
+    getConfig() {
+      return CONFIG;
+    },
   },
   created() {
     this.$info('Helpers', 'created');

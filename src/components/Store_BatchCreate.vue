@@ -81,8 +81,10 @@
 import { mapGetters, mapActions } from 'vuex';
 
 import fundamentcard from './Fundament/FundamentCard';
+import HELPERS from '../helpers';
 
 export default {
+  mixins: [HELPERS],
   data() {
     return {
       items: {
@@ -159,10 +161,7 @@ export default {
       return this.items.names;
     },
     getCollectionTitles() {
-      const collQuads = this.getQuads({
-        predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
-        object: 'https://vocabs.acdh.oeaw.ac.at/schema#collection',
-      });
+      const collQuads = this.getAllCollections();
       for (let i = 0; i < collQuads.length; i += 1) {
         this.objectsInStore.push({
           title: this.getQuads({

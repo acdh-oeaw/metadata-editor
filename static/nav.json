@@ -56,6 +56,18 @@
 						"lang": "en" }
 					},
 				"items":""
+			},
+			{
+				"caption":"Config",
+				"arialabel":"",
+				"icon":"settings",
+				"abstract":"",
+				"startpage":{
+					"name": "config",
+					"params": {
+						"lang": "en" }
+					},
+				"items":""
 			}
 		],
 	"repo":""

@@ -6,6 +6,7 @@ import Store from '../components/Store';
 import Schema from '../components/Schema';
 import App from '../components/App';
 import Storestats from '../components/StoreStats';
+import Config from '../components/Config';
 
 Vue.use(Router);
 
@@ -58,6 +59,14 @@ export default new Router({
           name: 'schema',
           components: {
             Content: Schema,
+            rightdrawerbottom: Storestats,
+          },
+        },
+        {
+          path: 'config',
+          name: 'config',
+          components: {
+            Content: Config,
             rightdrawerbottom: Storestats,
           },
         },
