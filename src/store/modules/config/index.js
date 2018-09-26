@@ -75,6 +75,7 @@ const state = {
 
 const getters = {
   getLocalStorageKey: s => s.localStorageKey,
+  getApis: s => s.apis,
 };
 
 const mutations = {
@@ -84,6 +85,10 @@ const mutations = {
       s[s.p[i]] = pState.app[s.p[i]];
     }
   },
+  setApis(s, { apisObj }) {
+    s.apis = configObj;
+  },
+
 };
 
 const actions = {
