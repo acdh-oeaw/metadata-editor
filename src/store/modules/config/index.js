@@ -16,6 +16,7 @@ const state = {
         METADATA: 'getMetadata/',
         AUTOCOMPLETE: 'getData/',
         ID: 'checkIdentifier/',
+        FAKE_ENDPOINT: 'fake/',
       },
       TIMEOUT: 15000,
       PARAMS: {
