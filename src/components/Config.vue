@@ -1,6 +1,6 @@
 <template lang="html">
   <v-container grid-list-md class="mt-4" id="content">
-    <h2>Edit Config</h2>
+    <h1>Edit Config</h1>
     <p>
       Upon made changes, a save-button will appear, which saves you changes to you local config.<br>
       Please be mindfull on changing endpoints, you might break the application!

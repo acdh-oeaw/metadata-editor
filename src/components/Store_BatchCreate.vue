@@ -34,11 +34,11 @@
             <td>
               <v-Autocomplete
               :items="objectsInStore"
-              v-model="props.item.partOf"
+              v-model="props.item.isPartOf"
               label="collection"
               item-text="title"
               item-value="id"
-              @change="changeSelected(props.item.partOf)"
+              @change="changeSelected(props.item.isPartOf)"
             ></v-Autocomplete>
             </td>
           </tr>
@@ -97,7 +97,7 @@ export default {
       objectsInStore: [],
       headers: [
         { text: 'Collection', value: 'coll' },
-        { text: 'Is part of', value: 'partOf' },
+        { text: 'Is part of', value: 'isPartOf' },
       ],
     };
   },
@@ -127,7 +127,7 @@ export default {
               dir: this.getLastDir(arr[i].directory),
               val: arr[i].directory,
             });
-            this.model.push({ hasTitle: this.getLastDir(arr[i].directory), partOf: '' });
+            this.model.push({ hasTitle: this.getLastDir(arr[i].directory), isPartOf: '' });
           }
           this.items.names.push({ name: arr[i].filename, val: arr[i].name });
         }
@@ -153,7 +153,7 @@ export default {
     changeSelected(val) {
       for (let i = 0; i < this.selected.length; i += 1) {
         this.model[this.model.findIndex(x =>
-          x.hasTitle === this.selected[i].hasTitle)].partOf = val;
+          x.hasTitle === this.selected[i].hasTitle)].isPartOf = val;
       }
     },
     filteredTitlesMethod(dir) {
