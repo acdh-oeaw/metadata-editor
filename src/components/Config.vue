@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import mapMutations from 'vuex';
+import {mapMutations} from 'vuex';
 
 import HELPERS from '../helpers';
 
