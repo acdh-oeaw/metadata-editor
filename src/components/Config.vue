@@ -1,20 +1,25 @@
 <template lang="html">
   <v-container grid-list-md class="mt-4" id="content">
+    <h2>Edit Config</h2>
+    <p>
+      Upon made changes, a save-button will appear, which saves you changes to you local config.<br>
+      Please be mindfull on changing endpoints, you might break the application!
+    </p>
     <v-textarea
       v-model="config"
       auto-grow
-      @input="hidden = false"
+      box
     >
     </v-textarea>
     <v-fab-transition>
       <v-btn
         fixed
-        top
-        v-show="!hidden"
+        bottom
+        v-show="config !== oldConfig"
         right
         color="primary"
         fab
-        @click="setApis(JSON.parse(config)); hidden = true">
+        @click="setApis(JSON.parse(config)); oldConfig = config;">
         <v-icon>save</v-icon>
       </v-btn>
     </v-fab-transition>
@@ -30,8 +35,8 @@ export default {
   mixins: [HELPERS],
   data() {
     return {
-      hidden: true,
       config: '',
+      oldConfig: '',
     };
   },
   methods: {
@@ -41,6 +46,7 @@ export default {
   },
   mounted() {
     this.config = JSON.stringify(this.$store.state.config.apis, null, 4);
+    this.oldConfig = this.config;
   },
 };
 </script>
