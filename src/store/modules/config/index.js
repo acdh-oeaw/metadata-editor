@@ -80,9 +80,9 @@ const getters = {
 
 const mutations = {
   constructConfig(s, { pState }) {
-    this._vm.$info('constructApp ({ pState })');
+    this._vm.$info('constructConfig ({ pState })');
     for (let i = 0; i < s.p.length; i += 1) {
-      s[s.p[i]] = pState.app[s.p[i]];
+      s[s.p[i]] = pState.config[s.p[i]];
     }
   },
   setApis(s, apisObj) {

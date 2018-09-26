@@ -42,8 +42,12 @@ export default {
       'constructJSONschema',
       'setSchema',
     ]),
+
     ...mapMutations('app', [
       'constructApp',
+    ]),
+    ...mapMutations('config', [
+      'constructConfig',
     ]),
     ...mapActions('n3', [
       'ConstructN3',
@@ -84,6 +88,7 @@ export default {
       this.ConstructN3(this.latestSession);
       this.constructApp(this.latestSession);
       this.constructLocalStorageInfo(this.latestSession);
+      this.constructConfig(this.latestSession);
       this.discard();
       if (reload) {
         this.$router.go(this.$router.currentRoute);

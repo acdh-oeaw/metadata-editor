@@ -1,7 +1,7 @@
 <template lang="html">
   <v-container grid-list-md class="mt-4" id="content">
     <v-textarea
-      :value="config"
+      v-model="config"
       auto-grow
       @input="hidden = false"
     >
