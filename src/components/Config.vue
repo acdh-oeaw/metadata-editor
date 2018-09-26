@@ -1,19 +1,20 @@
 <template lang="html">
   <v-container grid-list-md class="mt-4" id="content">
     <v-textarea
-      v-model="config"
+      :value="config"
       auto-grow
-      @change="hidden = false"
+      @input="hidden = false"
     >
     </v-textarea>
     <v-fab-transition>
       <v-btn
         fixed
         top
+        v-show="!hidden"
         right
         color="primary"
         fab
-        @click="setApis(JSON.parse(config));hidden = true">
+        @click="setApis(JSON.parse(config)); hidden = true">
         <v-icon>save</v-icon>
       </v-btn>
     </v-fab-transition>
