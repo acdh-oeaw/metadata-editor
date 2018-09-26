@@ -85,7 +85,7 @@ const mutations = {
       s[s.p[i]] = pState.app[s.p[i]];
     }
   },
-  setApis(s, { apisObj }) {
+  setApis(s, apisObj) {
     s.apis = apisObj;
   },
 
