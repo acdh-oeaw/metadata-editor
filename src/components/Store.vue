@@ -38,7 +38,7 @@
             <select class="" name="">
 
             </select>
-            <storetree selectRootManually="true"></storetree>
+            <storetree></storetree>
           </div>
         </v-flex>
       </v-tab-item>
