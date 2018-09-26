@@ -9,10 +9,11 @@
     <v-fab-transition>
       <v-btn
         fixed
+        top
         right
         color="primary"
         fab
-        @click="hidden = true">
+        @click="setApis(JSON.parse(config));hidden = true">
         <v-icon>save</v-icon>
       </v-btn>
     </v-fab-transition>
@@ -29,28 +30,19 @@ export default {
   data() {
     return {
       hidden: true,
+      config: '',
     };
-  },
-  computed: {
-    config: {
-      get: function() {
-        return JSON.stringify(this.$store.state.config.apis, null, 4);
-      },
-      set: function (newValue) {
-        this.setApis(JSON.parse(newValue));
-      },
-    },
   },
   methods: {
     ...mapMutations('config', [
       'setApis',
     ]),
   },
+  mounted() {
+    this.config = JSON.stringify(this.$store.state.config.apis, null, 4);
+  },
 };
 </script>
 
 <style lang="css">
-  v-btn {
-    top: 100px;
-  }
 </style>
