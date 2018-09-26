@@ -1,16 +1,17 @@
 <template lang="html">
   <v-container grid-list-md class="mt-4" id="content">
     <v-textarea
-      v-model="JSON.stringify(config, null , 4)"
+      v-model="config"
       auto-grow
       @change="hidden = false"
     >
     </v-textarea>
     <v-fab-transition>
       <v-btn
+        fixed
+        right
         color="primary"
         fab
-        v-show="!hidden"
         @click="hidden = true">
         <v-icon>save</v-icon>
       </v-btn>
@@ -19,7 +20,7 @@
 </template>
 
 <script>
-import {mapMutations} from 'vuex';
+import { mapMutations } from 'vuex';
 
 import HELPERS from '../helpers';
 
@@ -31,8 +32,13 @@ export default {
     };
   },
   computed: {
-    config() {
-      return this.$store.state.config.apis;
+    config: {
+      get: function() {
+        return JSON.stringify(this.$store.state.config.apis, null, 4);
+      },
+      set: function (newValue) {
+        this.setApis(JSON.parse(newValue));
+      },
     },
   },
   methods: {
@@ -44,4 +50,7 @@ export default {
 </script>
 
 <style lang="css">
+  v-btn {
+    top: 100px;
+  }
 </style>

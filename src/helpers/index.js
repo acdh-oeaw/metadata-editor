@@ -48,7 +48,7 @@ export default {
   watch: {
     storeApis() {
       this.APIS = this.buildFetchers(this.storeApis);
-    }
+    },
   },
   methods: {
     /* fetches the JSON-schema from the specified API in the config and returns it.
@@ -56,23 +56,23 @@ export default {
     buildFetchers(conf, extconf) {
       const fetchers = {};
       if (extconf) Object.assign(conf, extconf);
-        const c = Object.keys(conf);
-        let idx = c.length - 1;
-        while (idx + 1) {
-         const d = Object.keys(conf[c[idx]].ENDPOINTS);
-         let idy = d.length - 1;
-         fetchers[c[idx]] = {};
-         while (idy + 1) {
-           fetchers[c[idx]][d[idy]] = axios.create({
-             baseURL: conf[c[idx]].BASEURL + conf[c[idx]].ENDPOINTS[d[idy]],
-             timeout: conf[c[idx]].TIMEOUT,
-             params: conf[c[idx]].PARAMS,
-             headers: conf[c[idx]].HEADERS,
-           });
-           idy -= 1;
-         }
-         idx -= 1;
+      const c = Object.keys(conf);
+      let idx = c.length - 1;
+      while (idx + 1) {
+        const d = Object.keys(conf[c[idx]].ENDPOINTS);
+        let idy = d.length - 1;
+        fetchers[c[idx]] = {};
+        while (idy + 1) {
+          fetchers[c[idx]][d[idy]] = axios.create({
+            baseURL: conf[c[idx]].BASEURL + conf[c[idx]].ENDPOINTS[d[idy]],
+            timeout: conf[c[idx]].TIMEOUT,
+            params: conf[c[idx]].PARAMS,
+            headers: conf[c[idx]].HEADERS,
+          });
+          idy -= 1;
         }
+        idx -= 1;
+      }
       return fetchers;
     },
     getMetadataByType(type) {
