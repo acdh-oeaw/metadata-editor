@@ -9,6 +9,7 @@ import JSONschema from './modules/JSONschema/index';
 import app from './modules/app/index';
 import localStorageInfo from './modules/localStorageInfo/index';
 import dialogs from './modules/dialogs/index';
+import config from './modules/config/index';
 import plugins from './plugins';
 
 
@@ -28,6 +29,7 @@ export default new Vuex.Store({
     app,
     localStorageInfo,
     dialogs,
+    config,
   },
   plugins,
   strict: false,
