@@ -31,7 +31,7 @@ function isQuotaExceeded(e) {
   return quotaExceeded;
 }
 
-const triggerMutations = ['n3/stopProcessing', 'JSONschema/setEntry', 'JSONschema/setSchema', 'JSONschema/addTab', 'JSONschema/removeTab'];
+const triggerMutations = ['n3/stopProcessing', 'JSONschema/setEntry', 'JSONschema/setSchema', 'JSONschema/addTab', 'JSONschema/removeTab', 'config/setApis'];
 
 // helper function for filtering for properties that need to be persistent.
 function filterForPersistantProperties(stateObj) {
