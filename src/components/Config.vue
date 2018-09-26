@@ -1,10 +1,18 @@
 <template lang="html">
   <v-container grid-list-md class="mt-4" id="content">
     <v-textarea
-    :value="JSON.stringify(config, null , 4)"
+    v-model="JSON.stringify(config, null , 4)"
       auto-grow
     >
     </v-textarea>
+    <v-fab-transition>
+      <v-btn
+        color="primary"
+        fab
+        v-show="JSON.stringify(config, null , 4) === JSON.stringify(getConfig, null , 4)">
+        <v-icon>save</v-icon>
+      </v-btn>
+    </v-fab-transition>
   </v-container>
 </template>
 
