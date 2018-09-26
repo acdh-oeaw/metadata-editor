@@ -86,7 +86,7 @@ const mutations = {
     }
   },
   setApis(s, { apisObj }) {
-    s.apis = configObj;
+    s.apis = apisObj;
   },
 
 };

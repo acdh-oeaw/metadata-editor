@@ -20,6 +20,7 @@
 
 <script>
 import mapMutations from 'vuex';
+
 import HELPERS from '../helpers';
 
 export default {
