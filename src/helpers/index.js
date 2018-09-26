@@ -8,72 +8,7 @@ import rdfTranslator from 'rdf-translator';
 /* eslint-disable arrow-body-style */
 
 // this could go to an external file, to be excluded from commits etc
-const CONFIG = {
-  ARCHE: {
-    BASEURL: 'https://arche-curation.minerva.arz.oeaw.ac.at/browser/api/',
-    ENDPOINTS: {
-      PERSONS: 'persons/',
-      BASE: '',
-      ORGANISATIONS: 'organisations/',
-      PLACES: 'places/',
-      CONCEPTS: 'concepts/',
-      PUBLICATIONS: 'publications/',
-      METADATA: 'getMetadata/',
-      AUTOCOMPLETE: 'getData/',
-      ID: 'checkIdentifier/',
-    },
-    TIMEOUT: 15000,
-    PARAMS: {
-      _format: 'json',
-    },
-    HEADERS: {},
-  },
-  ARCHE2: {
-    BASEURL: 'https://arche-curation.minerva.arz.oeaw.ac.at/browser/api/',
-    ENDPOINTS: {
-      PERSONS: 'persons/',
-      BASE: '',
-      ORGANISATIONS: 'organisations/',
-      PLACES: 'places/',
-      CONCEPTS: 'concepts/',
-      PUBLICATIONS: 'publications/',
-      METADATA: 'getMetadata/',
-      AUTOCOMPLETE: 'getData/',
-      ID: 'checkIdentifier/',
-    },
-    TIMEOUT: 15000,
-    PARAMS: {
-      _format: 'json',
-    },
-    HEADERS: {},
-  },
-  VIAF: {
-    BASEURL: 'https://www.viaf.org/viaf/',
-    ENDPOINTS: {
-      BASE: '',
-      SEARCH: 'search',
-    },
-    TIMEOUT: 5000,
-    PARAMS: {
-      httpAccept: 'application/json',
-    },
-    HEADERS: {},
-  },
-  VOCABS: {
-    BASEURL: 'https://vocabs.acdh.oeaw.ac.at/rest/v1/',
-    ENDPOINTS: {
-      ARCHE_CATEGORY: 'arche_category/search/',
-      ARCHE_LIFECYCLE_STATUS: 'arche_lifecycle_status/search/',
-    },
-    TIMEOUT: 5000,
-    PARAMS: {
-    },
-    HEADERS: {},
-  },
-};
 
-
-let APIS = {};
 
 /*
 const VALID_TYPES = {
@@ -97,52 +32,59 @@ const VALID_TYPES = {
  used in getMultipleApiCallsByTypeAndID.
 */
 
-function buildFetchers(extconf) {
-  // this.$info('Helpers', 'buildFetchers(extconf)', extconf);
-  const fetchers = {};
-  // let ep = [];
-  if (extconf) Object.assign(CONFIG, extconf);
-  const c = Object.keys(CONFIG);
-  let idx = c.length - 1;
-  while (idx + 1) {
-    const d = Object.keys(CONFIG[c[idx]].ENDPOINTS);
-    let idy = d.length - 1;
-    fetchers[c[idx]] = {};
-    while (idy + 1) {
-      fetchers[c[idx]][d[idy]] = axios.create({
-        baseURL: CONFIG[c[idx]].BASEURL + CONFIG[c[idx]].ENDPOINTS[d[idy]],
-        timeout: CONFIG[c[idx]].TIMEOUT,
-        params: CONFIG[c[idx]].PARAMS,
-        headers: CONFIG[c[idx]].HEADERS,
-      });
-      idy -= 1;
-    }
-    idx -= 1;
-  }
-  return fetchers;
-}
+// APIS = buildFetchers(CONFIG);
 
-APIS = buildFetchers();
-console.log('console.log(APIS);', APIS);
 export default {
   data() {
     return {
-      APIS,
+      APIS: {},
     };
+  },
+  computed: {
+    storeApis() {
+      return this.$store.state.config.apis;
+    },
+  },
+  watch: {
+    storeApis() {
+      this.APIS = this.buildFetchers(this.storeApis);
+    }
   },
   methods: {
     /* fetches the JSON-schema from the specified API in the config and returns it.
      */
+    buildFetchers(conf, extconf) {
+      const fetchers = {};
+      if (extconf) Object.assign(conf, extconf);
+        const c = Object.keys(conf);
+        let idx = c.length - 1;
+        while (idx + 1) {
+         const d = Object.keys(conf[c[idx]].ENDPOINTS);
+         let idy = d.length - 1;
+         fetchers[c[idx]] = {};
+         while (idy + 1) {
+           fetchers[c[idx]][d[idy]] = axios.create({
+             baseURL: conf[c[idx]].BASEURL + conf[c[idx]].ENDPOINTS[d[idy]],
+             timeout: conf[c[idx]].TIMEOUT,
+             params: conf[c[idx]].PARAMS,
+             headers: conf[c[idx]].HEADERS,
+           });
+           idy -= 1;
+         }
+         idx -= 1;
+        }
+      return fetchers;
+    },
     getMetadataByType(type) {
       this.$debug('Helpers', 'getMetadataByType(type)', type);
-      return APIS.ARCHE2.METADATA.get(`${type}/en`).then(response => Promise.resolve(response.data));
+      return this.APIS.ARCHE2.METADATA.get(`${type}/en`).then(response => Promise.resolve(response.data));
     },
     /* fetches data from the specified viaf endpoint in the config above and returnes it.
     */
     getViafByID(id) {
       this.$info('Helpers', 'getViafByID(id)', id);
       if (id) {
-        return APIS.VIAF.BASE.get(`${id}/`).then((response) => {
+        return this.APIS.VIAF.BASE.get(`${id}/`).then((response) => {
           // this.$log('response', response.data);
           return Promise.resolve(response.data);
         }, (error) => {
@@ -175,7 +117,7 @@ export default {
     isIdentifier(id) {
       if (!id) { return Promise.reject(-2); }
       this.$debug('isIdentifier, id', id);
-      return APIS.ARCHE2.ID.get(`${encodeURIComponent(id.replace('https://', ''))}`).then((response) => {
+      return this.APIS.ARCHE2.ID.get(`${encodeURIComponent(id.replace('https://', ''))}`).then((response) => {
         /*
           For some reason, the api only accepts %20 instead of %2F,
           this might be fixed but for now we'll have to do it like this
@@ -198,8 +140,8 @@ export default {
     getArcheByID(id, typ) {
       const type = typ.toUpperCase().trim();
       this.$info('Helpers', 'getArcheByID(id, type)', id, type);
-      if (id && type && APIS.ARCHE2[type]) {
-        return APIS.ARCHE2[type].get(`${id}`).then((response) => {
+      if (id && type && this.APIS.ARCHE2[type]) {
+        return this.APIS.ARCHE2[type].get(`${id}`).then((response) => {
           // this.$log('response', response.data);
           return Promise.resolve(response.data);
         }, (error) => {
@@ -215,8 +157,8 @@ export default {
     getVocabsByID(id, typ) {
       const type = typ.toUpperCase();
       this.$info('Helpers', 'getVocabsByID(id, type)', id, type);
-      if (id && type && APIS.VOCABS[type]) {
-        return APIS.VOCABS[type].get('', {
+      if (id && type && this.APIS.VOCABS[type]) {
+        return this.APIS.VOCABS[type].get('', {
           params: {
             query: `${id}*`,
           },
@@ -535,5 +477,6 @@ export default {
   },
   created() {
     this.$info('Helpers', 'created');
+    this.APIS = this.buildFetchers(this.storeApis);
   },
 };

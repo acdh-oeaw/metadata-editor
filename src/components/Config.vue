@@ -23,11 +23,12 @@ export default {
   mixins: [HELPERS],
   data() {
     return {
-      config: {},
     };
   },
-  created() {
-    this.config = this.getConfig();
+  computed: {
+    config() {
+      return this.$store.state.config.apis;
+    },
   },
 };
 </script>
