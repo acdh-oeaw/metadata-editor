@@ -1,8 +1,10 @@
 <template lang="html">
   <v-container grid-list-md class="mt-4" id="content">
-    <pre>
-      {{ JSON.stringify(config, null , 4)}}
-    </pre>
+    <v-textarea
+    :value="JSON.stringify(config, null , 4)"
+      auto-grow
+    >
+    </v-textarea>
   </v-container>
 </template>
 
