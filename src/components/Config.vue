@@ -114,7 +114,7 @@ export default {
     },
     saveButton() {
       if (this.isJsonString(this.config)) {
-        if (this.config.ARCHE2 && this.config.ARCHE) {
+        if (JSON.parse(this.config).ARCHE2 && JSON.parse(this.config).ARCHE) {
           this.setApis(JSON.parse(this.config));
           this.oldConfig = this.config;
         } else {
