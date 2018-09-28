@@ -31,12 +31,16 @@
         <v-icon>menu</v-icon>
         <v-icon>close</v-icon>
       </v-btn>
-      <v-btn
-        color="primary"
-        fab
-        @click="resetButton">
-        <v-icon>restore</v-icon>
-      </v-btn>
+      <v-tooltip left>
+        <v-btn
+          slot="activator"
+          color="primary"
+          fab
+          @click="resetButton">
+          <v-icon>restore</v-icon>
+        </v-btn>
+        <span>Reset to Default</span>
+      </v-tooltip>
       <v-btn
         :disabled="config !== oldConfig"
         color="primary"
@@ -48,10 +52,17 @@
         :disabled="config === oldConfig"
         color="primary"
         fab
-        @click="setApis(JSON.parse(config)); oldConfig = config;">
+        @click="saveButton">
         <v-icon>save</v-icon>
       </v-btn>
     </v-speed-dial>
+    <v-snackbar
+      v-model="snackbar"
+    >
+      {{ snackbarText }}
+      <v-btn flat color="primary" @click.native="snackbar = false; resetButton()">Reset to default</v-btn>
+      <v-btn flat color="primary" @click.native="snackbar = false">Close</v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -67,6 +78,8 @@ export default {
       config: '',
       oldConfig: '',
       fab: false,
+      snackbarText: '',
+      snackbar: false,
     };
   },
   methods: {
@@ -79,7 +92,10 @@ export default {
       const files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       if (files[0].type === 'application/json') this.loadJSON(files[0]);
-      else this.snackbar = true;
+      else {
+        this.snackbarText = 'You need to upload a JSON file!'
+        this.snackbar = true;
+      }
     },
     loadJSON(file) {
       this.$info('Load', 'loadJSON(file)', file);
@@ -95,6 +111,28 @@ export default {
       this.resetToDefault();
       this.config = JSON.stringify(this.$store.state.config.apis, null, 4);
       this.oldConfig = this.config;
+    },
+    saveButton() {
+      if (this.isJsonString(this.config)) {
+        if (this.config.ARCHE2 && this.config.ARCHE) {
+          this.setApis(JSON.parse(this.config));
+          this.oldConfig = this.config;
+        } else {
+          this.snackbarText = 'Your config is missing essential ARCHE keys!';
+          this.snackbar = true;
+        }
+      } else {
+        this.snackbarText = 'Your config is not a valid JSON file!';
+        this.snackbar = true;
+      }
+    },
+    isJsonString(str) {
+      try {
+        JSON.parse(str);
+      } catch (e) {
+        return false;
+      }
+      return true;
     },
   },
   mounted() {
