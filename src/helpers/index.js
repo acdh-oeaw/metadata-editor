@@ -471,6 +471,19 @@ export default {
       this.$debug('getAllCollections', res);
       return res;
     },
+    downloadBlob(str, filename) {
+      const blob = (window.URL || window.webkitURL)
+        .createObjectURL(this.stringToBlob(str));
+
+      const downloadLink = document.createElement('A');
+      downloadLink.setAttribute('href', blob);
+      downloadLink.setAttribute('download', filename);
+      downloadLink.setAttribute('v-show', 'false');
+
+      document.body.appendChild(downloadLink);
+
+      downloadLink.click();
+    },
   },
   created() {
     this.$info('Helpers', 'created');

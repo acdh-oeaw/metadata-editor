@@ -31,7 +31,7 @@
       <v-alert color="error" show v-if="!$store.state.n3.stored">Quota Exceeded</v-alert>
       <div class="bd-toc-item">
         <div>
-          <v-btn block @click="downloadBlob" color="primary">Download</v-btn>
+          <v-btn block @click="downloadBlob($store.state.n3.ttlString, 'store.ttl')" color="primary">Download</v-btn>
         </div>
         <div>
           <v-btn block @click.stop="openDialog('clearcachedialog')" color="error">Clear Store</v-btn>
@@ -86,19 +86,6 @@ export default {
     },
   },
   methods: {
-    downloadBlob() {
-      this.blob = (window.URL || window.webkitURL)
-        .createObjectURL(this.stringToBlob(this.$store.state.n3.ttlString));
-
-      const downloadLink = document.createElement('A');
-      downloadLink.setAttribute('href', this.blob);
-      downloadLink.setAttribute('download', 'store.ttl');
-      downloadLink.setAttribute('v-show', 'false');
-
-      document.body.appendChild(downloadLink);
-
-      downloadLink.click();
-    },
     getRoot() {
       this.items = [];
       const keys = Object.keys(this.$store.state.JSONschema.unsaved);
