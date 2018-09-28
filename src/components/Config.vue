@@ -93,7 +93,7 @@ export default {
       if (!files.length) return;
       if (files[0].type === 'application/json') this.loadJSON(files[0]);
       else {
-        this.snackbarText = 'You need to upload a JSON file!'
+        this.snackbarText = 'You need to upload a JSON file!';
         this.snackbar = true;
       }
     },

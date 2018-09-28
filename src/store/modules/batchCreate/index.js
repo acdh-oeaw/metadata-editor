@@ -41,9 +41,6 @@ const mutations = {
   setApis(s, apisObj) {
     s.apis = apisObj;
   },
-  resetToDefault(s) {
-    s.apis = defaultConf;
-  },
 
 };
 
