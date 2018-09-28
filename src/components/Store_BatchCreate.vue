@@ -59,8 +59,7 @@
       </v-data-table>
     </v-flex>
     <p class="text-lg-right">
-      <v-btn :disabled="selected.length === 0" @click="collectionsToStore(selected)" color="secondary">Submit Selected</v-btn>
-      <v-btn :disabled="model.length === 0" @click="collectionsToStore(model)" color="primary">Submit All</v-btn>
+      <v-btn :disabled="selected.length === 0" @click="collectionsToStore(selected)" color="secondary">Submit {{ selected.length || '' }} Selected</v-btn>
     </p>
     <v-snackbar
       v-model="snackbar"

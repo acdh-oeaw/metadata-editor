@@ -10,6 +10,7 @@ import app from './modules/app/index';
 import localStorageInfo from './modules/localStorageInfo/index';
 import dialogs from './modules/dialogs/index';
 import config from './modules/config/index';
+import batchCreate from './modules/batchCreate/index';
 import plugins from './plugins';
 
 
@@ -30,6 +31,7 @@ export default new Vuex.Store({
     localStorageInfo,
     dialogs,
     config,
+    batchCreate,
   },
   plugins,
   strict: false,
