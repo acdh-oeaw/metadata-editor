@@ -92,7 +92,10 @@ export default {
       const files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       if (files[0].type === 'application/json') this.loadJSON(files[0]);
-      else this.snackbar = true;
+      else {
+        this.snackbarText = 'You need to upload a JSON file!'
+        this.snackbar = true;
+      }
     },
     loadJSON(file) {
       this.$info('Load', 'loadJSON(file)', file);
@@ -110,20 +113,20 @@ export default {
       this.oldConfig = this.config;
     },
     saveButton() {
-      if (this.IsJsonString(this.config)) {
+      if (this.isJsonString(this.config)) {
         if (this.config.ARCHE2 && this.config.ARCHE) {
           this.setApis(JSON.parse(this.config));
           this.oldConfig = this.config;
         } else {
-          this.snackbar = true;
           this.snackbarText = 'Your config is missing essential ARCHE keys!';
+          this.snackbar = true;
         }
       } else {
-        this.snackbar = true;
         this.snackbarText = 'Your config is not a valid JSON file!';
+        this.snackbar = true;
       }
     },
-    IsJsonString(str) {
+    isJsonString(str) {
       try {
         JSON.parse(str);
       } catch (e) {
