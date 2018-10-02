@@ -19,27 +19,24 @@ const state = {
       ],
     },
   ],
-  localStorageKey: 'MetaDataEditor',
   p: [
-    'apis',
-    'localStorageKey',
+    'directories',
   ],
 };
 
 const getters = {
-  getLocalStorageKey: s => s.localStorageKey,
-  getApis: s => s.apis,
+  getDirectories: s => s.apis,
 };
 
 const mutations = {
-  constructConfig(s, { pState }) {
-    this._vm.$info('constructConfig ({ pState })');
+  constructBatchCreate(s, { pState }) {
+    this._vm.$info('constructBatchCreate ({ pState })');
     for (let i = 0; i < s.p.length; i += 1) {
-      s[s.p[i]] = pState.config[s.p[i]];
+      s[s.p[i]] = pState.batchCreate[s.p[i]];
     }
   },
-  setApis(s, apisObj) {
-    s.apis = apisObj;
+  directories(s, directories) {
+    s.directories = directories;
   },
 
 };
