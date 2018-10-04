@@ -150,6 +150,7 @@ export default {
     },
     // name and model
     initModel() {
+      this.model = [];
       const keys = Object.keys(this.directories);
       for (let i = 0; i < keys.length; i += 1) {
         this.directories[keys[i]].name = this.getLastDir(keys[i]);
@@ -179,11 +180,16 @@ export default {
       this.clearSelected();
     },
     clearSelected() {
-
-      this.model.filter(item => !this.selected.includes(item));
-
-    //  this.directories.filter(item => !this.selected.includes(item));
-
+      const newDirectories = {};
+      for (let i = 0; i < this.selected.length; i += 1) {
+        this.$info('loop', this.selected, this.directories, this.directories[this.selected[i].fullName]);
+        delete this.directories[this.selected[i].fullName];
+      }
+      this.initModel();
+  //    this.model.filter(item => !this.selected.includes(item));
+      this.setModel(this.model);
+      this.selected = [];
+      this.$forceUpdate();
     },
     changeSelected(val) {
       for (let i = 0; i < this.selected.length; i += 1) {
