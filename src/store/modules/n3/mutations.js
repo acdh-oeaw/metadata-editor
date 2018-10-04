@@ -17,6 +17,9 @@ const mutations = {
     s.processing = false;
     s.update = Date.now();
   },
+  forceUpdate(s) {
+    s.update = Date.now();
+  },
   updateTtlString(s, ttlString) {
     s.ttlString = ttlString;
   },

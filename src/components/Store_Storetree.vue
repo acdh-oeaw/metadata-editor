@@ -90,8 +90,13 @@ export default {
   },
   watch: {
     getUpdate(oldV, newV) {
-      this.$info(oldV, newV);
-      this.getRoot();
+      this.$info('getUpdate', oldV, newV);
+      this.collections = {};
+      this.persons = {};
+      this.places = {};
+      this.organisations = {};
+      setTimeout( function() { this.getRoot(); }.bind(this), 100 )
+      // this.getRoot();
     },
     getUnsavedChanges(oldV, newV) {
       this.$info(oldV, newV);
@@ -162,11 +167,12 @@ export default {
     },
 
     getRoot() {
-      this.$debug('getRoot()');
+      this.$info('getRoot()');
       this.collections = (this.setRootCollections()).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Project' }));
       this.persons = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#person' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Person' }));
       this.places = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Place' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#place' }));
       this.organisations = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Organisation' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#organisation' }));
+      this.$forceUpdate();
     },
   },
   mounted() {

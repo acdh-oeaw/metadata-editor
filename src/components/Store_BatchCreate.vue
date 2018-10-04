@@ -137,16 +137,8 @@ export default {
         for (let i = 0; i < arr.length; i += 1) {
 
           this.directories[arr[i].directory] = this.directories[arr[i].directory] || { files: [] };
-          this.directories[arr[i].directory].files.push( this.fileListObjectTrimm(arr[i]) );
-
-          if (!this.items.dirs.some(x => x.val === arr[i].directory)) {
-            this.items.dirs.push({
-              dir: this.getLastDir(arr[i].directory),
-              val: arr[i].directory,
-            });
+          this.directories[arr[i].directory].files.push(this.fileListObjectTrimm(arr[i]));
             // this.model.push({ hasTitle: this.getLastDir(arr[i].directory), isPartOf: '' });
-          }
-          this.items.names.push({ name: arr[i].filename, val: arr[i].name });
         }
         // name and model
         this.initModel();
@@ -184,7 +176,14 @@ export default {
           obj: collection,
         }, collection);
       }
-      this.clear();
+      this.clearSelected();
+    },
+    clearSelected() {
+
+      this.model.filter(item => !this.selected.includes(item));
+
+    //  this.directories.filter(item => !this.selected.includes(item));
+
     },
     changeSelected(val) {
       for (let i = 0; i < this.selected.length; i += 1) {
@@ -211,10 +210,7 @@ export default {
       }
     },
     clear() {
-      this.items = {
-        names: [],
-        dirs: [],
-      };
+      // this.directories = [];
       this.model = [];
       this.objectsInStore = [];
     },

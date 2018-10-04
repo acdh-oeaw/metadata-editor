@@ -77,9 +77,16 @@ export default {
     ...mapGetters('n3', [
       'getQuads',
       'getArcheTitle',
+      'getUpdate',
       'getType',
       'getArcheTypeString',
     ]),
+  },
+  watch: {
+    getUpdate(oldV, newV) {
+      this.$info('getUpdate', oldV, newV);
+      this.update();
+    },
   },
   methods: {
     ...mapActions('n3', [
