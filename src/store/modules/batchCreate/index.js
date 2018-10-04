@@ -2,30 +2,42 @@
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint-disable no-underscore-dangle */
 
+/*
+
+directories looks like this:
+directories: {
+  FulldirectoryName: {
+    name: 'shortFileName',
+    files: [
+      {
+        filename: '',
+        type: '',
+        size: '',
+        lastmod: '',
+        extension: '',
+        valid_file: true,
+      },
+    ],
+  },
+},
+
+*/
 
 const state = {
-  directories: [
-    {
-      name: '',
-      file: [
-        {
-          filename: '',
-          type: '',
-          size: '',
-          lastmod: '',
-          extension: '',
-          valid_file: true,
-        },
-      ],
-    },
-  ],
+  directories: {},
+  model: [],
+  selected: [],
   p: [
     'directories',
+    'model',
+    'selected',
   ],
 };
 
 const getters = {
-  getDirectories: s => s.apis,
+  getDirectories: s => s.directories,
+  getModel: s => s.model,
+  getSelected: s => s.selected,
 };
 
 const mutations = {
@@ -35,10 +47,15 @@ const mutations = {
       s[s.p[i]] = pState.batchCreate[s.p[i]];
     }
   },
-  directories(s, directories) {
+  setDirectories(s, directories) {
     s.directories = directories;
   },
-
+  setModel(s, model) {
+    s.model = model;
+  },
+  setSelected(s, selected) {
+    s.selected = selected;
+  }
 };
 
 const actions = {

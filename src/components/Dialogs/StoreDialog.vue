@@ -42,9 +42,11 @@ export default {
       'constructJSONschema',
       'setSchema',
     ]),
-
     ...mapMutations('app', [
       'constructApp',
+    ]),
+    ...mapMutations('batchCreate', [
+      'constructBatchCreate',
     ]),
     ...mapMutations('config', [
       'constructConfig',
@@ -89,6 +91,7 @@ export default {
       this.constructApp(this.latestSession);
       this.constructLocalStorageInfo(this.latestSession);
       this.constructConfig(this.latestSession);
+      this.constructBatchCreate(this.latestSession);
       this.discard();
       if (reload) {
         this.$router.go(this.$router.currentRoute);
