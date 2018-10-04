@@ -148,7 +148,9 @@ export default {
       this.schema = this.copyRangeToType(schema, 'only name');
       this.schema = this.removeBlacklisted(this.schema, this.blacklistRegex);
 
-      this.setSchema({ name: this.type, schema: this.schema });
+      if (!this.$store.state.JSONschema.schemas[this.type]) {
+        this.setSchema({ name: this.type, schema: this.schema });
+      }
       this.setComponents();
       if (!this.$store.state.JSONschema.entries[this.uniqueName]) {
         this.setEntry({ name: this.uniqueName, entry: {}, schema: this.type });

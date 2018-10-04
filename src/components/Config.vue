@@ -5,9 +5,21 @@
       Upon made changes, a save-button will appear, which saves you changes to you local config.<br>
       Please be mindful on changing endpoints, you might break the application!
     </p>
-      <v-flex xs12>
-        <input type="file" @change="onFileChange">
-      </v-flex>
+    <p>
+      <v-select
+          v-model="select"
+          :items="items"
+          label="Select something you want to configure!"
+          item-text="name"
+          item-value="json"
+          @change="config = select.json; oldConfig = config"
+          return-object
+        >
+      </v-select>
+    </p>
+    <v-flex xs12>
+      <input type="file" @change="onFileChange">
+    </v-flex>
     <v-textarea
       v-model="config"
       auto-grow
@@ -45,7 +57,7 @@
         :disabled="config !== oldConfig"
         color="primary"
         fab
-        @click="downloadBlob(config, 'config.json')">
+        @click="downloadBlob(config, `${select.name}.json`)">
         <v-icon>get_app</v-icon>
       </v-btn>
       <v-btn
@@ -80,6 +92,7 @@ export default {
       fab: false,
       snackbarText: '',
       snackbar: false,
+      select: { name: 'config', json: JSON.stringify(this.$store.state.config.apis, null, 4) },
     };
   },
   methods: {
@@ -87,6 +100,10 @@ export default {
       'setApis',
       'resetToDefault',
     ]),
+    ...mapMutations('JSONschema', [
+      'setSchema',
+    ]),
+
     onFileChange(e) {
       this.$info('Load', 'onFileChange(e)', e);
       const files = e.target.files || e.dataTransfer.files;
@@ -102,7 +119,8 @@ export default {
       const reader = new FileReader();
       reader.onload = (e) => {
         this.config = e.target.result;
-        this.setApis(JSON.parse(e.target.result));
+        if (this.select.name === 'config') this.setApis(JSON.parse(e.target.result));
+        else this.setSchema({ name: this.select.name, schema: JSON.parse(e.target.result) });
         this.oldConfig = this.config;
       };
       reader.readAsText(file);
@@ -114,12 +132,16 @@ export default {
     },
     saveButton() {
       if (this.isJsonString(this.config)) {
-        if (JSON.parse(this.config).ARCHE2 && JSON.parse(this.config).ARCHE) {
-          this.setApis(JSON.parse(this.config));
-          this.oldConfig = this.config;
+        if (this.select.name === 'config') {
+          if ((JSON.parse(this.config).ARCHE2 && JSON.parse(this.config).ARCHE)) {
+            this.setApis(JSON.parse(this.config));
+            this.oldConfig = this.config;
+          } else {
+            this.snackbarText = 'Your config is missing essential ARCHE keys!';
+            this.snackbar = true;
+          }
         } else {
-          this.snackbarText = 'Your config is missing essential ARCHE keys!';
-          this.snackbar = true;
+          this.setSchema({ name: this.select.name, schema: JSON.parse(this.config) });
         }
       } else {
         this.snackbarText = 'Your config is not a valid JSON file!';
@@ -133,6 +155,28 @@ export default {
         return false;
       }
       return true;
+    },
+  },
+  computed: {
+    items() {
+      const arr = [
+        {
+          name: 'config',
+          json: JSON.stringify(this.$store.state.config.apis, null, 4),
+        },
+      ];
+      const schemas = Object.keys(this.$store.state.JSONschema.schemas);
+      for (let i = 0; i < schemas.length; i += 1) {
+        arr.push({
+          name: schemas[i],
+          json: JSON.stringify(
+            this.$store.state.JSONschema.schemas[schemas[i]],
+            null,
+            4,
+          ),
+        });
+      }
+      return arr;
     },
   },
   mounted() {
