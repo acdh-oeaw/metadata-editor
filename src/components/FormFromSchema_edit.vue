@@ -245,7 +245,7 @@ export default {
   label {
     display: block;
     float: left;
-    width: 33%;
+    width: 50%;
     box-sizing: border-box;
     padding: 5px;
     padding-top: 0px;
