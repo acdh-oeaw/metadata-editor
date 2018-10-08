@@ -95,7 +95,7 @@ export default {
       this.persons = {};
       this.places = {};
       this.organisations = {};
-      setTimeout( function() { this.getRoot(); }.bind(this), 100 )
+      setTimeout(() => this.getRoot(), 100);
       // this.getRoot();
     },
     getUnsavedChanges(oldV, newV) {

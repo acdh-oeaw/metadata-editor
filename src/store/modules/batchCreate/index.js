@@ -55,7 +55,7 @@ const mutations = {
   },
   setSelected(s, selected) {
     s.selected = selected;
-  }
+  },
 };
 
 const actions = {

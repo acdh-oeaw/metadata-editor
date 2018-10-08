@@ -135,10 +135,9 @@ export default {
         const arr = JSON.parse(e.target.result).data;
         this.clear();
         for (let i = 0; i < arr.length; i += 1) {
-
           this.directories[arr[i].directory] = this.directories[arr[i].directory] || { files: [] };
           this.directories[arr[i].directory].files.push(this.fileListObjectTrimm(arr[i]));
-            // this.model.push({ hasTitle: this.getLastDir(arr[i].directory), isPartOf: '' });
+          // this.model.push({ hasTitle: this.getLastDir(arr[i].directory), isPartOf: '' });
         }
         // name and model
         this.initModel();
@@ -180,7 +179,6 @@ export default {
       this.clearSelected();
     },
     clearSelected() {
-      const newDirectories = {};
       for (let i = 0; i < this.selected.length; i += 1) {
         this.$info('loop', this.selected, this.directories, this.directories[this.selected[i].fullName]);
         delete this.directories[this.selected[i].fullName];
@@ -236,8 +234,7 @@ export default {
     this.model = this.getModel;
     this.selected = this.getSelected || [];
     this.getCollectionTitles();
-  }
-
+  },
 };
 </script>
 
