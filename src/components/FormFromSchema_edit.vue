@@ -244,13 +244,17 @@ export default {
 <style>
   label {
     display: block;
-    font-weight: bold;
+    float: left;
+    width: 33%;
+    box-sizing: border-box;
+    padding: 5px;
+    padding-top: 0px;
+  }
+  label:nth-last-child(1) {
+    float: none;
+    width: 100%;
   }
   label small {
-    font-weight: normal;
+    display: none;
   }
-  label {
-    margin-bottom: 20px;
-    background-color: #EEE;
-  }
-  </style>
+</style>

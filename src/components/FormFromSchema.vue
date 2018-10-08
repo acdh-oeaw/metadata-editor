@@ -194,13 +194,13 @@ export default {
 <style>
   label {
     display: block;
-    font-weight: bold;
+    float: right;
+    width: 50%;
+    box-sizing: border-box;
+    padding: 5px;
+    padding-top: 0px;
   }
   label small {
-    font-weight: normal;
-  }
-  label {
-    margin-bottom: 20px;
-    background-color: #EEE;
+    display: none;
   }
   </style>
