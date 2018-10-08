@@ -199,6 +199,10 @@ export default {
     box-sizing: border-box;
     padding: 5px;
     padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  label span {
+    display: none;
   }
   label small {
     display: none;

@@ -1,6 +1,17 @@
 <template>
   <div>
-    <component @input="$emit('input', selectedValue)" v-if="component" :label="name" v-model="selectedValue" :name="name" :is="component" :type="mappedType"></component>
+    <component
+      @input="$emit('input', selectedValue)"
+      v-if="component"
+      :label="label"
+      v-model="selectedValue"
+      :name="name"
+      :is="component"
+      :type="mappedType"
+      :hint="name"
+      persistent-hint
+    >
+    </component>
   </div>
 </template>
 
@@ -77,6 +88,17 @@ export default {
         return true;
       }
       return false;
+    },
+  },
+  computed: {
+    label() {
+      const schemas = Object.keys(this.$store.state.JSONschema.schemas);
+      for (let i = 0; i < schemas.length; i += 1) {
+        if (this.$store.state.JSONschema.schemas[schemas[i]].properties[this.name]) {
+          return this.$store.state.JSONschema.schemas[schemas[i]].properties[this.name].title;
+        }
+      }
+      return '';
     },
   },
   created() {
