@@ -24,6 +24,7 @@
       v-model="config"
       auto-grow
       box
+      :readonly="this.select.name !== 'config'"
     >
     </v-textarea>
     <v-speed-dial
@@ -53,20 +54,28 @@
         </v-btn>
         <span>Reset to Default</span>
       </v-tooltip>
+      <v-tooltip left>
       <v-btn
         :disabled="config !== oldConfig"
+        slot="activator"
         color="primary"
         fab
         @click="downloadBlob(config, `${select.name}.json`)">
         <v-icon>get_app</v-icon>
       </v-btn>
+      <span>{{ config === oldConfig? 'Download the saved Config' : 'Please save your Config before downloading it.' }} </span>
+    </v-tooltip>
+    <v-tooltip left>
       <v-btn
         :disabled="config === oldConfig"
         color="primary"
+        slot="activator"
         fab
         @click="saveButton">
         <v-icon>save</v-icon>
       </v-btn>
+      <span>{{ config !== oldConfig? 'Save changes to the Config' : 'Save Changes, active after changes are detected.' }}</span>
+    </v-tooltip>
     </v-speed-dial>
     <v-snackbar
       v-model="snackbar"
@@ -182,6 +191,7 @@ export default {
   mounted() {
     this.config = JSON.stringify(this.$store.state.config.apis, null, 4);
     this.oldConfig = this.config;
+    this.fab = true;
   },
 };
 </script>
