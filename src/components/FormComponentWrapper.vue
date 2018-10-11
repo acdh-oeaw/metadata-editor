@@ -21,6 +21,7 @@ import autocompdefault from './AutocompDefault';
 import HasIdentifierField from './HasIdentifierField';
 import HasTitleImageField from './HasTitleImageField';
 import AutocompVocabs from './AutocompVocabs';
+import BetterDatePicker from './BetterDatePicker';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
 const defaultComponentObject =
@@ -42,6 +43,7 @@ export default {
     HasIdentifierField,
     HasTitleImageField,
     AutocompVocabs,
+    BetterDatePicker,
   },
   name: 'FormComponentWrapper',
   data() {
@@ -54,7 +56,7 @@ export default {
       componentTypeMap: {
         // contains objects with 2 props: name -> component name;
         // type -> prop to give to component.
-        date: { name: 'v-date-picker' },
+        date: { type: '', name: 'BetterDatePicker' },
         string: defaultComponentObject,
         text: defaultComponentObject,
         positiveinteger: defaultComponentObject,

@@ -201,7 +201,7 @@ export default {
     padding-top: 0px;
     padding-bottom: 0px;
   }
-  label span:not(.hasidenti){
+  label span:not(.hasidenti, .v-chip){
     display: none;
   }
 
