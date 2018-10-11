@@ -201,9 +201,10 @@ export default {
     padding-top: 0px;
     padding-bottom: 0px;
   }
-  label span {
+  label span:not(.hasidenti){
     display: none;
   }
+
   label small {
     display: none;
   }

@@ -12,15 +12,15 @@
       <template v-if="!item.loading && item.select.length > 0 && item.status">
         <!-- Arche -->
         <p v-if="item.arche">
-          <span class="notExists" v-if="item.valid">valid Identifier:</span>
-          <span class="exists" v-else>invalid Identifier</span>
-          <span :class="{exists: forbidExistingIdentifiers}" v-if="item.exists && item.valid">does already exist as an identifier in ARCHE</span>
-          <span class="notExists" v-if="!item.exists && item.valid">does not exist as an identifier in ARCHE</span>
+          <span class="notExists hasidenti" v-if="item.valid">valid Identifier:</span>
+          <span class="exists hasidenti" v-else>invalid Identifier</span>
+          <span :class="{exists: forbidExistingIdentifiers, hasidenti: true}" v-if="item.exists && item.valid">does already exist as an identifier in ARCHE</span>
+          <span class="notExists hasidenti" v-if="!item.exists && item.valid">does not exist as an identifier in ARCHE</span>
         </p>
         <!-- Non Arche -->
         <p v-if="!item.arche">
-          <span class="notExists" v-if="item.valid">Valid non-Arche URI, click <a target="_blank" :href="item.select">here</a> to see if it is actually correct.</span>
-          <span class="exists" v-else>invalid URI</span>
+          <span class="notExists hasidenti" v-if="item.valid">Valid non-Arche URI, click <a target="_blank" :href="item.select">here</a> to see if it is actually correct.</span>
+          <span class="exists hasidenti" v-else>invalid URI</span>
         </p>
       </template>
       <template v-if="item.loading && item.select.length > 0">
