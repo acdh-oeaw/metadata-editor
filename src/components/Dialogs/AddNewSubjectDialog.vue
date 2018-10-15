@@ -47,7 +47,7 @@ export default {
   },
   data() {
     return {
-      name: 'addnewsubjectmodal',
+      name: 'addnewsubjectdialog',
       storeTreeSelection: {},
     };
   },

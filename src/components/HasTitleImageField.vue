@@ -125,7 +125,7 @@ export default {
       this.$debug('openAddNewSujectDialog(item)');
       this.listenForStoreSelectedItem = true;
       this.setDialog({
-        name: 'addnewsubjectmodal',
+        name: 'addnewsubjectdialog',
         obj: {
           status: true,
         },
@@ -195,7 +195,7 @@ export default {
       'getArcheTypeString',
     ]),
     newItem() {
-      return this.$store.state.dialogs.addnewsubjectmodal;
+      return this.$store.state.dialogs.addnewsubjectdialog;
     },
   },
 };

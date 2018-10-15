@@ -59,6 +59,39 @@
         </template>
       </v-data-table>
     </v-flex>
+    <v-flex xs12>
+      <v-text-field
+        label="filter"
+        v-model="filterText"
+      ></v-text-field>
+      <v-data-table
+        :headers="resourceHeaders"
+        :items="resourceItems"
+        v-model="selectedItems"
+        select-all
+      >
+        <template slot="items" slot-scope="props">
+          <tr>
+            <td>
+              <v-checkbox
+                v-model="props.item.selected"
+                primary
+                hide-details
+              ></v-checkbox>
+            </td>
+            <td>
+              {{ props.item.hasTitle }}
+            </td>
+            <td>
+              {{ props.item.isPartOf }}
+            </td>
+            <td>
+              {{ props.item.hasLocationPath }}
+            </td>
+          </tr>
+        </template>
+      </v-data-table>
+    </v-flex>
     <p class="text-lg-right">
       <v-btn :disabled="selected.length === 0" @click="collectionsToStore(selected)" color="secondary">Submit {{ selected.length || '' }} Selected</v-btn>
       <v-btn @click="logItems();">log</v-btn>
@@ -96,10 +129,18 @@ export default {
       snackbar: false,
       model: [],
       selected: [],
+      selectedItems: [],
       objectsInStore: [],
+      selectAllitems: true,
+      filterText: '',
       headers: [
         { text: 'Collection', value: 'coll' },
         { text: 'Is part of', value: 'isPartOf' },
+      ],
+      resourceHeaders: [
+        { text: 'Name', value: 'hasTitle' },
+        { text: 'Is part of', value: 'isPartOf' },
+        { text: 'Path', value: 'hasLocationPath' },
       ],
     };
   },
@@ -228,6 +269,24 @@ export default {
       'getModel',
       'getSelected',
     ]),
+    resourceItems() {
+      const arr = [];
+      for (let i = 0; i < this.selected.length; i += 1) {
+        const files = this.getDirectories[this.selected[i].fullName].files;
+        for (let j = 0; j < files.length; j += 1) {
+          const locPath = this.selected[i].fullName + files[j].name;
+          if (locPath.toUpperCase().includes(this.filterText.toUpperCase())) {
+            arr.push({
+              hasTitle: files[j].name,
+              isPartOf: this.selected[i].hasTitle,
+              hasLocationPath: locPath,
+              selected: this.selectAllitems,
+            });
+          }
+        }
+      }
+      return arr;
+    },
   },
   mounted() {
     this.directories = this.getDirectories;
