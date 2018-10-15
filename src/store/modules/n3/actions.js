@@ -64,6 +64,8 @@ const actions = {
     state.parser.parse(string, (error, quad) => {
       if (quad) {
         dispatch('AddFilteredQuad', quad);
+      } else if (error) {
+        console.log(error);
       } else {
         dispatch('WriteTTL');
         commit('stopProcessing');

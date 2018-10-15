@@ -102,10 +102,24 @@ export default {
       'deleteEdit',
     ]),
     getChildren(uri) {
-      const children = this.getQuads(
+      var children = this.getQuads(
         { predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
           object: uri,
         });
+      // in case "absolute" URIs are being used...
+      if(children.length == 0) {
+        const id = this.getQuads(
+          {
+            subject: uri,
+            predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier'
+          });
+        if(id.length > 0){
+          children = this.getQuads(
+            { predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
+              object: id[0].object.id,
+            });
+        }
+      }
       if (children.length > 0) {
         let idx = children.length - 1;
         while (idx + 1) {
