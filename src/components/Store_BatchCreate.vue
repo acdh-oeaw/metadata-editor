@@ -36,7 +36,7 @@
               :items="objectsInStore"
               v-model="props.item.isPartOf"
               label="collection"
-              item-text="title"
+              item-text="hasTitle"
               item-value="id"
               @click="objectsInStore.length > 0 || getCollectionTitles();"
               @change="changeSelected(props.item.isPartOf)"
@@ -69,12 +69,13 @@
         :items="resourceItems"
         v-model="selectedItems"
         select-all
+        item-key="hasTitle"
       >
         <template slot="items" slot-scope="props">
           <tr>
             <td>
               <v-checkbox
-                v-model="props.item.selected"
+                v-model="props.selected"
                 primary
                 hide-details
               ></v-checkbox>
@@ -86,15 +87,21 @@
               {{ props.item.isPartOf }}
             </td>
             <td>
-              {{ props.item.hasLocationPath }}
+              {{ props.item.hasIdentifier }}
             </td>
           </tr>
         </template>
       </v-data-table>
     </v-flex>
     <p class="text-lg-right">
-      <v-btn :disabled="selected.length === 0" @click="collectionsToStore(selected)" color="secondary">Submit {{ selected.length || '' }} Selected</v-btn>
-      <v-btn @click="logItems();">log</v-btn>
+      <v-btn
+        :disabled="selected.length === 0"
+        @click="resourcesToStore(selectedItems); collectionsToStore(selected)"
+        color="primary"
+      >
+        Submit {{ selected.length || '' }} Collection(s) with {{ selectedItems.length }} Resource(s)
+      </v-btn>
+      <v-btn @click="logItems">log</v-btn>
     </p>
     <v-snackbar
       v-model="snackbar"
@@ -140,7 +147,7 @@ export default {
       resourceHeaders: [
         { text: 'Name', value: 'hasTitle' },
         { text: 'Is part of', value: 'isPartOf' },
-        { text: 'Path', value: 'hasLocationPath' },
+        { text: 'Path', value: 'hasIdentifier' },
       ],
     };
   },
@@ -206,6 +213,7 @@ export default {
       this.$debug('items', this.items);
       this.$debug('directories', this.directories);
       this.$debug('selected', this.selected);
+      this.$debug('selectedItems', this.selectedItems);
     },
     collectionsToStore(colls) {
       for (let i = 0; i < colls.length; i += 1) {
@@ -218,6 +226,15 @@ export default {
         }, collection);
       }
       this.clearSelected();
+    },
+    resourcesToStore(res) {
+      for (let i = 0; i < res.length; i += 1) {
+        const resource = JSON.parse(JSON.stringify(res[i]));
+        this.ObjectToStore({
+          schema: this.$store.state.JSONschema.schemas.resource,
+          obj: resource,
+        }, resource);
+      }
     },
     clearSelected() {
       for (let i = 0; i < this.selected.length; i += 1) {
@@ -279,8 +296,7 @@ export default {
             arr.push({
               hasTitle: files[j].name,
               isPartOf: this.selected[i].hasTitle,
-              hasLocationPath: locPath,
-              selected: this.selectAllitems,
+              hasIdentifier: locPath,
             });
           }
         }

@@ -44,6 +44,14 @@
           </v-flex>
         </v-card>
       </v-expansion-panel-content>
+      <v-expansion-panel-content>
+        <div slot="header"><v-icon large color='teal lighten-3'>photo_library</v-icon> Resources</div>
+        <v-card>
+          <v-flex xs12 v-for="(item, i) in resources" :key="i" >
+            <item @input="$emit('input', passThroughItem)"  v-model="passThroughItem" :uri="item.subject" :itemFull="item"  :bg="i%2"></item>
+          </v-flex>
+        </v-card>
+      </v-expansion-panel-content>
     </v-expansion-panel>
   </v-layout>
 </template>
@@ -71,6 +79,7 @@ export default {
       persons: [],
       places: [],
       organisations: [],
+      resources: [],
       passThroughItem: {},
     };
   },
@@ -172,6 +181,7 @@ export default {
       this.persons = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#person' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Person' }));
       this.places = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Place' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#place' }));
       this.organisations = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Organisation' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#organisation' }));
+      this.resources = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Resource' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#resource' }));
       this.$forceUpdate();
     },
   },
