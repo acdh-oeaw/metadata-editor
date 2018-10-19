@@ -59,14 +59,19 @@
         </template>
       </v-data-table>
     </v-flex>
-    <v-flex xs12>
+    <v-divider></v-divider>
+    <v-flex xs5 offset-xs7>
       <v-text-field
         label="filter"
         v-model="filterText"
+        append-icon="search"
       ></v-text-field>
+    </v-flex>
+    <v-flex xs12>
       <v-data-table
         :headers="resourceHeaders"
         :items="resourceItems"
+        :search="filterText"
         v-model="selectedItems"
         select-all
         item-key="hasTitle"
@@ -219,6 +224,7 @@ export default {
       for (let i = 0; i < colls.length; i += 1) {
         // filterOut fullName:
         const collection = JSON.parse(JSON.stringify(colls[i]));
+        collection.hasIdentifier = collection.fullname;
         delete collection.fullName;
         this.ObjectToStore({
           schema: this.$store.state.JSONschema.schemas.collection,
@@ -230,6 +236,7 @@ export default {
     resourcesToStore(res) {
       for (let i = 0; i < res.length; i += 1) {
         const resource = JSON.parse(JSON.stringify(res[i]));
+        resource.isPartOf = resource.hasIdentifier;
         this.ObjectToStore({
           schema: this.$store.state.JSONschema.schemas.resource,
           obj: resource,
@@ -292,13 +299,11 @@ export default {
         const files = this.getDirectories[this.selected[i].fullName].files;
         for (let j = 0; j < files.length; j += 1) {
           const locPath = this.selected[i].fullName + files[j].name;
-          if (locPath.toUpperCase().includes(this.filterText.toUpperCase())) {
-            arr.push({
-              hasTitle: files[j].name,
-              isPartOf: this.selected[i].hasTitle,
-              hasIdentifier: locPath,
-            });
-          }
+          arr.push({
+            hasTitle: files[j].name,
+            isPartOf: this.selected[i].hasTitle,
+            hasIdentifier: locPath,
+          });
         }
       }
       return arr;
