@@ -102,18 +102,18 @@ export default {
       'deleteEdit',
     ]),
     getChildren(uri) {
-      var children = this.getQuads(
+      let children = this.getQuads(
         { predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
           object: uri,
         });
       // in case "absolute" URIs are being used...
-      if(children.length == 0) {
+      if (children.length === 0) {
         const id = this.getQuads(
           {
             subject: uri,
-            predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier'
+            predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier',
           });
-        if(id.length > 0){
+        if (id.length > 0) {
           children = this.getQuads(
             { predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
               object: id[0].object.id,

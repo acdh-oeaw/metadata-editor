@@ -65,7 +65,7 @@ const actions = {
       if (quad) {
         dispatch('AddFilteredQuad', quad);
       } else if (error) {
-        console.log(error);
+        this._vm.log(error);
       } else {
         dispatch('WriteTTL');
         commit('stopProcessing');
