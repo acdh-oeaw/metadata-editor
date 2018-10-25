@@ -89,7 +89,7 @@
               {{ props.item.hasTitle }}
             </td>
             <td>
-              {{ props.item.isPartOf }}
+              {{ props.item.collectionName }}
             </td>
             <td>
               {{ props.item.hasIdentifier }}
@@ -101,10 +101,10 @@
     <p class="text-lg-right">
       <v-btn
         :disabled="selected.length === 0"
-        @click="resourcesToStore(selectedItems); collectionsToStore(selected)"
+        @click="collectionsToStore(selected)"
         color="primary"
       >
-        Submit {{ selected.length || '' }} Collection(s) with {{ selectedItems.length }} Resource(s)
+        Submit {{ selected.length }} Collection(s) with {{ selectedItems.length }} Resource(s)
       </v-btn>
       <v-btn @click="logItems">log</v-btn>
     </p>
@@ -151,7 +151,7 @@ export default {
       ],
       resourceHeaders: [
         { text: 'Name', value: 'hasTitle' },
-        { text: 'Is part of', value: 'isPartOf' },
+        { text: 'Is part of', value: 'collectionName' },
         { text: 'Path', value: 'hasIdentifier' },
       ],
     };
@@ -226,17 +226,22 @@ export default {
         const collection = JSON.parse(JSON.stringify(colls[i]));
         collection.hasIdentifier = collection.fullname;
         delete collection.fullName;
-        this.ObjectToStore({
-          schema: this.$store.state.JSONschema.schemas.collection,
-          obj: collection,
-        }, collection);
+          this.ObjectToStore({
+            schema: this.$store.state.JSONschema.schemas.collection,
+            obj: collection,
+          }, collection);
       }
+      this.resourcesToStore(this.selectedItems);
       this.clearSelected();
     },
     resourcesToStore(res) {
       for (let i = 0; i < res.length; i += 1) {
         const resource = JSON.parse(JSON.stringify(res[i]));
-        resource.isPartOf = resource.hasIdentifier;
+        resource.isPartOf = this.getQuads({
+          predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle',
+          object: `"${resource.collectionName}"`
+        })[0].subject.id;
+        delete resource.collectionName;
         this.ObjectToStore({
           schema: this.$store.state.JSONschema.schemas.resource,
           obj: resource,
@@ -301,7 +306,7 @@ export default {
           const locPath = this.selected[i].fullName + files[j].name;
           arr.push({
             hasTitle: files[j].name,
-            isPartOf: this.selected[i].hasTitle,
+            collectionName: this.selected[i].hasTitle,
             hasIdentifier: locPath,
           });
         }
