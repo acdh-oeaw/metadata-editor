@@ -13,6 +13,9 @@
       <div class="bd-toc-item">
         {{ $store.state.localStorageInfo.currentStoreLength }} Current Store Length
       </div>
+      <div class="bd-toc-item">
+        {{ getQuadsByType('Resource').length }} Resources
+      </div>
 
       <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
         {{ $store.state.localStorageInfo.localStorageLimit }} Chars Storage Capacity
@@ -119,6 +122,7 @@ export default {
   computed: {
     ...mapGetters('n3', [
       'getCount',
+      'getQuadsByType',
       'getQuads',
     ]),
     ...mapGetters('JSONschema', [

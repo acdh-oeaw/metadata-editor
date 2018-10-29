@@ -58,7 +58,36 @@ const getters = {
     if (type) return type.id.split('#')[1].toLowerCase();
     return null;
   },
+  getObjectsBySubjects: s => (subjects) => {
+    console.log('getObjectsBySubjects', subjects);
+    const arr = [];
+    for (let i = 0; i < subjects.length; i += 1) {
+      const quads = s.store.getQuads(subjects[i]);
+      console.log('quad', quads);
+      const obj = {};
+      for (let j = 0; j < quads.length; j += 1) {
+        obj[quads[j].predicate.id.split('#')[1]] = quads[j].object.id.replace(/"/g, '');
+      }
+      obj.collectionName = s.store.getQuads(s.store.getQuads(
+        undefined,
+        'https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier',
+        obj.isPartOf,
+      )[0].subject.id,
+      'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle')[0].object.id.replace(/"/g, '');
+      console.log('obj', obj);
+      arr.push(obj);
+    }
+    console.log('arr', arr);
+    return arr;
+  },
   getCount: s => ({ quads: s.store.size, subjects: s.store.getSubjects().length }),
+  getQuadsByType: s => type => s.store.getQuads(undefined,
+    'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+    `https://vocabs.acdh.oeaw.ac.at/schema#${type}`,
+  ).concat(s.store.getQuads(undefined,
+    'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
+    `https://vocabs.acdh.oeaw.ac.at/schema#${type.toLowerCase()}`,
+  )),
   getUpdate: s => s.update,
 };
 

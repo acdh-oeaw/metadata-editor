@@ -226,10 +226,10 @@ export default {
         const collection = JSON.parse(JSON.stringify(colls[i]));
         collection.hasIdentifier = collection.fullname;
         delete collection.fullName;
-          this.ObjectToStore({
-            schema: this.$store.state.JSONschema.schemas.collection,
-            obj: collection,
-          }, collection);
+        this.ObjectToStore({
+          schema: this.$store.state.JSONschema.schemas.collection,
+          obj: collection,
+        }, collection);
       }
       this.resourcesToStore(this.selectedItems);
       this.clearSelected();
@@ -239,7 +239,7 @@ export default {
         const resource = JSON.parse(JSON.stringify(res[i]));
         resource.isPartOf = this.getQuads({
           predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle',
-          object: `"${resource.collectionName}"`
+          object: `"${resource.collectionName}"`,
         })[0].subject.id;
         delete resource.collectionName;
         this.ObjectToStore({
@@ -275,13 +275,14 @@ export default {
       const collQuads = this.getAllCollections();
       for (let i = 0; i < collQuads.length; i += 1) {
         this.objectsInStore.push({
-          title: this.getQuads({
+          hasTitle: this.getQuads({
             subject: collQuads[i].subject.id,
             predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle',
           })[0].object.id.slice(1, -1),
           id: collQuads[i].subject.id,
         });
       }
+      this.$log('ibjectsinstore', this.objectsInStore);
     },
     clear() {
       // this.directories = [];
@@ -292,6 +293,8 @@ export default {
   computed: {
     ...mapGetters('n3', [
       'getQuads',
+      'getQuadsByType',
+      'getObjectsBySubjects',
     ]),
     ...mapGetters('batchCreate', [
       'getDirectories',
@@ -299,19 +302,22 @@ export default {
       'getSelected',
     ]),
     resourceItems() {
-      const arr = [];
-      for (let i = 0; i < this.selected.length; i += 1) {
-        const files = this.getDirectories[this.selected[i].fullName].files;
-        for (let j = 0; j < files.length; j += 1) {
-          const locPath = this.selected[i].fullName + files[j].name;
-          arr.push({
-            hasTitle: files[j].name,
-            collectionName: this.selected[i].hasTitle,
-            hasIdentifier: locPath,
-          });
+      if (this.selected.length) {
+        const arr = [];
+        for (let i = 0; i < this.selected.length; i += 1) {
+          const files = this.getDirectories[this.selected[i].fullName].files;
+          for (let j = 0; j < files.length; j += 1) {
+            const locPath = this.selected[i].fullName + files[j].name;
+            arr.push({
+              hasTitle: files[j].name,
+              collectionName: this.selected[i].hasTitle,
+              hasIdentifier: locPath,
+            });
+          }
         }
+        return arr;
       }
-      return arr;
+      return this.getObjectsBySubjects(this.getQuadsByType('Resource').map(a => a.subject.id));
     },
   },
   mounted() {

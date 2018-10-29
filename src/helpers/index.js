@@ -459,12 +459,8 @@ export default {
     **/
     getAllCollections() {
       this.$info('helpers:getAllCollections');
-      const res = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Collection' })
-
-        .concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#collection' }))
-
-        .concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#project' }))
-        .concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Project' }));
+      const res = this.getQuadsByType('Collection')
+        .concat(this.getQuadsByType('Project'));
       // const names = res.map((v) => v.subject.value);
 
 

@@ -44,14 +44,6 @@
           </v-flex>
         </v-card>
       </v-expansion-panel-content>
-      <v-expansion-panel-content>
-        <div slot="header"><v-icon large color='teal lighten-3'>developer_board</v-icon> Resources</div>
-        <v-card>
-          <v-flex xs12 v-for="(item, i) in resources" :key="i" >
-            <item @input="$emit('input', passThroughItem)"  v-model="passThroughItem" :uri="item.subject" :itemFull="item"  :bg="i%2"></item>
-          </v-flex>
-        </v-card>
-      </v-expansion-panel-content>
     </v-expansion-panel>
   </v-layout>
 </template>
@@ -79,7 +71,6 @@ export default {
       persons: [],
       places: [],
       organisations: [],
-      resources: [],
       passThroughItem: {},
     };
   },
@@ -91,6 +82,7 @@ export default {
     ...mapGetters('n3', [
       'getUpdate',
       'getQuads',
+      'getQuadsByType',
     ]),
     ...mapGetters('JSONschema', [
       'getUnsavedChanges',
@@ -156,7 +148,7 @@ export default {
     // find all root collections by checking for isPartOf and hasPart properties
     setRootCollections() {
       // all collections:
-      const collections = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#collection' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Collection' }));
+      const collections = this.getQuadsByType('Collection');
 
       // all isPartOf-property quads
       const partOfCollsSubjects = this.getQuads({ predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf' }).map(coll => coll.subject.value);
@@ -174,14 +166,12 @@ export default {
       this.$debug('collections', collections, 'partOfColls', 'partOfCollsSubjects', partOfCollsSubjects, 'collectionsWithoutPartOf', collectionsWithoutPartOf);
       return collectionsWithoutPartOf;
     },
-
     getRoot() {
       this.$info('getRoot()');
-      this.collections = (this.setRootCollections()).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Project' }));
-      this.persons = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#person' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Person' }));
-      this.places = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Place' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#place' }));
-      this.organisations = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Organisation' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#organisation' }));
-      this.resources = this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#Resource' }).concat(this.getQuads({ predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', object: 'https://vocabs.acdh.oeaw.ac.at/schema#resource' }));
+      this.collections = (this.setRootCollections()).concat(this.getQuadsByType('Project'));
+      this.persons = this.getQuadsByType('Person');
+      this.places = this.getQuadsByType('Place');
+      this.organisations = this.getQuadsByType('Organisation');
       this.$forceUpdate();
     },
   },
