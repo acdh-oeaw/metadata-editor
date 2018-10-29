@@ -89,7 +89,15 @@
               {{ props.item.hasTitle }}
             </td>
             <td>
-              {{ props.item.collectionName }}
+              <v-Autocomplete
+              :items="objectsInStore"
+              v-model="props.item.collectionName"
+              label="collection"
+              item-text="hasTitle"
+              item-value="hasTitle"
+              @click="objectsInStore.length > 0 || getCollectionTitles();"
+              @change="changeSelected(props.item.isPartOf)"
+            ></v-Autocomplete>
             </td>
             <td>
               {{ props.item.hasIdentifier }}
