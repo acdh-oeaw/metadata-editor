@@ -68,12 +68,15 @@ const getters = {
       for (let j = 0; j < quads.length; j += 1) {
         obj[quads[j].predicate.id.split('#')[1]] = quads[j].object.id.replace(/"/g, '');
       }
-      obj.collectionName = s.store.getQuads(s.store.getQuads(
+      const sub = s.store.getQuads(
         undefined,
         'https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier',
         obj.isPartOf,
-      )[0].subject.id,
-      'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle')[0].object.id.replace(/"/g, '');
+      );
+      if (sub.length) {
+        obj.collectionName = s.store.getQuads(sub[0].subject.id,
+        'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle')[0].object.id.replace(/"/g, '');
+      }
       console.log('obj', obj);
       arr.push(obj);
     }

@@ -114,6 +114,14 @@
       >
         Submit {{ selected.length }} Collection(s) with {{ selectedItems.length }} Resource(s)
       </v-btn>
+      <v-btn
+        :disabled="selectedItems.length === 0"
+        @click="resourcesToStore(selectedItems)"
+        color="primary"
+      >
+        Submit {{ selectedItems.length }} Resource(s)
+      </v-btn>
+
       <v-btn @click="logItems">log</v-btn>
     </p>
     <v-snackbar
@@ -250,9 +258,21 @@ export default {
           object: `"${resource.collectionName}"`,
         })[0].subject.id;
         delete resource.collectionName;
+        let id;
+        if (!this.selected.length) {
+          id = this.getQuads(
+            undefined,
+            'https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier',
+            resource.hasIdentifier,
+          )[0].subject.id;
+          this.RemoveSubject(id);
+          this.$log('removed id');
+        }
+
         this.ObjectToStore({
           schema: this.$store.state.JSONschema.schemas.resource,
           obj: resource,
+          id,
         }, resource);
       }
     },
@@ -311,7 +331,7 @@ export default {
     ]),
     resourceItems() {
       if (this.selected.length) {
-        const arr = [];
+        let arr = [];
         for (let i = 0; i < this.selected.length; i += 1) {
           const files = this.getDirectories[this.selected[i].fullName].files;
           for (let j = 0; j < files.length; j += 1) {
@@ -323,6 +343,10 @@ export default {
             });
           }
         }
+        // Remove duplicates by identifier
+        arr = arr.filter((quad, index, self) =>
+          index === self.findIndex(a => a.hasIdentifier === quad.hasIdentifier),
+        );
         return arr;
       }
       return this.getObjectsBySubjects(this.getQuadsByType('Resource').map(a => a.subject.id));
