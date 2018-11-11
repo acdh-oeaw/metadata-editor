@@ -140,7 +140,11 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex';
+import {
+  mapGetters,
+  mapActions,
+  mapMutations,
+} from 'vuex';
 
 import fundamentcard from './Fundament/FundamentCard';
 import HELPERS from '../helpers';
@@ -161,14 +165,27 @@ export default {
       objectsInStore: [],
       selectAllitems: true,
       filterText: '',
-      headers: [
-        { text: 'Collection', value: 'coll' },
-        { text: 'Is part of', value: 'isPartOf' },
+      headers: [{
+        text: 'Collection',
+        value: 'coll',
+      },
+      {
+        text: 'Is part of',
+        value: 'isPartOf',
+      },
       ],
-      resourceHeaders: [
-        { text: 'Name', value: 'hasTitle' },
-        { text: 'Is part of', value: 'collectionName' },
-        { text: 'Path', value: 'hasIdentifier' },
+      resourceHeaders: [{
+        text: 'Name',
+        value: 'hasTitle',
+      },
+      {
+        text: 'Is part of',
+        value: 'collectionName',
+      },
+      {
+        text: 'Path',
+        value: 'hasIdentifier',
+      },
       ],
     };
   },
@@ -178,6 +195,8 @@ export default {
   methods: {
     ...mapActions('n3', [
       'ObjectToStore',
+      'RemoveQuad',
+      'RemoveSubject',
     ]),
     ...mapMutations('batchCreate', [
       'setDirectories',
@@ -204,7 +223,9 @@ export default {
         const arr = JSON.parse(e.target.result).data;
         this.clear();
         for (let i = 0; i < arr.length; i += 1) {
-          this.directories[arr[i].directory] = this.directories[arr[i].directory] || { files: [] };
+          this.directories[arr[i].directory] = this.directories[arr[i].directory] || {
+            files: [],
+          };
           this.directories[arr[i].directory].files.push(this.fileListObjectTrimm(arr[i]));
           // this.model.push({ hasTitle: this.getLastDir(arr[i].directory), isPartOf: '' });
         }
@@ -222,7 +243,11 @@ export default {
       const keys = Object.keys(this.directories);
       for (let i = 0; i < keys.length; i += 1) {
         this.directories[keys[i]].name = this.getLastDir(keys[i]);
-        this.model.push({ hasTitle: this.directories[keys[i]].name, isPartOf: '', fullName: keys[i] });
+        this.model.push({
+          hasTitle: this.directories[keys[i]].name,
+          isPartOf: '',
+          fullName: keys[i],
+        });
       }
     },
     getLastDir(dir) {
@@ -251,29 +276,41 @@ export default {
       this.clearSelected();
     },
     resourcesToStore(res) {
+      this.$log('this.selectedItems', this.selectedItems);
       for (let i = 0; i < res.length; i += 1) {
         const resource = JSON.parse(JSON.stringify(res[i]));
-        resource.isPartOf = this.getQuads({
-          predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle',
-          object: `"${resource.collectionName}"`,
-        })[0].subject.id;
-        delete resource.collectionName;
+        this.$log('res', resource);
         let id;
-        if (!this.selected.length) {
-          id = this.getQuads(
-            undefined,
-            'https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier',
-            resource.hasIdentifier,
-          )[0].subject.id;
-          this.RemoveSubject(id);
+        this.$log('this.selected.length', this.selected.length);
+        if (this.selected.length !== 0) {
+          resource.isPartOf = this.getQuads(undefined,
+            'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle',
+            `"${resource.collectionName}"`,
+          );
+          this.$log(resource);
+          delete resource.collectionName;
           this.$log('removed id');
-        }
+          this.ObjectToStore({
+            schema: this.$store.state.JSONschema.schemas.resource,
+            obj: resource,
+            id,
+          }, resource);
+        } else {
+          this.$log('this.selectedItems', this.selectedItems);
+          /*
 
-        this.ObjectToStore({
-          schema: this.$store.state.JSONschema.schemas.resource,
-          obj: resource,
-          id,
-        }, resource);
+            this.RemoveQuad({
+              subject: resource.subject,
+              predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
+              object: resource.isPartOf,
+            });
+          this.addQuad(
+            resource.subject,
+            'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
+
+          );
+          */
+        }
       }
     },
     clearSelected() {
@@ -282,7 +319,7 @@ export default {
         delete this.directories[this.selected[i].fullName];
       }
       this.initModel();
-  //    this.model.filter(item => !this.selected.includes(item));
+      //    this.model.filter(item => !this.selected.includes(item));
       this.setModel(this.model);
       this.selected = [];
       this.$forceUpdate();
@@ -317,6 +354,14 @@ export default {
       this.model = [];
       this.objectsInStore = [];
     },
+    fetchSchemas(schemas) {
+      for (let i = 0; i < schemas.length; i += 1) {
+        if (!(
+            this.$store.state.JSONschema.schemas &&
+            this.$store.state.JSONschema.schemas[schemas[i]]
+          )) this.getMetadataByType(schemas[i]);
+      }
+    },
   },
   computed: {
     ...mapGetters('n3', [
@@ -330,7 +375,7 @@ export default {
       'getSelected',
     ]),
     resourceItems() {
-      if (this.selected.length) {
+      if (this.selected.length !== 0) {
         let arr = [];
         for (let i = 0; i < this.selected.length; i += 1) {
           const files = this.getDirectories[this.selected[i].fullName].files;
@@ -357,6 +402,8 @@ export default {
     this.model = this.getModel;
     this.selected = this.getSelected || [];
     this.getCollectionTitles();
+
+    this.fetchSchemas(['collection', 'resource']);
   },
 };
 </script>

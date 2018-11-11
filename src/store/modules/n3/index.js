@@ -68,13 +68,14 @@ const getters = {
       for (let j = 0; j < quads.length; j += 1) {
         obj[quads[j].predicate.id.split('#')[1]] = quads[j].object.id.replace(/"/g, '');
       }
+      obj.subject = subjects[i];
       const sub = s.store.getQuads(
         undefined,
         'https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier',
         obj.isPartOf,
       );
       if (sub.length) {
-        obj.collectionName = s.store.getQuads(sub[0].subject.id,
+        obj.collectionName = s.store.getQuads(obj.subject,
         'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle')[0].object.id.replace(/"/g, '');
       }
       console.log('obj', obj);
