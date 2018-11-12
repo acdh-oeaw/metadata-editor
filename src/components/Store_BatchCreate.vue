@@ -38,7 +38,6 @@
               label="collection"
               item-text="hasTitle"
               item-value="id"
-              @click="objectsInStore.length > 0 || getCollectionTitles();"
               @change="changeSelected(props.item.isPartOf)"
             ></v-Autocomplete>
             </td>
@@ -95,8 +94,7 @@
               label="collection"
               item-text="hasTitle"
               item-value="hasTitle"
-              @click="objectsInStore.length > 0 || getCollectionTitles();"
-              @change="changeSelected(props.item.isPartOf)"
+              @change="changeSelectedItems(props.item.collectionName)"
             ></v-Autocomplete>
             </td>
             <td>
@@ -162,7 +160,6 @@ export default {
       model: [],
       selected: [],
       selectedItems: [],
-      objectsInStore: [],
       selectAllitems: true,
       filterText: '',
       headers: [{
@@ -337,28 +334,19 @@ export default {
       }
       this.setModel(this.model);
     },
+    changeSelectedItems(val) {
+      for (let i = 0; i < this.selectedItems.length; i += 1) {
+        this.resourceItems[this.resourceItems.findIndex(x =>
+          x.hasTitle === this.selectedItems[i].hasTitle)].collectionName = val;
+      }
+    },
     filteredTitlesMethod(dir) {
       if (dir) return this.items.names.filter(x => x.val.indexOf(dir) >= 0);
       return this.items.names;
     },
-    getCollectionTitles() {
-      this.$info('getCollectionTitles()');
-      const collQuads = this.getAllCollections();
-      for (let i = 0; i < collQuads.length; i += 1) {
-        this.objectsInStore.push({
-          hasTitle: this.getQuads({
-            subject: collQuads[i].subject.id,
-            predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle',
-          })[0].object.id.slice(1, -1),
-          id: collQuads[i].subject.id,
-        });
-      }
-      this.$log('ibjectsinstore', this.objectsInStore);
-    },
     clear() {
       // this.directories = [];
       this.model = [];
-      this.objectsInStore = [];
     },
     fetchSchemas(schemas) {
       for (let i = 0; i < schemas.length; i += 1) {
@@ -402,12 +390,26 @@ export default {
       }
       return this.getObjectsBySubjects(this.getQuadsByType('Resource').map(a => a.subject.id));
     },
+    objectsInStore() {
+      this.$info('getCollectionTitles()');
+      const collQuads = this.getAllCollections();
+      const arr = [];
+      for (let i = 0; i < collQuads.length; i += 1) {
+        arr.push({
+          hasTitle: this.getQuads({
+            subject: collQuads[i].subject.id,
+            predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle',
+          })[0].object.id.slice(1, -1),
+          id: collQuads[i].subject.id,
+        });
+      }
+      return arr;
+    },
   },
   mounted() {
     this.directories = this.getDirectories;
     this.model = this.getModel;
     this.selected = this.getSelected || [];
-    this.getCollectionTitles();
 
     this.fetchSchemas(['collection', 'resource']);
   },
