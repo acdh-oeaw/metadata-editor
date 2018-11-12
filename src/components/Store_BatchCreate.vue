@@ -197,6 +197,7 @@ export default {
       'ObjectToStore',
       'RemoveQuad',
       'RemoveSubject',
+      'AddQuad',
     ]),
     ...mapMutations('batchCreate', [
       'setDirectories',
@@ -280,36 +281,41 @@ export default {
       for (let i = 0; i < res.length; i += 1) {
         const resource = JSON.parse(JSON.stringify(res[i]));
         this.$log('res', resource);
-        let id;
         this.$log('this.selected.length', this.selected.length);
         if (this.selected.length !== 0) {
-          resource.isPartOf = this.getQuads(undefined,
-            'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle',
-            `"${resource.collectionName}"`,
-          );
+          resource.isPartOf = this.getQuads({
+            predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle',
+            object: `"${resource.collectionName}"`,
+          });
+          this.$log(resource);
+          if (resource.isPartOf.length !== 0) resource.isPartOf = resource.isPartOf[0].subject.id;
+          else delete resource.isPartOf;
           this.$log(resource);
           delete resource.collectionName;
           this.$log('removed id');
           this.ObjectToStore({
             schema: this.$store.state.JSONschema.schemas.resource,
             obj: resource,
-            id,
           }, resource);
         } else {
           this.$log('this.selectedItems', this.selectedItems);
-          /*
-
+          if (resource.collectionName) {
             this.RemoveQuad({
               subject: resource.subject,
               predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
               object: resource.isPartOf,
             });
-          this.addQuad(
-            resource.subject,
-            'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
-
-          );
-          */
+            const quad = this.getQuads({
+              predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle',
+              object: `"${resource.collectionName}"`,
+            })[0].subject.id;
+            this.ObjectToStore({
+              schema: this.$store.state.JSONschema.schemas.resource,
+              obj: { isPartOf: quad },
+              id: resource.subject,
+            });
+            this.$log('quad', quad, resource);
+          }
         }
       }
     },
