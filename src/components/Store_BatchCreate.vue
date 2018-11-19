@@ -59,18 +59,27 @@
       </v-data-table>
     </v-flex>
     <v-divider></v-divider>
-    <v-flex xs5 offset-xs7>
-      <v-text-field
-        label="filter"
-        v-model="filterText"
-        append-icon="search"
-      ></v-text-field>
-    </v-flex>
+    <v-layout row wrap>
+      <v-flex xs3>
+        <v-switch
+          v-model="getSwitch"
+          label="Add Resources from Store">
+        </v-switch>
+      </v-flex>
+      <v-flex xs4 offset-xs5>
+        <v-text-field
+          label="filter"
+          v-model="filterText"
+          append-icon="search"
+        ></v-text-field>
+      </v-flex>
+    </v-layout>
     <v-flex xs12>
       <v-data-table
         :headers="resourceHeaders"
         :items="resourceItems"
         :search="filterText"
+        :loading="loading"
         v-model="selectedItems"
         select-all
         item-key="hasTitle"
@@ -161,6 +170,8 @@ export default {
       selected: [],
       selectedItems: [],
       selectAllitems: true,
+      getSwitch: false,
+      loading: false,
       filterText: '',
       headers: [{
         text: 'Collection',
@@ -356,6 +367,9 @@ export default {
           )) this.getMetadataByType(schemas[i]);
       }
     },
+    getResources() {
+      this.resourceItems = this.getObjectsBySubjects(this.getQuadsByType('Resource').map(a => a.subject.id));
+    },
   },
   computed: {
     ...mapGetters('n3', [
@@ -368,27 +382,33 @@ export default {
       'getModel',
       'getSelected',
     ]),
-    resourceItems() {
-      if (this.selected.length !== 0) {
+    resourceItems: {
+      get() {
         let arr = [];
-        for (let i = 0; i < this.selected.length; i += 1) {
-          const files = this.getDirectories[this.selected[i].fullName].files;
-          for (let j = 0; j < files.length; j += 1) {
-            const locPath = this.selected[i].fullName + files[j].name;
-            arr.push({
-              hasTitle: files[j].name,
-              collectionName: this.selected[i].hasTitle,
-              hasIdentifier: locPath,
-            });
+        if (this.selected.length !== 0) {
+          for (let i = 0; i < this.selected.length; i += 1) {
+            const files = this.getDirectories[this.selected[i].fullName].files;
+            for (let j = 0; j < files.length; j += 1) {
+              const locPath = this.selected[i].fullName + files[j].name;
+              arr.push({
+                hasTitle: files[j].name,
+                collectionName: this.selected[i].hasTitle,
+                hasIdentifier: locPath,
+              });
+            }
           }
+        }
+        if (this.getSwitch) {
+          this.loading = true;
+          arr.push(...this.getObjectsBySubjects(this.getQuadsByType('Resource').map(a => a.subject.id)));
+          this.loading = false;
         }
         // Remove duplicates by identifier
         arr = arr.filter((quad, index, self) =>
           index === self.findIndex(a => a.hasIdentifier === quad.hasIdentifier),
         );
         return arr;
-      }
-      return this.getObjectsBySubjects(this.getQuadsByType('Resource').map(a => a.subject.id));
+      },
     },
     objectsInStore() {
       this.$info('getCollectionTitles()');

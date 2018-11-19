@@ -63,7 +63,6 @@ const getters = {
     const arr = [];
     for (let i = 0; i < subjects.length; i += 1) {
       const quads = s.store.getQuads(subjects[i]);
-      console.log('quad', quads);
       const obj = {};
       for (let j = 0; j < quads.length; j += 1) {
         obj[quads[j].predicate.id.split('#')[1]] = quads[j].object.id.replace(/"/g, '');
@@ -78,10 +77,8 @@ const getters = {
         obj.collectionName = s.store.getQuads(obj.subject,
         'https://vocabs.acdh.oeaw.ac.at/schema#hasTitle')[0].object.id.replace(/"/g, '');
       }
-      console.log('obj', obj);
       arr.push(obj);
     }
-    console.log('arr', arr);
     return arr;
   },
   getCount: s => ({ quads: s.store.size, subjects: s.store.getSubjects().length }),
