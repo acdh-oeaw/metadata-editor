@@ -51,12 +51,10 @@
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import item from './Store_Storetreeitem';
 
-import HELPERS from '../helpers';
 /* eslint no-unused-vars: ["error", {"args": "none"}] */
 /* eslint no-console: ["error", { allow: ["log"] }] */
 
 export default {
-  mixins: [HELPERS],
   data() {
     return {
       expanded: false,
@@ -163,6 +161,36 @@ export default {
     },
     discard() {
       this.deleteEdit({ subject: this.uri.id });
+    },
+    typeicon(typ) {
+      console.log(typ);
+      if (typ) {
+        switch (typ) {
+          case 'resource':
+            return 'developer_board';
+          case 'persons':
+          case 'person':
+            return 'person';
+          case 'places':
+          case 'place':
+            return 'place';
+          case 'organisations':
+          case 'organisation':
+            return 'device_hub';
+          case 'ARCHE_CATEGORY':
+            return 'folder_open';
+          case 'ARCHE_LIFECYCLE_STATUS':
+            return 'donut_large';
+          case 'X':
+            return 'highlight_off';
+          case 'CHECK':
+            return 'check_circle';
+          case 'KEYBOARD':
+            return 'keyboard';
+          default: return 'folder';
+        }
+      }
+      return 'folder';
     },
   },
   mounted() {
