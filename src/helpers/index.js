@@ -406,17 +406,6 @@ export default {
       }
       return `${y}/${m}/${d} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     },
-    QuadsToObject(quads) {
-      const params = {};
-      for (let i = 0; i < quads.length; i += 1) {
-        if (params[quads[i].predicate.id.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')]) {
-          params[quads[i].predicate.id.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')].push(quads[i].object.id.replace(/"/g, ''));
-        } else {
-          params[quads[i].predicate.id.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')] = [quads[i].object.id.replace(/"/g, '')];
-        }
-      }
-      return params;
-    },
     saveSubjectChanges(subject, model, schema) {
       this.$debug('saveSubjectChanges(subject, model, schema)', subject, model, schema);
       this.RemoveSubject(subject);

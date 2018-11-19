@@ -192,6 +192,17 @@ export default {
       }
       return 'folder';
     },
+    QuadsToObject(quads) {
+      const params = {};
+      for (let i = 0; i < quads.length; i += 1) {
+        if (params[quads[i].predicate.id.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')]) {
+          params[quads[i].predicate.id.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')].push(quads[i].object.id.replace(/"/g, ''));
+        } else {
+          params[quads[i].predicate.id.replace('https://vocabs.acdh.oeaw.ac.at/schema#', '')] = [quads[i].object.id.replace(/"/g, '')];
+        }
+      }
+      return params;
+    },
   },
   mounted() {
     this.chosenItem = this.itemFull;

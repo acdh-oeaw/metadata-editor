@@ -12,8 +12,8 @@
           hide-actions
         >
           <template slot="items" slot-scope="props">
-              <td class="text-xs-right">{{ props.item.predicate }}</td>
-              <td>{{ props.item.object }}</td>
+              <td class="text-xs-right">{{ props.item.predicate.value }}</td>
+              <td>{{ props.item.object.value }}</td>
           </template>
         </v-data-table>
         <v-checkbox
