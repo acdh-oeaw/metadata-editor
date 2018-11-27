@@ -183,7 +183,7 @@ export default {
     maps typs to material icons. see https://material.io/tools/icons/
     */
     typeicon(typ) {
-      console.log(typ);
+      this.$log(typ);
       if (typ) {
         switch (typ) {
           case 'resource':
@@ -280,7 +280,7 @@ export default {
       for (let i = 0; i < keys.length; i += 1) {
         if (!m.properties[keys[i]].attrs) m.properties[keys[i]].attrs = {};
         if (m.properties[keys[i]].range) {
-          console.log(m.properties[keys[i]]);
+          this.$log(m.properties[keys[i]]);
           let r = m.properties[keys[i]].range;
           if (type === 'only name') {
             r = r.substring(r.lastIndexOf('#') + 1);
@@ -341,7 +341,7 @@ export default {
         return null;
       }
       for (let i = 0; i < sessions.length; i += 1) {
-        console.log(Date.now() - sessionVals[i].date);
+        this.$log(Date.now() - sessionVals[i].date);
         // second contition is to catch the newly made session.
         if (sessionVals[i].date > latest.date && Date.now() - sessionVals[i].date > 50) {
           latest = sessionVals[i];

@@ -163,7 +163,7 @@ export default {
       this.deleteEdit({ subject: this.uri.id });
     },
     typeicon(typ) {
-      console.log(typ);
+      this.$log(typ);
       if (typ) {
         switch (typ) {
           case 'resource':

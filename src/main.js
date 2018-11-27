@@ -18,7 +18,7 @@ import router from './router';
 import './components/Fundament/Fundament.css';
 
 Vue.use(vueLogger, {
-  dev: process.env.NODE_ENV !== 'production',
+  dev: process.env.NODE_ENV === 'development',
   shortname: true,
   levels: ['log', 'warn', 'debug', 'error', 'dir', 'info'],
 });

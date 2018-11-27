@@ -1,6 +1,8 @@
 import actions from './actions';
 import mutations from './mutations';
 /* eslint-disable no-case-declarations */
+/* eslint-disable no-underscore-dangle */
+
 
 const N3 = require('n3');
 
@@ -59,7 +61,7 @@ const getters = {
     return null;
   },
   getObjectsBySubjects: s => (subjects) => {
-    console.log('getObjectsBySubjects', subjects);
+    this._vm.$log('getObjectsBySubjects', subjects);
     const arr = [];
     for (let i = 0; i < subjects.length; i += 1) {
       const quads = s.store.getQuads(subjects[i]);

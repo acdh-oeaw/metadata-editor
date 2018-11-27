@@ -400,7 +400,12 @@ export default {
         }
         if (this.getSwitch) {
           this.loading = true;
-          arr.push(...this.getObjectsBySubjects(this.getQuadsByType('Resource').map(a => a.subject.id)));
+          const res = this.getObjectsBySubjects(this.getQuadsByType('Resource').map(a => a.subject.id));
+          for (let i = 0; i < res.length; i += 1) {
+            res[i].collectionName = this.getLastDir(res[i].isPartOf);
+          }
+          this.$log('resources in store', res);
+          arr.push(...res);
           this.loading = false;
         }
         // Remove duplicates by identifier
