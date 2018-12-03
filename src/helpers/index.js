@@ -77,7 +77,7 @@ export default {
     },
     getMetadataByType(type) {
       this.$debug('Helpers', 'getMetadataByType(type)', type);
-      return this.APIS.ARCHE2.METADATA.get(`${type}/en`).then(response => Promise.resolve(response.data));
+      return this.APIS.ARCHE.METADATA.get(`${type}/en`).then(response => Promise.resolve(response.data));
     },
     /* fetches data from the specified viaf endpoint in the config above and returnes it.
     */
