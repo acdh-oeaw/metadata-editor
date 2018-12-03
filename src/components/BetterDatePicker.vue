@@ -1,5 +1,8 @@
 <template lang="html">
-  <v-menu
+  <v-layout row wrap>
+    <v-flex xs8>
+      <v-menu
+        v-if="!manSwitch"
         ref="menu"
         :close-on-content-click="false"
         v-model="menu"
@@ -24,8 +27,21 @@
           v-model="selectedValue"
           @input="$emit('input', selectedValue); $refs.menu.save(selectedValue)"
           no-title
-          ></v-date-picker>
+        ></v-date-picker>
       </v-menu>
+      <v-text-field
+        v-else
+        v-model="selectedValue"
+        :label="label"
+        :hint="`${name} (please use YYYY-MM-DD)`"
+        @input="$emit('input', selectedValue)"
+        persistent-hint
+      ></v-text-field>
+    </v-flex>
+    <v-flex xs4>
+      <v-switch label="Manual input" v-model="manSwitch"></v-switch>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -39,6 +55,7 @@ export default {
   data() {
     return {
       menu: false,
+      manSwitch: false,
       selectedValue: '',
     };
   },
