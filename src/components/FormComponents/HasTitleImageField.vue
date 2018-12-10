@@ -47,7 +47,7 @@
     </v-autocomplete>
     <v-layout row wrap>
       <v-flex xs3>
-        <v-btn :disabled="switch1" @click="openAddNewSujectDialog()">select from store</v-btn>
+        <v-btn :disabled="switch1" @click="openAddNewSujectDialog">select from store</v-btn>
       </v-flex>
       <v-flex xs3>
         <v-switch @change="toggleTitleImage" value="true" label="Use blank" v-model="switch1"></v-switch>

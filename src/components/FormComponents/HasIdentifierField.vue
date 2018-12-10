@@ -29,9 +29,15 @@
       <!--<template v-if="!loading && !status && select[i-1].length > 0">
         <p>Failed to fetch Data from the API...</p>
       </template> -->
-      <v-btn :disabled="items.length==1" color="warning" @click="remove(index);">Delete Identifier</v-btn>
+      <v-layout row wrap>
+        <v-flex xs6>
+          <v-btn :disabled="items.length==1" color="warning" @click="remove(index)">Delete Identifier</v-btn>
+        </v-flex>
+        <v-flex xs6>
+          <v-btn color="success" @click="add">Add Identifier</v-btn>
+        </v-flex>
+      </v-layout>
     </div>
-    <v-btn color="success" @click="add();">Add Identifier</v-btn>
 
   </div>
 </template>
