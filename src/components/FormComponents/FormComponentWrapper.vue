@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import HELPERS from '../helpers';
+import HELPERS from '../../helpers';
 import autocompdefault from './AutocompDefault';
 import HasIdentifierField from './HasIdentifierField';
 import HasTitleImageField from './HasTitleImageField';

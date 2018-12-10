@@ -6,15 +6,14 @@
       :rules="[() => select.length > 0 || 'You must choose at least one']"
       :search-input.sync="search"
       v-model="select"
-      :label="name"
-      :disabled="switch1"
+      :label="`${name} (type to search)`"
       multiple
       cache-items
       chips
       required
       item-text="title"
       item-value="uri"
-      @input="$emit('input', select)"
+      @input="$emit('input', select);"
       >
       <template slot="selection" slot-scope="data">
         <v-chip
@@ -45,20 +44,13 @@
         </template>
       </template>
     </v-autocomplete>
-    <v-layout row wrap>
-      <v-flex xs3>
-        <v-btn :disabled="switch1" @click="openAddNewSujectDialog()">select from store</v-btn>
-      </v-flex>
-      <v-flex xs3>
-        <v-switch @change="toggleTitleImage" value="true" label="Use blank" v-model="switch1"></v-switch>
-      </v-flex>
-    </v-layout>
+    <v-btn @click="openAddNewSujectDialog()">select from store</v-btn>
   </div>
 </template>
 
 <script>
 import { mapMutations, mapGetters } from 'vuex';
-import HELPERS from '../helpers';
+import HELPERS from '../../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint-disable indent */
 /* eslint-disable prefer-template */
@@ -80,16 +72,12 @@ export default {
       iForDes: -1,
       listenForStoreSelectedItem: false,
       nStoreSelected: 0,
-      switch1: false,
     };
   },
   methods: {
     ...mapMutations('dialogs', [
       'setDialog',
       'setDialogPromise',
-    ]),
-    ...mapMutations('JSONschema', [
-      'toggleTitleImage',
     ]),
     querySelections(val) {
       this.loading = true;
@@ -154,7 +142,7 @@ export default {
           title: item.subject.value,
           uri: item.subject.value,
         });
-      this.$store.state.JSONschema.uriTitles[item.subject.value] = item.subject.uri;
+
       this.listenForStoreSelectedItem = false;
       this.$emit('input', this.select);
     },
@@ -185,7 +173,6 @@ export default {
         this.items.push({ title: this.value[i], uri: this.value[i], type: '' });
       }
     }
-    if (this.name === 'hasTitleImage') this.$log('hasTitleImage found');
   },
   computed: {
     ...mapGetters('n3', [

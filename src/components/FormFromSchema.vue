@@ -32,7 +32,7 @@
 import debounce from 'debounce';
 import FormSchema from '@formschema/native';
 import { mapMutations, mapActions } from 'vuex';
-import FormComponentWrapper from './FormComponentWrapper';
+import FormComponentWrapper from './FormComponents/FormComponentWrapper';
 import HELPERS from '../helpers';
 
 /* eslint no-param-reassign: ["error", { "props": false }] */

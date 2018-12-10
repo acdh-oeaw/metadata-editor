@@ -46,7 +46,7 @@
 
 <script>
 
-import HELPERS from '../helpers';
+import HELPERS from '../../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
 export default {

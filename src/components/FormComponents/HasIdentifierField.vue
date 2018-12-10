@@ -39,7 +39,7 @@
 <script>
 import debounce from 'debounce';
 import { mapMutations } from 'vuex';
-import HELPERS from '../helpers';
+import HELPERS from '../../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint-disable indent */
 /* eslint-disable func-names */

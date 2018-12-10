@@ -43,12 +43,12 @@ import {
 } from 'vuex';
 import loadfile from './Store_LoadFile';
 import storetree from './Store_Storetree';
-import AutocompVocabs from './AutocompVocabs';
+import AutocompVocabs from './FormComponents/AutocompVocabs';
 import formfromschema from './FormFromSchema';
-import AutocompDefault from './AutocompDefault';
-import HasIdentifierField from './HasIdentifierField';
+import AutocompDefault from './FormComponents/AutocompDefault';
+import HasIdentifierField from './FormComponents/HasIdentifierField';
 import HELPERS from '../helpers';
-import FormComponentWrapper from './FormComponentWrapper';
+import FormComponentWrapper from './FormComponents/FormComponentWrapper';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 export default {
   mixins: [HELPERS],
