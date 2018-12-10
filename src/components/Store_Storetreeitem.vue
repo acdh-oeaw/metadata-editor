@@ -8,7 +8,7 @@
         <v-icon v-bind:class="{ expanded: 'teal lighten-3' }">{{ typeicon(getArcheTypeString(uri.id)) }}</v-icon>
         <v-icon v-if="$store.state.JSONschema.unsaved[this.uri.id]">build</v-icon>
         <v-layout grid-list-xs class="ml-2" column justify-center>
-            <div class="itemcaption caption">{{ getArcheTitle(uri.id).id.replace(/"/g, '') }}</div>
+            <div class="itemcaption caption">{{ title }}</div>
         </v-layout>
         <v-spacer></v-spacer>
         <v-flex xs1 >
@@ -24,11 +24,11 @@
               </v-tooltip bottom>
               <v-tooltip bottom>
                 <v-icon slot="activator" @click="edit" color="primary">create</v-icon>
-                <span>Edit Subject</span>
+                <span>Edit {{ title }}</span>
               </v-tooltip bottom>
               <v-tooltip bottom>
                 <v-icon slot="activator" @click="clear" color="error">delete_forever</v-icon>
-                <span>Delete Subject</span>
+                <span>Delete {{ title }}</span>
               </v-tooltip bottom>
             </v-layout>
           </div>
@@ -60,6 +60,7 @@ export default {
       expanded: false,
       children: [],
       chosenItem: {},
+      title: '',
     };
   },
   name: 'item',
@@ -207,6 +208,7 @@ export default {
   mounted() {
     this.chosenItem = this.itemFull;
     this.update();
+    this.title = this.getArcheTitle(this.uri.id).id.replace(/"/g, '');
   },
 };
 </script>

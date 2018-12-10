@@ -6,7 +6,7 @@
       :rules="[() => select.length > 0 || 'You must choose at least one']"
       :search-input.sync="search"
       v-model="select"
-      :label="name"
+      :label="`${name} (type to search)`"
       multiple
       cache-items
       chips
