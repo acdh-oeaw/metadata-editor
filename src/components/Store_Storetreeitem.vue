@@ -2,13 +2,15 @@
   <v-layout @click="$emit('input', chosenItem)" column :class="{ greyBg: !bg, selected: this.uri === this.$route.query.uri }">
     <v-flex xs12>
       <v-layout row class="itemline" v-on:click="expanded = !expanded">
-        <v-icon v-if="!expanded && children.length>0"  class="pointer">chevron_right</v-icon>
-        <v-icon v-if="expanded && children.length>0"  class="pointer">expand_more</v-icon>
-        <v-icon v-if="children.length==0" style="opacity:0;">expand_more</v-icon>
+        <v-icon v-if="!expanded && children.length > 0"  class="pointer">chevron_right</v-icon>
+        <v-icon v-if="expanded && children.length > 0"  class="pointer">expand_more</v-icon>
+        <v-icon v-if="children.length == 0" style="opacity:0;">expand_more</v-icon>
         <v-icon v-bind:class="{ expanded: 'teal lighten-3' }">{{ typeicon(getArcheTypeString(uri.id)) }}</v-icon>
         <v-icon v-if="$store.state.JSONschema.unsaved[this.uri.id]">build</v-icon>
         <v-layout grid-list-xs class="ml-2" column justify-center>
-            <div class="itemcaption caption">{{ title }}</div>
+            <div class="itemcaption caption">
+              {{ title }}
+            </div>
         </v-layout>
         <v-spacer></v-spacer>
         <v-flex xs1 >
@@ -36,12 +38,12 @@
       </v-layout >
     </v-flex>
     <transition :duration="200" name="fadeDown" mode="in-out">
-      <v-flex xs12 v-if="expanded && children.length>0">
-          <v-layout row wrap v-for="(item, i) in children" :key="i" >
-            <v-flex xs12>
-              <item :uri="item" class="ml-2"></item>
-            </v-flex>
-          </v-layout>
+      <v-flex xs12 v-if="expanded && children.length > 0">
+        <v-layout row wrap v-for="(item, i) in children" :key="i" >
+          <v-flex xs12>
+            <item :uri="item" class="ml-2"></item>
+          </v-flex>
+        </v-layout>
       </v-flex>
     </transition>
   </v-layout>

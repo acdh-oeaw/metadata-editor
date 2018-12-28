@@ -77,20 +77,25 @@ export default {
     },
     getMetadataByType(type) {
       this.$debug('Helpers', 'getMetadataByType(type)', type);
-      return this.APIS.ARCHE.METADATA.get(`${type}/en`).then(response => Promise.resolve(response.data));
+      return this.APIS.ARCHE.METADATA
+        .get(`${type}/en`)
+        .then(response => Promise.resolve(response.data))
+        .catch(res => this.$log('catch', res));
     },
     /* fetches data from the specified viaf endpoint in the config above and returnes it.
     */
     getViafByID(id) {
       this.$info('Helpers', 'getViafByID(id)', id);
       if (id) {
-        return this.APIS.VIAF.BASE.get(`${id}/`).then((response) => {
+        return this.APIS.VIAF.BASE
+          .get(`${id}/`)
+          .then((response) => {
           // this.$log('response', response.data);
-          return Promise.resolve(response.data);
-        }, (error) => {
-          // this.$log('errortree, request failed', error);
-          return Promise.reject(error);
-        });
+            return Promise.resolve(response.data);
+          }, (error) => {
+            // this.$log('errortree, request failed', error);
+            return Promise.reject(error);
+          });
       }
       // this.$log('errortree, no id');
       return Promise.reject('no ID was given');
@@ -141,13 +146,14 @@ export default {
       const type = typ.toUpperCase().trim();
       this.$info('Helpers', 'getArcheByID(id, type)', id, type);
       if (id && type && this.APIS.ARCHE2[type]) {
-        return this.APIS.ARCHE2[type].get(`${id}`).then((response) => {
-          // this.$log('response', response.data);
-          return Promise.resolve(response.data);
-        }, (error) => {
-          // this.$log('errortree, request failed', error);
-          return Promise.reject(error);
-        });
+        return this.APIS.ARCHE2[type].get(`${id}`)
+          .then((response) => {
+            // this.$log('response', response.data);
+            return Promise.resolve(response.data);
+          }, (error) => {
+            // this.$log('errortree, request failed', error);
+            return Promise.reject(error);
+          });
       }
       return Promise.reject('no ID or Type was given');
     },
@@ -265,7 +271,7 @@ export default {
     **/
     copyRangeToType(schema, type) {
       this.$info('Helpers', 'copyRangeToType(model, type)', schema, type);
-      if (!schema) {
+      if (!schema || !schema.properties) {
         return {};
       }
       const m = schema; // to be returned
@@ -304,7 +310,7 @@ export default {
     */
     removeBlacklisted(schema, regEx) {
       this.$info('Helpers', 'removeBlacklisted(schema, regEx)', schema, regEx);
-      if (!schema) {
+      if (!schema || !schema.properties) {
         return {};
       }
       const m = schema; // to be returned

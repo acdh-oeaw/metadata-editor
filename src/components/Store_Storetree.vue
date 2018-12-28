@@ -21,7 +21,7 @@
         </v-card>
       </v-expansion-panel-content>
       <v-expansion-panel-content>
-        <div slot="header"><v-icon large color='teal lighten-3'>person</v-icon> Persons</div>
+        <div slot="header"><v-icon large color='teal lighten-3'>person</v-icon> People</div>
         <v-card>
           <v-flex xs12 v-for="(item, i) in persons" :key="i" >
             <item @input="$emit('input', passThroughItem)"  v-model="passThroughItem" :uri="item.subject" :itemFull="item"  :bg="i%2"></item>
