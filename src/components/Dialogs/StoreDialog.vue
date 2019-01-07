@@ -57,6 +57,9 @@ export default {
     ...mapMutations('localStorageInfo', [
       'constructLocalStorageInfo',
     ]),
+    ...mapMutations('dialogs', [
+      'openDialog',
+    ]),
     discard() {
       this.dialogShow = false;
       this.deleteOldSessions();

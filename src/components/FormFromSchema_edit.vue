@@ -98,6 +98,7 @@ export default {
     ]),
     ...mapMutations('dialogs', [
       'setDialog',
+      'openDialog',
     ]),
     ...mapActions('n3', [
       'WriteSubject',

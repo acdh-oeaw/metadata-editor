@@ -6,6 +6,7 @@
       <editsubjectdialog></editsubjectdialog>
       <addnewsubjectdialog></addnewsubjectdialog>
       <filesizedialog></filesizedialog>
+      <networkerrordialog></networkerrordialog>
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import deletesubjectdialog from './DeleteSubjectDialog';
 import editsubjectdialog from './EditSubjectDialog';
 import addnewsubjectdialog from './AddNewSubjectDialog';
 import filesizedialog from './FileSizeDialog';
+import networkerrordialog from './NetworkErrorDialog';
 
 
 export default {
@@ -26,6 +28,7 @@ export default {
     deletesubjectdialog,  // both opened in Store_Storetreeitem
     addnewsubjectdialog,  // opened in autoCompDefault
     filesizedialog,  // opened in Store_LoadFile
+    networkerrordialog,
   },
 };
 </script>

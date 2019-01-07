@@ -80,7 +80,7 @@ export default {
       return this.APIS.ARCHE.METADATA
         .get(`${type}/en`)
         .then(response => Promise.resolve(response.data))
-        .catch(res => this.$log('catch', res));
+        .catch(this.openDialog('networkerrordialog'));
     },
     /* fetches data from the specified viaf endpoint in the config above and returnes it.
     */

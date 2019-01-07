@@ -29,9 +29,6 @@ const mutations = {
   updateStorageStatus(s, bool) {
     s.stored = bool;
   },
-  toggleDeletePrompt(s, bool) {
-    s.deletePrompt = bool;
-  },
 };
 
 export default mutations;

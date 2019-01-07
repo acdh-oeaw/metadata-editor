@@ -4,10 +4,13 @@
 const state = {
   clearcachedialog: { status: false },
   storedialog: { status: false },
+  networkerrordialog: { status: false },
   deletesubjectdialog: { status: false, uri: '' },
   editsubjectdialog: { status: false, query: {}, type: '' },
   addnewsubjectdialog: { status: false, addedItem: {} },
   filesizedialog: { status: false, file: '', size: '', result: '' },
+  deletePrompt: true,
+  networkPrompt: true,
 };
 
 const getters = {
@@ -27,6 +30,12 @@ const mutations = {
   setDialog(s, { name, obj }) {
     this._vm.$info('store dialogs setDialog', name, obj);
     s[name] = obj;
+  },
+  toggleDeletePrompt(s, bool) {
+    s.deletePrompt = bool;
+  },
+  toggleNetworkPrompt(s, bool) {
+    s.networkPrompt = bool;
   },
 };
 

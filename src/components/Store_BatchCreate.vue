@@ -212,6 +212,9 @@ export default {
       'setModel',
       'setSelected',
     ]),
+    ...mapMutations('batchCreate', [
+      'openDialog',
+    ]),
     onFileChange(e) {
       this.$info('Load', 'onFileChange(e)', e);
       const files = e.target.files || e.dataTransfer.files;

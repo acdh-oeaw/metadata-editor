@@ -135,7 +135,7 @@ export default {
       this.getChildren(this.uri.id);
     },
     clear() {
-      if (this.$store.state.n3.deletePrompt) {
+      if (this.$store.state.dialogs.deletePrompt) {
         this.setDialog({ name: 'deletesubjectdialog', obj: { status: true, uri: this.uri.id } });
       } else {
         this.RemoveSubject(this.uri.id);

@@ -23,7 +23,6 @@ const state = {
   ttlString: '',
   p: ['ttlString'],
   stored: true,
-  deletePrompt: true,
   update: 0,
 };
 
