@@ -13,7 +13,7 @@
         ></v-checkbox>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="refreshPage" large color="error">
+        <v-btn @click="$router.go($router.currentRoute)" large color="error">
           Reload
         </v-btn>
         <v-btn @click="closeDialog(name)" color="secondary" large>
@@ -52,9 +52,6 @@ export default {
       'closeDialog',
       'toggleNetworkPrompt',
     ]),
-    refreshPage() {
-      window.location.reload();
-    },
   },
 };
 </script>
