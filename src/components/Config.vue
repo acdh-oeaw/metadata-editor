@@ -208,7 +208,7 @@ export default {
       },
       set(val) {
         this.toggleNetworkPrompt(val);
-      }
+      },
     },
     deletePrompt: {
       get() {
@@ -216,7 +216,7 @@ export default {
       },
       set(val) {
         this.toggleDeletePrompt(val);
-      }
+      },
     },
   },
   mounted() {

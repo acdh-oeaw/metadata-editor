@@ -15,10 +15,12 @@ import { mapActions, mapMutations } from 'vuex';
 import fundamentnav from './Fundament/FundamentNav';
 import fundamentfooter from './Fundament/FundamentFooter';
 import dialogs from './Dialogs/Dialogs';
+import HELPERS from '../helpers';
 /* eslint no-console: ["error", { allow: ["log"] }] */
 /* eslint no-return-assign: "off" */
 
 export default {
+  mixins: [HELPERS],
   data() {
     return {
     };
@@ -56,6 +58,7 @@ export default {
       .then(res => this.setConfig(res.data))
       .catch(error => this.$log(error));
     this.setOntology('static/acdh-schema.owl');
+    this.$log('connections', this.checkConnections());
   },
 };
 </script>

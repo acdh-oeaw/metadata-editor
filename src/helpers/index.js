@@ -80,7 +80,7 @@ export default {
       return this.APIS.ARCHE.METADATA
         .get(`${type}/en`)
         .then(response => Promise.resolve(response.data))
-        .catch(this.openDialog('networkerrordialog'));
+        .catch(res => this.$log(res));
     },
     /* fetches data from the specified viaf endpoint in the config above and returnes it.
     */
@@ -474,6 +474,9 @@ export default {
       document.body.appendChild(downloadLink);
 
       downloadLink.click();
+    },
+    checkConnections() {
+      return this.APIS;
     },
   },
   created() {
