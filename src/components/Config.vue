@@ -27,6 +27,17 @@
       :readonly="this.select.name !== 'config'"
     >
     </v-textarea>
+    <v-divider inset></v-divider>
+
+    <v-switch
+      label="Ask before deleting subjects"
+      v-model="deletePrompt"
+    ></v-switch>
+    <v-switch
+      label="Show if you're connected to Arche"
+      v-model="networkPrompt"
+    ></v-switch>
+
     <v-speed-dial
       v-model="fab"
       bottom
@@ -112,6 +123,10 @@ export default {
     ...mapMutations('JSONschema', [
       'setSchema',
     ]),
+    ...mapMutations('dialogs', [
+      'toggleNetworkPrompt',
+      'toggleDeletePrompt',
+    ]),
 
     onFileChange(e) {
       this.$info('Load', 'onFileChange(e)', e);
@@ -186,6 +201,22 @@ export default {
         });
       }
       return arr;
+    },
+    networkPrompt: {
+      get() {
+        return this.$store.state.dialogs.networkPrompt;
+      },
+      set(val) {
+        this.toggleNetworkPrompt(val);
+      }
+    },
+    deletePrompt: {
+      get() {
+        return this.$store.state.dialogs.deletePrompt;
+      },
+      set(val) {
+        this.toggleDeletePrompt(val);
+      }
     },
   },
   mounted() {
