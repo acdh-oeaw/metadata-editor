@@ -58,7 +58,14 @@ export default {
       'constructLocalStorageInfo',
     ]),
     ...mapMutations('dialogs', [
+      'constructDialogs',
+    ]),
+    ...mapMutations('dialogs', [
       'openDialog',
+      'setDialog',
+      'addToFailed',
+      'clearFailed',
+      'removeFromFailed',
     ]),
     discard() {
       this.dialogShow = false;
@@ -86,6 +93,11 @@ export default {
         this.initSchema(this.tabs[i].type);
       }
     },
+    checkForInternet() {
+      setInterval(() => {
+        if (this.$store.state.dialogs.networkPrompt) this.checkConnections();
+      }, 5000);
+    },
     restore(reload = true) {
       // this.constructJOWL(this.latestSession);
       this.constructJSONschema(this.latestSession);
@@ -95,6 +107,12 @@ export default {
       this.constructLocalStorageInfo(this.latestSession);
       this.constructConfig(this.latestSession);
       this.constructBatchCreate(this.latestSession);
+      this.constructDialogs(this.latestSession);
+      if (this.$store.state.dialogs.networkPrompt) {
+        this.checkConnections();
+        this.checkForInternet();
+      }
+
       this.discard();
       if (reload) {
         this.$router.go(this.$router.currentRoute);

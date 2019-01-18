@@ -480,52 +480,45 @@ export default {
         .get('test/')
         .catch((res) => {
           if (!res.response) {
+            this.addToFailed('ARCHE');
             this.setDialog({
               name: 'networkerrordialog',
               obj: {
                 status: true,
-                endpoints: ['ARCHE'],
               },
             });
+          } else {
+            this.removeFromFailed('ARCHE');
           }
         });
       this.APIS.ARCHE2.BASE
         .get('test/')
         .catch((res) => {
           if (!res.response) {
-            this.setDialog({
-              name: 'networkerrordialog',
-              obj: {
-                status: true,
-                endpoints: ['ARCHE2'],
-              },
-            });
+            this.addToFailed('ARCHE2');
+            this.openDialog('networkerrordialog');
+          } else {
+            this.removeFromFailed('ARCHE2');
           }
         });
       this.APIS.VIAF.BASE
         .get('168348279/')
         .catch((res) => {
           if (!res.response) {
-            this.setDialog({
-              name: 'networkerrordialog',
-              obj: {
-                status: true,
-                endpoints: ['VIAF'],
-              },
-            });
+            this.addToFailed('VIAF');
+            this.openDialog('networkerrordialog');
+          } else {
+            this.removeFromFailed('VIAF');
           }
         });
       this.APIS.VOCABS.ARCHE_CATEGORY
         .get('test/')
         .catch((res) => {
           if (!res.response) {
-            this.setDialog({
-              name: 'networkerrordialog',
-              obj: {
-                status: true,
-                endpoints: ['VOCABS'],
-              },
-            });
+            this.addToFailed('VOCABS');
+            this.openDialog('networkerrordialog');
+          } else {
+            this.removeFromFailed('VOCABS');
           }
         });
     },

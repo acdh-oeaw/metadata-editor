@@ -5,7 +5,7 @@
         An error occoured!
       </v-card-title>
       <v-card-text color="primary">
-        Apparently you're not connected to the arche network (You probably forgot to use a VPN). The following endpoint(s) could no be reached: {{ endpoints[0] }}
+        Apparently you're not connected to the arche network (You probably forgot to use a VPN). The following endpoint(s) could no be reached: {{ $store.state.dialogs.failedConnections.length  ? $store.state.dialogs.failedConnections :  closeDialog(name) }}
         <v-checkbox
           label="Don't tell me again"
           v-model="checkbox"

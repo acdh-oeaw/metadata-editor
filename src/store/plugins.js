@@ -40,6 +40,10 @@ const triggerMutations = [
   'config/setApis',
   'batchCreate/setDirectories',
   'batchCreate/setModel',
+  'dialogs/openDialog',
+  'dialogs/setDialog',
+  'dialogs/toggleDeletePrompt',
+  'dialogs/toggleNetworkPrompt',
 ];
 
 // helper function for filtering for properties that need to be persistent.

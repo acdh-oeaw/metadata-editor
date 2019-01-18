@@ -34,7 +34,7 @@
       v-model="deletePrompt"
     ></v-switch>
     <v-switch
-      label="Show if you're connected to Arche"
+      label="Notify when you're not connected to Arche"
       v-model="networkPrompt"
     ></v-switch>
 
