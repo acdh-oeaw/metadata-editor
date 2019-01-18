@@ -4,7 +4,7 @@
 const state = {
   clearcachedialog: { status: false },
   storedialog: { status: false },
-  networkerrordialog: { status: false },
+  networkerrordialog: { status: false, endpoints: [] },
   deletesubjectdialog: { status: false, uri: '' },
   editsubjectdialog: { status: false, query: {}, type: '' },
   addnewsubjectdialog: { status: false, addedItem: {} },

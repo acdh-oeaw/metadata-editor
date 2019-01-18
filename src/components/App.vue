@@ -52,13 +52,16 @@ export default {
       'toggleDrawer',
       'toggleNavbar',
     ]),
+    ...mapMutations('dialogs', [
+      'setDialog',
+    ]),
   },
   created() {
     axios.get('/static/nav.json')
       .then(res => this.setConfig(res.data))
       .catch(error => this.$log(error));
     this.setOntology('static/acdh-schema.owl');
-    this.$log('connections', this.checkConnections());
+    this.checkConnections();
   },
 };
 </script>

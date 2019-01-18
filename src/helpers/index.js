@@ -476,7 +476,58 @@ export default {
       downloadLink.click();
     },
     checkConnections() {
-      return this.APIS;
+      this.APIS.ARCHE.BASE
+        .get('test/')
+        .catch((res) => {
+          if (!res.response) {
+            this.setDialog({
+              name: 'networkerrordialog',
+              obj: {
+                status: true,
+                endpoints: ['ARCHE'],
+              },
+            });
+          }
+        });
+      this.APIS.ARCHE2.BASE
+        .get('test/')
+        .catch((res) => {
+          if (!res.response) {
+            this.setDialog({
+              name: 'networkerrordialog',
+              obj: {
+                status: true,
+                endpoints: ['ARCHE2'],
+              },
+            });
+          }
+        });
+      this.APIS.VIAF.BASE
+        .get('168348279/')
+        .catch((res) => {
+          if (!res.response) {
+            this.setDialog({
+              name: 'networkerrordialog',
+              obj: {
+                status: true,
+                endpoints: ['VIAF'],
+              },
+            });
+          }
+        });
+      this.APIS.VOCABS.ARCHE_CATEGORY
+        .get('test/')
+        .catch((res) => {
+          if (!res.response) {
+            this.setDialog({
+              name: 'networkerrordialog',
+              obj: {
+                status: true,
+                endpoints: ['VOCABS'],
+              },
+            });
+          }
+        });
     },
   },
   created() {

@@ -92,7 +92,6 @@ export default {
     ...mapMutations('JSONschema', [
       'setSchema',
       'setEntry',
-      'setDialog',
       'saveEdit',
       'deleteEdit',
     ]),

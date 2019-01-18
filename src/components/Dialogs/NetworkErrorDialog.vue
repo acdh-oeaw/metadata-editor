@@ -6,7 +6,7 @@
         Delete Subject
       </v-card-title>
       <v-card-text color="primary">
-        Apparently you're not connected to the arche network. (You probably forgot to use a VPN)
+        Apparently you're not connected to the arche network (You probably forgot to use a VPN). The following endpoint(s) could no be reached: {{ endpoints[0] }}
         <v-checkbox
           label="Don't tell me again"
           v-model="checkbox"
@@ -52,6 +52,11 @@ export default {
       'closeDialog',
       'toggleNetworkPrompt',
     ]),
+  },
+  computed: {
+    endpoints() {
+      return this.$store.state.dialogs[this.name].endpoints;
+    },
   },
 };
 </script>
