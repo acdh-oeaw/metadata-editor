@@ -4,27 +4,30 @@
     <v-btn variant="primary" @click="submit">Load into Store</v-btn>
     <v-btn @click="resetForm();" variant="secondary">Reset Form</v-btn>
   </form-schema>
-  <v-snackbar
-    v-model="snackbar"
-    :timeout="8000"
-    bottom
+<v-snackbar
+  v-model="snackbar"
+  :timeout="8000"
+  bottom
+  >
+  You need to specify a title image to upload a collection!
+
+</v-snackbar>
+<v-card-actions>
+  <v-btn
+      dark
+      flat
+      @click="snackbar = false; useBlank()"
     >
-    You need to specify a title image to upload a collection!
-    <v-btn
-        dark
-        flat
-        @click="snackbar = false; useBlank()"
-      >
-        Use blank
-    </v-btn>
-    <v-btn
-        dark
-        flat
-        @click="snackbar = false"
-      >
-        Close
-    </v-btn>
-  </v-snackbar>
+      Use blank
+  </v-btn>
+  <v-btn
+      dark
+      flat
+      @click="snackbar = false"
+    >
+      Close
+  </v-btn>
+</v-card-actions>
 </v-card>
 </template>
 

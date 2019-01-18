@@ -38,10 +38,11 @@
     You are currently editing the entity: {{ verboseEntityDescription }}
     <form-schema v-if="model && type" @input="saveEntry(); $emit('input', model)" :schema="schema" v-model="model">
     </form-schema>
-    <v-divider></v-divider>
-    <v-btn variant="primary"  @click="saveChanges(); setDialog({ name, obj: { query: {} } })">Save Changes</v-btn>
-    <v-btn variant="primary" @click="submit">Add as new Entity</v-btn>
-    <v-btn @click="discardChanges();" variant="secondary">Discard Changes</v-btn>
+    <v-card-actions>
+      <v-btn variant="primary"  @click="saveChanges(); setDialog({ name, obj: { query: {} } })">Save Changes</v-btn>
+      <v-btn variant="primary" @click="submit">Add as new Entity</v-btn>
+      <v-btn @click="discardChanges();" variant="secondary">Discard Changes</v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
