@@ -1,9 +1,8 @@
 <template lang="html">
-  <!-- store deletion -->
   <v-dialog v-model="$store.state.dialogs[name].status" max-width="900px">
     <v-card>
       <v-card-title>
-        Delete Subject
+        An error occoured!
       </v-card-title>
       <v-card-text color="primary">
         Apparently you're not connected to the arche network (You probably forgot to use a VPN). The following endpoint(s) could no be reached: {{ endpoints[0] }}
