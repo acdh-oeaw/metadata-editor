@@ -1,6 +1,14 @@
 
 const state = {
-  tabs: [{ name: 'person', type: 'person' }, { name: 'place', type: 'place' }, { name: 'organisation', type: 'organisation' }, { name: 'collection', type: 'collection' }, { name: 'project', type: 'project' }, { name: 'resource', type: 'resource' }],
+  tabs: [
+    { name: 'collection', type: 'collection' },
+    { name: 'resource', type: 'resource' },
+    { name: 'project', type: 'project' },
+    { name: 'person', type: 'person' },
+    { name: 'organisation', type: 'organisation' },
+    { name: 'place', type: 'place' },
+    { name: 'publication', type: 'publication' },
+  ],
   schemas: {},
   entries: {}, /* = { model: {..actual entries go here..},
     schema: 'schematype* corresponding to a key in schemas goes here' */
