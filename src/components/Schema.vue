@@ -5,10 +5,13 @@
           <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
             <nav class="collapse bd-links" id="bd-docs-nav">
               <div class="bd-toc-item">
-                <a class="bd-toc-link" href="#">Ontology Loaded:</a>
+                Ontology Loaded:
               </div>
               <div class="bd-toc-item" v-if="this.getOntology">
                 {{ this.$store.state.jowl.ontologyPath }}
+              </div>
+              <div v-else>
+                none
               </div>
             </nav>
           </div>
@@ -27,7 +30,7 @@
                 item-text="?x.name"
                 item-value="?x.URI">
               </v-autocomplete>
-              <div>Selected: <strong>{{ selectedOntology }}</strong></div>
+              <div>Selected: <a :href="selectedOntology">{{ selectedOntology }}</a></div>
               <DataTable :uri="selectedOntology"></DataTable>
             </div>
           </div>

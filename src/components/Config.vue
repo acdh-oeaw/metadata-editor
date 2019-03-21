@@ -132,8 +132,11 @@ export default {
       this.$info('Load', 'onFileChange(e)', e);
       const files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
-      if (files[0].type === 'application/json') this.loadJSON(files[0]);
-      else {
+      if (files[0].type === 'application/json') {
+        this.loadJSON(files[0]);
+        this.snackbarText = 'Successfully uploaded a new config!';
+        this.snackbar = true;
+      } else {
         this.snackbarText = 'You need to upload a JSON file!';
         this.snackbar = true;
       }

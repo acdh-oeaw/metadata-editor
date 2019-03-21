@@ -4,6 +4,7 @@
     <v-data-table
       :headers="headers"
       :items="tabledata"
+      :rows-per-page-items='[10,25,{"text":"$vuetify.dataIterator.rowsPerPageAll","value":-1}]'
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
@@ -55,6 +56,7 @@ export default {
       this.$info('DataTable', 'getProps(newClass)', newClass);
       this.tabledata = [];
       this.fetchPropertiesByURI({ q: newClass, uri: newClass }).then((res) => {
+        this.$log('datatable', res);
         let idx = res.length - 1;
         while (idx + 1) {
           this.tabledata.push({
