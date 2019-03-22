@@ -5,6 +5,24 @@
       Upon made changes, a save-button will appear, which saves you changes to you local config.<br>
       Please be mindful on changing endpoints, you might break the application!
     </p>
+    <v-layout row wrap>
+      <v-flex xs4>
+        <v-switch
+          label="Ask before deleting subjects"
+          v-model="deletePrompt"
+        ></v-switch>
+      </v-flex>
+      <v-flex xs4>
+        <v-switch
+          label="Notify when you're not connected to Arche"
+          v-model="networkPrompt"
+        ></v-switch>
+      </v-flex>
+    </v-layout>
+
+    <p>
+      <v-divider inset></v-divider>
+    </p>
     <p>
       <v-select
           v-model="select"
@@ -27,16 +45,6 @@
       :readonly="this.select.name !== 'config'"
     >
     </v-textarea>
-    <v-divider inset></v-divider>
-
-    <v-switch
-      label="Ask before deleting subjects"
-      v-model="deletePrompt"
-    ></v-switch>
-    <v-switch
-      label="Notify when you're not connected to Arche"
-      v-model="networkPrompt"
-    ></v-switch>
 
     <v-speed-dial
       v-model="fab"
@@ -230,5 +238,8 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style scoped lang="css">
+  label {
+    width: 100%;
+  }
 </style>

@@ -484,12 +484,7 @@ export default {
         .catch((res) => {
           if (!res.response) {
             this.addToFailed('ARCHE');
-            this.setDialog({
-              name: 'networkerrordialog',
-              obj: {
-                status: true,
-              },
-            });
+            this.openDialog('networkerrordialog');
           } else {
             this.removeFromFailed('ARCHE');
           }

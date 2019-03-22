@@ -1,7 +1,7 @@
 {
     "ARCHE": {
         "COMMENT": "Used to fetch metadata for forms",
-        "BASEURL": "https://arche-curation.minerva.arz.oeaw.ac.at/browser/api/",
+        "BASEURL": "https://arche.acdh.oeaw.ac.at/browser/api/",
         "ENDPOINTS": {
             "PERSONS": "persons/",
             "BASE": "",
