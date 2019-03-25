@@ -3,9 +3,20 @@
       caption="Load ttl from disk"
       >
       <div >
-        <p>Load Data from a file. See available file types and data formats in the documentation</p>
-        <p>[TEST FOR LOCALSTORAGE AND SOME STORE STATS SHOULD GO HERE]</p>
-        <p>.</p>
+        <p>Load Data from a file.</p>
+        <p>
+          <v-btn @click="testLimit()">testStoreLimit</v-btn>
+        </p>
+        <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
+          {{ $store.state.localStorageInfo.localStorageLimit }} Chars Storage Capacity
+          <v-progress-linear :value="$store.state.localStorageInfo.currentStoreLength/$store.state.localStorageInfo.localStorageLimit*100"></v-progress-linear>
+        </div>
+        <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
+          {{ (""+($store.state.localStorageInfo.currentStoreLength *100/ $store.state.localStorageInfo.localStorageLimit)).substring(0,4) }}% Capacity used
+        </div>
+        <p>
+          <v-divider></v-divider>
+        </p>
         <input type="file" @change="onFileChange">
       </div>
     </fundamentcard>

@@ -213,6 +213,12 @@ export default {
             return 'check_circle';
           case 'KEYBOARD':
             return 'keyboard';
+          case 'project':
+          case 'projects':
+            return 'work';
+          case 'publications':
+          case 'publication':
+            return 'chrome_reader_mode';
           default: return 'folder';
         }
       }
@@ -275,10 +281,7 @@ export default {
         return {};
       }
       const m = schema; // to be returned
-
-
       const keys = Object.keys(schema.properties);
-
       //debug object, lists all types
       const types = {};
 
@@ -481,12 +484,7 @@ export default {
         .catch((res) => {
           if (!res.response) {
             this.addToFailed('ARCHE');
-            this.setDialog({
-              name: 'networkerrordialog',
-              obj: {
-                status: true,
-              },
-            });
+            this.openDialog('networkerrordialog');
           } else {
             this.removeFromFailed('ARCHE');
           }

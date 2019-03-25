@@ -1,11 +1,13 @@
 {
     "ARCHE": {
         "COMMENT": "Used to fetch metadata for forms",
-        "BASEURL": "https://arche-curation.acdh-dev.oeaw.ac.at/browser/api/",
+        "BASEURL": "https://arche.acdh.oeaw.ac.at/browser/api/",
         "ENDPOINTS": {
             "PERSONS": "persons/",
             "BASE": "",
             "ORGANISATIONS": "organisations/",
+            "PROJECTS": "projects/",
+            "PUBLICATIONS": "publications/",
             "PLACES": "places/",
             "CONCEPTS": "concepts/",
             "PUBLICATIONS": "publications/",
@@ -26,6 +28,8 @@
             "PERSONS": "persons/",
             "BASE": "",
             "ORGANISATIONS": "organisations/",
+            "PROJECTS": "projects/",
+            "PUBLICATIONS": "publications/",
             "PLACES": "places/",
             "CONCEPTS": "concepts/",
             "PUBLICATIONS": "publications/",

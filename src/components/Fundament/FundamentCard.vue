@@ -15,7 +15,7 @@
           class="teak lighten-3"
           :to="link"
           >
-        More</v-btn>
+        {{ button ||'Start' }}</v-btn>
       </v-card-actions>
     </v-card>
   </transition>
@@ -32,6 +32,7 @@
       'src',
       'caption',
       'link',
+      'button',
     ],
     name: 'FundamentJumbo',
   };

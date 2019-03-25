@@ -29,10 +29,10 @@
         </v-card>
       </v-expansion-panel-content>
       <v-expansion-panel-content>
-        <div slot="header"><v-icon large color='teal lighten-3'>place</v-icon> Places</div>
+        <div slot="header"><v-icon large color='teal lighten-3'>work</v-icon> Projects</div>
         <v-card>
-          <v-flex xs12 v-for="(item, i) in places" :key="i" >
-            <item @input="$emit('input', passThroughItem)" v-model="passThroughItem" :uri="item.subject" :itemFull="item" :bg="i%2"></item>
+          <v-flex xs12 v-for="(item, i) in projects" :key="i" >
+            <item @input="$emit('input', passThroughItem)"  v-model="passThroughItem" :uri="item.subject" :itemFull="item"  :bg="i%2"></item>
           </v-flex>
         </v-card>
       </v-expansion-panel-content>
@@ -41,6 +41,22 @@
         <v-card>
           <v-flex xs12 v-for="(item, i) in organisations" :key="i" >
             <item @input="$emit('input', passThroughItem)"  v-model="passThroughItem" :uri="item.subject" :itemFull="item"  :bg="i%2"></item>
+          </v-flex>
+        </v-card>
+      </v-expansion-panel-content>
+      <v-expansion-panel-content>
+        <div slot="header"><v-icon large color='teal lighten-3'>place</v-icon> Places</div>
+        <v-card>
+          <v-flex xs12 v-for="(item, i) in places" :key="i" >
+            <item @input="$emit('input', passThroughItem)" v-model="passThroughItem" :uri="item.subject" :itemFull="item" :bg="i%2"></item>
+          </v-flex>
+        </v-card>
+      </v-expansion-panel-content>
+      <v-expansion-panel-content>
+        <div slot="header"><v-icon large color='teal lighten-3'>chrome_reader_mode</v-icon> Publications</div>
+        <v-card>
+          <v-flex xs12 v-for="(item, i) in publications" :key="i" >
+            <item @input="$emit('input', passThroughItem)" v-model="passThroughItem" :uri="item.subject" :itemFull="item" :bg="i%2"></item>
           </v-flex>
         </v-card>
       </v-expansion-panel-content>
@@ -68,9 +84,11 @@ export default {
       collectionNames: [], // list of all collection and projectnames
       collectionNames_select: [], // selection of v-autocomplete
       collections: [], // actual root elements
+      projects: [],
       persons: [],
       places: [],
       organisations: [],
+      publications: [],
       passThroughItem: {},
     };
   },
@@ -93,8 +111,10 @@ export default {
     getUpdate(oldV, newV) {
       this.$info('getUpdate', oldV, newV);
       this.collections = {};
+      this.projects = {};
       this.persons = {};
       this.places = {};
+      this.publications = {};
       this.organisations = {};
       setTimeout(() => this.getRoot(), 100);
       // this.getRoot();
@@ -168,9 +188,11 @@ export default {
     },
     getRoot() {
       this.$info('getRoot()');
-      this.collections = (this.setRootCollections()).concat(this.getQuadsByType('Project'));
+      this.collections = this.setRootCollections();
+      this.projects = this.getQuadsByType('Project');
       this.persons = this.getQuadsByType('Person');
       this.places = this.getQuadsByType('Place');
+      this.publications = this.getQuadsByType('Publication');
       this.organisations = this.getQuadsByType('Organisation');
       this.$forceUpdate();
     },

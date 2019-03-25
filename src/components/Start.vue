@@ -11,8 +11,9 @@
           <fundamentsectiondiv icon="stars" caption="Getting Started"></fundamentsectiondiv>
           <v-flex xs12 sm6>
             <fundamentcard
-              caption="Load an existing ttl File."
+              caption="Load an existing ttl File"
               :link="{ name: 'store', params: { lang: 'en' }}"
+              button="Select"
             >
               <p class="card-text">Load and edit an existing file from your Disk.</p>
             </fundamentcard>
@@ -28,8 +29,9 @@
           <fundamentsectiondiv icon="description" caption="Documentation"></fundamentsectiondiv>
           <v-flex xs12 sm4>
             <fundamentcard
-              caption="Load an existing ttl File."
+              caption="Load an existing ttl File"
               :link="{ name: 'store', params: { lang: 'en' }}"
+              button="Select"
             >
               <p class="card-text">Load and edit an existing file from your Disk.</p>
             </fundamentcard>

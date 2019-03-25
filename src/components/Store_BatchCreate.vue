@@ -267,11 +267,11 @@ export default {
       return dir.split('/').slice(-1)[0] || dir.split('/').slice(-2)[0];
     },
     logItems() {
-      this.$debug('model', this.model);
-      this.$debug('items', this.items);
-      this.$debug('directories', this.directories);
-      this.$debug('selected', this.selected);
-      this.$debug('selectedItems', this.selectedItems);
+      this.$log('debug: model', this.model);
+      this.$log('debug: items', this.items);
+      this.$log('debug: directories', this.directories);
+      this.$log('debug: selected', this.selected);
+      this.$log('debug: selectedItems', this.selectedItems);
     },
     collectionsToStore(colls) {
       for (let i = 0; i < colls.length; i += 1) {
@@ -403,7 +403,9 @@ export default {
         }
         if (this.getSwitch) {
           this.loading = true;
-          const res = this.getObjectsBySubjects(this.getQuadsByType('Resource').map(a => a.subject.id));
+          const subjects = this.getQuadsByType('resource').map(a => a.subject.id);
+          this.$log('subjects', subjects);
+          const res = this.getObjectsBySubjects(subjects);
           for (let i = 0; i < res.length; i += 1) {
             res[i].collectionName = this.getLastDir(res[i].isPartOf);
           }
