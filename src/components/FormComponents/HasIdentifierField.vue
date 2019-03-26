@@ -69,6 +69,12 @@ export default {
       status: [],
       search: null,
       select: [],
+      rules: {
+        apistat: item => item.status || 'Failed to fetch Data from the API',
+        required: item => item.select.length > 0 || 'This field may not be empty',
+        valid: item => item.valid || 'Please choose a valid identifier',
+        existing: item => item.exists || 'Please choose an non existing Identifier',
+      },
     };
   },
   methods: {
