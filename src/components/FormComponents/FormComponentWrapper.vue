@@ -60,6 +60,8 @@ export default {
         string: defaultComponentObject,
         text: defaultComponentObject,
         positiveinteger: defaultComponentObject,
+        literal: defaultComponentObject,
+        '': defaultComponentObject,
       },
       // for Mapping matching names to components.
       componentNameMap: {
@@ -109,11 +111,11 @@ export default {
     if (this.hasTitleImage(this.name)) { return; }
 
     let c = this.componentNameMap[this.name];
+    this.$log('type', this.type, this.name);
     if (!c) {
       const typeL = this.type.toLowerCase();
       c = this.componentTypeMap[typeL];
     }
-
     if (!c) {
       c = { type: this.type, name: 'autocompdefault' };
     }

@@ -1,7 +1,7 @@
 {
     "ARCHE": {
         "COMMENT": "Used to fetch metadata for forms",
-        "BASEURL": "https://arche.acdh.oeaw.ac.at/browser/api/",
+        "BASEURL": "https://arche-curation.acdh-dev.oeaw.ac.at/browser/api/",
         "ENDPOINTS": {
             "PERSONS": "persons/",
             "BASE": "",
@@ -23,7 +23,7 @@
     },
     "ARCHE2": {
         "COMMENT": "Used to fetch infos for autocomplete",
-        "BASEURL": "https://arche.acdh.oeaw.ac.at/browser/api/",
+        "BASEURL": "https://arche-curation.acdh-dev.oeaw.ac.at/browser/api/",
         "ENDPOINTS": {
             "PERSONS": "persons/",
             "BASE": "",
