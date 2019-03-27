@@ -134,13 +134,12 @@ export default {
       // change occoured
       this.$log('AutocompDefault -> newSubject before, after, listenForStoreSelectedItem', before, after, this.listenForStoreSelectedItem);
       this.$debug('newITem: ', JSON.stringify(this.newItem));
-      const item = this.newItem.addedItem;
-      // let title = this.getArcheTitle(item.subject.value);
-      this.select.push(item.subject.value);
+      const item = this.newItem.addedItem.subject.value;
+      this.select.push(item);
        this.items.push(
         {
-          title: item.subject.value,
-          uri: item.subject.value,
+          title: this.getArcheTitle(`_:${item}`).id.replace(/"/g, ''),
+          uri: item,
         });
 
       this.listenForStoreSelectedItem = false;
