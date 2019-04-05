@@ -169,13 +169,14 @@ export default {
     setRootCollections() {
       // all collections:
       const collections = this.getQuadsByType('Collection');
+      const projects = this.getQuadsByType('Project');
 
       // all isPartOf-property quads
       const partOfCollsSubjects = this.getQuads({ predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf' }).map(coll => coll.subject.value);
       const hasPartCollsObject = this.getQuads({ predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasPart' }).map(coll => coll.object.value);
 
       /*
-        filter out collections, which subjects appear in the
+        filter out collections, which subjects appear neither in the
         partOfCollsSubjects or in the hasPartCollsObject.
       */
       const collectionsWithoutPartOf = collections.filter(coll =>
@@ -184,7 +185,7 @@ export default {
       );
 
       this.$debug('collections', collections, 'partOfColls', 'partOfCollsSubjects', partOfCollsSubjects, 'collectionsWithoutPartOf', collectionsWithoutPartOf);
-      return collectionsWithoutPartOf;
+      return collectionsWithoutPartOf.concat(projects);
     },
     getRoot() {
       this.$info('getRoot()');
