@@ -68,7 +68,7 @@ export default {
     model: false,
     loading: true,
     name: 'editsubjectdialog',
-    blacklistRegex: /^is*/, // for name like,
+    blacklistRegex: /^xx*/, // for name like,
     snackbar: false,
   }),
   methods: {
