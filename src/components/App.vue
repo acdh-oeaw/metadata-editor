@@ -32,10 +32,6 @@ export default {
     dialogs,
   },
   methods: {
-    ...mapActions('jowl', [
-      'setOntology',
-      'constructJOWL',
-    ]),
     ...mapActions('n3', [
       'ConstructN3',
     ]),
@@ -57,7 +53,6 @@ export default {
     axios.get('/static/nav.json')
       .then(res => this.setConfig(res.data))
       .catch(error => this.$log(error));
-    this.setOntology('static/acdh-schema.owl');
   },
 };
 </script>

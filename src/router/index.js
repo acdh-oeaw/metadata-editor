@@ -3,7 +3,6 @@ import Router from 'vue-router';
 import Start from '../components/Start';
 import Create from '../components/Create';
 import Store from '../components/Store';
-import Schema from '../components/Schema';
 import App from '../components/App';
 import Storestats from '../components/StoreStats';
 import Config from '../components/Config';
@@ -55,26 +54,10 @@ export default new Router({
           },
         },
         {
-          path: 'schema',
-          name: 'schema',
-          components: {
-            Content: Schema,
-            rightdrawerbottom: Storestats,
-          },
-        },
-        {
           path: 'config',
           name: 'config',
           components: {
             Content: Config,
-            rightdrawerbottom: Storestats,
-          },
-        },
-        {
-          path: 'authcallback',
-          name: 'authcallback',
-          components: {
-            Content: Schema,
             rightdrawerbottom: Storestats,
           },
         },
