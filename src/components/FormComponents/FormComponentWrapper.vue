@@ -3,12 +3,11 @@
     <component
       @input="$emit('input', selectedValue)"
       v-if="component"
-      :label="label"
       v-model="selectedValue"
       :name="name"
       :is="component"
       :type="mappedType"
-      :hint="name"
+      :hint="hint"
       persistent-hint
     >
     </component>
@@ -100,6 +99,15 @@ export default {
       for (let i = 0; i < schemas.length; i += 1) {
         if (this.$store.state.JSONschema.schemas[schemas[i]].properties[this.name]) {
           return this.$store.state.JSONschema.schemas[schemas[i]].properties[this.name].title;
+        }
+      }
+      return '';
+    },
+    hint() {
+      const schemas = Object.keys(this.$store.state.JSONschema.schemas);
+      for (let i = 0; i < schemas.length; i += 1) {
+        if (this.$store.state.JSONschema.schemas[schemas[i]].properties[this.name]) {
+          return this.$store.state.JSONschema.schemas[schemas[i]].properties[this.name].description;
         }
       }
       return '';
