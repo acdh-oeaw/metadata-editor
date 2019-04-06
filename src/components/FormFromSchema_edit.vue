@@ -83,7 +83,7 @@ export default {
     oldModel: false, // this is necessary for saving changes and to prevent duplicates
     loading: true,
     name: 'editsubjectdialog',
-    blacklistRegex: /^is*/, // for name like
+    blacklistRegex: /^xx*/, // for name like
     verboseEntityDescription: '',
     snackbar: false,
     failSnackbar: false,
