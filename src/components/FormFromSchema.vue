@@ -1,33 +1,54 @@
 <template v-if="!loading">
   <v-card>
   <form-schema v-if="model && !loading" @input="saveEntry(); $emit('input', model)" :schema="schema" v-model="model" @submit="submit">
-    <v-btn variant="primary" @click="submit">Load into Store</v-btn>
-    <v-btn @click="resetForm();" variant="secondary">Reset Form</v-btn>
+    <v-tooltip top :disabled="!unsavedChanges">
+      <template v-slot:activator="{ on }">
+        <div v-on="on">
+          <v-btn color="primary" @click="submit" :disabled="unsavedChanges">Create</v-btn>
+        </div>
+      </template>
+      <span>The form is empty</span>
+    </v-tooltip>
+    <v-btn @click="resetForm" color="secondary">Reset Form</v-btn>
   </form-schema>
-<v-snackbar
-  v-model="snackbar"
-  :timeout="8000"
-  bottom
-  >
-  You need to specify a title image to upload a collection!
+  <v-snackbar
+    v-model="snackbar"
+    :timeout="8000"
+    bottom
+    >
+    You need to specify a title image to upload a collection!
+    <v-card-actions>
+      <v-btn
+          dark
+          flat
+          @click="snackbar = false; useBlank()"
+        >
+          Use blank
+      </v-btn>
+      <v-btn
+          dark
+          flat
+          @click="snackbar = false"
+        >
+          Close
+      </v-btn>
+    </v-card-actions>
+  </v-snackbar>
+  <v-snackbar
+    v-model="successSnackbar"
+    :timeout="8000"
+    bottom
+    >
+    Successfully created a subject!
+    <v-btn
+        dark
+        flat
+        @click="successSnackbar = false"
+      >
+        Close
+    </v-btn>
+  </v-snackbar>
 
-</v-snackbar>
-<v-card-actions>
-  <v-btn
-      dark
-      flat
-      @click="snackbar = false; useBlank()"
-    >
-      Use blank
-  </v-btn>
-  <v-btn
-      dark
-      flat
-      @click="snackbar = false"
-    >
-      Close
-  </v-btn>
-</v-card-actions>
 </v-card>
 </template>
 
@@ -66,11 +87,25 @@ export default {
   data: () => ({
     schema: false,
     model: false,
+    initModel: false,
     loading: true,
     name: 'editsubjectdialog',
     blacklistRegex: /^xx*/, // for name like,
     snackbar: false,
+    successSnackbar: false,
   }),
+  computed: {
+    unsavedChanges() {
+      // this.$log('model', Object.values(this.model));
+      const keys = Object.keys(this.model);
+      for (let i = 0; i < keys.length; i += 1) {
+        if (this.model[keys[i]]) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
   methods: {
     ...mapMutations('JSONschema', [
       'setSchema',
@@ -90,14 +125,8 @@ export default {
     }, 600),
     resetForm() {
       // this.$debug('schema', JSON.stringify(this.schema.properties));
-      /*
       this.$info('FormFromSchema', 'resetForm');
-      const keys = Object.keys(this.model);
-      for (let i = 0; i < keys.length; i += 1) {
-        this.$debug(keys[i]);
-        this.model[keys[i]] = '';
-      }
-      */
+      this.model = this.initModel;
     },
     submit() {
       this.$info('FormFromSchema', 'submit()', this.model);
@@ -111,6 +140,7 @@ export default {
         else this.snackbar = true;
       } else {
         this.ObjectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema });
+        this.successSnackbar = true;
       }
     },
     useBlank() {
@@ -161,6 +191,7 @@ export default {
       }
 
       this.model = this.$store.state.JSONschema.entries[this.uniqueName].model;
+      this.initModel = this.model;
       // Mapping
       this.loading = false;
       this.$emit('input', this.model);
