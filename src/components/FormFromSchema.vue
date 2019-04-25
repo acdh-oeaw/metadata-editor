@@ -1,11 +1,9 @@
 <template v-if="!loading">
   <v-card>
   <form-schema v-if="model && !loading" @input="saveEntry(); $emit('input', model)" :schema="schema" v-model="model" @submit="submit">
-    <v-tooltip top :disabled="!unsavedChanges">
+    <v-tooltip input-activator bottom :disabled="!unsavedChanges">
       <template v-slot:activator="{ on }">
-        <div v-on="on">
-          <v-btn color="primary" @click="submit" :disabled="unsavedChanges">Create</v-btn>
-        </div>
+        <v-btn v-on="on" color="primary" @click="submit" :disabled="unsavedChanges">Create</v-btn>
       </template>
       <span>The form is empty</span>
     </v-tooltip>
