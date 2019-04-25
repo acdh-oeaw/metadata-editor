@@ -479,6 +479,7 @@ export default {
       downloadLink.click();
     },
     checkConnections() {
+      if (process.env.NODE_ENV !== 'development') return;
       this.APIS.ARCHE.BASE
         .get('test/')
         .catch((res) => {

@@ -94,9 +94,9 @@ export default {
       }
     },
     checkForInternet() {
-      setInterval(() => {
-        if (this.$store.state.dialogs.networkPrompt) this.checkConnections();
-      }, 5000);
+        setInterval(() => {
+          if (this.$store.state.dialogs.networkPrompt) this.checkConnections();
+        }, 5000);
     },
     restore(reload = true) {
       // this.constructJOWL(this.latestSession);
@@ -108,7 +108,7 @@ export default {
       this.constructConfig(this.latestSession);
       this.constructBatchCreate(this.latestSession);
       this.constructDialogs(this.latestSession);
-      if (this.$store.state.dialogs.networkPrompt) {
+      if (this.$store.state.dialogs.networkPrompt && process.env.NODE_ENV !== 'development') {
         this.checkConnections();
         this.checkForInternet();
       }

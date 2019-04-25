@@ -1,14 +1,19 @@
 <template v-if="!loading">
   <v-card>
   <form-schema v-if="model && !loading" @input="saveEntry(); $emit('input', model)" :schema="schema" v-model="model" @submit="submit">
-    <v-tooltip input-activator bottom :disabled="!unsavedChanges">
-      <template v-slot:activator="{ on }">
-        <v-btn v-on="on" color="primary" @click="submit" :disabled="unsavedChanges">Create</v-btn>
+    <v-tooltip nudge-bottom="7" bottom>
+      <template v-slot:activator="{ on }" :disabled="!unsavedChanges">
+        <span  v-on="on">
+          <v-btn color="primary" @click="submit" :disabled="unsavedChanges">Create</v-btn>
+        </span>
       </template>
+
       <span>The form is empty</span>
     </v-tooltip>
     <v-btn @click="resetForm" color="secondary">Reset Form</v-btn>
   </form-schema>
+  <v-progress-linear v-show="loading" :indeterminate="true"></v-progress-linear>
+
   <v-snackbar
     v-model="snackbar"
     :timeout="8000"
@@ -122,9 +127,19 @@ export default {
       this.setEntry({ name: this.uniqueName, entry: this.model, schema: this.type });
     }, 600),
     resetForm() {
+      this.loading = true;
       // this.$debug('schema', JSON.stringify(this.schema.properties));
       this.$info('FormFromSchema', 'resetForm');
-      this.model = this.initModel;
+      this.$debug('model', this.model);
+      const keys = Object.keys(this.model);
+      for (let i = 0; i < keys.length; i += 1) {
+        if (this.model[keys[i]]) {
+          this.model[keys[i]] = '';
+          this.$log(keys[i]);
+          //this.model[keys[i]] = '';
+        }
+      }
+      setTimeout(() => this.loading = false, 1000);
     },
     submit() {
       this.$info('FormFromSchema', 'submit()', this.model);
@@ -139,6 +154,7 @@ export default {
       } else {
         this.ObjectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema });
         this.successSnackbar = true;
+        this.resetForm();
       }
     },
     useBlank() {
