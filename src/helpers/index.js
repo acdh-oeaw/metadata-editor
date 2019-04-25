@@ -467,7 +467,7 @@ export default {
     },
     downloadBlob(str, filename) {
       const blob = (window.URL || window.webkitURL)
-        .createObjectURL(this.stringToBlob(str));
+        .createObjectURL(this.stringToBlob(str.replace(/[^>]\.\n/g, x => `${x}\n`)));
 
       const downloadLink = document.createElement('A');
       downloadLink.setAttribute('href', blob);
