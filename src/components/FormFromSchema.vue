@@ -1,13 +1,13 @@
 <template v-if="!loading">
   <v-card>
-  <form-schema v-if="model && !loading" @input="saveEntry(); $emit('input', model)" :schema="schema" v-model="model" @submit="submit">
+    {{ this.model }}
+  <form-schema v-if="model && !loading" @input="saveEntry();" :schema="schema" v-model="model" @submit="submit">
     <v-tooltip nudge-bottom="7" bottom>
       <template v-slot:activator="{ on }" :disabled="!unsavedChanges">
         <span  v-on="on">
           <v-btn color="primary" @click="submit" :disabled="unsavedChanges">Create</v-btn>
         </span>
       </template>
-
       <span>The form is empty</span>
     </v-tooltip>
     <v-btn @click="resetForm" color="secondary">Reset Form</v-btn>
@@ -123,6 +123,7 @@ export default {
       'ObjectToStore',
     ]),
     saveEntry: debounce(function () {
+      this.$emit('input', this.model);
       this.$info('FormFromSchema', 'saveEntry');
       this.setEntry({ name: this.uniqueName, entry: this.model, schema: this.type });
     }, 600),

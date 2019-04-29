@@ -1,19 +1,23 @@
 <template>
   <div>
     <component
-      @input="$emit('input', selectedValue)"
+      v-for="n in count"
+      @input="$emit('input', selectedValue[n])"
       v-if="component"
-      v-model="selectedValue"
+      :v-model="selectedValue[n]"
       :name="name"
       :is="component"
       :type="mappedType"
       :hint="hint"
+      :key="n"
       persistent-hint
       rows="2"
       autocomplete="none"
       auto-grow
     >
     </component>
+    <v-icon @click="count += 1">add</v-icon>
+    <v-icon @click="count -= 1">remove</v-icon>
   </div>
 </template>
 
@@ -50,7 +54,8 @@ export default {
   name: 'FormComponentWrapper',
   data() {
     return {
-      selectedValue: this.value,
+      count: 1,
+      selectedValue: [this.value],
       loading: false,
       component: null,
       mappedType: null,
@@ -77,9 +82,9 @@ export default {
       if (name === 'hasIdentifier') {
         this.component = 'HasIdentifierField';
         if (Array.isArray(this.value)) {
-          this.selectedValue = this.value;
+          this.selectedValue = [this.value];
         } else {
-          this.selectedValue = this.value;
+          this.selectedValue = [this.value];
         }
         // this.$info('FormComponentWrapper created', this.component, this.selectedValue);
         return true;
@@ -89,7 +94,7 @@ export default {
     hasTitleImage(name) {
       if (name === 'hasTitleImage') {
         this.component = 'hasTitleImageField';
-        this.selectedValue = this.value;
+        this.selectedValue = [this.value];
         // this.$info('FormComponentWrapper created', this.component, this.selectedValue);
         return true;
       }
@@ -156,17 +161,17 @@ export default {
     this.component = c.name;
     this.mappedType = c.type;
     if (this.type === 'date' && Array.isArray(this.value)) {
-      this.selectedValue = this.value[0];
+      this.selectedValue = [this.value[0]];
     } else {
-      this.selectedValue = this.value;
+      this.selectedValue = [this.value];
     }
   },
   updated() {
     if (this.value) {
       if (this.type === 'date' && Array.isArray(this.value)) {
-        this.selectedValue = this.value[0];
+        this.selectedValue = [this.value[0]];
       } else {
-        this.selectedValue = this.value;
+        this.selectedValue = [this.value];
       }
     }
   },
