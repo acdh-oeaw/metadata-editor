@@ -136,10 +136,13 @@ export default {
         if (this.model[keys[i]]) {
           this.model[keys[i]] = '';
           this.$log(keys[i]);
-          //this.model[keys[i]] = '';
+          // this.model[keys[i]] = '';
         }
       }
-      setTimeout(() => this.loading = false, 1000);
+
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
     },
     submit() {
       this.$info('FormFromSchema', 'submit()', this.model);
