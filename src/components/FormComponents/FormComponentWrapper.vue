@@ -9,6 +9,7 @@
       :type="mappedType"
       :hint="hint"
       persistent-hint
+      autocomplete="none"
     >
     </component>
   </div>
