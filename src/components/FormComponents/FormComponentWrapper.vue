@@ -9,7 +9,9 @@
       :type="mappedType"
       :hint="hint"
       persistent-hint
+      rows="2"
       autocomplete="none"
+      auto-grow
     >
     </component>
   </div>
@@ -93,6 +95,27 @@ export default {
       }
       return false;
     },
+    isDescription(name) {
+      const fieldList = [
+        'hasDescription',
+        'hasAppliedMethodDescription',
+        'hasArrangement',
+        'hasCompleteness',
+        'hasEditorialPractice',
+        'hasExtent',
+        'hasNamingScheme',
+        'hasNote',
+        'hasSeriesInformation',
+        'hasTableOfContents',
+        'hasTechnicalInfo',
+        'hasWKT',
+      ];
+      if (fieldList.includes(name)) {
+        this.component = 'v-textarea';
+        return true;
+      }
+      return false;
+    },
   },
   computed: {
     label() {
@@ -118,6 +141,7 @@ export default {
     // if this -> mapping happens in the hasIdentifierFunciton
     if (this.hasIdentifier(this.name)) { return; }
     if (this.hasTitleImage(this.name)) { return; }
+    if (this.isDescription(this.name)) { return; }
 
     let c = this.componentNameMap[this.name];
     this.$log('type', this.type, this.name);
