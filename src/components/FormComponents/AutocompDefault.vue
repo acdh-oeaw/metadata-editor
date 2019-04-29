@@ -103,7 +103,12 @@ export default {
       for (let i = 0; i < results.length; i += 1) {
         const it = results[i];
         if (it.title) {
-          this.items.push({ title: it.title, uri: it.uri, type: it.type });
+          if (typeof it.title === 'object') {
+            const keys = Object.keys(it.title);
+            for (let j = 0; j < keys.length; j += 1) {
+              this.items.push({ title: `${it.title[keys[j]]} (${keys[j]})`, uri: it.uri, type: it.type });
+            }
+          } else this.items.push({ title: it.title, uri: it.uri, type: it.type });
         } else if (it.prefLabel) {
           this.items.push({ title: it.prefLabel, uri: it.uri, type: it.type });
         }
