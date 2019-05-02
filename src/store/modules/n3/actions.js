@@ -162,14 +162,17 @@ const actions = {
           }
         } else {
           // if cardinality = 1
-          const quad = {
-            subject,
-            predicate: `https://vocabs.acdh.oeaw.ac.at/schema#${keys[k]}`,
-          };
-          if (urlpattern.test(values[k]) || newobjpattern.test(values[k])) {
-            quad.object = values[k];
-          } else quad.object = `"${values[k]}"`;
-          dispatch('AddFilteredQuad', quad);
+          const splitted = values[k].split(';;')
+          for (let i = 0; i < splitted.length; i += 1) {
+            const quad = {
+              subject,
+              predicate: `https://vocabs.acdh.oeaw.ac.at/schema#${keys[k]}`,
+            };
+            if (urlpattern.test(splitted[i]) || newobjpattern.test(splitted[i])) {
+              quad.object = splitted[i];
+            } else quad.object = `"${splitted[i]}"`;
+            dispatch('AddFilteredQuad', quad);
+          }
         }
       }
     }
