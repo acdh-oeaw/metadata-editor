@@ -100,7 +100,9 @@ const mutations = {
     const keys = Object.keys(modelTemplate);
     for (let i = 0; i < keys.length; i += 1) {
       if (query[keys[i]]) {
-        m[keys[i]] = query[keys[i]];
+        if (query[keys[i]].length != 1 && keys[i] != 'hasIdentifier') {
+          m[keys[i]] = query[keys[i]].join(';;');
+        } else m[keys[i]] = query[keys[i]];
       } else {
         m[keys[i]] = '';
       }

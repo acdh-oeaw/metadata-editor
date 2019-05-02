@@ -162,7 +162,7 @@ const actions = {
           }
         } else {
           // if cardinality = 1
-          const splitted = values[k].split(';;')
+          const splitted = values[k].split(';;');
           for (let i = 0; i < splitted.length; i += 1) {
             const quad = {
               subject,
