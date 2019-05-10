@@ -1,5 +1,5 @@
 <template v-if="!loading">
-  <v-card>
+  <div>
   <form-schema v-if="model && !loading" @input="saveEntry(); $emit('input', model)" :schema="schema" v-model="model" @submit="submit">
     <v-tooltip nudge-bottom="7" bottom>
       <template v-slot:activator="{ on }" :disabled="!unsavedChanges">
@@ -51,8 +51,7 @@
         Close
     </v-btn>
   </v-snackbar>
-
-</v-card>
+</div>
 </template>
 
 <script>
