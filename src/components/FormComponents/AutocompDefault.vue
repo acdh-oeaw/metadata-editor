@@ -7,6 +7,7 @@
       :search-input.sync="search"
       v-model="select"
       :label="`${name} (type to search)`"
+      :hint="hint"
       multiple
       cache-items
       chips
@@ -61,6 +62,7 @@ export default {
     'type',
     'name',
     'value',
+    'hint',
   ],
   name: 'AutocompDefault',
   data() {

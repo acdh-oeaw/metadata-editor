@@ -100,6 +100,22 @@ export default {
       // this.$log('errortree, no id');
       return Promise.reject('no ID was given');
     },
+    getPeriodByID(id) {
+      this.$info('Helpers', 'getPeriodByID', id);
+      if (id) {
+        return this.APIS.TEMPORALS.BASE
+          .get(`${id}.json`)
+          .then((response) => {
+            this.$log('response', response.data);
+            return Promise.resolve(response.data);
+          }, (error) => {
+            // this.$log('errortree, request failed', error);
+            return Promise.resolve(false);
+          });
+      }
+      // this.$log('errortree, no id');
+      return Promise.reject('no ID was given');
+    },
     /*
     returns the substring of the given name from the last '#' to the end
     and returns the lower case version of it. used by Create.vue.

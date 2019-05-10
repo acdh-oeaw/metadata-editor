@@ -66,5 +66,15 @@
         "TIMEOUT": 5000,
         "PARAMS": {},
         "HEADERS": {}
+    },
+    "TEMPORALS": {
+      "COMMENT": "Used to verify Temporal Coverage IDs",
+      "BASEURL": "https://test.perio.do/",
+      "ENDPOINTS": {
+          "BASE": ""
+      },
+      "TIMEOUT": 5000,
+      "PARAMS": {},
+      "HEADERS": {}
     }
 }

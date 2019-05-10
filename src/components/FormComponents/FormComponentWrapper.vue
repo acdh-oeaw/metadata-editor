@@ -24,6 +24,7 @@ import HasIdentifierField from './HasIdentifierField';
 import HasTitleImageField from './HasTitleImageField';
 import AutocompVocabs from './AutocompVocabs';
 import BetterDatePicker from './BetterDatePicker';
+import HasTemporalCoverageIdentifierField from './HasTemporalCoverageIdentifierField';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
 const defaultComponentObject =
@@ -46,6 +47,7 @@ export default {
     HasTitleImageField,
     AutocompVocabs,
     BetterDatePicker,
+    HasTemporalCoverageIdentifierField,
   },
   name: 'FormComponentWrapper',
   data() {
@@ -76,11 +78,7 @@ export default {
     hasIdentifier(name) {
       if (name === 'hasIdentifier') {
         this.component = 'HasIdentifierField';
-        if (Array.isArray(this.value)) {
-          this.selectedValue = this.value;
-        } else {
-          this.selectedValue = this.value;
-        }
+        this.selectedValue = this.value;
         // this.$info('FormComponentWrapper created', this.component, this.selectedValue);
         return true;
       }
@@ -116,6 +114,14 @@ export default {
       }
       return false;
     },
+    hasTemporalCoverageIdentifier(name) {
+      if (name === 'hasTemporalCoverageIdentifier') {
+        this.component = 'HasTemporalCoverageIdentifierField';
+        this.selectedValue = this.value;
+        return true;
+      }
+      return false;
+    },
   },
   computed: {
     label() {
@@ -139,9 +145,10 @@ export default {
   },
   created() {
     // if this -> mapping happens in the hasIdentifierFunciton
-    if (this.hasIdentifier(this.name)) { return; }
-    if (this.hasTitleImage(this.name)) { return; }
-    if (this.isDescription(this.name)) { return; }
+    if (this.hasIdentifier(this.name)) return;
+    if (this.hasTitleImage(this.name)) return;
+    if (this.isDescription(this.name)) return;
+    if (this.hasTemporalCoverageIdentifier(this.name)) return;
 
     let c = this.componentNameMap[this.name];
     this.$log('type', this.type, this.name);
