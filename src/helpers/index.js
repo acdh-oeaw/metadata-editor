@@ -1,5 +1,6 @@
 import axios from 'axios';
 import rdfTranslator from 'rdf-translator';
+import utf8 from 'utf8';
 // import exampleAPI from '../../static/example_api.json';
 // import exampleAPI from '../../static/newsletter.json';
 
@@ -109,7 +110,7 @@ export default {
             this.$log('response', response.data);
             return Promise.resolve(response.data);
           }, (error) => {
-            // this.$log('errortree, request failed', error);
+            this.$log('errortree, request failed', error);
             return Promise.resolve(false);
           });
       }
@@ -407,11 +408,6 @@ export default {
     /*
     returns a new Blob of the type text/ttl of the given string.
     */
-    stringToBlob(str) {
-      return new Blob([str], {
-        type: 'text/ttl;',
-      });
-    },
     /*
     returns a verbose date format in the form of: yy/mm/dd hh:mm:ss
     */
@@ -483,7 +479,7 @@ export default {
     },
     downloadBlob(str, filename) {
       const blob = (window.URL || window.webkitURL)
-        .createObjectURL(this.stringToBlob(str.replace(/[^>]\.\n/g, x => `${x}\n`)));
+        .createObjectURL(this.stringToBlob(str));
 
       const downloadLink = document.createElement('A');
       downloadLink.setAttribute('href', blob);
@@ -493,6 +489,15 @@ export default {
       document.body.appendChild(downloadLink);
 
       downloadLink.click();
+    },
+    stringToBlob(str) {
+      return new Blob([
+        utf8.encode(
+          str.replace(/[^>]\.\n/g, x => `${x}\n`),
+        ),
+      ], {
+        type: 'text/ttl',
+      });
     },
     checkConnections() {
       if (process.env.NODE_ENV !== 'development') return;

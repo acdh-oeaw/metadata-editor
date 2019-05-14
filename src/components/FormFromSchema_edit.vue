@@ -28,7 +28,7 @@
       <v-toolbar-title>Edit Subject</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat variant="primary" @click="saveChanges(); setDialog({ name, obj: { query: {} } })">Save Changes</v-btn>
+        <v-btn flat :disabled="!changedModel" variant="primary" @click="saveChanges(); setDialog({ name, obj: { query: {} } })">Save Changes</v-btn>
         <v-btn flat variant="primary" @click="submit">Add as new Entity</v-btn>
         <v-btn flat @click="discardChanges();">Discard Changes</v-btn>
       </v-toolbar-items>
@@ -39,7 +39,7 @@
     <form-schema v-if="model && type" @input="saveEntry(); $emit('input', model)" :schema="schema" v-model="model">
     </form-schema>
     <v-card-actions>
-      <v-btn variant="primary"  @click="saveChanges(); setDialog({ name, obj: { query: {} } })">Save Changes</v-btn>
+      <v-btn :disabled="!changedModel" variant="primary"  @click="saveChanges(); setDialog({ name, obj: { query: {} } })">Save Changes</v-btn>
       <v-btn variant="primary" @click="submit">Add as new Entity</v-btn>
       <v-btn @click="discardChanges();" variant="secondary">Discard Changes</v-btn>
     </v-card-actions>
@@ -227,6 +227,11 @@ export default {
     ...mapGetters('n3', [
       'getQuads',
     ]),
+    changedModel() {
+      this.$log('models', JSON.stringify(this.model), JSON.stringify(this.oldModel));
+      if (JSON.stringify(this.model) === JSON.stringify(this.oldModel)) return false;
+      return true;
+    },
   },
   created() {
     this.$debug('FormFromSchemaEDIT', 'created');
