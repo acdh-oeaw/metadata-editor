@@ -1,23 +1,19 @@
 <template>
   <div>
     <component
-      v-for="n in count"
-      @input="$emit('input', selectedValue[n])"
+      @input="$emit('input', selectedValue)"
       v-if="component"
-      :v-model="selectedValue[n]"
+      v-model="selectedValue"
       :name="name"
       :is="component"
       :type="mappedType"
       :hint="hint"
-      :key="n"
       persistent-hint
       rows="2"
       autocomplete="none"
       auto-grow
     >
     </component>
-    <v-icon @click="count += 1">add</v-icon>
-    <v-icon @click="count -= 1">remove</v-icon>
   </div>
 </template>
 
@@ -28,6 +24,7 @@ import HasIdentifierField from './HasIdentifierField';
 import HasTitleImageField from './HasTitleImageField';
 import AutocompVocabs from './AutocompVocabs';
 import BetterDatePicker from './BetterDatePicker';
+import HasTemporalCoverageIdentifierField from './HasTemporalCoverageIdentifierField';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
 const defaultComponentObject =
@@ -50,12 +47,12 @@ export default {
     HasTitleImageField,
     AutocompVocabs,
     BetterDatePicker,
+    HasTemporalCoverageIdentifierField,
   },
   name: 'FormComponentWrapper',
   data() {
     return {
-      count: 1,
-      selectedValue: [this.value],
+      selectedValue: this.value,
       loading: false,
       component: null,
       mappedType: null,
@@ -81,11 +78,7 @@ export default {
     hasIdentifier(name) {
       if (name === 'hasIdentifier') {
         this.component = 'HasIdentifierField';
-        if (Array.isArray(this.value)) {
-          this.selectedValue = [this.value];
-        } else {
-          this.selectedValue = [this.value];
-        }
+        this.selectedValue = this.value;
         // this.$info('FormComponentWrapper created', this.component, this.selectedValue);
         return true;
       }
@@ -94,7 +87,7 @@ export default {
     hasTitleImage(name) {
       if (name === 'hasTitleImage') {
         this.component = 'hasTitleImageField';
-        this.selectedValue = [this.value];
+        this.selectedValue = this.value;
         // this.$info('FormComponentWrapper created', this.component, this.selectedValue);
         return true;
       }
@@ -117,6 +110,14 @@ export default {
       ];
       if (fieldList.includes(name)) {
         this.component = 'v-textarea';
+        return true;
+      }
+      return false;
+    },
+    hasTemporalCoverageIdentifier(name) {
+      if (name === 'hasTemporalCoverageIdentifier') {
+        this.component = 'HasTemporalCoverageIdentifierField';
+        this.selectedValue = this.value;
         return true;
       }
       return false;
@@ -144,9 +145,10 @@ export default {
   },
   created() {
     // if this -> mapping happens in the hasIdentifierFunciton
-    if (this.hasIdentifier(this.name)) { return; }
-    if (this.hasTitleImage(this.name)) { return; }
-    if (this.isDescription(this.name)) { return; }
+    if (this.hasIdentifier(this.name)) return;
+    if (this.hasTitleImage(this.name)) return;
+    if (this.isDescription(this.name)) return;
+    if (this.hasTemporalCoverageIdentifier(this.name)) return;
 
     let c = this.componentNameMap[this.name];
     this.$log('type', this.type, this.name);
@@ -161,17 +163,17 @@ export default {
     this.component = c.name;
     this.mappedType = c.type;
     if (this.type === 'date' && Array.isArray(this.value)) {
-      this.selectedValue = [this.value[0]];
+      this.selectedValue = this.value[0];
     } else {
-      this.selectedValue = [this.value];
+      this.selectedValue = this.value;
     }
   },
   updated() {
     if (this.value) {
       if (this.type === 'date' && Array.isArray(this.value)) {
-        this.selectedValue = [this.value[0]];
+        this.selectedValue = this.value[0];
       } else {
-        this.selectedValue = [this.value];
+        this.selectedValue = this.value;
       }
     }
   },

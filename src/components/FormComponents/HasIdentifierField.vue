@@ -12,15 +12,15 @@
       <template v-if="!item.loading && item.select.length > 0 && item.status">
         <!-- Arche -->
         <p v-if="item.arche">
-          <span class="notExists hasidenti" v-if="item.valid">valid Identifier:</span>
-          <span class="exists hasidenti" v-else>invalid Identifier</span>
-          <span :class="{exists: forbidExistingIdentifiers, hasidenti: true}" v-if="item.exists && item.valid">does already exist as an identifier in ARCHE</span>
-          <span class="notExists hasidenti" v-if="!item.exists && item.valid">does not exist as an identifier in ARCHE</span>
+          <span class="notExists hasid" v-if="item.valid">valid Identifier:</span>
+          <span class="exists haside" v-else>invalid Identifier</span>
+          <span :class="{exists: forbidExistingIdentifiers, hasid: true}" v-if="item.exists && item.valid">does already exist as an identifier in ARCHE</span>
+          <span class="notExists hasid" v-if="!item.exists && item.valid">does not exist as an identifier in ARCHE</span>
         </p>
         <!-- Non Arche -->
         <p v-if="!item.arche">
-          <span class="notExists hasidenti" v-if="item.valid">Valid non-Arche URI, click <a target="_blank" :href="item.select">here</a> to see if it is actually correct.</span>
-          <span class="exists hasidenti" v-else>invalid URI</span>
+          <span class="notExists hasid" v-if="item.valid">Valid non-Arche URI, click <a target="_blank" :href="item.select">here</a> to see if it is actually correct.</span>
+          <span class="exists hasid" v-else>invalid URI</span>
         </p>
       </template>
       <template v-if="item.loading && item.select.length > 0">
@@ -106,7 +106,7 @@ export default {
 
       if (this.isArcheURI(value)) {
         this.$info('isArcheURI', value);
-        this.checkArcheIdenti(i, value);
+        this.checkArcheId(i, value);
       } else {
         this.checkValidURI(i, value);
         this.items[i].loading = false;
@@ -123,8 +123,8 @@ export default {
       this.$info('isURL', url);
       return url.search(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/gi)) >= 0;
     },
-    checkArcheIdenti(i, value) {
-      this.$info('checkArcheIdenti', i, value);
+    checkArcheId(i, value) {
+      this.$info('checkArcheId', i, value);
       this.items[i].loading = true;
       this.isIdentifier(value)
         .then((res) => {

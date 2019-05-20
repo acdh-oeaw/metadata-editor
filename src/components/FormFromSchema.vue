@@ -1,7 +1,12 @@
 <template v-if="!loading">
+<<<<<<< HEAD
   <v-card>
     {{ this.model }}
   <form-schema v-if="model && !loading" @input="saveEntry();" :schema="schema" v-model="model" @submit="submit">
+=======
+  <div>
+  <form-schema v-if="model && !loading" @input="saveEntry(); $emit('input', model)" :schema="schema" v-model="model" @submit="submit">
+>>>>>>> master
     <v-tooltip nudge-bottom="7" bottom>
       <template v-slot:activator="{ on }" :disabled="!unsavedChanges">
         <span  v-on="on">
@@ -51,8 +56,7 @@
         Close
     </v-btn>
   </v-snackbar>
-
-</v-card>
+</div>
 </template>
 
 <script>
@@ -254,7 +258,7 @@ export default {
     padding-top: 0px;
     padding-bottom: 0px;
   }
-  label span:not(.hasidenti, .v-chip){
+  label span:not(.hasid, .v-chip){
     display: none;
   }
 

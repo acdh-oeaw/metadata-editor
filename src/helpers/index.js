@@ -1,5 +1,6 @@
 import axios from 'axios';
 import rdfTranslator from 'rdf-translator';
+import utf8 from 'utf8';
 // import exampleAPI from '../../static/example_api.json';
 // import exampleAPI from '../../static/newsletter.json';
 
@@ -100,6 +101,21 @@ export default {
       // this.$log('errortree, no id');
       return Promise.reject('no ID was given');
     },
+    getPeriodByURI(uri) {
+      this.$info('Helpers', 'getPeriodByURI', uri);
+      if (uri) {
+        return axios(uri)
+          .then((response) => {
+            this.$log('response', response.data);
+            return Promise.resolve(response.data);
+          }, (error) => {
+            this.$log('errortree, request failed', error);
+            return Promise.resolve(false);
+          });
+      }
+      // this.$log('errortree, no id');
+      return Promise.reject('no URI was given');
+    },
     /*
     returns the substring of the given name from the last '#' to the end
     and returns the lower case version of it. used by Create.vue.
@@ -120,7 +136,7 @@ export default {
     -3 => answer from server failed
     */
     isIdentifier(id) {
-      if (!id) { return Promise.reject(-2); }
+      if (!id) return Promise.reject(-2);
       this.$debug('isIdentifier, id', id);
       return this.APIS.ARCHE2.ID.get(`${id.replace('https://', '')}`).then((response) => {
         /*
@@ -391,11 +407,6 @@ export default {
     /*
     returns a new Blob of the type text/ttl of the given string.
     */
-    stringToBlob(str) {
-      return new Blob([str], {
-        type: 'text/ttl;',
-      });
-    },
     /*
     returns a verbose date format in the form of: yy/mm/dd hh:mm:ss
     */
@@ -467,7 +478,7 @@ export default {
     },
     downloadBlob(str, filename) {
       const blob = (window.URL || window.webkitURL)
-        .createObjectURL(this.stringToBlob(str.replace(/[^>]\.\n/g, x => `${x}\n`)));
+        .createObjectURL(this.stringToBlob(str));
 
       const downloadLink = document.createElement('A');
       downloadLink.setAttribute('href', blob);
@@ -477,6 +488,15 @@ export default {
       document.body.appendChild(downloadLink);
 
       downloadLink.click();
+    },
+    stringToBlob(str) {
+      return new Blob([
+        utf8.encode(
+          str.replace(/[^>]\.\n/g, x => `${x}\n`),
+        ),
+      ], {
+        type: 'text/ttl',
+      });
     },
     checkConnections() {
       if (process.env.NODE_ENV !== 'development') return;

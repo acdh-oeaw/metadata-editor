@@ -28,8 +28,13 @@
         <v-tab v-for="tab in tabs" :key="tab.name" ripple>
           {{ tab.name }}
         </v-tab>
-        <v-tab-item v-for="(tab, index) in tabs" :key="tab.name" lazy>
-          <formfromschema v-model="formModel[index]" :type="tab.type" :uniqueName="tab.name" :edit="false"></formfromschema>
+        <v-tab-item v-for="(tab, index) in tabs" :key="tab.name">
+          <v-card>
+            <v-card-text>
+              <formfromschema v-model="formModel[index]" :type="tab.type" :uniqueName="tab.name" :edit="false"></formfromschema>
+              &#8203
+            </v-card-text>
+          </v-card>
         </v-tab-item>
       </v-tabs>
     </v-flex>
