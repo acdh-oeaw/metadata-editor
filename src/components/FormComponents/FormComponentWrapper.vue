@@ -1,23 +1,23 @@
 <template>
   <div>
     <component
-      v-for="n in count"
-      @input="$emit('input', selectedValue[n])"
-      v-if="component"
-      :v-model="selectedValue[n]"
-      :name="name"
-      :is="component"
-      :type="mappedType"
-      :hint="hint"
-      :key="n"
-      persistent-hint
-      rows="2"
-      autocomplete="none"
-      auto-grow
-    >
-    </component>
-    <v-icon @click="count += 1">add</v-icon>
-    <v-icon @click="count -= 1">remove</v-icon>
+        v-for="(list, index) in selectedValue"
+        @input="$emit('input', selectedValue)"
+        v-if="component"
+        v-model="selectedValue[index]"
+        :name="name"
+        :is="component"
+        :type="mappedType"
+        :hint="hint"
+        :key="index"
+        persistent-hint
+        rows="2"
+        autocomplete="none"
+        auto-grow
+      >
+      </component>
+    <v-icon @click="selectedValue.push('')">add</v-icon>
+    <v-icon @click="selectedValue.pop()">remove</v-icon>
   </div>
 </template>
 
@@ -57,7 +57,7 @@ export default {
   data() {
     return {
       count: 1,
-      selectedValue: [this.value],
+      selectedValue: (Array.isArray(this.value) ? this.value : [this.value]),
       loading: false,
       component: null,
       mappedType: null,
@@ -152,8 +152,8 @@ export default {
     // if this -> mapping happens in the hasIdentifierFunciton
     if (this.hasIdentifier(this.name)) return;
     if (this.hasTitleImage(this.name)) return;
-    if (this.isDescription(this.name)) return;
     if (this.hasTemporalCoverageIdentifier(this.name)) return;
+    if (this.isDescription(this.name)) return;
 
     let c = this.componentNameMap[this.name];
     this.$log('type', this.type, this.name);
@@ -170,10 +170,11 @@ export default {
     if (this.type === 'date' && Array.isArray(this.value)) {
       this.selectedValue = [this.value[0]];
     } else {
-      this.selectedValue = [this.value];
+      this.selectedValue = (Array.isArray(this.value) ? this.value : [this.value]);
     }
   },
   updated() {
+    /*
     if (this.value) {
       if (this.type === 'date' && Array.isArray(this.value)) {
         this.selectedValue = [this.value[0]];
@@ -181,6 +182,7 @@ export default {
         this.selectedValue = [this.value];
       }
     }
+    */
   },
 };
 </script>

@@ -51,7 +51,7 @@
         Close
     </v-btn>
   </v-snackbar>
-</div>
+</v-card>
 </template>
 
 <script>
