@@ -37,8 +37,8 @@ export default {
     };
   },
   methods: {
-    validation(id) {
-      this.getPeriodByID(id).then((res) => {
+    validation(uri) {
+      this.getPeriodByURI(uri).then((res) => {
         this.$log('covid', res);
         this.validID = res;
       });

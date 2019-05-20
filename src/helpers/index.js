@@ -101,11 +101,10 @@ export default {
       // this.$log('errortree, no id');
       return Promise.reject('no ID was given');
     },
-    getPeriodByID(id) {
-      this.$info('Helpers', 'getPeriodByID', id);
-      if (id) {
-        return this.APIS.TEMPORALS.BASE
-          .get(`${id}.json`)
+    getPeriodByURI(uri) {
+      this.$info('Helpers', 'getPeriodByURI', uri);
+      if (uri) {
+        return axios(uri)
           .then((response) => {
             this.$log('response', response.data);
             return Promise.resolve(response.data);
@@ -115,7 +114,7 @@ export default {
           });
       }
       // this.$log('errortree, no id');
-      return Promise.reject('no ID was given');
+      return Promise.reject('no URI was given');
     },
     /*
     returns the substring of the given name from the last '#' to the end
@@ -137,7 +136,7 @@ export default {
     -3 => answer from server failed
     */
     isIdentifier(id) {
-      if (!id) { return Promise.reject(-2); }
+      if (!id) return Promise.reject(-2);
       this.$debug('isIdentifier, id', id);
       return this.APIS.ARCHE2.ID.get(`${id.replace('https://', '')}`).then((response) => {
         /*
