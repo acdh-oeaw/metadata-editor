@@ -1,8 +1,8 @@
 <template v-if="!loading">
   <div>
   <form-schema v-if="model && !loading" @input="saveEntry();" :schema="schema" v-model="model" @submit="submit">
-    <v-tooltip nudge-bottom="7" bottom>
-      <template v-slot:activator="{ on }" :disabled="!unsavedChanges">
+    <v-tooltip nudge-bottom="7" bottom :disabled="!unsavedChanges">
+      <template v-slot:activator="{ on }">
         <span  v-on="on">
           <v-btn color="primary" @click="submit" :disabled="unsavedChanges">Create</v-btn>
         </span>
@@ -99,9 +99,13 @@ export default {
     unsavedChanges() {
       // this.$log('model', Object.values(this.model));
       const keys = Object.keys(this.model);
+      this.$log('this.model', this.model);
       for (let i = 0; i < keys.length; i += 1) {
-        if (this.model[keys[i]]) {
-          return false;
+        if (this.model[keys[i]] && !Array.isArray(this.model[keys[i]])) return false;
+        else if (Array.isArray(this.model[keys[i]])) {
+          for (let j = 0; j < this.model[keys[i]].length; j += 1) {
+            if (this.model[keys[i]][j]) return false;
+          }
         }
       }
       return true;

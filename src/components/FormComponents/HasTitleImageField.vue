@@ -1,58 +1,62 @@
 <template>
   <div>
-    <v-autocomplete
-      :loading="loading"
-      :items="items"
-      :rules="[() => select.length > 0 || 'You must choose at least one']"
-      :search-input.sync="search"
-      v-model="select"
-      :label="name"
-      :disabled="switch1"
-      multiple
-      cache-items
-      chips
-      required
-      item-text="title"
-      item-value="uri"
-      @input="$emit('input', select)"
-      >
-      <template slot="selection" slot-scope="data">
-        <v-chip
-          :selected="data.selected"
-          :key="JSON.stringify(data.item)"
-          close
-          class="chip--select-multi"
-          @input="data.parent.selectItem(data.item)"
-        >
-          <v-avatar>
-            <v-icon>{{typeicon(data.item.type)}}</v-icon>
-          </v-avatar>
-          {{ data.item.title }}
-        </v-chip>
-      </template>
-      <template slot="item" slot-scope="data">
-        <template v-if="typeof data.item !== 'object'">
-          <v-list-tile-content v-text="data.item"></v-list-tile-content>
-        </template>
-        <template>
-          <v-list-tile-avatar>
-            <v-icon>{{typeicon(data.item.type)}}</v-icon>
-          </v-list-tile-avatar>
-          <v-list-tile-content>
-            <v-list-tile-title v-html="data.item.title"></v-list-tile-title>
-            <v-list-tile-sub-title v-html="data.item.uri"></v-list-tile-sub-title>
-          </v-list-tile-content>
-        </template>
-      </template>
-    </v-autocomplete>
     <v-layout row wrap>
       <v-flex xs8>
-        <v-btn :disabled="switch1" @click="openAddNewSujectDialog">select from store</v-btn>
+        <v-autocomplete
+          :loading="loading"
+          :items="items"
+          :rules="[() => select.length > 0 || 'You must choose at least one']"
+          :search-input.sync="search"
+          v-model="select"
+          :label="name"
+          :disabled="switch1"
+          multiple
+          cache-items
+          chips
+          required
+          item-text="title"
+          item-value="uri"
+          @input="$emit('input', select)"
+          >
+          <template slot="selection" slot-scope="data">
+            <v-chip
+              :selected="data.selected"
+              :key="JSON.stringify(data.item)"
+              close
+              class="chip--select-multi"
+              @input="data.parent.selectItem(data.item)"
+            >
+              <v-avatar>
+                <v-icon>{{typeicon(data.item.type)}}</v-icon>
+              </v-avatar>
+              {{ data.item.title }}
+            </v-chip>
+          </template>
+          <template slot="item" slot-scope="data">
+            <template v-if="typeof data.item !== 'object'">
+              <v-list-tile-content v-text="data.item"></v-list-tile-content>
+            </template>
+            <template>
+              <v-list-tile-avatar>
+                <v-icon>{{typeicon(data.item.type)}}</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-content>
+                <v-list-tile-title v-html="data.item.title"></v-list-tile-title>
+                <v-list-tile-sub-title v-html="data.item.uri"></v-list-tile-sub-title>
+              </v-list-tile-content>
+            </template>
+          </template>
+        </v-autocomplete>
       </v-flex>
       <v-flex xs4>
-        <v-switch @change="toggleTitleImage" value="true" label="Use blank" v-model="switch1"></v-switch>
+        <v-switch @change="toggleTitleImage" :value="true" label="Use blank" small v-model="switch1"></v-switch>
       </v-flex>
     </v-layout>
+    <div class="text-xs-right">
+      <v-btn icon @click="openAddNewSujectDialog()">
+        <v-icon>folder_open</v-icon>
+      </v-btn>
+    </div>
   </div>
 </template>
 
@@ -200,3 +204,8 @@ export default {
   },
 };
 </script>
+<style lang="css">
+  div {
+    display: block;
+  }
+</style>

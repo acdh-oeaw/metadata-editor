@@ -45,7 +45,11 @@
         </template>
       </template>
     </v-autocomplete>
-    <v-btn @click="openAddNewSujectDialog()">select from store</v-btn>
+    <div class="text-xs-right">
+      <v-btn icon @click="openAddNewSujectDialog()">
+        <v-icon>folder_open</v-icon>
+      </v-btn>
+    </div>
   </div>
 </template>
 
