@@ -16,14 +16,25 @@
         auto-grow
       >
       </component>
-    <v-icon
-      :disabled="properties.maxItems <= selectedValue.length && properties.maxItems !== 0"
-      @click="selectedValue.push('')"
-    >add</v-icon>
-    <v-icon
-      :disabled="properties.minItems >= selectedValue.length && properties.minItems !== 0"
-      @click="selectedValue.pop()"
-    >remove</v-icon>
+      <div class="text-xs-right" v-if="component !== 'autocompdefault'">
+        <v-btn
+          color="primary"
+          small
+          icon
+          flat
+          :disabled="properties.maxItems <= selectedValue.length && properties.maxItems !== 0"
+          @click="selectedValue.push('')">
+          <v-icon>add</v-icon>
+        </v-btn>
+        <v-btn
+          small
+          icon
+          flat
+          :disabled="properties.minItems >= selectedValue.length"
+          @click="selectedValue.pop()">
+          <v-icon>remove</v-icon>
+        </v-btn>
+      </div>
   </div>
 </template>
 
@@ -62,7 +73,6 @@ export default {
   name: 'FormComponentWrapper',
   data() {
     return {
-      count: 1,
       selectedValue: (Array.isArray(this.value) ? this.value : [this.value]),
       loading: false,
       component: null,
@@ -89,7 +99,7 @@ export default {
     hasIdentifier(name) {
       if (name === 'hasIdentifier') {
         this.component = 'HasIdentifierField';
-        this.selectedValue = this.value;
+        this.selectedValue = [this.value];
         // this.$info('FormComponentWrapper created', this.component, this.selectedValue);
         return true;
       }
@@ -128,7 +138,7 @@ export default {
     hasTemporalCoverageIdentifier(name) {
       if (name === 'hasTemporalCoverageIdentifier') {
         this.component = 'HasTemporalCoverageIdentifierField';
-        this.selectedValue = this.value;
+        this.selectedValue = [this.value];
         return true;
       }
       return false;

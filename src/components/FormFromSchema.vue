@@ -245,7 +245,7 @@ export default {
 <style>
   label {
     display: block;
-    float: right;
+    float: left;
     width: 50%;
     box-sizing: border-box;
     padding: 5px;

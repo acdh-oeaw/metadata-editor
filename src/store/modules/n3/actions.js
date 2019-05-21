@@ -148,8 +148,9 @@ const actions = {
     const values = Object.values(obj);
     for (let k = 0; k < keys.length; k += 1) {
       if (values[k]) {
-        // if cardinality > 1
         if (Array.isArray(values[k])) {
+          values[k] = [].concat(...values[k]);
+          // flattens the array in case it might contain more arrays
           for (let i = 0; i < values[k].length; i += 1) {
             const quad = {
               subject,
@@ -161,7 +162,6 @@ const actions = {
             dispatch('AddFilteredQuad', quad);
           }
         } else {
-          // if cardinality = 1
           const splitted = values[k].split(';;');
           for (let i = 0; i < splitted.length; i += 1) {
             const quad = {
