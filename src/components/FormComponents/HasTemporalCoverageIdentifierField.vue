@@ -7,7 +7,8 @@
     v-model="CovID"
     @input="validation(CovID)"
   ></v-text-field>
-  <span v-if="validID">Valid ID</span>
+  <span v-if="!CovID">No ID given</span>
+  <span v-else-if="validID">Valid ID</span>
   <span v-else>Invalid ID</span>
 </div>
 </template>

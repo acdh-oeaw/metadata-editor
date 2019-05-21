@@ -104,7 +104,9 @@ export default {
     getPeriodByURI(uri) {
       this.$info('Helpers', 'getPeriodByURI', uri);
       if (uri) {
-        return axios(uri)
+        let JsonUri;
+        if (uri.indexOf('n2t.net') >= 0) JsonUri = `${uri}.json`;
+        return axios(JsonUri)
           .then((response) => {
             this.$log('response', response.data);
             return Promise.resolve(response.data);
