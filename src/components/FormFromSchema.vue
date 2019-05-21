@@ -99,7 +99,6 @@ export default {
     unsavedChanges() {
       // this.$log('model', Object.values(this.model));
       const keys = Object.keys(this.model);
-      this.$log('this.model', this.model);
       for (let i = 0; i < keys.length; i += 1) {
         if (this.model[keys[i]] && !Array.isArray(this.model[keys[i]])) return false;
         else if (Array.isArray(this.model[keys[i]])) {

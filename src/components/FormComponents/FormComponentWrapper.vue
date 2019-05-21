@@ -5,6 +5,7 @@
         @input="$emit('input', selectedValue)"
         v-if="component"
         v-model="selectedValue[index]"
+        :label="name"
         :name="name"
         :is="component"
         :type="mappedType"
