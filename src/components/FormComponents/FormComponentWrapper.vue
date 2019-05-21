@@ -8,7 +8,7 @@
         :name="name"
         :is="component"
         :type="mappedType"
-        :hint="hint"
+        :hint="(index === selectedValue.length - 1) ? properties.description : ''"
         :key="index"
         persistent-hint
         rows="2"
@@ -16,8 +16,14 @@
         auto-grow
       >
       </component>
-    <v-icon @click="selectedValue.push('')">add</v-icon>
-    <v-icon @click="selectedValue.pop()">remove</v-icon>
+    <v-icon
+      :disabled="properties.maxItems <= selectedValue.length && properties.maxItems !== 0"
+      @click="selectedValue.push('')"
+    >add</v-icon>
+    <v-icon
+      :disabled="properties.minItems >= selectedValue.length && properties.minItems !== 0"
+      @click="selectedValue.pop()"
+    >remove</v-icon>
   </div>
 </template>
 
@@ -129,20 +135,11 @@ export default {
     },
   },
   computed: {
-    label() {
+    properties() {
       const schemas = Object.keys(this.$store.state.JSONschema.schemas);
       for (let i = 0; i < schemas.length; i += 1) {
         if (this.$store.state.JSONschema.schemas[schemas[i]].properties[this.name]) {
-          return this.$store.state.JSONschema.schemas[schemas[i]].properties[this.name].title;
-        }
-      }
-      return '';
-    },
-    hint() {
-      const schemas = Object.keys(this.$store.state.JSONschema.schemas);
-      for (let i = 0; i < schemas.length; i += 1) {
-        if (this.$store.state.JSONschema.schemas[schemas[i]].properties[this.name]) {
-          return this.$store.state.JSONschema.schemas[schemas[i]].properties[this.name].description;
+          return this.$store.state.JSONschema.schemas[schemas[i]].properties[this.name];
         }
       }
       return '';
