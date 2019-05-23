@@ -46,9 +46,14 @@
       </template>
     </v-autocomplete>
     <div class="text-xs-right">
-      <v-btn icon @click="openAddNewSujectDialog()">
-        <v-icon>folder_open</v-icon>
-      </v-btn>
+      <v-tooltip open-delay="600" bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn v-on="on" icon @click="openAddNewSujectDialog()">
+            <v-icon>folder_open</v-icon>
+          </v-btn>
+        </template>
+        <span>Select from store</span>
+      </v-tooltip>
     </div>
   </div>
 </template>
