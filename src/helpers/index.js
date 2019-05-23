@@ -1,6 +1,5 @@
 import axios from 'axios';
 import rdfTranslator from 'rdf-translator';
-import utf8 from 'utf8';
 // import exampleAPI from '../../static/example_api.json';
 // import exampleAPI from '../../static/newsletter.json';
 
@@ -493,9 +492,7 @@ export default {
     },
     stringToBlob(str) {
       return new Blob([
-        utf8.encode(
-          str.replace(/[^>]\.\n/g, x => `${x}\n`),
-        ),
+        str.replace(/[^>]\.\n/g, x => `${x}\n`),
       ], {
         type: 'text/ttl',
       });
