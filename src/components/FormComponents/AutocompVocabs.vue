@@ -54,6 +54,7 @@ export default {
   props: [
     'type',
     'name',
+    'properties',
   ],
   name: 'AutocompVocabs',
   data() {
@@ -67,6 +68,12 @@ export default {
   watch: {
     search(val) {
       this.querySelections(val);
+    },
+    select(from, to) {
+      if (to.length > this.properties.maxItems && this.properties.maxItems !== 0) {
+        this.select.shift();
+        // couldnt decide wheter to use shift or pop for this one
+      }
     },
   },
   methods: {

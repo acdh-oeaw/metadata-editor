@@ -11,6 +11,7 @@
         :type="mappedType"
         :hint="(index === selectedValue.length - 1) ? properties.description : ''"
         :key="index"
+        :properties="properties"
         persistent-hint
         rows="2"
         autocomplete="none"
@@ -175,9 +176,8 @@ export default {
 
     this.component = c.name;
     this.mappedType = c.type;
-    if (this.type === 'date' && Array.isArray(this.value)) {
-      this.selectedValue = [this.value[0]];
-    } else {
+    if (this.type === 'date' && Array.isArray(this.value)) this.selectedValue = [this.value[0]];
+    else {
       this.selectedValue = (Array.isArray(this.value) ? this.value : [this.value]);
     }
   },

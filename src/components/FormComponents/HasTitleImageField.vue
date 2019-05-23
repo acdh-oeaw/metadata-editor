@@ -73,6 +73,7 @@ export default {
     'type',
     'name',
     'value',
+    'properties',
   ],
   name: 'AutocompDefault',
   data() {
@@ -137,6 +138,12 @@ export default {
     },
   },
   watch: {
+    select(from, to) {
+      if (to.length > this.properties.maxItems && this.properties.maxItems !== 0) {
+        this.select.shift();
+        // couldnt decide wheter to use shift or pop for this one
+      }
+    },
     search() {
       this.querySelections(this.search);
     },
