@@ -103,12 +103,20 @@ export default {
     getPeriodByURI(uri) {
       this.$info('Helpers', 'getPeriodByURI', uri);
       if (uri) {
-        let JsonUri;
-        if (uri.indexOf('n2t.net') >= 0) JsonUri = `${uri}.json`;
-        return axios(JsonUri)
+        let jsonUri = uri;
+        if (uri.indexOf('n2t.net') >= 0) {
+          jsonUri += '.json';
+        }
+        this.$log('jsonUri', jsonUri);
+        return axios(jsonUri)
           .then((response) => {
             this.$log('response', response.data);
-            return Promise.resolve(response.data);
+            try {
+              const json = JSON.parse(response.data);
+            } catch (e) {
+              return Promise.resolve(false);
+            }
+            return Promise.resolve(true);
           }, (error) => {
             this.$log('errortree, request failed', error);
             return Promise.resolve(false);

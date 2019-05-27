@@ -7,7 +7,13 @@
     v-model="CovID"
     @input="validation(CovID)"
   ></v-text-field>
-  <span v-if="!CovID">No ID given</span>
+  <v-progress-linear
+      v-if="loading && CovID"
+      height="3"
+      indeterminate
+      color="primary"
+    ></v-progress-linear>
+  <span v-else-if="!CovID"></span>
   <span v-else-if="validID">Valid ID</span>
   <span v-else>Invalid ID</span>
 </div>
@@ -35,13 +41,16 @@ export default {
     return {
       CovID: this.value || '',
       validID: false,
+      loading: false,
     };
   },
   methods: {
     validation(uri) {
+      this.loading = true;
       this.getPeriodByURI(uri).then((res) => {
         this.$log('covid', res);
         this.validID = res;
+        this.loading = false;
       });
     },
   },
