@@ -189,7 +189,7 @@ export default {
         const t = TYPES1[i];
 
         // this.$log('schema is: ', this.schema.title);
-        FormSchema.setComponent(t, FormComponentWrapper, { type: t, schema: this.Schema.id });
+        FormSchema.setComponent(t, FormComponentWrapper, { type: t, schema: this.schema.id });
       }
     },
     /*
