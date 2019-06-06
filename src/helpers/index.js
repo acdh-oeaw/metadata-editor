@@ -112,8 +112,9 @@ export default {
           .then((response) => {
             this.$log('response', response.data);
             try {
-              const json = JSON.parse(response.data);
+              JSON.parse(response.data);
             } catch (e) {
+              this.$log('Response is not a JSON!');
               return Promise.resolve(false);
             }
             return Promise.resolve(true);
