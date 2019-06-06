@@ -3,6 +3,7 @@
   <v-text-field
     :label="name"
     :hint="hint"
+    :append-icon="append-icon"
     persistent-hint
     v-model="CovID"
     @input="validation(CovID)"
@@ -35,6 +36,7 @@ export default {
     'name',
     'value',
     'hint',
+    'append-icon',
   ],
   name: 'HasTemporalCoverageIdentifierField',
   data() {

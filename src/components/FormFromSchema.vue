@@ -10,6 +10,7 @@
       <span>The form is empty</span>
     </v-tooltip>
     <v-btn @click="resetForm" color="secondary">Reset Form</v-btn>
+    * recommended
   </form-schema>
   <v-progress-linear v-show="loading" :indeterminate="true"></v-progress-linear>
 
@@ -178,7 +179,7 @@ export default {
       for (let i = 0; i < fields.length; i += 1) {
         if (this.schema && this.schema.properties[fields[i]].attrs &&
            this.schema.properties[fields[i]].attrs.type &&
-           TYPES1.indexOf(this.schema.properties[fields[i]].attrs.type) < 0) {
+           !TYPES1.includes(this.schema.properties[fields[i]].attrs.type)) {
           TYPES1.push(this.schema.properties[fields[i]].attrs.type);
         }
       }
@@ -187,7 +188,8 @@ export default {
       for (let i = 0; i < TYPES1.length; i += 1) {
         const t = TYPES1[i];
 
-        FormSchema.setComponent(t, FormComponentWrapper, { type: t });
+        // this.$log('schema is: ', this.schema.title);
+        FormSchema.setComponent(t, FormComponentWrapper, { type: t, schema: this.bSchema.id });
       }
     },
     /*

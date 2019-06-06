@@ -16,6 +16,7 @@
         rows="2"
         autocomplete="none"
         auto-grow
+        :append-icon="isRecommended() ? '*' : ''"
       >
       </component>
       <div class="text-xs-right" v-if="component !== 'autocompdefault'">
@@ -63,6 +64,7 @@ export default {
     'type',
     'name',
     'value',
+    'schema',
   ],
   components: {
     autocompdefault,
@@ -79,6 +81,8 @@ export default {
       loading: false,
       component: null,
       mappedType: null,
+      // URIvalidation: value => /\w+:(\/?\/?)[^\s]+/.test(val) || 'Not an URI',
+      // noRules: value => true,
       // for Mapping matching types to components.
       componentTypeMap: {
         // contains objects with 2 props: name -> component name;
@@ -86,6 +90,7 @@ export default {
         date: { type: '', name: 'BetterDatePicker' },
         string: defaultComponentObject,
         text: defaultComponentObject,
+        anyURI: defaultComponentObject,
         positiveinteger: defaultComponentObject,
         literal: defaultComponentObject,
         '': defaultComponentObject,
@@ -145,6 +150,13 @@ export default {
       }
       return false;
     },
+    isRecommended() {
+      if (this.properties.recommendedClass) {
+        this.$log('schemas', this.properties.recommendedClass, this.schema);
+        return this.properties.recommendedClass.toLowerCase().includes(this.schema);
+      }
+      return false;
+    },
   },
   computed: {
     properties() {
@@ -155,6 +167,10 @@ export default {
         }
       }
       return '';
+    },
+    isURI() {
+      if (this.type.toLowerCase() === 'anyuri') return true;
+      return false;
     },
   },
   created() {

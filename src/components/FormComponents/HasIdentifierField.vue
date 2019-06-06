@@ -3,6 +3,7 @@
     <div v-for="item, index in items">
       <v-text-field
         v-model="item.select"
+        append-icon="*"
         :label="name"
         :rules = "[() => item.status || 'Failed to fetch Data from the API',() => item.select.length > 0 || 'This field may not be empty', () => item.valid || 'Please choose a valid identifier', (!item.exists || !forbidExistingIdentifiers) || 'Please choose an non existing Identifier']"
         required
@@ -59,6 +60,7 @@ export default {
     'name',
     'value',
     'forbidExistingIdentifiers',
+    'append-icon',
   ],
   name: 'HasIdentifierField',
   data() {

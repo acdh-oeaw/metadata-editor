@@ -104,7 +104,7 @@ export default {
       this.$info('Helpers', 'getPeriodByURI', uri);
       if (uri) {
         let jsonUri = uri;
-        if (uri.indexOf('n2t.net') >= 0) {
+        if (uri.includes('n2t.net')) {
           jsonUri += '.json';
         }
         this.$log('jsonUri', jsonUri);
@@ -290,7 +290,7 @@ export default {
     filterForArcheID(obj) {
       this.$info('Helpers', 'filterForArcheID(obj)', obj);
       if (obj.identifiers) {
-        return obj.identifiers.filter(str => str.indexOf('https://id.acdh.oeaw.ac.at') > -1)[0];
+        return obj.identifiers.filter(str => str.includes('https://id.acdh.oeaw.ac.at'));
       }
       return obj;
     },

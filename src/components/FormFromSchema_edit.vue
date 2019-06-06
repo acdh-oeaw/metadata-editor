@@ -43,6 +43,7 @@
       <v-btn variant="primary" @click="submit">Add as new Entity</v-btn>
       <v-btn @click="discardChanges();" variant="secondary">Discard Changes</v-btn>
     </v-card-actions>
+    * recommended
   </v-card>
 </template>
 
@@ -169,7 +170,7 @@ export default {
       for (let i = 0; i < fields.length; i += 1) {
         if (this.schema && this.schema.properties[fields[i]].attrs &&
           this.schema.properties[fields[i]].attrs.type &&
-          TYPES1.indexOf(this.schema.properties[fields[i]].attrs.type) < 0) {
+          !TYPES1.includes(this.schema.properties[fields[i]].attrs.type)) {
           TYPES1.push(this.schema.properties[fields[i]].attrs.type);
         }
       }

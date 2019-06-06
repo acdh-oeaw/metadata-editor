@@ -355,7 +355,7 @@ export default {
       }
     },
     filteredTitlesMethod(dir) {
-      if (dir) return this.items.names.filter(x => x.val.indexOf(dir) >= 0);
+      if (dir) return this.items.names.filter(x => x.val.includes(dir));
       return this.items.names;
     },
     clear() {

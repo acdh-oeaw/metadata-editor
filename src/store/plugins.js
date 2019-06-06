@@ -71,7 +71,7 @@ const localStoragePlugin = store => {
   }
   if (localStorage) {
     store.subscribe((mutation, state) => {
-      if (triggerMutations.indexOf(mutation.type) > -1) {
+      if (triggerMutations.includes(mutation.type)) {
         const pState = filterForPersistantProperties(state);
         const currentStore = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '{}');
         const now = Date.now();
