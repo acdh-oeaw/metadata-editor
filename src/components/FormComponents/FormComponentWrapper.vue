@@ -12,6 +12,7 @@
         :hint="(index === selectedValue.length - 1) ? properties.description : ''"
         :key="index"
         :properties="properties"
+        :rules="rules"
         persistent-hint
         rows="2"
         autocomplete="none"
@@ -168,9 +169,15 @@ export default {
       }
       return '';
     },
-    isURI() {
-      if (this.type.toLowerCase() === 'anyuri') return true;
-      return false;
+    rules() {
+      const rules = [];
+      if (this.type.toLowerCase() === 'anyuri') {
+        const uriRegEx = /\w+:(\/?\/?)[^\s]+/;
+        const rule =
+          value => uriRegEx.test(value) || 'Invalid URI';
+        rules.push(rule);
+      }
+      return rules;
     },
   },
   created() {

@@ -3,10 +3,9 @@
   <v-text-field
     :label="name"
     :hint="hint"
-    :append-icon="append-icon"
     persistent-hint
     v-model="CovID"
-    @input="validation(CovID)"
+    :rules="rules"
   ></v-text-field>
   <v-progress-linear
       v-if="loading && CovID"
@@ -14,9 +13,11 @@
       indeterminate
       color="primary"
     ></v-progress-linear>
+    <!--
   <span v-else-if="!CovID"></span>
   <span v-else-if="validID">Valid ID</span>
   <span v-else>Invalid ID</span>
+    -->
 </div>
 </template>
 
@@ -44,6 +45,7 @@ export default {
       CovID: this.value || '',
       validID: false,
       loading: false,
+      rules: [(value => /\w+:(\/?\/?)[^\s]+/.test(value) || 'Invalid URI')],
     };
   },
   methods: {
