@@ -46,10 +46,11 @@ export default {
       validID: false,
       loading: false,
       URIRegEx: /^([a-z0-9+.-]+):(?:\/\/(?:((?:[a-z0-9-._~!$&'()*+,;=:]|%[0-9A-F]{2})*)@)?((?:[a-z0-9-._~!$&'()*+,;=]|%[0-9A-F]{2})*)(?::(\d*))?(\/(?:[a-z0-9-._~!$&'()*+,;=:@/]|%[0-9A-F]{2})*)?|(\/?(?:[a-z0-9-._~!$&'()*+,;=:@]|%[0-9A-F]{2})+(?:[a-z0-9-._~!$&'()*+,;=:@/]|%[0-9A-F]{2})*)?)(?:\?((?:[a-z0-9-._~!$&'()*+,;=:/?@]|%[0-9A-F]{2})*))?(?:#((?:[a-z0-9-._~!$&'()*+,;=:/?@]|%[0-9A-F]{2})*))?$/,
-      rules: [(value => this.URIRegEx.test(value) || 'Invalid URI')],
+      rules: [(value => this.URIRegEx.test(value) || 'Invalid URI'), (value => (value === '') || 'not empty')],
     };
   },
   methods: {
+    /*
     validation(uri) {
       this.loading = true;
       this.getPeriodByURI(uri).then((res) => {
@@ -58,6 +59,7 @@ export default {
         this.loading = false;
       });
     },
+    */
   },
 };
 </script>

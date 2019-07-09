@@ -12,7 +12,6 @@
         :hint="(index === selectedValue.length - 1) ? properties.description : ''"
         :key="index"
         :properties="properties"
-        :rules="rules"
         persistent-hint
         rows="2"
         autocomplete="none"
@@ -49,7 +48,8 @@ import HasIdentifierField from './HasIdentifierField';
 import HasTitleImageField from './HasTitleImageField';
 import AutocompVocabs from './AutocompVocabs';
 import BetterDatePicker from './BetterDatePicker';
-import HasTemporalCoverageIdentifierField from './HasTemporalCoverageIdentifierField';
+import AnyUriField from './AnyUriField';
+// import HasTemporalCoverageIdentifierField from './HasTemporalCoverageIdentifierField';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
 const defaultComponentObject =
@@ -73,7 +73,8 @@ export default {
     HasTitleImageField,
     AutocompVocabs,
     BetterDatePicker,
-    HasTemporalCoverageIdentifierField,
+    AnyUriField,
+    // HasTemporalCoverageIdentifierField,
   },
   name: 'FormComponentWrapper',
   data() {
@@ -91,7 +92,7 @@ export default {
         date: { type: '', name: 'BetterDatePicker' },
         string: defaultComponentObject,
         text: defaultComponentObject,
-        anyURI: defaultComponentObject,
+        anyURI: { type: 'anyURI', name: 'AnyUriField' },
         positiveinteger: defaultComponentObject,
         literal: defaultComponentObject,
         '': defaultComponentObject,
@@ -169,29 +170,19 @@ export default {
       }
       return '';
     },
-    rules() {
-      const rules = [];
-      if (this.type.toLowerCase() === 'anyuri') {
-        const uriRegEx = /\w+:(\/?\/?)[^\s]+/;
-        const rule =
-          value => uriRegEx.test(value) || 'Invalid URI';
-        rules.push(rule);
-      }
-      return rules;
-    },
   },
   created() {
     // if this -> mapping happens in the hasIdentifierFunciton
     if (this.hasIdentifier(this.name)) return;
     if (this.hasTitleImage(this.name)) return;
-    if (this.hasTemporalCoverageIdentifier(this.name)) return;
+    // if (this.hasTemporalCoverageIdentifier(this.name)) return;
     if (this.isDescription(this.name)) return;
 
     let c = this.componentNameMap[this.name];
     this.$log('type', this.type, this.name);
     if (!c) {
-      const typeL = this.type.toLowerCase();
-      c = this.componentTypeMap[typeL];
+      // const typeL = this.type.toLowerCase();
+      c = this.componentTypeMap[this.type];
     }
     if (!c) {
       c = { type: this.type, name: 'autocompdefault' };
