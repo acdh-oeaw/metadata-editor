@@ -156,13 +156,16 @@ export default {
       // getArcheTitle
       // change occoured
       this.$log('AutocompDefault -> newSubject before, after, listenForStoreSelectedItem', before, after, this.listenForStoreSelectedItem);
-      this.$debug('newITem: ', JSON.stringify(this.newItem));
-      const item = this.newItem.addedItem.subject.value;
+      this.$debug('newITem: ', JSON.parse(JSON.stringify(this.newItem)));
+      let item = this.newItem.addedItem.subject.value;
+      this.$log('select, items', this.select, this.items);
+      // if (Array.isArray(this.select))
+      item = `_:${item}`;
       this.select.push(item);
-       this.items.push(
-        {
-          title: this.getArcheTitle(`_:${item}`).id.replace(/"/g, ''),
-          uri: item,
+      // else this.select = [item];
+      this.items.push({
+          title: this.getArcheTitle(item).id.replace(/"/g, ''),
+          uri: item.replace(/"/g, ''),
         });
 
       this.listenForStoreSelectedItem = false;
