@@ -159,15 +159,15 @@ const actions = {
           genId = `place-${obj.hasTitle[0].toLowerCase()}`;
           break;
         case 'publication':
-          genId = `pub-${obj.hasTitle[0].toLowerCase()}`;
+          genId = `pub-${obj.hasAuthor[0].toLowerCase() || ''}${obj.hasAuthor[1].toLowerCase() || ''}${obj.hasAvailableDate[0] || ''}`;
           break;
         default:
           genId = slug(obj.hasTitle[0] || '');
       }
-      if (genId) dispatch('AddFilteredQuad', {
+      if (genId && genId !== 'pub-' && genId !== 'place-') dispatch('AddFilteredQuad', {
         subject,
         predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier',
-        object: genId,
+        object: `https://id.acdh.oeaw.ac.at/${genId}`,
       });
     }
     // parsing quads with props from form
