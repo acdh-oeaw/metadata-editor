@@ -34,7 +34,6 @@ Vue.use(VueAuthenticate, {
 });
 
 Vue.use(Vuetify);
-
 sync(store, router);
 
 Vue.config.productionTip = false;

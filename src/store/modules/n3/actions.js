@@ -143,6 +143,33 @@ const actions = {
       object: schema.id,
     };
     dispatch('AddFilteredQuad', first);
+    // create ID if not given
+    if (!obj.hasIdentifier || !obj.hasIdentifier.length) {
+      // eslint-disable-next-line
+      const slug = require('slugify');
+      let genId;
+      switch (schema.title) {
+        case 'person':
+          genId = `${obj.hasFirstName[0].charAt(0).toLowerCase() || ''}${obj.hasLastName[0] || ''}`;
+          break;
+        case 'organisation':
+          genId = obj.hasAlternativeTitle[0].toLowerCase() || slug(obj.HasTitle[0]) || '';
+          break;
+        case 'place':
+          genId = `place-${obj.hasTitle[0].toLowerCase()}`;
+          break;
+        case 'publication':
+          genId = `pub-${obj.hasTitle[0].toLowerCase()}`;
+          break;
+        default:
+          genId = slug(obj.hasTitle[0] || '');
+      }
+      if (genId) dispatch('AddFilteredQuad', {
+        subject,
+        predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier',
+        object: genId,
+      });
+    }
     // parsing quads with props from form
     const keys = Object.keys(obj);
     const values = Object.values(obj);

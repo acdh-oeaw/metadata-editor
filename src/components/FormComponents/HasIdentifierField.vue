@@ -1,15 +1,23 @@
 <template>
   <div>
     <div v-for="item, index in items">
-      <v-text-field
-        v-model="item.select"
-        append-icon="*"
-        :label="name"
-        :rules = "[() => item.status || 'Failed to fetch Data from the API',() => item.select.length > 0 || 'This field may not be empty', () => item.valid || 'Please choose a valid identifier', (!item.exists || !forbidExistingIdentifiers) || 'Please choose an non existing Identifier']"
-        required
-        @input="querySelectionsDebounce(index); emit();"
-        >
-      </v-text-field>
+      <v-layout row wrap>
+        <v-flex xs8>
+          <v-text-field
+            v-model="item.select"
+            append-icon="*"
+            :label="name"
+            :rules = "[() => item.status || 'Failed to fetch Data from the API',() => item.select.length > 0 || 'This field may not be empty', () => item.valid || 'Please choose a valid identifier', (!item.exists || !forbidExistingIdentifiers) || 'Please choose an non existing Identifier']"
+            required
+            @input="querySelectionsDebounce(index); emit();"
+            :disabled="genId"
+            >
+          </v-text-field>
+        </v-flex>
+        <v-flex xs4>
+          <v-checkbox label="generate" v-model="genId"></v-checkbox>
+        </v-flex>
+      </v-layout>
       <template v-if="!item.loading && item.select.length > 0 && item.status">
         <!-- Arche -->
         <p v-if="item.arche">
@@ -65,6 +73,7 @@ export default {
   name: 'HasIdentifierField',
   data() {
     return {
+      genId: true,
       items: [],
       loading: [],
       exists: [],
@@ -183,6 +192,24 @@ export default {
         arche: false,
       };
     },
+    slug(str) {
+      // eslint-disable-next-line
+      const slugify = require('slugify');
+      return slugify(str);
+    },
+  },
+  computed: {
+    /*
+    title() {
+      this.$log('title changed');
+      const title = this.$store.state.JSONschema.entries.collection.model.hasTitle[0];
+      if (title) {
+        this.items[0] = this.slug(title);
+        return title;
+      }
+      return '';
+    },
+    */
   },
   created() {
     let val = this.value;
