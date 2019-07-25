@@ -153,7 +153,7 @@ const actions = {
           genId = `${obj.hasFirstName[0].charAt(0).toLowerCase() || ''}${obj.hasLastName[0] || ''}`;
           break;
         case 'organisation':
-          genId = obj.hasAlternativeTitle[0].toLowerCase() || slug(obj.HasTitle[0]) || '';
+          genId = obj.hasAlternativeTitle.toLowerCase() || obj.hasAlternativeTitle[0].toLowerCase() || slug(obj.HasTitle[0]) || '';
           break;
         case 'place':
           genId = `place-${obj.hasTitle[0].toLowerCase()}`;
@@ -164,11 +164,13 @@ const actions = {
         default:
           genId = slug(obj.hasTitle[0] || '');
       }
-      if (genId && genId !== 'pub-' && genId !== 'place-') dispatch('AddFilteredQuad', {
-        subject,
-        predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier',
-        object: `https://id.acdh.oeaw.ac.at/${genId}`,
-      });
+      if (genId && genId !== 'pub-' && genId !== 'place-') {
+        dispatch('AddFilteredQuad', {
+          subject,
+          predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier',
+          object: `acdhi:${genId}`,
+        });
+      }
     }
     // parsing quads with props from form
     const keys = Object.keys(obj);

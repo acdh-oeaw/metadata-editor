@@ -92,7 +92,7 @@ export default {
         date: { type: '', name: 'BetterDatePicker' },
         string: defaultComponentObject,
         text: defaultComponentObject,
-        anyURI: { type: 'anyURI', name: 'AnyUriField' },
+        // anyURI: { type: 'anyURI', name: 'AnyUriField' },
         positiveinteger: defaultComponentObject,
         literal: defaultComponentObject,
         '': defaultComponentObject,
@@ -173,7 +173,7 @@ export default {
   },
   created() {
     // if this -> mapping happens in the hasIdentifierFunciton
-    if (this.hasIdentifier(this.name)) return;
+    // if (this.hasIdentifier(this.name)) return;
     if (this.hasTitleImage(this.name)) return;
     // if (this.hasTemporalCoverageIdentifier(this.name)) return;
     if (this.isDescription(this.name)) return;

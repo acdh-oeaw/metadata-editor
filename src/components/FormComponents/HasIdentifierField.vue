@@ -15,7 +15,7 @@
           </v-text-field>
         </v-flex>
         <v-flex xs4>
-          <v-checkbox label="generate" v-model="genId"></v-checkbox>
+          <v-checkbox label="generate" @change="genCheck(index)" v-model="genId"></v-checkbox>
         </v-flex>
       </v-layout>
       <template v-if="!item.loading && item.select.length > 0 && item.status">
@@ -74,6 +74,7 @@ export default {
   data() {
     return {
       genId: true,
+      // manId: [],
       items: [],
       loading: [],
       exists: [],
@@ -192,11 +193,14 @@ export default {
         arche: false,
       };
     },
-    slug(str) {
-      // eslint-disable-next-line
-      const slugify = require('slugify');
-      return slugify(str);
+    /*
+    genCheck(i) {
+      if (this.genId) {
+        this.manId[i] = this.items[i];
+        this.items[i] = '';
+      } else this.items[i] = this.manId[i];
     },
+    */
   },
   computed: {
     /*

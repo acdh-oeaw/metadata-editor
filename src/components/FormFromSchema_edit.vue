@@ -193,8 +193,9 @@ export default {
     importSchema(schema) {
       this.$debug('FormFromSchema, importSchema(schema)', schema);
       this.schema = this.copyRangeToType(schema, 'only name');
+      this.$debug('columbo', schema);
       this.schema = this.removeBlacklisted(this.schema, this.blacklistRegex);
-
+this.$log('columbo after ', schema);
       this.setSchema({ name: this.type, schema: this.schema });
       this.setComponents();
 
