@@ -16,7 +16,7 @@
         rows="2"
         autocomplete="none"
         auto-grow
-        :append-icon="properties.required ? '*' : ''"
+        :append-icon="(properties.required && index === 0) ? '*' : ''"
       >
       </component>
       <div class="text-xs-right" v-if="component !== 'autocompdefault'">
@@ -166,6 +166,7 @@ export default {
     },
   },
   created() {
+    this.$log('type is:', this.type);
     // if this -> mapping happens in the hasIdentifierFunciton
     if (this.hasIdentifier(this.name)) return;
     if (this.hasTitleImage(this.name)) return;

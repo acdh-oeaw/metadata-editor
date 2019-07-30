@@ -175,7 +175,7 @@ export default {
       const TYPES1 = [];
 
       const fields = Object.keys(this.schema.properties);
-
+      // this.$log('fields', fields);
       for (let i = 0; i < fields.length; i += 1) {
         if (this.schema && this.schema.properties[fields[i]].attrs &&
            this.schema.properties[fields[i]].attrs.type &&

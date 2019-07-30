@@ -133,7 +133,7 @@ const actions = {
   /*  high level action parsing JSON from a form into quads and subsequently
      saving it to the N3.js store */
   ObjectToStore({ state, commit, dispatch }, { schema, obj, id }) {
-    const subject = id || `_:${schema.title}_${Date.now().valueOf().toString(36)}`;
+    const subject = id || `_:${schema.title.toLowerCase()}_${Date.now().valueOf().toString(36)}`;
     this._vm.$log('ObjectToStore (schema, obj, id)', schema, obj, id);
     commit('startProcessing', 'Loading Object to Store...');
     // first quad for type
@@ -148,18 +148,19 @@ const actions = {
       // eslint-disable-next-line
       const slug = require('slugify');
       let genId;
-      switch (schema.title) {
+      this._vm.$log('IDobj', obj);
+      switch (schema.title.toLowerCase()) {
         case 'person':
-          genId = `${obj.hasFirstName[0].charAt(0).toLowerCase() || ''}${obj.hasLastName[0] || ''}`;
+          genId = `${obj.hasFirstName[0].charAt(0).toLowerCase()}${obj.hasLastName[0]}`;
           break;
         case 'organisation':
-          genId = obj.hasAlternativeTitle.toLowerCase() || obj.hasAlternativeTitle[0].toLowerCase() || slug(obj.HasTitle[0]) || '';
+          genId = obj.hasAlternativeTitle[0].toLowerCase() || slug(obj.HasTitle[0]) || '';
           break;
         case 'place':
           genId = `place-${obj.hasTitle[0].toLowerCase()}`;
           break;
         case 'publication':
-          genId = `pub-${obj.hasAuthor[0].toLowerCase() || ''}${obj.hasAuthor[1].toLowerCase() || ''}${obj.hasAvailableDate[0] || ''}`;
+          genId = `pub-${obj.hasAuthor ? obj.hasAuthor[0].toLowerCase() : ''}${obj.hasAuthor ? obj.hasAuthor[1].toLowerCase() : ''}${obj.hasAvailableDate ? obj.hasAvailableDate[0].toLowerCase() : ''}`;
           break;
         default:
           genId = slug(obj.hasTitle[0] || '');

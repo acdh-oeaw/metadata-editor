@@ -55,11 +55,11 @@ const mutations = {
       s.schemas = {};
     }
     if (name && schema) {
-      s.schemas[name] = schema;
-      this._vm.$log('required', schema.properties.required);
+      schema.title = `${schema.title.charAt(0).toUpperCase()}${schema.title.slice(1)}`;
       for (let i = 0; i < schema.properties.required.length; i += 1) {
-        s.schemas[name].properties[schema.properties.required[i]].required = true;
+        schema.properties[schema.properties.required[i]].required = true;
       }
+      s.schemas[name] = schema;
     }
   },
   setEntry(s, { name, entry, schema }) {
