@@ -43,7 +43,7 @@
       <v-btn variant="primary" @click="submit">Add as new Entity</v-btn>
       <v-btn @click="discardChanges();" variant="secondary">Discard Changes</v-btn>
     </v-card-actions>
-    * recommended
+    * required
   </v-card>
 </template>
 
@@ -250,8 +250,8 @@ export default {
 </script>
 <style>
   label {
-    display: block;
-    float: left;
+    display: inline-block;
+    margin: 0 0 1em;
     width: 50%;
     box-sizing: border-box;
     padding: 5px;

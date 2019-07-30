@@ -56,6 +56,10 @@ const mutations = {
     }
     if (name && schema) {
       s.schemas[name] = schema;
+      this._vm.$log('required', schema.properties.required);
+      for (let i = 0; i < schema.properties.required.length; i += 1) {
+        s.schemas[name].properties[schema.properties.required[i]].required = true;
+      }
     }
   },
   setEntry(s, { name, entry, schema }) {

@@ -16,7 +16,7 @@
         rows="2"
         autocomplete="none"
         auto-grow
-        :append-icon="isRecommended() ? '*' : ''"
+        :append-icon="properties.required ? '*' : ''"
       >
       </component>
       <div class="text-xs-right" v-if="component !== 'autocompdefault'">
@@ -93,6 +93,7 @@ export default {
         string: defaultComponentObject,
         text: defaultComponentObject,
         anyURI: { type: 'anyURI', name: 'AnyUriField' },
+        // anyURI: defaultComponentObject,
         positiveinteger: defaultComponentObject,
         literal: defaultComponentObject,
         '': defaultComponentObject,
@@ -149,13 +150,6 @@ export default {
         this.component = 'HasTemporalCoverageIdentifierField';
         this.selectedValue = [this.value];
         return true;
-      }
-      return false;
-    },
-    isRecommended() {
-      if (this.properties.recommendedClass) {
-        this.$log('schemas', this.properties.recommendedClass, this.schema);
-        return this.properties.recommendedClass.toLowerCase().includes(this.schema);
       }
       return false;
     },

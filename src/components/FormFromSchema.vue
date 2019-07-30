@@ -10,7 +10,7 @@
       <span>The form is empty</span>
     </v-tooltip>
     <v-btn @click="resetForm" color="secondary">Reset Form</v-btn>
-    * recommended
+    * required
   </form-schema>
   <v-progress-linear v-show="loading" :indeterminate="true"></v-progress-linear>
 
@@ -183,12 +183,11 @@ export default {
           TYPES1.push(this.schema.properties[fields[i]].attrs.type);
         }
       }
-      this.$debug('types in created:', TYPES1);
+      this.$log('types in created:', TYPES1);
 
       for (let i = 0; i < TYPES1.length; i += 1) {
         const t = TYPES1[i];
-
-        // this.$log('schema is: ', this.schema.title);
+        this.$log('schema is: ', this.schema.title, t);
         FormSchema.setComponent(t, FormComponentWrapper, { type: t, schema: this.schema.id });
       }
     },
@@ -249,8 +248,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
   label {
-    display: block;
-    float: left;
+    display: inline-block;
+    margin: 0 0 1em;
     width: 50%;
     box-sizing: border-box;
     padding: 5px;
