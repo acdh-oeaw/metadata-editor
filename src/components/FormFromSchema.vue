@@ -1,6 +1,6 @@
 <template v-if="!loading">
   <div>
-  <form-schema v-if="model && !loading" @input="saveEntry();" :schema="schema" v-model="model" @submit="submit">
+  <form-schema v-if="model && !loading" @input="saveEntry();" :schema="schema" v-model="model" @submit="submit" autocomplete="off">
     <v-tooltip nudge-bottom="7" bottom :disabled="!unsavedChanges">
       <template v-slot:activator="{ on }">
         <span  v-on="on">
