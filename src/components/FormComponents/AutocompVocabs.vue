@@ -82,7 +82,7 @@ export default {
       // this.$info(vm);
       this.getVocabsByID(escape((this.search || '').trim()), this.type)
       .then((res) => {
-        // this.$debug(res);
+        this.$debug(res);
         if (Array.isArray(res.results)) this.items = res.results;
         this.loading = false;
       })
