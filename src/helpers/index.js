@@ -82,12 +82,13 @@ export default {
         .then((response) => {
           this.$log('metadata', response.data);
           // workaround to fix that bug thats been bothering me for over a month now:
-          const props = Object.keys(response.data.properties);
-          this.$log('props', props);
+          const data = response.data; // for linting purposes
+          const props = Object.keys(data.properties);
+          // this.$log('props', props);
           for (let i = 0; i < props.length; i += 1) {
-            response.data.properties[props[i]].type = 'string';
+            data.properties[props[i]].type = 'string';
           }
-          return Promise.resolve(response.data);
+          return Promise.resolve(data);
         })
         .catch(res => this.$log(res));
     },
