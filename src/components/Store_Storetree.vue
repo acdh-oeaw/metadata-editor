@@ -16,7 +16,7 @@
         </v-autocomplete>
         <v-card v-if="collections">
           <v-flex xs12 v-for="(item, i) in collections" :key="i" >
-            <item @input="$emit('input', passThroughItem)"  v-model="passThroughItem" :uri="item.subject" :itemFull="item" :bg="i%2"></item>
+            <item @input="$emit('input', passThroughItem)"  v-model="passThroughItem" :uri="item.subject" :itemFull="item" :bg="!i%2"></item>
           </v-flex>
         </v-card>
       </v-expansion-panel-content>
@@ -60,6 +60,14 @@
           </v-flex>
         </v-card>
       </v-expansion-panel-content>
+      <v-expansion-panel-content>
+        <div slot="header"><v-icon large color='teal lighten-3'>developer_board</v-icon> Resources</div>
+        <v-card>
+          <v-flex xs12 v-for="(item, i) in resources" :key="i" >
+            <item @input="$emit('input', passThroughItem)" v-model="passThroughItem" :uri="item.subject" :itemFull="item" :bg="i%2"></item>
+          </v-flex>
+        </v-card>
+      </v-expansion-panel-content>
     </v-expansion-panel>
   </v-layout>
 </template>
@@ -89,6 +97,7 @@ export default {
       places: [],
       organisations: [],
       publications: [],
+      resources: [],
       passThroughItem: {},
     };
   },
@@ -116,6 +125,7 @@ export default {
       this.places = {};
       this.publications = {};
       this.organisations = {};
+      this.resources = {};
       setTimeout(() => this.getRoot(), 100);
       // this.getRoot();
     },
@@ -195,6 +205,7 @@ export default {
       this.places = this.getQuadsByType('Place');
       this.publications = this.getQuadsByType('Publication');
       this.organisations = this.getQuadsByType('Organisation');
+      this.resources = this.getQuadsByType('Resource');
       this.$forceUpdate();
     },
   },
