@@ -79,7 +79,16 @@ export default {
       this.$debug('Helpers', 'getMetadataByType(type)', type);
       return this.APIS.ARCHE.METADATA
         .get(`${type}/en`)
-        .then(response => Promise.resolve(response.data))
+        .then((response) => {
+          this.$log('metadata', response.data);
+          // workaround to fix that bug thats been bothering me for over a month now:
+          const props = Object.keys(response.data.properties);
+          this.$log('props', props);
+          for (let i = 0; i < props.length; i += 1) {
+            response.data.properties[props[i]].type = 'string';
+          }
+          return Promise.resolve(response.data);
+        })
         .catch(res => this.$log(res));
     },
     /* fetches data from the specified viaf endpoint in the config above and returnes it.
