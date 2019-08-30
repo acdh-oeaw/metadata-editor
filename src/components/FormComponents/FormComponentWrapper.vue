@@ -52,13 +52,10 @@ import AnyUriField from './AnyUriField';
 // import HasTemporalCoverageIdentifierField from './HasTemporalCoverageIdentifierField';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
-const defaultComponentObject =
-  {
-    type: '',
-    name: 'v-text-field',
-  }
-;
-
+const defaultComponentObject = {
+  type: '',
+  name: 'v-text-field',
+};
 export default {
   mixins: [HELPERS],
   props: [
@@ -104,57 +101,23 @@ export default {
         ArcheCategory: { name: 'AutocompVocabs', type: 'ARCHE_CATEGORY' },
         hasCategory: { name: 'AutocompVocabs', type: 'ARCHE_CATEGORY' },
         hasAccessRestriction: { name: 'AutocompVocabs', type: 'ARCHE_ACCESS_RESTRICTIONS' },
+        hasDescription: 'v-textarea',
+        hasAppliedMethodDescription: 'v-textarea',
+        hasArrangement: 'v-textarea',
+        hasCompleteness: 'v-textarea',
+        hasEditorialPractice: 'v-textarea',
+        hasExtent: 'v-textarea',
+        hasNamingScheme: 'v-textarea',
+        hasNote: 'v-textarea',
+        hasSeriesInformation: 'v-textarea',
+        hasTableOfContents: 'v-textarea',
+        hasTechnicalInfo: 'v-textarea',
+        hasWKT: 'v-textarea',
+        hasTitleImage: 'hasTitleImageField',
+        hasIdentifier: 'HasIdentifierField',
+        // hasTemporalCoverageIdentifier: 'HasTemporalCoverageIdentifierField',
       },
     };
-  },
-  methods: {
-    hasIdentifier(name) {
-      if (name === 'hasIdentifier') {
-        this.component = 'HasIdentifierField';
-        this.selectedValue = [this.value];
-        // this.$info('FormComponentWrapper created', this.component, this.selectedValue);
-        return true;
-      }
-      return false;
-    },
-    hasTitleImage(name) {
-      if (name === 'hasTitleImage') {
-        this.component = 'hasTitleImageField';
-        this.selectedValue = [this.value];
-        // this.$info('FormComponentWrapper created', this.component, this.selectedValue);
-        return true;
-      }
-      return false;
-    },
-    isDescription(name) {
-      const fieldList = [
-        'hasDescription',
-        'hasAppliedMethodDescription',
-        'hasArrangement',
-        'hasCompleteness',
-        'hasEditorialPractice',
-        'hasExtent',
-        'hasNamingScheme',
-        'hasNote',
-        'hasSeriesInformation',
-        'hasTableOfContents',
-        'hasTechnicalInfo',
-        'hasWKT',
-      ];
-      if (fieldList.includes(name)) {
-        this.component = 'v-textarea';
-        return true;
-      }
-      return false;
-    },
-    hasTemporalCoverageIdentifier(name) {
-      if (name === 'hasTemporalCoverageIdentifier') {
-        this.component = 'HasTemporalCoverageIdentifierField';
-        this.selectedValue = [this.value];
-        return true;
-      }
-      return false;
-    },
   },
   computed: {
     properties() {
@@ -169,11 +132,6 @@ export default {
   },
   created() {
     this.$log('type is:', this.type);
-    // if this -> mapping happens in the hasIdentifierFunciton
-    if (this.hasIdentifier(this.name)) return;
-    if (this.hasTitleImage(this.name)) return;
-    // if (this.hasTemporalCoverageIdentifier(this.name)) return;
-    if (this.isDescription(this.name)) return;
 
     let c = this.componentNameMap[this.name];
     this.$log('type', this.type, this.name);
@@ -181,10 +139,8 @@ export default {
       // const typeL = this.type.toLowerCase();
       c = this.componentTypeMap[this.type];
     }
-    if (!c) {
-      c = { type: this.type, name: 'autocompdefault' };
-    }
-
+    if (!c) c = { type: this.type, name: 'autocompdefault' };
+    if (typeof c !== 'object') c = { name: c, type: '' };
     this.component = c.name;
     this.mappedType = c.type;
     if (this.type === 'date' && Array.isArray(this.value)) this.selectedValue = [this.value[0]];
