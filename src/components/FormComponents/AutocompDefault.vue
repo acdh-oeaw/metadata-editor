@@ -1,65 +1,54 @@
 <template>
-  <div>
-    <v-autocomplete
-      :loading="loading"
-      :items="items"
-      :rules="[() => select.length > 0 || 'You must choose at least one']"
-      :search-input.sync="search"
-      v-model="select"
-      :label="`${name} (type to search)`"
-      :hint="hint"
-      multiple
-      cache-items
-      chips
-      required
-      item-text="title"
-      item-value="uri"
-      @input="$emit('input', select);"
-      >
-      <template slot="selection" slot-scope="data">
-        <v-chip
-          :selected="data.selected"
-          :key="JSON.stringify(data.item)"
-          close
-          class="chip--select-multi"
-          @input="data.parent.selectItem(data.item)"
-        >
-          <v-avatar>
-            <v-icon>{{typeicon(data.item.type)}}</v-icon>
-          </v-avatar>
-          {{ data.item.title }}
-        </v-chip>
-      </template>
-      <template slot="item" slot-scope="data">
-        <template v-if="typeof data.item !== 'object'">
-          <v-list-tile-content v-text="data.item"></v-list-tile-content>
+<div>
+  <v-layout row wrap>
+    <v-flex xs10>
+      <v-autocomplete :loading="loading" :items="items" :rules="[() => select.length > 0 || 'You must choose at least one']" :search-input.sync="search" v-model="select" :label="`${name} (type to search)`" :hint="hint" multiple cache-items chips
+        required item-text="title" item-value="uri" @input="$emit('input', select);">
+        <template slot="selection" slot-scope="data">
+          <v-chip :selected="data.selected" :key="JSON.stringify(data.item)" close class="chip--select-multi" @input="data.parent.selectItem(data.item)">
+            <v-avatar>
+              <v-icon>{{typeicon(data.item.type)}}</v-icon>
+            </v-avatar>
+            {{ data.item.title }}
+          </v-chip>
         </template>
-        <template>
-          <v-list-tile-avatar>
-            <v-icon>{{typeicon(data.item.type)}}</v-icon>
-          </v-list-tile-avatar>
-          <v-list-tile-content>
-            <v-list-tile-title v-html="data.item.title"></v-list-tile-title>
-            <v-list-tile-sub-title v-html="data.item.uri"></v-list-tile-sub-title>
-          </v-list-tile-content>
+        <template slot="item" slot-scope="data">
+          <template v-if="typeof data.item !== 'object'">
+            <v-list-tile-content v-text="data.item"></v-list-tile-content>
+          </template>
+          <template>
+            <v-list-tile-avatar>
+              <v-icon>{{typeicon(data.item.type)}}</v-icon>
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title v-html="data.item.title"></v-list-tile-title>
+              <v-list-tile-sub-title v-html="data.item.uri"></v-list-tile-sub-title>
+            </v-list-tile-content>
+          </template>
         </template>
-      </template>
-    </v-autocomplete>
-    <div class="text-xs-right">
-      <v-tooltip open-delay="600" bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn v-on="on" icon @click="openAddNewSujectDialog()">
-            <v-icon>folder_open</v-icon>
-          </v-btn>
-        </template>
-        <span>Select from store</span>
-      </v-tooltip>
-    </div>
-  </div>
+      </v-autocomplete>
+    </v-flex>
+    <v-flex xs2>
+      <div class="text-xs-center">
+        <v-tooltip open-delay="600" bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" icon @click="openAddNewSujectDialog()">
+              <v-icon>folder_open</v-icon>
+            </v-btn>
+          </template>
+          <span>Select from store</span>
+        </v-tooltip>
+      </div>
+    </v-flex>
+  </v-layout>
+</div>
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex';
+import {
+  mapMutations,
+  mapGetters,
+} from 'vuex';
 import HELPERS from '../../helpers';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /* eslint-disable indent */
@@ -95,20 +84,20 @@ export default {
       this.loading = true;
       // results from api
       this.getArcheByID(this.type + '/' + val, 'AUTOCOMPLETE')
-      .then((res) => {
-        this.$debug('res win', res);
-        let results = [];
-        if (Array.isArray(res) && res[0]) {
-          this.$debug('autocompde res', res);
-          results = res;
-        }
-        this.mapResultsToItems(results);
-        this.loading = false;
-      })
-      .catch((res) => {
-        this.$debug('res fail', res);
-        this.loading = false;
-      });
+        .then((res) => {
+          this.$debug('res win', res);
+          let results = [];
+          if (Array.isArray(res) && res[0]) {
+            this.$debug('autocompde res', res);
+            results = res;
+          }
+          this.mapResultsToItems(results);
+          this.loading = false;
+        })
+        .catch((res) => {
+          this.$debug('res fail', res);
+          this.loading = false;
+        });
     },
     mapResultsToItems(results) {
       // map to items //title url type
@@ -118,11 +107,25 @@ export default {
           if (typeof it.title === 'object') {
             const keys = Object.keys(it.title);
             for (let j = 0; j < keys.length; j += 1) {
-              this.items.push({ title: `${it.title[keys[j]]} (${keys[j]})`, uri: it.uri, type: it.type });
+              this.items.push({
+                title: `${it.title[keys[j]]} (${keys[j]})`,
+                uri: it.uri,
+                type: it.type,
+              });
             }
-          } else this.items.push({ title: it.title, uri: it.uri, type: it.type });
+          } else {
+            this.items.push({
+              title: it.title,
+              uri: it.uri,
+              type: it.type,
+            });
+          }
         } else if (it.prefLabel) {
-          this.items.push({ title: it.prefLabel, uri: it.uri, type: it.type });
+          this.items.push({
+            title: it.prefLabel,
+            uri: it.uri,
+            type: it.type,
+          });
         }
       }
     },
@@ -164,9 +167,9 @@ export default {
       this.select.push(item);
       // else this.select = [item];
       this.items.push({
-          title: this.getArcheTitle(item).id.replace(/"/g, ''),
-          uri: item.replace(/"/g, ''),
-        });
+        title: this.getArcheTitle(item).id.replace(/"/g, ''),
+        uri: item.replace(/"/g, ''),
+      });
 
       this.listenForStoreSelectedItem = false;
       this.$emit('input', this.select);
@@ -182,10 +185,18 @@ export default {
         }
         if (Array.isArray(this.value)) {
           for (let i = 0; i < this.value.length; i += 1) {
-            this.items.push({ title: this.value[i], uri: this.value[i], type: '' });
+            this.items.push({
+              title: this.value[i],
+              uri: this.value[i],
+              type: '',
+            });
           }
         } else {
-          this.items.push({ title: this.value, uri: this.value, type: '' });
+          this.items.push({
+            title: this.value,
+            uri: this.value,
+            type: '',
+          });
         }
         // this.$log('selection items', this.items);
       }
@@ -195,7 +206,11 @@ export default {
     if (this.value) {
       // this.$log('selection', this.select, this.value);
       for (let i = 0; i < this.value.length; i += 1) {
-        this.items.push({ title: this.value[i], uri: this.value[i], type: '' });
+        this.items.push({
+          title: this.value[i],
+          uri: this.value[i],
+          type: '',
+        });
       }
     }
   },
