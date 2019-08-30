@@ -149,7 +149,8 @@ const actions = {
     };
     dispatch('AddFilteredQuad', first);
     // create ID if not given
-    if (!obj.hasIdentifier || !obj.hasIdentifier.length) {
+    if (!obj.hasIdentifier || !obj.hasIdentifier.length || obj.hasIdentifier.includes('')) {
+      if (obj.hasIdentifier.includes('')) obj.hasIdentifier.shift();
       // eslint-disable-next-line
       const slug = require('slugify');
       let genId;

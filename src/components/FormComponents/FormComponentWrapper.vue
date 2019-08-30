@@ -11,6 +11,7 @@
         :type="mappedType"
         :hint="(index === selectedValue.length - 1) ? properties.description : ''"
         :key="index"
+        :index="index"
         :properties="properties"
         persistent-hint
         rows="2"

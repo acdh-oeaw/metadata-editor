@@ -1,21 +1,21 @@
 <template>
   <div>
-    <div v-for="item, index in items">
+    <div v-for="item in items">
       <v-layout row wrap>
-        <v-flex xs8>
+        <v-flex :class="index === 0 ? 'xs8' : 'xs12'">
           <v-text-field
             v-model="item.select"
-            append-icon="*"
+            :append-icon="index === 0 ? '*' : ''"
             :label="name"
             :rules = "[() => item.status || 'Failed to fetch Data from the API',() => item.select.length > 0 || 'This field may not be empty', () => item.valid || 'Please choose a valid identifier', (!item.exists || !forbidExistingIdentifiers) || 'Please choose an non existing Identifier']"
             required
             @input="querySelectionsDebounce(index); emit();"
-            :disabled="genId"
+            :disabled="genId && index === 0"
             >
           </v-text-field>
         </v-flex>
-        <v-flex xs4>
-          <v-checkbox label="generate" @change="genCheck(index)" v-model="genId"></v-checkbox>
+        <v-flex v-if="index == 0" xs4>
+          <v-checkbox label="generate" @change="(index)" v-model="genId"></v-checkbox>
         </v-flex>
       </v-layout>
       <template v-if="!item.loading && item.select.length > 0 && item.status">
@@ -69,6 +69,7 @@ export default {
     'value',
     'forbidExistingIdentifiers',
     'append-icon',
+    'index',
   ],
   name: 'HasIdentifierField',
   data() {
@@ -193,14 +194,12 @@ export default {
         arche: false,
       };
     },
-    /*
     genCheck(i) {
       if (this.genId) {
         this.manId[i] = this.items[i];
         this.items[i] = '';
       } else this.items[i] = this.manId[i];
     },
-    */
   },
   computed: {
     /*
