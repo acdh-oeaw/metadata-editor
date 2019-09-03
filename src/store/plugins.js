@@ -2,13 +2,13 @@
 /* eslint-disable default-case */
 /* eslint-disable no-underscore-dangle */
 import VuexPersistence from 'vuex-persist';
-/*
+
 import {
   STORAGE_KEY,
   SESSION_ID,
 } from './index';
 import HELPERS from '../helpers';
-
+/*
 // helper for checking error code for full storage
 function isQuotaExceeded(e) {
   let quotaExceeded = false;
@@ -46,6 +46,8 @@ const triggerMutations = [
   'dialogs/setDialog',
   'dialogs/toggleDeletePrompt',
   'dialogs/toggleNetworkPrompt',
+  'app/openRightDrawer',
+  'app/toggleRightDrawer',
 ];
 /*
 // helper function for filtering for properties that need to be persistent.
@@ -101,44 +103,49 @@ const localStoragePlugin = store => {
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
   key: 'MetaDataEditor',
-  filter: (mutation) => triggerMutations.includes(mutation.type),
-/*
+  // filter: (mutation) => triggerMutations.includes(mutation.type),
   reducer: (state) => ({
-    n3: {
-      ttlString: state.n3.ttlString,
+    [SESSION_ID]: {
+      date: Date.now(),
+      dateString: HELPERS.methods.dateToString(new Date(Date.now())),
+      pState: {
+        n3: {
+          ttlString: state.n3.ttlString,
+        },
+        JSONschema: {
+          entries: state.JSONschema.entries,
+          schemas: state.JSONschema.schemas,
+          unsaved: state.JSONschema.unsaved,
+        },
+        app: {
+          drawer: state.app.drawer,
+          drawerclipped: state.app.drawerclipped,
+          fixed: state.app.fixed,
+          config: state.app.config,
+          miniVariant: state.app.miniVariant,
+          rightDrawer: state.app.rightDrawer,
+        },
+        localStorageInfo: {
+          localStorageLimit: state.app.localStorageLimit,
+          currentStoreLength: state.app.currentStoreLength,
+        },
+        dialogs: {
+          deletePrompt: state.app.deletePrompt,
+          networkPrompt: state.app.networkPrompt,
+        },
+        config: {
+          apis: state.app.apis,
+          getLocalStorageKey: state.app.getLocalStorageKey,
+        },
+        batchCreate: {
+          directories: state.app.directories,
+          model: state.app.model,
+          selected: state.app.selected,
+        },
+      }
     },
-    JSONschema: {
-      entries: state.JSONschema.entries,
-      schemas: state.JSONschema.schemas,
-      unsaved: state.JSONschema.unsaved,
-    },
-    app: {
-      drawer: state.app.drawer,
-      drawerclipped: state.app.drawerclipped,
-      fixed: state.app.fixed,
-      config: state.app.config,
-      miniVariant: state.app.miniVariant,
-      rightDrawer: state.app.rightDrawer,
-    },
-    localStorageInfo: {
-      localStorageLimit: state.app.localStorageLimit,
-      currentStoreLength: state.app.currentStoreLength,
-    },
-    dialogs: {
-      deletePrompt: state.app.deletePrompt,
-      networkPrompt: state.app.networkPrompt,
-    },
-    config: {
-      apis: state.app.apis,
-      getLocalStorageKey: state.app.getLocalStorageKey,
-    },
-    batchCreate: {
-      directories: state.app.directories,
-      model: state.app.model,
-      selected: state.app.selected,
-    },
+
   }),
-  */
 });
 
 export default [
