@@ -7,16 +7,16 @@
     </p>
     <v-layout row wrap>
       <v-flex xs4>
-        <v-switch
+        <v-checkbox
           label="Ask before deleting subjects"
           v-model="deletePrompt"
-        ></v-switch>
+        ></v-checkbox>
       </v-flex>
       <v-flex xs4>
-        <v-switch
+        <v-checkbox
           label="Notify when you're not connected to Arche"
           v-model="networkPrompt"
-        ></v-switch>
+        ></v-checkbox>
       </v-flex>
     </v-layout>
 

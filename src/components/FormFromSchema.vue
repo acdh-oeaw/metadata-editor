@@ -247,7 +247,7 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-  label {
+  label:not(.v-label) {
     display: inline-block;
     margin: 0 0 1em;
     width: 50%;

@@ -235,11 +235,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.tree {
-  max-height: 80vh;
-  overflow: auto;
-}
-
 .exists {
   color: red;
 }

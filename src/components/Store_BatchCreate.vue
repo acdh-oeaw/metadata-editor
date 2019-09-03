@@ -61,10 +61,10 @@
     <v-divider></v-divider>
     <v-layout row wrap>
       <v-flex xs3>
-        <v-switch
+        <v-checkbox
           v-model="getSwitch"
           label="Add Resources from Store">
-        </v-switch>
+        </v-checkbox>
       </v-flex>
       <v-flex xs4 offset-xs5>
         <v-text-field

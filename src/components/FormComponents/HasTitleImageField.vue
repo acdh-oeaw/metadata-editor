@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-layout row wrap>
-      <v-flex xs8>
+      <v-flex xs6>
         <v-autocomplete
           :loading="loading"
           :items="items"
@@ -49,14 +49,14 @@
         </v-autocomplete>
       </v-flex>
       <v-flex xs4>
-        <v-switch @change="toggleTitleImage" :value="true" label="Use blank" small v-model="switch1"></v-switch>
+        <v-checkbox @change="toggleTitleImage" :value="true" label="Use blank" small v-model="switch1"></v-checkbox>
+      </v-flex>
+      <v-flex xs2>
+        <v-btn icon @click="openAddNewSujectDialog()">
+          <v-icon>folder_open</v-icon>
+        </v-btn>
       </v-flex>
     </v-layout>
-    <div class="text-xs-right">
-      <v-btn icon @click="openAddNewSujectDialog()">
-        <v-icon>folder_open</v-icon>
-      </v-btn>
-    </div>
   </div>
 </template>
 
