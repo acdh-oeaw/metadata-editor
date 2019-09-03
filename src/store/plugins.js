@@ -2,6 +2,7 @@
 /* eslint-disable default-case */
 /* eslint-disable no-underscore-dangle */
 import VuexPersistence from 'vuex-persist';
+/*
 import {
   STORAGE_KEY,
   SESSION_ID,
@@ -46,7 +47,6 @@ const triggerMutations = [
   'dialogs/toggleDeletePrompt',
   'dialogs/toggleNetworkPrompt',
 ];
-/*
 // helper function for filtering for properties that need to be persistent.
 function filterForPersistantProperties(stateObj) {
   const result = {};
