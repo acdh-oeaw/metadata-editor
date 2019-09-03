@@ -26,6 +26,7 @@
     "vue2-animate": "2.0.0",
     "vuetify": "^1.5.18",
     "vuex": "^2.2.1",
+    "vuex-persist": "^2.1.0",
     "vuex-router-sync": "^4.1.2"
   },
   "devDependencies": {

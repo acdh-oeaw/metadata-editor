@@ -1,6 +1,7 @@
 /* eslint-disable arrow-parens */
 /* eslint-disable default-case */
 /* eslint-disable no-underscore-dangle */
+import VuexPersistence from 'vuex-persist';
 import {
   STORAGE_KEY,
   SESSION_ID,
@@ -45,7 +46,7 @@ const triggerMutations = [
   'dialogs/toggleDeletePrompt',
   'dialogs/toggleNetworkPrompt',
 ];
-
+/*
 // helper function for filtering for properties that need to be persistent.
 function filterForPersistantProperties(stateObj) {
   const result = {};
@@ -61,7 +62,8 @@ function filterForPersistantProperties(stateObj) {
   }
   return result;
 }
-
+*/
+/* obsolete, but really good code, thanks lukas
 const localStoragePlugin = store => {
   let localStorage;
   try {
@@ -93,5 +95,14 @@ const localStoragePlugin = store => {
     });
   }
 };
+*/
 
-export default [localStoragePlugin];
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage,
+  key: 'MetaDataEditor',
+});
+
+export default [
+  // localStoragePlugin,
+  vuexLocal.plugin,
+];
