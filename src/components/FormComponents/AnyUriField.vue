@@ -33,20 +33,19 @@ import HELPERS from '../../helpers';
 export default {
   mixins: [HELPERS],
   props: [
-    'type',
     'name',
     'value',
     'hint',
     'append-icon',
   ],
-  name: 'HasTemporalCoverageIdentifierField',
+  name: 'AnyUriField',
   data() {
     return {
       CovID: this.value || '',
       validID: false,
       loading: false,
       URIRegEx: /^([a-z0-9+.-]+):(?:\/\/(?:((?:[a-z0-9-._~!$&'()*+,;=:]|%[0-9A-F]{2})*)@)?((?:[a-z0-9-._~!$&'()*+,;=]|%[0-9A-F]{2})*)(?::(\d*))?(\/(?:[a-z0-9-._~!$&'()*+,;=:@/]|%[0-9A-F]{2})*)?|(\/?(?:[a-z0-9-._~!$&'()*+,;=:@]|%[0-9A-F]{2})+(?:[a-z0-9-._~!$&'()*+,;=:@/]|%[0-9A-F]{2})*)?)(?:\?((?:[a-z0-9-._~!$&'()*+,;=:/?@]|%[0-9A-F]{2})*))?(?:#((?:[a-z0-9-._~!$&'()*+,;=:/?@]|%[0-9A-F]{2})*))?$/,
-      rules: [(value => this.URIRegEx.test(value) || 'Invalid URI'), (value => (value === '') || 'not empty')],
+      rules: [(value => (this.URIRegEx.test(value) || !value) || 'Invalid URI')],
     };
   },
   methods: {

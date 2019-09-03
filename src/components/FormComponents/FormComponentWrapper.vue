@@ -87,10 +87,10 @@ export default {
       componentTypeMap: {
         // contains objects with 2 props: name -> component name;
         // type -> prop to give to component.
-        date: { type: '', name: 'BetterDatePicker' },
+        date: 'BetterDatePicker',
         string: defaultComponentObject,
         text: defaultComponentObject,
-        anyURI: { type: 'anyURI', name: 'AnyUriField' },
+        anyURI: 'AnyUriField',
         // anyURI: defaultComponentObject,
         positiveinteger: defaultComponentObject,
         literal: defaultComponentObject,
