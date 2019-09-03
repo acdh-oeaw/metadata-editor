@@ -32,7 +32,7 @@ function isQuotaExceeded(e) {
   }
   return quotaExceeded;
 }
-
+*/
 const triggerMutations = [
   'n3/stopProcessing',
   'JSONschema/setEntry',
@@ -47,6 +47,7 @@ const triggerMutations = [
   'dialogs/toggleDeletePrompt',
   'dialogs/toggleNetworkPrompt',
 ];
+/*
 // helper function for filtering for properties that need to be persistent.
 function filterForPersistantProperties(stateObj) {
   const result = {};
@@ -100,6 +101,44 @@ const localStoragePlugin = store => {
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
   key: 'MetaDataEditor',
+  filter: (mutation) => triggerMutations.includes(mutation.type),
+/*
+  reducer: (state) => ({
+    n3: {
+      ttlString: state.n3.ttlString,
+    },
+    JSONschema: {
+      entries: state.JSONschema.entries,
+      schemas: state.JSONschema.schemas,
+      unsaved: state.JSONschema.unsaved,
+    },
+    app: {
+      drawer: state.app.drawer,
+      drawerclipped: state.app.drawerclipped,
+      fixed: state.app.fixed,
+      config: state.app.config,
+      miniVariant: state.app.miniVariant,
+      rightDrawer: state.app.rightDrawer,
+    },
+    localStorageInfo: {
+      localStorageLimit: state.app.localStorageLimit,
+      currentStoreLength: state.app.currentStoreLength,
+    },
+    dialogs: {
+      deletePrompt: state.app.deletePrompt,
+      networkPrompt: state.app.networkPrompt,
+    },
+    config: {
+      apis: state.app.apis,
+      getLocalStorageKey: state.app.getLocalStorageKey,
+    },
+    batchCreate: {
+      directories: state.app.directories,
+      model: state.app.model,
+      selected: state.app.selected,
+    },
+  }),
+  */
 });
 
 export default [
