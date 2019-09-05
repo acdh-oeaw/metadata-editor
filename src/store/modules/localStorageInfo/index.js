@@ -12,6 +12,7 @@ const STORAGE_KEY = 'MetaDataEditor';
 const state = {
   localStorageLimit: null,
   currentStoreLength: null,
+  lastEdit: Date.now(),
   testKey: 'testStorageCapacity',
   p: ['localStorageLimit', 'currentStoreLength'],
 };

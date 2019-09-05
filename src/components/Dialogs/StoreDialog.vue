@@ -5,11 +5,11 @@
           Session Recovery
         </v-card-title>
         <v-card-text>
-          Hey! you have an old session. It is from {{date}} (DD/MM/YY hh:mm:ss). Do you want to restore it?
+          Hey! you have an old session. It is from {{date}} (DD/MM/YY hh:mm:ss). Do you want to keep it?
         </v-card-text>
         <v-card-actions>
         <v-btn @click="restore" large color="primary">
-          Recover
+          Keep
         </v-btn>
         <v-btn @click="discard" large color="secondary">
           Discard
@@ -71,6 +71,7 @@ export default {
       this.dialogShow = false;
       this.deleteOldSessions();
       this.initAllSchemas();
+      this.$router.go(this.$router.currentRoute);
     },
     /*
     used to initialize schemas so they are ready to be worked with
@@ -99,34 +100,14 @@ export default {
       }, 5000);
     },
     restore(reload = true) {
-      // this.constructJOWL(this.latestSession);
-      this.constructJSONschema(this.latestSession);
-      this.initAllSchemas();
-      this.ConstructN3(this.latestSession);
-      this.constructApp(this.latestSession);
-      this.constructLocalStorageInfo(this.latestSession);
-      this.constructConfig(this.latestSession);
-      this.constructBatchCreate(this.latestSession);
-      this.constructDialogs(this.latestSession);
-      if (this.$store.state.dialogs.networkPrompt && process.env.NODE_ENV !== 'development') {
-        this.checkConnections();
-        this.checkForInternet();
-      }
-
-      this.discard();
-      if (reload) {
-        this.$router.go(this.$router.currentRoute);
-      }
+      this.dialogShow = false;
     },
   },
   created() {
-    this.latestSession = this.getLatestSession();
-    if (this.latestSession) {
+    if (this.$store.state.localStorageInfo.lastEdit) {
       // this.$log('latestSession', this.latestSession);
-      this.date = this.dateToString(new Date(this.latestSession.date));
-      if (Date.now() - this.latestSession.date < 300000) {
-        this.restore(false);
-      } else {
+      this.date = this.dateToString(new Date(this.$store.state.localStorageInfo.lastEdit));
+      if (Date.now() - this.$store.state.localStorageInfo.lastEdit > 300000) {
         this.dialogShow = true;
       }
     } else {
