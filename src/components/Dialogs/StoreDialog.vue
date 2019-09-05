@@ -99,7 +99,7 @@ export default {
         if (this.$store.state.dialogs.networkPrompt) this.checkConnections();
       }, 5000);
     },
-    restore(reload = true) {
+    restore() {
       this.dialogShow = false;
     },
   },
