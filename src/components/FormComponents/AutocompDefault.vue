@@ -2,8 +2,22 @@
 <div>
   <v-layout row wrap>
     <v-flex xs10>
-      <v-autocomplete :loading="loading" :items="items" :rules="[() => select.length > 0 || 'You must choose at least one']" :search-input.sync="search" v-model="select" :label="`${name} (type to search)`" :hint="hint" multiple cache-items chips
-        required item-text="title" item-value="uri" @input="$emit('input', select);">
+      <v-autocomplete
+        :loading="loading"
+        :items="items"
+        :rules="[() => select.length > 0 || 'You must choose at least one']"
+        :search-input.sync="search"
+        v-model="select"
+        :label="`${name} (type to search)`"
+        :hint="hint"
+        persistent-hint
+        multiple
+        cache-items
+        chips
+        required
+        item-text="title"
+        item-value="uri"
+        @input="$emit('input', select);">
         <template slot="selection" slot-scope="data">
           <v-chip :selected="data.selected" :key="JSON.stringify(data.item)" close class="chip--select-multi" @input="data.parent.selectItem(data.item)">
             <v-avatar>

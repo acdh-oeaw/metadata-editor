@@ -86,6 +86,12 @@ export default {
           const props = Object.keys(data.properties);
           // this.$log('props', props);
           for (let i = 0; i < props.length; i += 1) {
+            // arrays are not supported by mde rn, but may be soon
+            /*
+            if (data.properties[props[i]].type === 'array') {
+              data.properties[props[i]].items.type = 'string';
+            }
+            */
             data.properties[props[i]].type = 'string';
           }
           return Promise.resolve(data);
