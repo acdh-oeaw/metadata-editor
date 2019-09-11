@@ -323,10 +323,10 @@ export default {
 
       // this.$log(keys, schema);
       for (let i = 0; i < keys.length; i += 1) {
+        // this.$log('props', m.properties[keys[i]].items.range);
         if (!m.properties[keys[i]].attrs) m.properties[keys[i]].attrs = {};
-        if (m.properties[keys[i]].range) {
-          this.$log(m.properties[keys[i]]);
-          let r = m.properties[keys[i]].range;
+        if (m.properties[keys[i]].items) {
+          let r = m.properties[keys[i]].items.range;
           if (type === 'only name') {
             r = r.substring(r.lastIndexOf('#') + 1);
             m.properties[keys[i]].attrs.type = r;
@@ -402,6 +402,29 @@ export default {
           this.getSchema(unsaved[keys[i]].schema),
         );
       }
+    },
+    deleteOldSessions() {
+      let localStorage;
+      try {
+        localStorage = window.localStorage;
+      } catch (e) {
+        // Access denied :-(
+        return e;
+      }
+      try {
+        localStorage.setItem('MetaDataEditor', '');
+      } catch (e) {
+        return null;
+      }
+      return null;
+    },
+    /*
+    deletes * from the local storage
+    and reroutes to the current page in order do clear the vuex Storage.
+    */
+    clearCache() {
+      this.deleteOldSessions();
+      this.$router.go(this.$router.currentRoute);
     },
     /**
     returns emtpy string if argument is missing

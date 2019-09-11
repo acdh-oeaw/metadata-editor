@@ -18,7 +18,7 @@
           slot="activator"
           v-model="selectedValue"
           :label="label"
-          :hint="name"
+          :hint="hint"
           prepend-icon="event"
           readonly
           persistent-hint
@@ -51,6 +51,7 @@ export default {
     'name',
     'value',
     'label',
+    'hint',
   ],
   data() {
     return {

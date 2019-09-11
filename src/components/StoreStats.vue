@@ -110,6 +110,9 @@ export default {
       'safeLimitTest',
       'testLimit',
     ]),
+    ...mapMutations('localStorageInfo', [
+      'getCurrentStoreLength',
+    ]),
     ...mapActions('n3', [
       'RemoveSubject',
       'ObjectToStore',
@@ -130,6 +133,9 @@ export default {
       'getUnsaved',
       'getSchema',
     ]),
+  },
+  created() {
+    this.getCurrentStoreLength();
   },
 };
 </script>

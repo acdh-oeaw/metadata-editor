@@ -212,12 +212,14 @@ export default {
       if (this.$store.state.JSONschema.schemas && this.$store.state.JSONschema.schemas[this.type]) {
         this.$info('Metadata found in store! Type:', this.type);
         this.importSchema(this.$store.state.JSONschema.schemas[this.type]);
+        this.model = this.$store.state.JSONschema.entries[this.uniqueName].model;
         this.$debug('schema test, in store', this.schema);
       } else {
         this.$info('Metadata found not in store');
         this.getMetadataByType(this.type).then((res) => {
           this.$info('Fetching Metadata');
           this.importSchema(res);
+          this.model = this.$store.state.JSONschema.entries[this.uniqueName].model;
           this.$debug('schema test, not in store', this.schema);
         });
       }
@@ -233,7 +235,7 @@ export default {
       return true;
     },
   },
-  created() {
+  mounted() {
     this.$debug('FormFromSchemaEDIT', 'created');
     this.model = this.$store.state.JSONschema.entries[this.uniqueName].model;
     this.type = this.$store.state.JSONschema.entries[this.uniqueName].schema;
