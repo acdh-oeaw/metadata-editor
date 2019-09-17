@@ -37,6 +37,7 @@ const vuexLocal = new VuexPersistence({
       entries: state.JSONschema.entries,
       schemas: state.JSONschema.schemas,
       unsaved: state.JSONschema.unsaved,
+      mappedNames: state.JSONschema.mappedNames,
     },
     app: {
       drawer: state.app.drawer,

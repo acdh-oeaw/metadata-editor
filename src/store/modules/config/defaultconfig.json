@@ -44,7 +44,7 @@
         "HEADERS": {}
     },
     "VIAF": {
-        "COMMENT": "A reliable API to get unique identifiers",
+        "COMMENT": "Connection to a reliable API to get name authority information (VIAF)",
         "BASEURL": "https://www.viaf.org/viaf/",
         "ENDPOINTS": {
             "BASE": "",
@@ -62,7 +62,7 @@
         "ENDPOINTS": {
             "ARCHE_CATEGORY": "arche_category/search/",
             "ARCHE_LIFECYCLE_STATUS": "arche_lifecycle_status/search/",
-            "ARCHE_ACCESS_RESTRICTIONS": "arche_access_restrictions/search/"      
+            "ARCHE_ACCESS_RESTRICTIONS": "arche_access_restrictions/search/"
         },
         "TIMEOUT": 5000,
         "PARAMS": {},

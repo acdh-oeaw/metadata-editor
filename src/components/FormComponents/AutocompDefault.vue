@@ -94,10 +94,13 @@ export default {
       'setDialog',
       'setDialogPromise',
     ]),
+    ...mapMutations('JSONschema', [
+      'saveNames',
+    ]),
     querySelections(val) {
       this.loading = true;
       // results from api
-      this.getArcheByID(this.type + '/' + val, 'AUTOCOMPLETE')
+      this.getArcheByID(`${this.type}/${val}`, 'AUTOCOMPLETE')
         .then((res) => {
           this.$debug('res win', res);
           let results = [];
@@ -142,6 +145,7 @@ export default {
           });
         }
       }
+      this.saveNames(this.items);
     },
     openAddNewSujectDialog() {
       this.$debug('openAddNewSujectDialog(item)');
@@ -156,6 +160,7 @@ export default {
   },
   watch: {
     select(from, to) {
+      this.$log('select to', this.select);
       if (to.length > this.properties.maxItems && this.properties.maxItems !== 0) {
         this.select.shift();
         // couldnt decide wheter to use shift or pop for this one
@@ -200,14 +205,14 @@ export default {
         if (Array.isArray(this.value)) {
           for (let i = 0; i < this.value.length; i += 1) {
             this.items.push({
-              title: this.value[i],
+              title: this.getNameByURI(this.value[i]),
               uri: this.value[i],
               type: '',
             });
           }
         } else {
           this.items.push({
-            title: this.value,
+            title: this.getNameByURI(this.value),
             uri: this.value,
             type: '',
           });
@@ -221,7 +226,7 @@ export default {
       // this.$log('selection', this.select, this.value);
       for (let i = 0; i < this.value.length; i += 1) {
         this.items.push({
-          title: this.value[i],
+          title: this.getNameByURI(this.value[i]),
           uri: this.value[i],
           type: '',
         });
@@ -234,6 +239,9 @@ export default {
       'getQuads',
       'getType',
       'getArcheTypeString',
+    ]),
+    ...mapGetters('JSONschema', [
+      'getNameByURI',
     ]),
     newItem() {
       return this.$store.state.dialogs.addnewsubjectdialog;

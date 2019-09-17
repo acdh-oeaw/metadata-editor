@@ -16,6 +16,7 @@ const state = {
   unsaveChanges: false, /* this is used like a switch to tedect,
   if unsaved was  changed, since sadly watchers on objects fail. */
   useDefaultTitleImage: false,
+  mappedNames: {},
   p: ['entries', 'schemas', 'unsaved'],
 };
 
@@ -28,16 +29,11 @@ const getters = {
   getUnsavedChanges: s => s.unsaveChanges,
   getUnsaved: s => s.unsaved,
   getSchema: s => schema => s.schemas[schema],
-
+  getNameByURI: s => uri => s.mappedNames[uri],
 };
 
 const actions = {
-  getUnsaved() {
-    return state.unsaved;
-  },
-  getSchema(schema) {
-    return state.schemas[schema];
-  },
+
 };
 
 const mutations = {
@@ -113,6 +109,17 @@ const mutations = {
     s.entries[name].model = m;
     s.entries[name].schema = type;
     s.entries[name].subject = subject;
+  },
+  // saves name of object for reloads
+  saveName(s, { uri, name }) {
+    this._vm.$log('saveName', uri, name);
+    s.mappedNames[uri] = name;
+  },
+  saveNames(s, obj) {
+    this._vm.$log('saveName', obj);
+    for (let i = 0; i < obj.length; i += 1) {
+      s.mappedNames[obj[i].uri] = obj[i].title;
+    }
   },
 };
 

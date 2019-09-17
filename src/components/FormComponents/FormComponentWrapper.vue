@@ -132,10 +132,8 @@ export default {
     },
   },
   created() {
-    this.$log('type is:', this.type);
-
     let c = this.componentNameMap[this.name];
-    this.$log('type', this.type, this.name);
+    this.$log('type', this.type, this.name, this.value);
     if (!c) {
       // const typeL = this.type.toLowerCase();
       c = this.componentTypeMap[this.type];
