@@ -115,10 +115,10 @@ const mutations = {
     this._vm.$log('saveName', uri, name);
     s.mappedNames[uri] = name;
   },
-  saveNames(s, obj) {
-    this._vm.$log('saveName', obj);
-    for (let i = 0; i < obj.length; i += 1) {
-      s.mappedNames[obj[i].uri] = obj[i].title;
+  saveNames(s, arr) {
+    this._vm.$log('saveName', arr);
+    for (let i = 0; i < arr.length; i += 1) {
+      s.mappedNames[arr[i].uri] = arr[i].title;
     }
   },
 };
