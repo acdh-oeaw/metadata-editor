@@ -21,6 +21,7 @@ const state = {
   processing: false,
   processingMessage: '',
   ttlString: '',
+  ttlLength: 0,
   p: ['ttlString'],
   stored: true,
   update: 0,
@@ -91,6 +92,7 @@ const getters = {
     `https://vocabs.acdh.oeaw.ac.at/schema#${type.toLowerCase()}`,
   )),
   getUpdate: s => s.update,
+  getTtlString: s => s.ttlString,
 };
 
 export default {
