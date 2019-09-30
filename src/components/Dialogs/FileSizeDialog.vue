@@ -1,6 +1,6 @@
 <template lang="html">
   <!-- store deletion -->
-  <v-dialog v-model="$store.state.dialogs[name].status" max-width="500px">
+  <v-dialog v-model="$store.state.dialogs[name].status" max-width="700px" persistent>
     <v-card>
       <v-card-title>
         Hey there!
@@ -11,7 +11,7 @@
         </p>
         <p>
           Your file's size: {{ result.length }}
-        </p> 
+        </p>
         <p>
           Calculated Localstorage Space left: {{ ($store.state.localStorageInfo.localStorageLimit || 5200000) - ($store.state.localStorageInfo.currentStoreLength || 0) }}
         </p>
