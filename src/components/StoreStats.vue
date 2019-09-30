@@ -37,10 +37,12 @@
       <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
         {{ (""+($store.state.localStorageInfo.currentStoreLength *100/ $store.state.localStorageInfo.localStorageLimit)).substring(0,4) }}% Capacity used
       </div>
+      <!--
       <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
       Space for ~{{ Math.floor(($store.state.localStorageInfo.localStorageLimit - $store.state.localStorageInfo.currentStoreLength)
       *(getCount.quads/$store.state.localStorageInfo.currentStoreLength) ) }} Quads left.
       </div>
+      -->
       <v-alert color="success" show v-if="$store.state.n3.stored">All Stored</v-alert>
       <v-alert color="error" show v-if="!$store.state.n3.stored">Quota Exceeded</v-alert>
       <div class="bd-toc-item">
