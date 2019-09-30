@@ -1,5 +1,5 @@
 <template lang="html">
-    <v-dialog v-model="dialogShow" id="askForStore" max-width="500px">
+    <v-dialog v-model="dialogShow" id="askForStore" max-width="500px" persistent>
       <v-card>
         <v-card-title>
           Session Recovery
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions, mapMutations, mapGetters } from 'vuex';
 import HELPERS from '../../helpers';
 
 export default {
@@ -33,6 +33,9 @@ export default {
   },
   mixins: [HELPERS],
   computed: {
+    ...mapGetters('n3', [
+      'getTtlString',
+    ]),
     tabs() {
       return this.$store.state.JSONschema.tabs;
     },
@@ -53,6 +56,7 @@ export default {
     ]),
     ...mapActions('n3', [
       'ConstructN3',
+      'StringToStore',
     ]),
     ...mapMutations('localStorageInfo', [
       'constructLocalStorageInfo',
@@ -104,10 +108,11 @@ export default {
     },
   },
   created() {
+    if (this.getTtlString) this.StringToStore(this.getTtlString);
     if (this.$store.state.localStorageInfo.lastEdit) {
       // this.$log('latestSession', this.latestSession);
       this.date = this.dateToString(new Date(this.$store.state.localStorageInfo.lastEdit));
-      if (Date.now() - this.$store.state.localStorageInfo.lastEdit > 300000) {
+      if (Date.now() - this.$store.state.localStorageInfo.lastEdit > 3000000) {
         this.dialogShow = true;
       }
     } else {

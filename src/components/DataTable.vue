@@ -46,11 +46,6 @@ export default {
       'fetchPropertiesByURI',
     ]),
   },
-  computed: {
-    ...mapGetters('jowl', [
-      'getQuery',
-    ]),
-  },
   watch: {
     uri: function getProps(newClass) {
       this.$info('DataTable', 'getProps(newClass)', newClass);
