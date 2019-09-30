@@ -13,6 +13,7 @@
       <div class="bd-toc-item">
         {{ $store.state.localStorageInfo.currentStoreLength }} Current Store Length
       </div>
+      <!--
       <div class="bd-toc-item">
         {{ JSON.stringify($store.state).length }} Current Vuex Store Length
       </div>
@@ -22,6 +23,7 @@
       <div class="bd-toc-item">
         {{ }} ttlString length in local Store
       </div>
+      -->
       <div class="bd-toc-item">
         {{ getQuadsByType('Resource').length }} Resources
       </div>
