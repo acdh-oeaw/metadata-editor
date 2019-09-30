@@ -31,7 +31,7 @@ const vuexLocal = new VuexPersistence({
   reducer: (state) => ({
     n3: {
       ttlString: state.n3.ttlString,
-      store: state.n3.store,
+      // store: state.n3.store, // this was not a good idea
     },
     JSONschema: {
       entries: state.JSONschema.entries,

@@ -38,7 +38,7 @@ const mutations = {
 
     if (localStorage) {
       s.currentStoreLength = JSON.stringify(localStorage.getItem(STORAGE_KEY)).length;
-      s.currentTtlLength = JSON.stringify(localStorage.getItem(STORAGE_KEY).n3.ttlString).length;
+      if(localStorage.getItem(STORAGE_KEY).n3) s.currentTtlLength = JSON.stringify(localStorage.getItem(STORAGE_KEY).n3.ttlString).length;
       this._vm.$info('currentStoreLength', s.currentStoreLength);
       this.status = true;
     }
