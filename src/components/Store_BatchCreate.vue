@@ -119,14 +119,14 @@
         @click="collectionsToStore(selected)"
         color="primary"
       >
-        Submit {{ selected.length }} Collection(s) with {{ selectedItems.length }} Resource(s)
+        Submit {{ selected.length }} Collection{{ selected.length == 1 ? '' : 's' }} with {{ selectedItems.length }} Resource{{ selectedItems.length == 1 ? '' : 's' }}
       </v-btn>
       <v-btn
         :disabled="selectedItems.length === 0"
         @click="resourcesToStore(selectedItems)"
         color="primary"
       >
-        Submit {{ selectedItems.length }} Resource(s)
+        Submit {{ selectedItems.length }} Resource{{ selectedItems.length == 1 ? '' : 's' }}
       </v-btn>
 
       <v-btn @click="logItems">log</v-btn>
@@ -215,6 +215,9 @@ export default {
     ...mapMutations('batchCreate', [
       'openDialog',
     ]),
+    ...mapMutations('JSONschema', [
+      'setSchema',
+    ]),
     onFileChange(e) {
       this.$info('Load', 'onFileChange(e)', e);
       const files = e.target.files || e.dataTransfer.files;
@@ -243,7 +246,6 @@ export default {
         }
         // name and model
         this.initModel();
-        this.getCollectionTitles();
         this.setDirectories(this.directories);
         this.$log('items', this.items);
       };
@@ -279,6 +281,7 @@ export default {
         const collection = JSON.parse(JSON.stringify(colls[i]));
         collection.hasIdentifier = collection.fullname;
         delete collection.fullName;
+        this.$log('collection', this.$store.state.JSONschema.schemas.collection);
         this.ObjectToStore({
           schema: this.$store.state.JSONschema.schemas.collection,
           obj: collection,
@@ -362,14 +365,6 @@ export default {
       // this.directories = [];
       this.model = [];
     },
-    fetchSchemas(schemas) {
-      for (let i = 0; i < schemas.length; i += 1) {
-        if (!(
-            this.$store.state.JSONschema.schemas &&
-            this.$store.state.JSONschema.schemas[schemas[i]]
-          )) this.getMetadataByType(schemas[i]);
-      }
-    },
     getResources() {
       this.resourceItems = this.getObjectsBySubjects(this.getQuadsByType('Resource').map(a => a.subject.id));
     },
@@ -421,7 +416,6 @@ export default {
       },
     },
     objectsInStore() {
-      this.$info('getCollectionTitles()');
       const collQuads = this.getAllCollections();
       const arr = [];
       for (let i = 0; i < collQuads.length; i += 1) {

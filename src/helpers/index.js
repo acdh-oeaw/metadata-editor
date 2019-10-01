@@ -98,6 +98,18 @@ export default {
         })
         .catch(res => this.$log(res));
     },
+    fetchSchemas(schemas = ['collection', 'resource', 'project', 'organisation', 'place', 'publication', 'person']) {
+      this.$log('Fetching schemas');
+      for (let i = 0; i < schemas.length; i += 1) {
+        if (!this.$store.state.JSONschema.schemas ||
+          !this.$store.state.JSONschema.schemas[schemas[i]]
+        ) {
+          this.getMetadataByType(schemas[i]).then((res) => {
+            this.setSchema({ name: schemas[i], schema: res });
+          });
+        }
+      }
+    },
     /* fetches data from the specified viaf endpoint in the config above and returnes it.
     */
     getViafByID(id) {

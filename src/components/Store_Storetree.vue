@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 import item from './Store_Storetreeitem';
 
 import HELPERS from '../helpers';
@@ -143,6 +143,9 @@ export default {
     ...mapActions('n3', [
       'AddFilteredQuad',
       'AddQuad',
+    ]),
+    ...mapMutations('JSONschema', [
+      'setSchema',
     ]),
     setCollections() {
       this.collectionNames = this.getAllCollections().map(v => v.subject.value);
@@ -212,6 +215,7 @@ export default {
     },
   },
   mounted() {
+    this.fetchSchemas();
     this.getRoot();
   },
 };

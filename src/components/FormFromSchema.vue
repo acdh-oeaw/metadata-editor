@@ -199,8 +199,7 @@ export default {
     */
     importSchema(schema) {
       this.$info('FormFromSchema, importSchema(schema)', schema);
-      this.schema = this.copyRangeToType(schema, 'only name');
-      this.schema = this.removeBlacklisted(this.schema, this.blacklistRegex);
+      this.schema = this.removeBlacklisted(this.copyRangeToType(schema, 'only name'), this.blacklistRegex);
 
       if (!this.$store.state.JSONschema.schemas[this.type]) {
         this.setSchema({ name: this.type, schema: this.schema });
