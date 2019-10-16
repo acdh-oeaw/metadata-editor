@@ -5,7 +5,7 @@
         Load from File
         <v-icon>insert_drive_file</v-icon>
       </v-tab>
-      <v-tab key="storeload">
+      <v-tab v-if="false" key="storeload">
         Load via SPARQL
         <v-icon>share</v-icon>
       </v-tab>
@@ -22,7 +22,7 @@
             <loadfile></loadfile>
         </v-flex>
       </v-tab-item>
-      <v-tab-item key="storeload">
+      <v-tab-item v-if="false" key="storeload">
         <v-flex xs12 class="mt-2">
             [SPARQL query / loader goes here]
         </v-flex>

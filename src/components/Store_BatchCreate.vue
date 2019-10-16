@@ -4,7 +4,12 @@
     >
     <v-flex xs12>
       <v-layout row wrap>
-        <v-flex xs12>
+        <v-flex xs6>
+          <p>
+            Upload a JSON file containing collections and resources, choose which ones you want to add to your store and optionally pick a specific collection you want your resources to be in. The default collection is the one given in the file.
+          </p>
+        </v-flex>
+        <v-flex text-lg-right xs6>
           <input type="file" @change="onFileChange">
         </v-flex>
       </v-layout>
@@ -382,6 +387,7 @@ export default {
     ]),
     resourceItems: {
       get() {
+        this.loading = true;
         let arr = [];
         if (this.selected.length !== 0) {
           for (let i = 0; i < this.selected.length; i += 1) {
@@ -397,7 +403,6 @@ export default {
           }
         }
         if (this.getSwitch) {
-          this.loading = true;
           const subjects = this.getQuadsByType('Resource').map(a => a.subject.id);
           this.$log('subjects', subjects);
           const res = this.getObjectsBySubjects(subjects);
@@ -407,19 +412,19 @@ export default {
           }
           this.$log('resources in store', res);
           arr.push(...res);
-          this.loading = false;
         }
         // Remove duplicates by identifier
         arr = arr.filter((quad, index, self) =>
           index === self.findIndex(a => a.hasIdentifier === quad.hasIdentifier),
         );
+        this.loading = false;
         return arr;
       },
     },
     objectsInStore() {
       this.$log(this.getSwitch);
       const collQuads = this.getAllCollections();
-      this.$log('Collection Quads', collQuads);
+      // this.$log('Collection Quads', collQuads);
       const arr = [];
       for (let i = 0; i < collQuads.length; i += 1) {
         arr.push({
