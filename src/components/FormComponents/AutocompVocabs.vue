@@ -92,8 +92,5 @@ export default {
       });
     },
   },
-  created() {
-
-  },
 };
 </script>

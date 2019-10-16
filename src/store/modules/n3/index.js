@@ -61,7 +61,7 @@ const getters = {
     return null;
   },
   getObjectsBySubjects: s => (subjects) => {
-    this._vm.$log('getObjectsBySubjects', subjects);
+    // console.log('getObjectsBySubjects', subjects);
     const arr = [];
     for (let i = 0; i < subjects.length; i += 1) {
       const quads = s.store.getQuads(subjects[i]);

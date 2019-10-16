@@ -99,7 +99,6 @@ export default {
       // for Mapping matching names to components.
       componentNameMap: {
         hasLifeCycleStatus: { name: 'AutocompVocabs', type: 'ARCHE_LIFECYCLE_STATUS' },
-        ArcheCategory: { name: 'AutocompVocabs', type: 'ARCHE_CATEGORY' },
         hasCategory: { name: 'AutocompVocabs', type: 'ARCHE_CATEGORY' },
         hasAccessRestriction: { name: 'AutocompVocabs', type: 'ARCHE_ACCESS_RESTRICTIONS' },
         hasDescription: 'v-textarea',

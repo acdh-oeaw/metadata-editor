@@ -398,9 +398,10 @@ export default {
         }
         if (this.getSwitch) {
           this.loading = true;
-          const subjects = this.getQuadsByType('resource').map(a => a.subject.id);
+          const subjects = this.getQuadsByType('Resource').map(a => a.subject.id);
           this.$log('subjects', subjects);
           const res = this.getObjectsBySubjects(subjects);
+          this.$log('res', res);
           for (let i = 0; i < res.length; i += 1) {
             res[i].collectionName = this.getLastDir(res[i].isPartOf);
           }
@@ -416,7 +417,9 @@ export default {
       },
     },
     objectsInStore() {
+      this.$log(this.getSwitch);
       const collQuads = this.getAllCollections();
+      this.$log('Collection Quads', collQuads);
       const arr = [];
       for (let i = 0; i < collQuads.length; i += 1) {
         arr.push({
