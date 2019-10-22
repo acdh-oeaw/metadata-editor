@@ -227,6 +227,7 @@ export default {
     */
     initSchema() {
       this.$info('FormFromSchema', 'initSchema');
+      
       if (!this.type) { return; }
       if (this.getSchema() && this.getSchema(this.type)) {
         this.$info('Metadata found in store! Type:', this.type);
