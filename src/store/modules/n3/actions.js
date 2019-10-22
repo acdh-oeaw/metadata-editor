@@ -170,7 +170,11 @@ const actions = {
           genId = `pub-${obj.hasAuthor ? obj.hasAuthor[0].toLowerCase() : ''}${obj.hasAuthor ? obj.hasAuthor[1].toLowerCase() : ''}${obj.hasAvailableDate ? obj.hasAvailableDate[0].toLowerCase() : ''}`;
           break;
         default:
-          genId = slug(obj.hasTitle[0] || '');
+          if (obj.hasTitle) {
+            if (Array.isArray(obj.hasTitle)) genId = slug(obj.hasTitle[0] || '');
+            else genId = slug(obj.hasTitle || '');
+          }
+          break;
       }
       if (genId && genId !== 'pub-' && genId !== 'place-') {
         dispatch('AddFilteredQuad', {

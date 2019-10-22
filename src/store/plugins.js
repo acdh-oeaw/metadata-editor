@@ -60,11 +60,14 @@ const vuexLocal = new VuexPersistence({
       apis: state.config.apis,
       getLocalStorageKey: state.config.getLocalStorageKey,
     },
+    // There's no need to keep the batchCreate data persistent
+    /*
     batchCreate: {
       directories: state.batchCreate.directories,
       model: state.batchCreate.model,
       selected: state.batchCreate.selected,
     },
+    */
   }),
 });
 

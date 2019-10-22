@@ -18,9 +18,7 @@
         <v-icon>format_indent_increase</v-icon>
       </v-tab>
       <v-tab-item key="fileload">
-        <v-flex xs12 class="mt-2">
-            <loadfile></loadfile>
-        </v-flex>
+        <loadfile></loadfile>
       </v-tab-item>
       <v-tab-item v-if="false" key="storeload">
         <v-flex xs12 class="mt-2">
@@ -28,19 +26,12 @@
         </v-flex>
       </v-tab-item>
       <v-tab-item key="batchcreate">
-        <v-flex xs12 class="mt-2">
-            <batchcreate></batchcreate>
-        </v-flex>
+        <batchcreate></batchcreate>
       </v-tab-item>
       <v-tab-item key="viewtree">
-        <v-flex xs12 class="mt-2">
-          <div>
-            <select class="" name="">
-
-            </select>
-            <storetree></storetree>
-          </div>
-        </v-flex>
+        <fundamentcard caption="View items in store">
+          <storetree></storetree>
+        </fundamentcard>
       </v-tab-item>
     </v-tabs>
   </v-container>
@@ -50,6 +41,7 @@
 import loadfile from './Store_LoadFile';
 import storetree from './Store_Storetree';
 import batchcreate from './Store_BatchCreate';
+import fundamentcard from './Fundament/FundamentCard';
 
 import HELPERS from '../helpers';
 
@@ -61,6 +53,7 @@ export default {
     loadfile,
     storetree,
     batchcreate,
+    fundamentcard,
   },
   data() {
     return {
