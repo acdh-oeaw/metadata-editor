@@ -57,7 +57,7 @@
 <script>
 import debounce from 'debounce';
 import FormSchema from '@formschema/native';
-import { mapMutations, mapActions } from 'vuex';
+import { mapMutations, mapActions, mapGetters } from 'vuex';
 import FormComponentWrapper from './FormComponents/FormComponentWrapper';
 import HELPERS from '../helpers';
 
@@ -97,6 +97,10 @@ export default {
     successSnackbar: false,
   }),
   computed: {
+    ...mapGetters('JSONschema', [
+      'getSchema',
+      'getEntry',
+    ]),
     unsavedChanges() {
       // this.$log('model', Object.values(this.model));
       const keys = Object.keys(this.model);
@@ -201,15 +205,15 @@ export default {
       this.$info('FormFromSchema, importSchema(schema)', schema);
       this.schema = this.removeBlacklisted(this.copyRangeToType(schema, 'only name'), this.blacklistRegex);
 
-      if (!this.$store.state.JSONschema.schemas[this.type]) {
+      if (!this.getSchema(this.type)) {
         this.setSchema({ name: this.type, schema: this.schema });
       }
       this.setComponents();
-      if (!this.$store.state.JSONschema.entries[this.uniqueName]) {
+      if (!this.getEntry(this.uniqueName)) {
         this.setEntry({ name: this.uniqueName, entry: {}, schema: this.type });
       }
 
-      this.model = this.$store.state.JSONschema.entries[this.uniqueName].model;
+      this.model = this.getEntry(this.uniqueName).model;
       this.initModel = this.model;
       // Mapping
       this.loading = false;
@@ -224,9 +228,9 @@ export default {
     initSchema() {
       this.$info('FormFromSchema', 'initSchema');
       if (!this.type) { return; }
-      if (this.$store.state.JSONschema.schemas && this.$store.state.JSONschema.schemas[this.type]) {
+      if (this.getSchema && this.getSchema(this.type)) {
         this.$info('Metadata found in store! Type:', this.type);
-        this.importSchema(this.$store.state.JSONschema.schemas[this.type]);
+        this.importSchema(this.getSchema(this.type));
         this.$debug('schema test, in store', this.schema);
       } else {
         this.$info('Metadata found not in store');

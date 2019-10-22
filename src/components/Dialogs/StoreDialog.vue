@@ -33,6 +33,12 @@ export default {
   },
   mixins: [HELPERS],
   computed: {
+    ...mapGetters('dialogs', [
+      'getDialog',
+    ]),
+    ...mapGetters('JSONschema', [
+      'getSchema',
+    ]),
     ...mapGetters('n3', [
       'getTtlString',
     ]),
@@ -83,7 +89,7 @@ export default {
     initSchema(type) {
       this.$info('init Schema:', type);
       if (!type) { return; }
-      if (this.$store.state.JSONschema.schemas && this.$store.state.JSONschema.schemas[type]) {
+      if (this.getSchema && this.getSchema(type)) {
         return; // already there
       }
 
@@ -100,7 +106,7 @@ export default {
     },
     checkForInternet() {
       setInterval(() => {
-        if (this.$store.state.dialogs.networkPrompt) this.checkConnections();
+        if (this.getDialog('networkPrompt')) this.checkConnections();
       }, 5000);
     },
     restore() {

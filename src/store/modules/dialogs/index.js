@@ -16,7 +16,7 @@ const state = {
 };
 
 const getters = {
-
+  getDialog: s => name => s[name],
 };
 
 const mutations = {

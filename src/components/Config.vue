@@ -107,7 +107,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 
 import HELPERS from '../helpers';
 
@@ -120,7 +120,7 @@ export default {
       fab: false,
       snackbarText: '',
       snackbar: false,
-      select: { name: 'config', json: JSON.stringify(this.$store.state.config.apis, null, 4) },
+      select: { name: 'config', json: JSON.stringify(this.getAPIS, null, 4) },
     };
   },
   methods: {
@@ -162,7 +162,7 @@ export default {
     },
     resetButton() {
       this.resetToDefault();
-      this.config = JSON.stringify(this.$store.state.config.apis, null, 4);
+      this.config = JSON.stringify(this.getApis, null, 4);
       this.oldConfig = this.config;
     },
     saveButton() {
@@ -193,19 +193,28 @@ export default {
     },
   },
   computed: {
+    ...mapGetters('config', [
+      'getAPIS',
+    ]),
+    ...mapGetters('dialogs', [
+      'getDialog',
+    ]),
+    ...mapGetters('JSONschema', [
+      'getSchema',
+    ]),
     items() {
       const arr = [
         {
           name: 'config',
-          json: JSON.stringify(this.$store.state.config.apis, null, 4),
+          json: JSON.stringify(this.getApis, null, 4),
         },
       ];
-      const schemas = Object.keys(this.$store.state.JSONschema.schemas);
+      const schemas = Object.keys(this.getSchema);
       for (let i = 0; i < schemas.length; i += 1) {
         arr.push({
           name: schemas[i],
           json: JSON.stringify(
-            this.$store.state.JSONschema.schemas[schemas[i]],
+            this.getSchema(schemas[i]),
             null,
             4,
           ),
@@ -215,7 +224,7 @@ export default {
     },
     networkPrompt: {
       get() {
-        return this.$store.state.dialogs.networkPrompt;
+        return this.getDialog('networkPrompt');
       },
       set(val) {
         this.toggleNetworkPrompt(val);
@@ -223,7 +232,7 @@ export default {
     },
     deletePrompt: {
       get() {
-        return this.$store.state.dialogs.deletePrompt;
+        return this.getDialog('deletePrompt');
       },
       set(val) {
         this.toggleDeletePrompt(val);
@@ -231,7 +240,7 @@ export default {
     },
   },
   mounted() {
-    this.config = JSON.stringify(this.$store.state.config.apis, null, 4);
+    this.config = JSON.stringify(this.getApis, null, 4);
     this.oldConfig = this.config;
     this.fab = true;
   },

@@ -1,9 +1,9 @@
 <template lang="html">
   <!-- store deletion -->
-  <v-dialog fullscreen transition="dialog-bottom-transition" v-model="$store.state.dialogs[name].status">
+  <v-dialog fullscreen transition="dialog-bottom-transition" v-model="getDialog(name).status">
     <v-card>
       <v-card-text color="primary">
-        <formfromschemaedit v-if="$store.state.dialogs[name].status" v-model="data" uniqueName="edit">
+        <formfromschemaedit v-if="getDialog(name).status" v-model="data" uniqueName="edit">
         </formfromschemaedit>
       </v-card-text>
     </v-card>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 
 import formfromschemaedit from '../FormFromSchema_edit';
 import HELPERS from '../../helpers';
@@ -41,11 +41,14 @@ export default {
     ]),
   },
   computed: {
+    ...mapGetters('dialogs', [
+      'getDialog',
+    ]),
     query() {
-      return this.$store.state.dialogs[this.name].query;
+      return this.getDialog(this.name).query;
     },
     status() {
-      return this.$store.state.dialogs[this.name].status;
+      return this.getDialog(this.name).status;
     },
   },
 };

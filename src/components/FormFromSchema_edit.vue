@@ -209,23 +209,27 @@ export default {
     initSchema() {
       this.$debug('FormFromSchemaEDIT', 'initSchema');
       if (!this.type) { return; }
-      if (this.$store.state.JSONschema.schemas && this.$store.state.JSONschema.schemas[this.type]) {
+      if (this.getSchema && this.getSchema(this.type)) {
         this.$info('Metadata found in store! Type:', this.type);
-        this.importSchema(this.$store.state.JSONschema.schemas[this.type]);
-        this.model = this.$store.state.JSONschema.entries[this.uniqueName].model;
+        this.importSchema(this.getSchema(this.type));
+        this.model = this.getEntry(this.uniqueName).model;
         this.$debug('schema test, in store', this.schema);
       } else {
         this.$info('Metadata found not in store');
         this.getMetadataByType(this.type).then((res) => {
           this.$info('Fetching Metadata');
           this.importSchema(res);
-          this.model = this.$store.state.JSONschema.entries[this.uniqueName].model;
+          this.model = this.getEntry(this.uniqueName).model;
           this.$debug('schema test, not in store', this.schema);
         });
       }
     },
   },
   computed: {
+    ...mapGetters('JSONschema', [
+      'getSchema',
+      'getEntry',
+    ]),
     ...mapGetters('n3', [
       'getQuads',
     ]),
@@ -237,10 +241,10 @@ export default {
   },
   mounted() {
     this.$debug('FormFromSchemaEDIT', 'created');
-    this.model = this.$store.state.JSONschema.entries[this.uniqueName].model;
-    this.type = this.$store.state.JSONschema.entries[this.uniqueName].schema;
-    this.schema = this.$store.state.JSONschema.schemas[this.type];
-    this.subject = this.$store.state.JSONschema.entries[this.uniqueName].subject;
+    this.model = this.getEntry(this.uniqueName).model;
+    this.type = this.getEntry(this.uniqueName).schema;
+    this.schema = this.getSchema(this.type);
+    this.subject = this.getEntry(this.uniqueName).subject;
     this.oldModel = JSON.parse(JSON.stringify(this.model));
     this.initSchema();
     this.setComponents();

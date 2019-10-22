@@ -286,9 +286,9 @@ export default {
         const collection = JSON.parse(JSON.stringify(colls[i]));
         collection.hasIdentifier = collection.fullname;
         delete collection.fullName;
-        this.$log('collection', this.$store.state.JSONschema.schemas.collection);
+        this.$log('collection', this.getSchema('collection'));
         this.ObjectToStore({
-          schema: this.$store.state.JSONschema.schemas.collection,
+          schema: this.getSchema('collection'),
           obj: collection,
         }, collection);
       }
@@ -313,7 +313,7 @@ export default {
           delete resource.collectionName;
           this.$log('removed id');
           this.ObjectToStore({
-            schema: this.$store.state.JSONschema.schemas.resource,
+            schema: this.getSchema('resource'),
             obj: resource,
           }, resource);
         } else {
@@ -329,7 +329,7 @@ export default {
               object: `"${resource.collectionName}"`,
             })[0].subject.id;
             this.ObjectToStore({
-              schema: this.$store.state.JSONschema.schemas.resource,
+              schema: this.getSchema('resource'),
               obj: { isPartOf: quad },
               id: resource.subject,
             });
@@ -375,6 +375,9 @@ export default {
     },
   },
   computed: {
+    ...mapGetters('JSONschema', [
+      'getSchema',
+    ]),
     ...mapGetters('n3', [
       'getQuads',
       'getQuadsByType',

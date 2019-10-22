@@ -1,6 +1,6 @@
 <template lang="html">
   <!-- store deletion -->
-  <v-dialog v-model="$store.state.dialogs[name].status" max-width="500px">
+  <v-dialog v-model="getDialog(name).status" max-width="500px">
     <v-card>
       <v-card-title>
         Clear Cache
@@ -49,9 +49,12 @@ export default {
     ...mapGetters('n3', [
       'getCount',
     ]),
+    ...mapGetters('dialogs', [
+      'getDialog',
+    ]),
   },
   created() {
-    this.$info('ClearCacheModal created', this.$store.state.dialogs.clearcachedialog);
+    this.$info('ClearCacheDialog created', this.getDialog(this.name));
   },
 };
 </script>

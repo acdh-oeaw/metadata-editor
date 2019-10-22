@@ -50,6 +50,8 @@ import HasTitleImageField from './HasTitleImageField';
 import AutocompVocabs from './AutocompVocabs';
 import BetterDatePicker from './BetterDatePicker';
 import AnyUriField from './AnyUriField';
+
+import { mapGetters } from 'vuex';
 // import HasTemporalCoverageIdentifierField from './HasTemporalCoverageIdentifierField';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
@@ -120,11 +122,14 @@ export default {
     };
   },
   computed: {
+    ...mapGetters('JSONschema', [
+      'getSchema',
+    ]),
     properties() {
-      const schemas = Object.keys(this.$store.state.JSONschema.schemas);
+      const schemas = Object.keys(this.getSchema);
       for (let i = 0; i < schemas.length; i += 1) {
-        if (this.$store.state.JSONschema.schemas[schemas[i]].properties[this.name]) {
-          return this.$store.state.JSONschema.schemas[schemas[i]].properties[this.name];
+        if (this.getSchema(schemas[i]).properties[this.name]) {
+          return this.getSchema(schemas[i]).properties[this.name];
         }
       }
       return '';

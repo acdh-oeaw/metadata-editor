@@ -25,10 +25,10 @@ const state = {
 /* eslint-disable no-underscore-dangle */
 
 const getters = {
-  getQuery: s => name => s.schemas[name],
   getUnsavedChanges: s => s.unsaveChanges,
   getUnsaved: s => s.unsaved,
-  getSchema: s => schema => s.schemas[schema],
+  getSchema: s => schema => schema ? s.schemas[schema] : s.schemas,
+  getEntry: s => name => s.entries[name],
   getNameByURI: s => uri => s.mappedNames[uri],
 };
 
