@@ -194,7 +194,7 @@ export default {
   },
   computed: {
     ...mapGetters('config', [
-      'getAPIS',
+      'getApis',
     ]),
     ...mapGetters('dialogs', [
       'getDialog',

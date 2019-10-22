@@ -204,9 +204,6 @@ export default {
     ]),
     ...mapGetters('n3', [
       'getArcheTitle',
-      'getQuads',
-      'getType',
-      'getArcheTypeString',
     ]),
     newItem() {
       return this.getDialog('addnewsubjectdialog');
