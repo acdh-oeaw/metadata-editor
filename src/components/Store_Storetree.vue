@@ -199,7 +199,14 @@ export default {
         && !hasPartCollsObject.includes(coll.object.value),
       );
 
-      this.$debug('collections', collections, 'partOfColls', 'partOfCollsSubjects', partOfCollsSubjects, 'collectionsWithoutPartOf', collectionsWithoutPartOf);
+      /*
+      this.$debug(
+        'collections', collections,
+        'partOfColls',
+        'partOfCollsSubjects', partOfCollsSubjects,
+        'collectionsWithoutPartOf', collectionsWithoutPartOf
+      );
+      */
       return collectionsWithoutPartOf.concat(projects);
     },
     getRoot() {

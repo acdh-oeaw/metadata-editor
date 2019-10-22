@@ -1,11 +1,11 @@
 <template lang="html">
-  <v-dialog v-model="$store.state.dialogs[name].status" max-width="900px">
+  <v-dialog v-model="getDialog(name).status" max-width="900px">
     <v-card>
       <v-card-title>
         An error occoured!
       </v-card-title>
       <v-card-text color="primary">
-        Apparently you're not connected to the arche network (You probably forgot to use a VPN). The following endpoint(s) could no be reached: {{ $store.state.dialogs.failedConnections.length  ? $store.state.dialogs.failedConnections.toString().replace(/"|\[|\]/g).replace(/,/g, ', ') :  closeDialog(name) }}
+        Apparently you're not connected to the arche network (You probably forgot to use a VPN). The following endpoint(s) could no be reached: {{ getDialog('failedConnections').length  ? getDialog('failedConnections').toString().replace(/"|\[|\]/g).replace(/,/g, ', ') :  closeDialog(name) }}
         <v-checkbox
           label="Don't tell me again"
           v-model="checkbox"
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 
 import HELPERS from '../../helpers';
 
@@ -53,8 +53,11 @@ export default {
     ]),
   },
   computed: {
+    ...mapGetters('dialogs', [
+      'getDialog',
+    ]),
     endpoints() {
-      return this.$store.state.dialogs[this.name].endpoints;
+      return this.getDialog(this.name).endpoints;
     },
   },
 };

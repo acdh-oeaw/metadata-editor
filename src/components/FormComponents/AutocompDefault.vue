@@ -234,6 +234,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('dialogs', [
+      'getDialog',
+    ]),
     ...mapGetters('n3', [
       'getArcheTitle',
       'getQuads',
@@ -244,7 +247,7 @@ export default {
       'getNameByURI',
     ]),
     newItem() {
-      return this.$store.state.dialogs.addnewsubjectdialog;
+      return this.getDialog('addnewsubjectdialog');
     },
   },
 };

@@ -1,6 +1,6 @@
 <template lang="html">
   <!-- store deletion -->
-  <v-dialog v-model="$store.state.dialogs[name].status" max-width="900px">
+  <v-dialog v-model="getDialog(name).status" max-width="900px">
     <v-card>
       <v-card-title>
         Delete Subject
@@ -22,7 +22,7 @@
         ></v-checkbox>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="RemoveSubject($store.state.dialogs[name].uri); closeDialog(name);" large color="error">
+        <v-btn @click="RemoveSubject(getDialog(name).uri); closeDialog(name);" large color="error">
           Delete
         </v-btn>
         <v-btn @click="closeDialog(name)" color="secondary" large>
@@ -48,8 +48,11 @@ export default {
     ...mapGetters('n3', [
       'getQuads',
     ]),
+    ...mapGetters('dialogs', [
+      'getDialog',
+    ]),
     uri() {
-      return this.$store.state.dialogs[this.name].uri;
+      return this.getDialog(this.name).uri;
     },
   },
   data() {

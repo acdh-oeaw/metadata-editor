@@ -199,6 +199,9 @@ export default {
     if (this.name === 'hasTitleImage') this.$log('hasTitleImage found');
   },
   computed: {
+    ...mapGetters('dialogs', [
+      'getDialog',
+    ]),
     ...mapGetters('n3', [
       'getArcheTitle',
       'getQuads',
@@ -206,7 +209,7 @@ export default {
       'getArcheTypeString',
     ]),
     newItem() {
-      return this.$store.state.dialogs.addnewsubjectdialog;
+      return this.getDialog('addnewsubjectdialog');
     },
   },
 };

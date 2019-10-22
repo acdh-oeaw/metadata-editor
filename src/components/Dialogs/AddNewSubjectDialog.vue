@@ -2,7 +2,7 @@
 
 <template lang="html">
   <!-- store deletion -->
-  <v-dialog  v-model="$store.state.dialogs[name].status" fullscreen>
+  <v-dialog  v-model="getDialog(name).status" fullscreen>
     <v-card>
       <v-card-title>
         Select From Store or Create New Subject
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapGetters } from 'vuex';
 
 import HELPERS from '../../helpers';
 import storetree from '../Store_Storetree';
@@ -41,8 +41,11 @@ export default {
     storetree,
   },
   computed: {
+    ...mapGetters('dialogs', [
+      'getDialog',
+    ]),
     item() {
-      return this.$store.state.dialogs[this.name].item;
+      return this.getDialog(this.name).item;
     },
   },
   data() {

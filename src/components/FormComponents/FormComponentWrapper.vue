@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import HELPERS from '../../helpers';
 import autocompdefault from './AutocompDefault';
 import HasIdentifierField from './HasIdentifierField';
@@ -120,11 +122,14 @@ export default {
     };
   },
   computed: {
+    ...mapGetters('JSONschema', [
+      'getSchema',
+    ]),
     properties() {
-      const schemas = Object.keys(this.$store.state.JSONschema.schemas);
+      const schemas = Object.keys(this.getSchema());
       for (let i = 0; i < schemas.length; i += 1) {
-        if (this.$store.state.JSONschema.schemas[schemas[i]].properties[this.name]) {
-          return this.$store.state.JSONschema.schemas[schemas[i]].properties[this.name];
+        if (this.getSchema(schemas[i]).properties[this.name]) {
+          return this.getSchema(schemas[i]).properties[this.name];
         }
       }
       return '';
