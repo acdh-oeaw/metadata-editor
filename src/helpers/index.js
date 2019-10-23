@@ -79,8 +79,36 @@ export default {
       this.$debug('Helpers', 'getMetadataByType(type)', type);
       return this.APIS.ARCHE.METADATA
         .get(`${type}/en`)
-        .then(response => Promise.resolve(response.data))
+        .then((response) => {
+          this.$log('metadata', response.data);
+          // workaround to fix that bug thats been bothering me for over a month now:
+          const data = response.data; // for linting purposes
+          const props = Object.keys(data.properties);
+          // this.$log('props', props);
+          for (let i = 0; i < props.length; i += 1) {
+            // arrays are not supported by mde rn, but may be soon
+            /*
+            if (data.properties[props[i]].type === 'array') {
+              data.properties[props[i]].items.type = 'string';
+            }
+            */
+            data.properties[props[i]].type = 'string';
+          }
+          return Promise.resolve(data);
+        })
         .catch(res => this.$log(res));
+    },
+    fetchSchemas(schemas = ['collection', 'resource', 'project', 'organisation', 'place', 'publication', 'person']) {
+      this.$log('Fetching schemas');
+      for (let i = 0; i < schemas.length; i += 1) {
+        if (!this.$store.state.JSONschema.schemas ||
+          !this.$store.state.JSONschema.schemas[schemas[i]]
+        ) {
+          this.getMetadataByType(schemas[i]).then((res) => {
+            this.setSchema({ name: schemas[i], schema: res });
+          });
+        }
+      }
     },
     /* fetches data from the specified viaf endpoint in the config above and returnes it.
     */
@@ -313,10 +341,10 @@ export default {
 
       // this.$log(keys, schema);
       for (let i = 0; i < keys.length; i += 1) {
+        // this.$log('props', m.properties[keys[i]].items.range);
         if (!m.properties[keys[i]].attrs) m.properties[keys[i]].attrs = {};
-        if (m.properties[keys[i]].range) {
-          this.$log(m.properties[keys[i]]);
-          let r = m.properties[keys[i]].range;
+        if (m.properties[keys[i]].items) {
+          let r = m.properties[keys[i]].items.range;
           if (type === 'only name') {
             r = r.substring(r.lastIndexOf('#') + 1);
             m.properties[keys[i]].attrs.type = r;
@@ -352,71 +380,6 @@ export default {
       return m;
     },
     // Store Functions
-    /*
-    gets the latest session out of the local storage.
-    // TODO: since we currently obly store one session, this function coud be much shorter.
-    */
-    getLatestSession() {
-      let localStorage;
-      try {
-        localStorage = window.localStorage;
-      } catch (e) {
-        // Access denied :-(
-        return e;
-      }
-      let latest = {
-        date: -1,
-      };
-      let sessions = {};
-      let sessionVals = {};
-      try {
-        sessions = Object.keys(JSON.parse(localStorage.MetaDataEditor));
-        sessionVals = Object.values(JSON.parse(localStorage.MetaDataEditor));
-      } catch (e) {
-        return null;
-      }
-      for (let i = 0; i < sessions.length; i += 1) {
-        this.$log(Date.now() - sessionVals[i].date);
-        // second contition is to catch the newly made session.
-        if (sessionVals[i].date > latest.date && Date.now() - sessionVals[i].date > 50) {
-          latest = sessionVals[i];
-        }
-      }
-      if (latest.date === -1) {
-        latest = null;
-      }
-      return latest;
-    },
-    /*
-    deletes the whole local Storage of the key 'MetaDataEditor'.
-    // TODO: the key is currently hardcoded. should be imported from some config.
-    */
-    deleteOldSessions() {
-      let localStorage;
-      try {
-        localStorage = window.localStorage;
-      } catch (e) {
-        // Access denied :-(
-        return e;
-      }
-      try {
-        localStorage.setItem('MetaDataEditor', '');
-      } catch (e) {
-        return null;
-      }
-      return null;
-    },
-    /*
-    deletes * from the local storage
-    and reroutes to the current page in order do clear the vuex Storage.
-    */
-    clearCache() {
-      this.deleteOldSessions();
-      this.$router.go(this.$router.currentRoute);
-    },
-    /*
-    returns a new Blob of the type text/ttl of the given string.
-    */
     /*
     returns a verbose date format in the form of: yy/mm/dd hh:mm:ss
     */
@@ -457,6 +420,29 @@ export default {
           this.getSchema(unsaved[keys[i]].schema),
         );
       }
+    },
+    deleteOldSessions() {
+      let localStorage;
+      try {
+        localStorage = window.localStorage;
+      } catch (e) {
+        // Access denied :-(
+        return e;
+      }
+      try {
+        localStorage.setItem('MetaDataEditor', '');
+      } catch (e) {
+        return null;
+      }
+      return null;
+    },
+    /*
+    deletes * from the local storage
+    and reroutes to the current page in order do clear the vuex Storage.
+    */
+    clearCache() {
+      this.deleteOldSessions();
+      this.$router.go(this.$router.currentRoute);
     },
     /**
     returns emtpy string if argument is missing

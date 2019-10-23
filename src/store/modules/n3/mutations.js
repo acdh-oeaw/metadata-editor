@@ -22,6 +22,7 @@ const mutations = {
   },
   updateTtlString(s, ttlString) {
     s.ttlString = ttlString;
+    s.ttlLength = s.ttlString.length;
   },
   resetWriter(s) {
     s.writer = s.module.Writer(null, { prefixes: s.prefixes });

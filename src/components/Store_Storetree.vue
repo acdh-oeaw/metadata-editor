@@ -16,10 +16,20 @@
         </v-autocomplete>
         <v-card v-if="collections">
           <v-flex xs12 v-for="(item, i) in collections" :key="i" >
-            <item @input="$emit('input', passThroughItem)"  v-model="passThroughItem" :uri="item.subject" :itemFull="item" :bg="i%2"></item>
+            <item @input="$emit('input', passThroughItem)"  v-model="passThroughItem" :uri="item.subject" :itemFull="item" :bg="!i%2"></item>
           </v-flex>
         </v-card>
       </v-expansion-panel-content>
+      <!--
+        <v-expansion-panel-content>
+          <div slot="header"><v-icon large color='teal lighten-3'>developer_board</v-icon> Resources</div>
+          <v-card>
+            <v-flex xs12 v-for="(item, i) in resources" :key="i" >
+              <item @input="$emit('input', passThroughItem)" v-model="passThroughItem" :uri="item.subject" :itemFull="item" :bg="i%2"></item>
+            </v-flex>
+          </v-card>
+        </v-expansion-panel-content>
+      -->
       <v-expansion-panel-content>
         <div slot="header"><v-icon large color='teal lighten-3'>person</v-icon> People</div>
         <v-card>
@@ -65,7 +75,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 import item from './Store_Storetreeitem';
 
 import HELPERS from '../helpers';
@@ -89,6 +99,7 @@ export default {
       places: [],
       organisations: [],
       publications: [],
+      resources: [],
       passThroughItem: {},
     };
   },
@@ -116,6 +127,7 @@ export default {
       this.places = {};
       this.publications = {};
       this.organisations = {};
+      this.resources = {};
       setTimeout(() => this.getRoot(), 100);
       // this.getRoot();
     },
@@ -131,6 +143,9 @@ export default {
     ...mapActions('n3', [
       'AddFilteredQuad',
       'AddQuad',
+    ]),
+    ...mapMutations('JSONschema', [
+      'setSchema',
     ]),
     setCollections() {
       this.collectionNames = this.getAllCollections().map(v => v.subject.value);
@@ -184,7 +199,14 @@ export default {
         && !hasPartCollsObject.includes(coll.object.value),
       );
 
-      this.$debug('collections', collections, 'partOfColls', 'partOfCollsSubjects', partOfCollsSubjects, 'collectionsWithoutPartOf', collectionsWithoutPartOf);
+      /*
+      this.$debug(
+        'collections', collections,
+        'partOfColls',
+        'partOfCollsSubjects', partOfCollsSubjects,
+        'collectionsWithoutPartOf', collectionsWithoutPartOf
+      );
+      */
       return collectionsWithoutPartOf.concat(projects);
     },
     getRoot() {
@@ -195,10 +217,12 @@ export default {
       this.places = this.getQuadsByType('Place');
       this.publications = this.getQuadsByType('Publication');
       this.organisations = this.getQuadsByType('Organisation');
+      this.resources = this.getQuadsByType('Resource');
       this.$forceUpdate();
     },
   },
   mounted() {
+    this.fetchSchemas();
     this.getRoot();
   },
 };

@@ -16,6 +16,7 @@ const state = {
   unsaveChanges: false, /* this is used like a switch to tedect,
   if unsaved was  changed, since sadly watchers on objects fail. */
   useDefaultTitleImage: false,
+  mappedNames: {},
   p: ['entries', 'schemas', 'unsaved'],
 };
 
@@ -24,20 +25,15 @@ const state = {
 /* eslint-disable no-underscore-dangle */
 
 const getters = {
-  getQuery: s => name => s.schemas[name],
   getUnsavedChanges: s => s.unsaveChanges,
   getUnsaved: s => s.unsaved,
-  getSchema: s => schema => s.schemas[schema],
-
+  getSchema: s => schema => (schema ? s.schemas[schema] : s.schemas),
+  getEntry: s => name => s.entries[name],
+  getNameByURI: s => uri => s.mappedNames[uri],
 };
 
 const actions = {
-  getUnsaved() {
-    return state.unsaved;
-  },
-  getSchema(schema) {
-    return state.schemas[schema];
-  },
+
 };
 
 const mutations = {
@@ -113,6 +109,17 @@ const mutations = {
     s.entries[name].model = m;
     s.entries[name].schema = type;
     s.entries[name].subject = subject;
+  },
+  // saves name of object for reloads
+  saveName(s, { uri, name }) {
+    this._vm.$log('saveName', uri, name);
+    s.mappedNames[uri] = name;
+  },
+  saveNames(s, arr) {
+    this._vm.$log('saveName', arr);
+    for (let i = 0; i < arr.length; i += 1) {
+      s.mappedNames[arr[i].uri] = arr[i].title;
+    }
   },
 };
 

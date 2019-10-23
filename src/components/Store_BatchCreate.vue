@@ -4,7 +4,12 @@
     >
     <v-flex xs12>
       <v-layout row wrap>
-        <v-flex xs12>
+        <v-flex xs6>
+          <p>
+            Upload a JSON file containing collections and resources, choose which ones you want to add to your store and optionally pick a specific collection you want your resources to be in. The default collection is the one given in the file.
+          </p>
+        </v-flex>
+        <v-flex text-lg-right xs6>
           <input type="file" @change="onFileChange">
         </v-flex>
       </v-layout>
@@ -61,10 +66,10 @@
     <v-divider></v-divider>
     <v-layout row wrap>
       <v-flex xs3>
-        <v-switch
+        <v-checkbox
           v-model="getSwitch"
           label="Add Resources from Store">
-        </v-switch>
+        </v-checkbox>
       </v-flex>
       <v-flex xs4 offset-xs5>
         <v-text-field
@@ -119,14 +124,14 @@
         @click="collectionsToStore(selected)"
         color="primary"
       >
-        Submit {{ selected.length }} Collection(s) with {{ selectedItems.length }} Resource(s)
+        Submit {{ selected.length }} Collection{{ selected.length == 1 ? '' : 's' }} with {{ selectedItems.length }} Resource{{ selectedItems.length == 1 ? '' : 's' }}
       </v-btn>
       <v-btn
         :disabled="selectedItems.length === 0"
         @click="resourcesToStore(selectedItems)"
         color="primary"
       >
-        Submit {{ selectedItems.length }} Resource(s)
+        Submit {{ selectedItems.length }} Resource{{ selectedItems.length == 1 ? '' : 's' }}
       </v-btn>
 
       <v-btn @click="logItems">log</v-btn>
@@ -215,6 +220,9 @@ export default {
     ...mapMutations('batchCreate', [
       'openDialog',
     ]),
+    ...mapMutations('JSONschema', [
+      'setSchema',
+    ]),
     onFileChange(e) {
       this.$info('Load', 'onFileChange(e)', e);
       const files = e.target.files || e.dataTransfer.files;
@@ -243,7 +251,6 @@ export default {
         }
         // name and model
         this.initModel();
-        this.getCollectionTitles();
         this.setDirectories(this.directories);
         this.$log('items', this.items);
       };
@@ -279,8 +286,9 @@ export default {
         const collection = JSON.parse(JSON.stringify(colls[i]));
         collection.hasIdentifier = collection.fullname;
         delete collection.fullName;
+        this.$log('collection', this.getSchema('collection'));
         this.ObjectToStore({
-          schema: this.$store.state.JSONschema.schemas.collection,
+          schema: this.getSchema('collection'),
           obj: collection,
         }, collection);
       }
@@ -305,7 +313,7 @@ export default {
           delete resource.collectionName;
           this.$log('removed id');
           this.ObjectToStore({
-            schema: this.$store.state.JSONschema.schemas.resource,
+            schema: this.getSchema('resource'),
             obj: resource,
           }, resource);
         } else {
@@ -321,7 +329,7 @@ export default {
               object: `"${resource.collectionName}"`,
             })[0].subject.id;
             this.ObjectToStore({
-              schema: this.$store.state.JSONschema.schemas.resource,
+              schema: this.getSchema('resource'),
               obj: { isPartOf: quad },
               id: resource.subject,
             });
@@ -362,19 +370,14 @@ export default {
       // this.directories = [];
       this.model = [];
     },
-    fetchSchemas(schemas) {
-      for (let i = 0; i < schemas.length; i += 1) {
-        if (!(
-            this.$store.state.JSONschema.schemas &&
-            this.$store.state.JSONschema.schemas[schemas[i]]
-          )) this.getMetadataByType(schemas[i]);
-      }
-    },
     getResources() {
       this.resourceItems = this.getObjectsBySubjects(this.getQuadsByType('Resource').map(a => a.subject.id));
     },
   },
   computed: {
+    ...mapGetters('JSONschema', [
+      'getSchema',
+    ]),
     ...mapGetters('n3', [
       'getQuads',
       'getQuadsByType',
@@ -387,6 +390,7 @@ export default {
     ]),
     resourceItems: {
       get() {
+        this.loading = true;
         let arr = [];
         if (this.selected.length !== 0) {
           for (let i = 0; i < this.selected.length; i += 1) {
@@ -402,27 +406,28 @@ export default {
           }
         }
         if (this.getSwitch) {
-          this.loading = true;
-          const subjects = this.getQuadsByType('resource').map(a => a.subject.id);
+          const subjects = this.getQuadsByType('Resource').map(a => a.subject.id);
           this.$log('subjects', subjects);
           const res = this.getObjectsBySubjects(subjects);
+          this.$log('res', res);
           for (let i = 0; i < res.length; i += 1) {
             res[i].collectionName = this.getLastDir(res[i].isPartOf);
           }
           this.$log('resources in store', res);
           arr.push(...res);
-          this.loading = false;
         }
         // Remove duplicates by identifier
         arr = arr.filter((quad, index, self) =>
           index === self.findIndex(a => a.hasIdentifier === quad.hasIdentifier),
         );
+        this.loading = false;
         return arr;
       },
     },
     objectsInStore() {
-      this.$info('getCollectionTitles()');
+      this.$log(this.getSwitch);
       const collQuads = this.getAllCollections();
+      // this.$log('Collection Quads', collQuads);
       const arr = [];
       for (let i = 0; i < collQuads.length; i += 1) {
         arr.push({

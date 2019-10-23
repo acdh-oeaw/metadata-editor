@@ -1,35 +1,11 @@
 /* eslint-disable arrow-parens */
 /* eslint-disable default-case */
 /* eslint-disable no-underscore-dangle */
+import VuexPersistence from 'vuex-persist';
+
 import {
   STORAGE_KEY,
-  SESSION_ID,
 } from './index';
-import HELPERS from '../helpers';
-
-// helper for checking error code for full storage
-function isQuotaExceeded(e) {
-  let quotaExceeded = false;
-  if (e) {
-    if (e.code) {
-      switch (e.code) {
-        case 22:
-          quotaExceeded = true;
-          break;
-        case 1014:
-          // Firefox
-          if (e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
-            quotaExceeded = true;
-          }
-          break;
-      }
-    } else if (e.number === -2147024882) {
-      // Internet Explorer 8
-      quotaExceeded = true;
-    }
-  }
-  return quotaExceeded;
-}
 
 const triggerMutations = [
   'n3/stopProcessing',
@@ -44,54 +20,57 @@ const triggerMutations = [
   'dialogs/setDialog',
   'dialogs/toggleDeletePrompt',
   'dialogs/toggleNetworkPrompt',
+  'app/openRightDrawer',
+  'app/toggleRightDrawer',
 ];
 
-// helper function for filtering for properties that need to be persistent.
-function filterForPersistantProperties(stateObj) {
-  const result = {};
-  const modules = Object.keys(stateObj);
-  // const values = Object.values(stateObj); // obj: {name: value }
-  for (let k = 0; k < modules.length; k += 1) {
-    result[modules[k]] = {};
-    const m = stateObj[modules[k]];
-    const p = m.p || [];
-    for (let i = 0; i < p.length; i += 1) {
-      result[modules[k]][p[i]] = m[p[i]];
-    }
-  }
-  return result;
-}
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage,
+  key: STORAGE_KEY || 'MetaDataEditor',
+  filter: (mutation) => triggerMutations.includes(mutation.type),
+  reducer: (state) => ({
+    n3: {
+      ttlString: state.n3.ttlString,
+      // store: state.n3.store, // this was not a good idea
+    },
+    JSONschema: {
+      entries: state.JSONschema.entries,
+      schemas: state.JSONschema.schemas,
+      unsaved: state.JSONschema.unsaved,
+      mappedNames: state.JSONschema.mappedNames,
+    },
+    app: {
+      drawer: state.app.drawer,
+      drawerclipped: state.app.drawerclipped,
+      fixed: state.app.fixed,
+      config: state.app.config,
+      miniVariant: state.app.miniVariant,
+      rightDrawer: state.app.rightDrawer,
+    },
+    localStorageInfo: {
+      localStorageLimit: state.localStorageInfo.localStorageLimit,
+      currentStoreLength: state.localStorageInfo.currentStoreLength,
+      lastEdit: state.localStorageInfo.lastEdit,
+    },
+    dialogs: {
+      deletePrompt: state.dialogs.deletePrompt,
+      networkPrompt: state.dialogs.networkPrompt,
+    },
+    config: {
+      apis: state.config.apis,
+      getLocalStorageKey: state.config.getLocalStorageKey,
+    },
+    // There's no need to keep the batchCreate data persistent
+    /*
+    batchCreate: {
+      directories: state.batchCreate.directories,
+      model: state.batchCreate.model,
+      selected: state.batchCreate.selected,
+    },
+    */
+  }),
+});
 
-const localStoragePlugin = store => {
-  let localStorage;
-  try {
-    localStorage = window.localStorage;
-  } catch (e) {
-    store.commit('n3/updateStorageStatus', false);
-  }
-  if (localStorage) {
-    store.subscribe((mutation, state) => {
-      if (triggerMutations.includes(mutation.type)) {
-        const pState = filterForPersistantProperties(state);
-        const currentStore = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '{}');
-        const now = Date.now();
-        currentStore[SESSION_ID] = { pState,
-          date: now,
-          dateString: HELPERS.methods.dateToString(new Date(now)),
-        };
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(currentStore));
-          store.commit('n3/updateStorageStatus', true);
-        } catch (e) {
-          if (isQuotaExceeded(e)) {
-            store.commit('n3/updateStorageStatus', false);
-            // Storage full, maybe notify user or do some clean-up
-          }
-          store.commit('n3/updateStorageStatus', false);
-        }
-      }
-    });
-  }
-};
-
-export default [localStoragePlugin];
+export default [
+  vuexLocal.plugin,
+];

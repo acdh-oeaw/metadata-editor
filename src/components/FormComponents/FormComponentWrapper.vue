@@ -11,6 +11,7 @@
         :type="mappedType"
         :hint="(index === selectedValue.length - 1) ? properties.description : ''"
         :key="index"
+        :index="index"
         :properties="properties"
         persistent-hint
         rows="2"
@@ -41,6 +42,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import HELPERS from '../../helpers';
 import autocompdefault from './AutocompDefault';
 import HasIdentifierField from './HasIdentifierField';
@@ -51,13 +54,10 @@ import AnyUriField from './AnyUriField';
 // import HasTemporalCoverageIdentifierField from './HasTemporalCoverageIdentifierField';
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
-const defaultComponentObject =
-  {
-    type: '',
-    name: 'v-text-field',
-  }
-;
-
+const defaultComponentObject = {
+  type: '',
+  name: 'v-text-field',
+};
 export default {
   mixins: [HELPERS],
   props: [
@@ -88,10 +88,10 @@ export default {
       componentTypeMap: {
         // contains objects with 2 props: name -> component name;
         // type -> prop to give to component.
-        date: { type: '', name: 'BetterDatePicker' },
+        date: 'BetterDatePicker',
         string: defaultComponentObject,
         text: defaultComponentObject,
-        anyURI: { type: 'anyURI', name: 'AnyUriField' },
+        anyURI: 'AnyUriField',
         // anyURI: defaultComponentObject,
         positiveinteger: defaultComponentObject,
         literal: defaultComponentObject,
@@ -100,88 +100,49 @@ export default {
       // for Mapping matching names to components.
       componentNameMap: {
         hasLifeCycleStatus: { name: 'AutocompVocabs', type: 'ARCHE_LIFECYCLE_STATUS' },
-        ArcheCategory: { name: 'AutocompVocabs', type: 'ARCHE_CATEGORY' },
+        hasCategory: { name: 'AutocompVocabs', type: 'ARCHE_CATEGORY' },
+        hasAccessRestriction: { name: 'AutocompVocabs', type: 'ARCHE_ACCESS_RESTRICTIONS' },
+        hasDescription: 'v-textarea',
+        hasAppliedMethodDescription: 'v-textarea',
+        hasArrangement: 'v-textarea',
+        hasCompleteness: 'v-textarea',
+        hasEditorialPractice: 'v-textarea',
+        hasExtent: 'v-textarea',
+        hasNamingScheme: 'v-textarea',
+        hasNote: 'v-textarea',
+        hasSeriesInformation: 'v-textarea',
+        hasTableOfContents: 'v-textarea',
+        hasTechnicalInfo: 'v-textarea',
+        hasWKT: 'v-textarea',
+        hasTitleImage: 'hasTitleImageField',
+        hasIdentifier: 'HasIdentifierField',
+        // hasTemporalCoverageIdentifier: 'HasTemporalCoverageIdentifierField',
       },
     };
   },
-  methods: {
-    hasIdentifier(name) {
-      if (name === 'hasIdentifier') {
-        this.component = 'HasIdentifierField';
-        this.selectedValue = [this.value];
-        // this.$info('FormComponentWrapper created', this.component, this.selectedValue);
-        return true;
-      }
-      return false;
-    },
-    hasTitleImage(name) {
-      if (name === 'hasTitleImage') {
-        this.component = 'hasTitleImageField';
-        this.selectedValue = [this.value];
-        // this.$info('FormComponentWrapper created', this.component, this.selectedValue);
-        return true;
-      }
-      return false;
-    },
-    isDescription(name) {
-      const fieldList = [
-        'hasDescription',
-        'hasAppliedMethodDescription',
-        'hasArrangement',
-        'hasCompleteness',
-        'hasEditorialPractice',
-        'hasExtent',
-        'hasNamingScheme',
-        'hasNote',
-        'hasSeriesInformation',
-        'hasTableOfContents',
-        'hasTechnicalInfo',
-        'hasWKT',
-      ];
-      if (fieldList.includes(name)) {
-        this.component = 'v-textarea';
-        return true;
-      }
-      return false;
-    },
-    hasTemporalCoverageIdentifier(name) {
-      if (name === 'hasTemporalCoverageIdentifier') {
-        this.component = 'HasTemporalCoverageIdentifierField';
-        this.selectedValue = [this.value];
-        return true;
-      }
-      return false;
-    },
-  },
   computed: {
+    ...mapGetters('JSONschema', [
+      'getSchema',
+    ]),
     properties() {
-      const schemas = Object.keys(this.$store.state.JSONschema.schemas);
+      const schemas = Object.keys(this.getSchema());
       for (let i = 0; i < schemas.length; i += 1) {
-        if (this.$store.state.JSONschema.schemas[schemas[i]].properties[this.name]) {
-          return this.$store.state.JSONschema.schemas[schemas[i]].properties[this.name];
+        if (this.getSchema(schemas[i]).properties[this.name]) {
+          return this.getSchema(schemas[i]).properties[this.name];
         }
       }
       return '';
     },
   },
   created() {
-    this.$log('type is:', this.type);
-    // if this -> mapping happens in the hasIdentifierFunciton
-    if (this.hasIdentifier(this.name)) return;
-    if (this.hasTitleImage(this.name)) return;
-    // if (this.hasTemporalCoverageIdentifier(this.name)) return;
-    if (this.isDescription(this.name)) return;
-
     let c = this.componentNameMap[this.name];
-    this.$log('type', this.type, this.name);
+    this.$log('type', this.type, this.name, this.value);
     if (!c) {
       // const typeL = this.type.toLowerCase();
       c = this.componentTypeMap[this.type];
     }
-    if (!c) {
-      c = { type: this.type, name: 'autocompdefault' };
-    }
-
+    if (!c) c = { type: this.type, name: 'autocompdefault' };
+    if (typeof c !== 'object') c = { name: c, type: '' };
     this.component = c.name;
     this.mappedType = c.type;
     if (this.type === 'date' && Array.isArray(this.value)) this.selectedValue = [this.value[0]];

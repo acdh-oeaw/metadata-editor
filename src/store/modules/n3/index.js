@@ -21,6 +21,7 @@ const state = {
   processing: false,
   processingMessage: '',
   ttlString: '',
+  ttlLength: 0,
   p: ['ttlString'],
   stored: true,
   update: 0,
@@ -60,7 +61,7 @@ const getters = {
     return null;
   },
   getObjectsBySubjects: s => (subjects) => {
-    this._vm.$log('getObjectsBySubjects', subjects);
+    // console.log('getObjectsBySubjects', subjects);
     const arr = [];
     for (let i = 0; i < subjects.length; i += 1) {
       const quads = s.store.getQuads(subjects[i]);
@@ -91,6 +92,7 @@ const getters = {
     `https://vocabs.acdh.oeaw.ac.at/schema#${type.toLowerCase()}`,
   )),
   getUpdate: s => s.update,
+  getTtlString: s => s.ttlString,
 };
 
 export default {

@@ -22,12 +22,7 @@
 </template>
 
 <script>
-
   export default {
-    data() {
-      return {
-      };
-    },
     props: [
       'src',
       'caption',
@@ -37,7 +32,3 @@
     name: 'FundamentJumbo',
   };
 </script>
-<style scoped>
-
-
-</style>

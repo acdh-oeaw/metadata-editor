@@ -75,6 +75,9 @@ export default {
     item,
   },
   computed: {
+    ...mapGetters('dialogs', [
+      'getDialog',
+    ]),
     ...mapGetters('n3', [
       'getQuads',
       'getArcheTitle',
@@ -135,7 +138,7 @@ export default {
       this.getChildren(this.uri.id);
     },
     clear() {
-      if (this.$store.state.dialogs.deletePrompt) {
+      if (this.getDialog('deletePrompt')) {
         this.setDialog({ name: 'deletesubjectdialog', obj: { status: true, uri: this.uri.id } });
       } else {
         this.RemoveSubject(this.uri.id);
@@ -159,7 +162,7 @@ export default {
       this.saveSubjectChanges(
         this.uri.id,
         edit.model,
-        this.$store.state.JSONschema.schemas[edit.schema],
+        this.getSchema(edit.schema),
       );
     },
     discard() {

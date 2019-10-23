@@ -149,26 +149,32 @@ const actions = {
     };
     dispatch('AddFilteredQuad', first);
     // create ID if not given
-    if (!obj.hasIdentifier || !obj.hasIdentifier.length) {
+    if (!obj.hasIdentifier || !obj.hasIdentifier.length || obj.hasIdentifier.includes('')) {
+      if (Array.isArray(obj.hasIdentifier) && obj.hasIdentifier.includes('')) obj.hasIdentifier.shift();
       // eslint-disable-next-line
       const slug = require('slugify');
       let genId;
       this._vm.$log('IDobj', obj);
       switch (schema.title.toLowerCase()) {
         case 'person':
-          genId = `${obj.hasFirstName[0].charAt(0).toLowerCase()}${obj.hasLastName[0]}`;
+          if (obj.hasFirstName[0] && obj.hasLastName[0]) genId = `${obj.hasFirstName[0].charAt(0).toLowerCase()}${obj.hasLastName[0]}`;
           break;
         case 'organisation':
-          genId = obj.hasAlternativeTitle[0].toLowerCase() || slug(obj.HasTitle[0]) || '';
+          if (obj.hasAlternativeTitle[0]) genId = obj.hasAlternativeTitle[0].toLowerCase();
+          else if (obj.HasTitle[0]) genId = slug(obj.HasTitle[0]);
           break;
         case 'place':
-          genId = `place-${obj.hasTitle[0].toLowerCase()}`;
+          genId = `place-${(obj.hasTitle[0] || '').toLowerCase()}`;
           break;
         case 'publication':
           genId = `pub-${obj.hasAuthor ? obj.hasAuthor[0].toLowerCase() : ''}${obj.hasAuthor ? obj.hasAuthor[1].toLowerCase() : ''}${obj.hasAvailableDate ? obj.hasAvailableDate[0].toLowerCase() : ''}`;
           break;
         default:
-          genId = slug(obj.hasTitle[0] || '');
+          if (obj.hasTitle) {
+            if (Array.isArray(obj.hasTitle)) genId = slug(obj.hasTitle[0] || '');
+            else genId = slug(obj.hasTitle || '');
+          }
+          break;
       }
       if (genId && genId !== 'pub-' && genId !== 'place-') {
         dispatch('AddFilteredQuad', {

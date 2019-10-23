@@ -18,7 +18,7 @@
           slot="activator"
           v-model="selectedValue"
           :label="label"
-          :hint="name"
+          :hint="hint"
           prepend-icon="event"
           readonly
           persistent-hint
@@ -39,7 +39,7 @@
       ></v-text-field>
     </v-flex>
     <v-flex xs4>
-      <v-switch label="Manual input" v-model="manSwitch"></v-switch>
+      <v-checkbox label="Manual input" v-model="manSwitch"></v-checkbox>
     </v-flex>
   </v-layout>
 </template>
@@ -51,6 +51,7 @@ export default {
     'name',
     'value',
     'label',
+    'hint',
   ],
   data() {
     return {

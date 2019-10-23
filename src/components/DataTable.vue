@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
 import HELPERS from '../helpers';
 
@@ -44,11 +44,6 @@ export default {
       'fetchClasses',
       'fetchSubClassOf',
       'fetchPropertiesByURI',
-    ]),
-  },
-  computed: {
-    ...mapGetters('jowl', [
-      'getQuery',
     ]),
   },
   watch: {

@@ -1,15 +1,15 @@
 <template lang="html">
-    <v-dialog v-model="dialogShow" id="askForStore" max-width="500px">
+    <v-dialog v-model="dialogShow" id="askForStore" max-width="500px" persistent>
       <v-card>
         <v-card-title>
           Session Recovery
         </v-card-title>
         <v-card-text>
-          Hey! you have an old session. It is from {{date}} (DD/MM/YY hh:mm:ss). Do you want to restore it?
+          Hey! you have an old session. It is from {{date}} (DD/MM/YY hh:mm:ss). Do you want to keep it?
         </v-card-text>
         <v-card-actions>
         <v-btn @click="restore" large color="primary">
-          Recover
+          Keep
         </v-btn>
         <v-btn @click="discard" large color="secondary">
           Discard
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions, mapMutations, mapGetters } from 'vuex';
 import HELPERS from '../../helpers';
 
 export default {
@@ -33,6 +33,15 @@ export default {
   },
   mixins: [HELPERS],
   computed: {
+    ...mapGetters('dialogs', [
+      'getDialog',
+    ]),
+    ...mapGetters('JSONschema', [
+      'getSchema',
+    ]),
+    ...mapGetters('n3', [
+      'getTtlString',
+    ]),
     tabs() {
       return this.$store.state.JSONschema.tabs;
     },
@@ -53,6 +62,7 @@ export default {
     ]),
     ...mapActions('n3', [
       'ConstructN3',
+      'StringToStore',
     ]),
     ...mapMutations('localStorageInfo', [
       'constructLocalStorageInfo',
@@ -71,6 +81,7 @@ export default {
       this.dialogShow = false;
       this.deleteOldSessions();
       this.initAllSchemas();
+      this.$router.go(this.$router.currentRoute);
     },
     /*
     used to initialize schemas so they are ready to be worked with
@@ -78,7 +89,7 @@ export default {
     initSchema(type) {
       this.$info('init Schema:', type);
       if (!type) { return; }
-      if (this.$store.state.JSONschema.schemas && this.$store.state.JSONschema.schemas[type]) {
+      if (this.getSchema() && this.getSchema(type)) {
         return; // already there
       }
 
@@ -95,38 +106,19 @@ export default {
     },
     checkForInternet() {
       setInterval(() => {
-        if (this.$store.state.dialogs.networkPrompt) this.checkConnections();
+        if (this.getDialog('networkPrompt')) this.checkConnections();
       }, 5000);
     },
-    restore(reload = true) {
-      // this.constructJOWL(this.latestSession);
-      this.constructJSONschema(this.latestSession);
-      this.initAllSchemas();
-      this.ConstructN3(this.latestSession);
-      this.constructApp(this.latestSession);
-      this.constructLocalStorageInfo(this.latestSession);
-      this.constructConfig(this.latestSession);
-      this.constructBatchCreate(this.latestSession);
-      this.constructDialogs(this.latestSession);
-      if (this.$store.state.dialogs.networkPrompt && process.env.NODE_ENV !== 'development') {
-        this.checkConnections();
-        this.checkForInternet();
-      }
-
-      this.discard();
-      if (reload) {
-        this.$router.go(this.$router.currentRoute);
-      }
+    restore() {
+      this.dialogShow = false;
     },
   },
   created() {
-    this.latestSession = this.getLatestSession();
-    if (this.latestSession) {
+    if (this.getTtlString) this.StringToStore(this.getTtlString);
+    if (this.$store.state.localStorageInfo.lastEdit) {
       // this.$log('latestSession', this.latestSession);
-      this.date = this.dateToString(new Date(this.latestSession.date));
-      if (Date.now() - this.latestSession.date < 300000) {
-        this.restore(false);
-      } else {
+      this.date = this.dateToString(new Date(this.$store.state.localStorageInfo.lastEdit));
+      if (Date.now() - this.$store.state.localStorageInfo.lastEdit > 3000000) {
         this.dialogShow = true;
       }
     } else {

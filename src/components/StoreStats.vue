@@ -11,11 +11,22 @@
         {{ getCount.subjects }} Subjects
       </div>
       <div class="bd-toc-item">
-        {{ $store.state.localStorageInfo.currentStoreLength }} Current Store Length
-      </div>
-      <div class="bd-toc-item">
         {{ getQuadsByType('Resource').length }} Resources
       </div>
+      <div class="bd-toc-item">
+        {{ $store.state.localStorageInfo.currentStoreLength }} Current Store Length
+      </div>
+      <!--
+      <div class="bd-toc-item">
+        {{ JSON.stringify($store.state).length }} Current Vuex Store Length
+      </div>
+      <div class="bd-toc-item">
+        {{ getTtlString.length }} ttlString length in Vuex Store
+      </div>
+      <div class="bd-toc-item">
+        {{ }} ttlString length in local Store
+      </div>
+      -->
 
       <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
         {{ $store.state.localStorageInfo.localStorageLimit }} Chars Storage Capacity
@@ -26,10 +37,12 @@
       <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
         {{ (""+($store.state.localStorageInfo.currentStoreLength *100/ $store.state.localStorageInfo.localStorageLimit)).substring(0,4) }}% Capacity used
       </div>
+      <!--
       <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
       Space for ~{{ Math.floor(($store.state.localStorageInfo.localStorageLimit - $store.state.localStorageInfo.currentStoreLength)
       *(getCount.quads/$store.state.localStorageInfo.currentStoreLength) ) }} Quads left.
       </div>
+      -->
       <v-alert color="success" show v-if="$store.state.n3.stored">All Stored</v-alert>
       <v-alert color="error" show v-if="!$store.state.n3.stored">Quota Exceeded</v-alert>
       <div class="bd-toc-item">
@@ -110,6 +123,9 @@ export default {
       'safeLimitTest',
       'testLimit',
     ]),
+    ...mapMutations('localStorageInfo', [
+      'getCurrentStoreLength',
+    ]),
     ...mapActions('n3', [
       'RemoveSubject',
       'ObjectToStore',
@@ -124,12 +140,16 @@ export default {
       'getCount',
       'getQuadsByType',
       'getQuads',
+      'getTtlString',
     ]),
     ...mapGetters('JSONschema', [
       'getUnsavedChanges',
       'getUnsaved',
       'getSchema',
     ]),
+  },
+  created() {
+    this.getCurrentStoreLength();
   },
 };
 </script>
