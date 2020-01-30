@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import Axios from 'axios';
 import VueAxios from 'vue-axios';
 // import createLogger from 'vuex/dist/logger';
-import n3 from './modules/n3/index';
+import n3 from 'acdh-vue-n3';
 import JSONschema from './modules/JSONschema/index';
 import app from './modules/app/index';
 import localStorageInfo from './modules/localStorageInfo/index';
@@ -11,7 +11,6 @@ import dialogs from './modules/dialogs/index';
 import config from './modules/config/index';
 import batchCreate from './modules/batchCreate/index';
 import plugins from './plugins';
-
 
 Vue.use(Vuex);
 Vue.use(VueAxios, Axios);

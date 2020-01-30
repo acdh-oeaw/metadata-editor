@@ -5,6 +5,7 @@ import Vuetify from 'vuetify';
 import VueAxios from 'vue-axios';
 import VueAuthenticate from 'vue-authenticate';
 import axios from 'axios';
+import Fundament from 'acdh-fundament-vuetify';
 
 import 'vuetify/dist/vuetify.min.css';
 import 'vue2-animate/dist/vue2-animate.min.css';
@@ -13,9 +14,8 @@ import 'vue2-animate/dist/vue2-animate.min.css';
 import { sync } from 'vuex-router-sync';
 import vueLogger from 'vue-logger';
 
-import store from './store/index';
+import store from './store';
 import router from './router';
-import './components/Fundament/Fundament.css';
 
 Vue.use(vueLogger, {
   dev: process.env.NODE_ENV === 'development',
@@ -34,6 +34,7 @@ Vue.use(VueAuthenticate, {
 });
 
 Vue.use(Vuetify);
+Vue.use(Fundament);
 sync(store, router);
 
 Vue.config.productionTip = false;

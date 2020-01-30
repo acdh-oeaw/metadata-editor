@@ -1,5 +1,5 @@
 <template lang="html">
-  <fundamentcard
+  <fundament-card
     caption="Create batch from file"
     >
     <v-flex xs12>
@@ -148,7 +148,7 @@
         Close
       </v-btn>
     </v-snackbar>
-  </fundamentcard>
+  </fundament-card>
 </template>
 
 <script>
@@ -158,7 +158,6 @@ import {
   mapMutations,
 } from 'vuex';
 
-import fundamentcard from './Fundament/FundamentCard';
 import HELPERS from '../helpers';
 
 export default {
@@ -201,9 +200,6 @@ export default {
       },
       ],
     };
-  },
-  components: {
-    fundamentcard,
   },
   methods: {
     ...mapActions('n3', [

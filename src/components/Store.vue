@@ -29,19 +29,20 @@
         <batchcreate></batchcreate>
       </v-tab-item>
       <v-tab-item key="viewtree">
-        <fundamentcard caption="View items in store">
+        <fundament-card caption="View items in store">
           <storetree></storetree>
-        </fundamentcard>
+        </fundament-card>
       </v-tab-item>
     </v-tabs>
   </v-container>
 </template>
 
 <script>
+
 import loadfile from './Store_LoadFile';
 import storetree from './Store_Storetree';
 import batchcreate from './Store_BatchCreate';
-import fundamentcard from './Fundament/FundamentCard';
+
 
 import HELPERS from '../helpers';
 
@@ -53,7 +54,6 @@ export default {
     loadfile,
     storetree,
     batchcreate,
-    fundamentcard,
   },
   data() {
     return {

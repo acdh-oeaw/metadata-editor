@@ -1,5 +1,5 @@
 <template>
-  <fundamentcard
+  <fundament-card
       caption="Load ttl from disk"
       >
       <div >
@@ -19,12 +19,11 @@
         </p>
         <input type="file" @change="onFileChange">
       </div>
-    </fundamentcard>
+    </fundament-card>
 </template>
 
 <script>
 import { mapActions, mapMutations } from 'vuex';
-import fundamentcard from './Fundament/FundamentCard';
 import FileSizeDialog from './Dialogs/FileSizeDialog';
 
 import HELPERS from '../helpers';
@@ -42,7 +41,6 @@ export default {
   },
   name: 'load',
   components: {
-    fundamentcard,
     FileSizeDialog,
   },
   computed: {

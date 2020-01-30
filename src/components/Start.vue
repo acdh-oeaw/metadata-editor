@@ -1,56 +1,56 @@
 <template>
   <div class="">
-      <fundamentjumbo
+      <fundament-jumbo
         src="/static/intro_bg.jpg"
         caption="MetaDataEditor"
         subtitle="I'm supposed to be able to load and Edit ttl files for ingest in Arche."
       >
-      </fundamentjumbo>
+    </fundament-jumbo>
       <v-container grid-list-md>
         <v-layout justify-space-around row wrap>
-          <fundamentsectiondiv icon="stars" caption="Getting Started"></fundamentsectiondiv>
+          <fundament-section-div icon="stars">Getting Started</fundament-section-div>
           <v-flex xs12 sm6>
-            <fundamentcard
+            <fundament-card
               caption="Load an existing ttl File"
               :link="{ name: 'store', params: { lang: 'en' }}"
               button="Select"
             >
               <p class="card-text">Load and edit an existing file from your Disk.</p>
-            </fundamentcard>
+            </fundament-card>
           </v-flex>
           <v-flex xs12 sm6>
-            <fundamentcard
+            <fundament-card
               caption="Create a new Project"
               :link="{ name: 'create', params: { lang: 'en' }}"
             >
               <p class="card-text">Create a new Project for archival in Arche.</p>
-            </fundamentcard>
+            </fundament-card>
           </v-flex>
-          <fundamentsectiondiv icon="description" caption="Documentation"></fundamentsectiondiv>
+          <fundament-section-div icon="description">Documentation</fundament-section-div>
           <v-flex xs12 sm4>
-            <fundamentcard
+            <fundament-card
               caption="Load an existing ttl File"
               :link="{ name: 'store', params: { lang: 'en' }}"
               button="Select"
             >
               <p class="card-text">Load and edit an existing file from your Disk.</p>
-            </fundamentcard>
+            </fundament-card>
           </v-flex>
           <v-flex xs12 sm4>
-            <fundamentcard
+            <fundament-card
               caption="Create a new Project"
               :link="{ name: 'create', params: { lang: 'en' }}"
             >
               <p class="card-text">Create a new Project for archival in Arche.</p>
-            </fundamentcard>
+            </fundament-card>
           </v-flex>
           <v-flex xs12 sm4>
-            <fundamentcard
+            <fundament-card
               caption="Create a new Project"
               :link="{ name: 'create', params: { lang: 'en' }}"
             >
               <p class="card-text">Create a new Project for archival in Arche.</p>
-            </fundamentcard>
+            </fundament-card>
           </v-flex>
         </v-layout>
       </v-container>
@@ -58,16 +58,8 @@
 </template>
 
 <script>
-import fundamentjumbo from './Fundament/FundamentJumbo';
-import fundamentcard from './Fundament/FundamentCard';
-import fundamentsectiondiv from './Fundament/FundamentSectionDiv';
 
 export default {
-  components: {
-    fundamentjumbo,
-    fundamentcard,
-    fundamentsectiondiv,
-  },
   name: 'start',
   data() {
     return {
