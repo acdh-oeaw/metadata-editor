@@ -149,12 +149,12 @@ export default {
       else {
         this.deleteEdit({ subject: this.subject });
         this.ObjectToStore({ obj: this.filterModelBeforeUpload(this.model), schema: this.schema })
-        .then((res) => {
-          this.subject = res;
-          this.$log('New Subject:', this.subject);
-          this.snackbar = true;
-          this.oldModel = this.model;
-        });
+          .then((res) => {
+            this.subject = res;
+            this.$log('New Subject:', this.subject);
+            this.snackbar = true;
+            this.oldModel = this.model;
+          });
       }
     },
     /*

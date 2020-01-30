@@ -81,15 +81,15 @@ export default {
       this.loading = true;
       // this.$info(vm);
       this.getVocabsByID(escape((this.search || '').trim()), this.type)
-      .then((res) => {
-        this.$debug(res);
-        if (Array.isArray(res.results)) this.items = res.results;
-        this.loading = false;
-      })
-      .catch((res) => {
-        this.$debug(res);
-        this.loading = false;
-      });
+        .then((res) => {
+          this.$debug(res);
+          if (Array.isArray(res.results)) this.items = res.results;
+          this.loading = false;
+        })
+        .catch((res) => {
+          this.$debug(res);
+          this.loading = false;
+        });
     },
   },
 };

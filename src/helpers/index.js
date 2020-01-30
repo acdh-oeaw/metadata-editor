@@ -184,14 +184,14 @@ export default {
         this.$debug('   good response', response.data);
         return response.data[0] === 'The identifier is free' ? 1 : -1;
       })
-      .catch((res) => {
-        this.$debug('   bad response', res.response);
-        if (res.response && res.response.data && res.response.data[0]) {
-          const answer = (res.response.data[0] === 'This is not a valid ACDH identifier') ? 0 : -3;
-          return answer;
-        }
-        return -3;
-      });
+        .catch((res) => {
+          this.$debug('   bad response', res.response);
+          if (res.response && res.response.data && res.response.data[0]) {
+            const answer = (res.response.data[0] === 'This is not a valid ACDH identifier') ? 0 : -3;
+            return answer;
+          }
+          return -3;
+        });
     },
     /*
     fetches data from Arche on the specified endpoint using the given typ.

@@ -22,12 +22,12 @@ import networkerrordialog from './NetworkErrorDialog';
 
 export default {
   components: {
-    clearcachedialog,  // opened in storeStats
-    storedialog,    // directly opens itself. -> old session restore
+    clearcachedialog, // opened in storeStats
+    storedialog, // directly opens itself. -> old session restore
     editsubjectdialog,
-    deletesubjectdialog,  // both opened in Store_Storetreeitem
-    addnewsubjectdialog,  // opened in autoCompDefault
-    filesizedialog,  // opened in Store_LoadFile
+    deletesubjectdialog, // both opened in Store_Storetreeitem
+    addnewsubjectdialog, // opened in autoCompDefault
+    filesizedialog, // opened in Store_LoadFile
     networkerrordialog,
   },
 };

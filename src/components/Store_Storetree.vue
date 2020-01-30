@@ -168,8 +168,7 @@ export default {
         collections = collections.concat(this.getQuads({
           subject: `_:${this.collectionNames_select[i]}`,
           predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type' },
-          ),
-        );
+        ));
       }
       this.getRoot();
       this.collections = this.collections.concat(collections);
