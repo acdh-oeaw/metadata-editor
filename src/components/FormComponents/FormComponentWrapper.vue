@@ -15,7 +15,6 @@
         :properties="properties"
         persistent-hint
         rows="2"
-        autocomplete="none"
         auto-grow
         :append-icon="(properties.required && index === 0) ? '*' : ''"
       >

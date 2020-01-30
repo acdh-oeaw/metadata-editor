@@ -36,7 +36,7 @@
     <v-card-text>You are currently editing the entity {{ verboseEntityDescription }}
     </v-card-text>
     You are currently editing the entity: {{ verboseEntityDescription }}
-    <form-schema v-if="model && type" @input="saveEntry(); $emit('input', model)" :schema="schema" v-model="model">
+    <form-schema v-if="model && type" @input="saveEntry(); $emit('input', model)" :schema="schema" v-model="model" autocomplete="off">
     </form-schema>
     <v-card-actions>
       <v-btn :disabled="!changedModel" variant="primary"  @click="saveChanges(); setDialog({ name, obj: { query: {} } })">Save Changes</v-btn>
