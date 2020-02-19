@@ -1,18 +1,18 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
-import Vuetify from 'vuetify';
 import VueAxios from 'vue-axios';
 import VueAuthenticate from 'vue-authenticate';
 import axios from 'axios';
 import Fundament from 'acdh-fundament-vuetify';
 
-import 'vuetify/dist/vuetify.min.css';
 import 'vue2-animate/dist/vue2-animate.min.css';
 
 
 import { sync } from 'vuex-router-sync';
 import vueLogger from 'vue-logger';
+
+import vuetify from '@/plugins/vuetify';
 
 import store from './store';
 import router from './router';
@@ -33,7 +33,6 @@ Vue.use(VueAuthenticate, {
   },
 });
 
-Vue.use(Vuetify);
 Vue.use(Fundament);
 sync(store, router);
 
@@ -41,6 +40,7 @@ Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
+  vuetify,
   store,
   router,
 }).$mount('#app');

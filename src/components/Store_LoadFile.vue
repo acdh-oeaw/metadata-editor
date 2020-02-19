@@ -5,7 +5,16 @@
       <div >
         <p>Load Data from a file.</p>
         <p>
-          <v-btn @click="testLimit()">testStoreLimit</v-btn>
+          <v-divider></v-divider>
+        </p>
+        <p>
+          <v-file-input label="File input" @change="onFileChange"></v-file-input>
+        </p>
+        <p>
+          <v-divider></v-divider>
+        </p>
+        <p>
+          <v-btn class="text-right" @click="testLimit()">testStoreLimit</v-btn>
         </p>
         <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
           {{ $store.state.localStorageInfo.localStorageLimit }} Chars Storage Capacity
@@ -14,10 +23,6 @@
         <div class="bd-toc-item" v-if="$store.state.localStorageInfo.localStorageLimit">
           {{ (""+($store.state.localStorageInfo.currentStoreLength *100/ $store.state.localStorageInfo.localStorageLimit)).substring(0,4) }}% Capacity used
         </div>
-        <p>
-          <v-divider></v-divider>
-        </p>
-        <input type="file" @change="onFileChange">
       </div>
     </fundament-card>
 </template>
