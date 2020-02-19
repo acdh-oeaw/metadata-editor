@@ -13,7 +13,7 @@
   "dependencies": {
     "@formschema/native": "^1.1.1",
     "acdh-fundament-vuetify": "^1.1.1",
-    "acdh-vue-n3": "^1.0.4",
+    "acdh-vue-n3": "^1.0.5",
     "axios": "^0.19.1",
     "debounce": "1.1.0",
     "npm": "^6.13.7",
