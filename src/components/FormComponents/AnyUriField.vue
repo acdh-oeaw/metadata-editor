@@ -6,6 +6,7 @@
     persistent-hint
     v-model="CovID"
     :rules="rules"
+    @input="$emit('input', CovID)"
   ></v-text-field>
   <v-progress-linear
       v-if="loading && CovID"
