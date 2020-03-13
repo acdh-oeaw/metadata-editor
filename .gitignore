@@ -1,8 +1,8 @@
 .DS_Store
 node_modules/
 /dist/
-static/troesmis_collection.ttl
-static/4MB Collection.ttl
+static/collections/troesmis_collection.ttl
+static/collections/4MB Collection.ttl
 static/fileList.json
 npm-debug.log*
 yarn-debug.log*

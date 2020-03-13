@@ -1,19 +1,19 @@
 <template>
-  <v-layout @click="$emit('input', chosenItem)" column :class="{ greyBg: !bg, selected: this.uri === this.$route.query.uri }">
+  <v-layout @click="$emit('input', chosenItem)" column :class="{ selected: this.uri === this.$route.query.uri }">
     <v-flex xs12>
       <v-layout row class="itemline" v-on:click="expanded = !expanded">
-        <v-icon v-if="!expanded && children.length > 0"  class="pointer">chevron_right</v-icon>
-        <v-icon v-if="expanded && children.length > 0"  class="pointer">expand_more</v-icon>
-        <v-icon v-if="children.length == 0" style="opacity:0;">expand_more</v-icon>
-        <v-icon v-bind:class="{ expanded: 'teal lighten-3' }">{{ typeicon(getArcheTypeString(uri.id)) }}</v-icon>
-        <v-icon v-if="$store.state.JSONschema.unsaved[this.uri.id]">build</v-icon>
+          <v-icon v-if="children.length == 0" style="opacity:0;">expand_more</v-icon>
+          <v-icon v-else-if="!expanded && children.length > 0"  class="pointer">chevron_right</v-icon>
+          <v-icon v-else-if="expanded && children.length > 0"  class="pointer">expand_more</v-icon>
+          <v-icon v-bind:class="{ expanded: 'teal lighten-3' }">{{ typeicon(getArcheTypeString(uri.id)) }}</v-icon>
+          <v-icon v-if="$store.state.JSONschema.unsaved[this.uri.id]">build</v-icon>
         <v-layout grid-list-xs class="ml-2" column justify-center>
             <div class="itemcaption caption">
               {{ title }}
             </div>
         </v-layout>
         <v-spacer></v-spacer>
-        <v-flex xs1 >
+        <v-flex xs1>
           <div class="itemtoolbar">
             <v-layout row>
                 <v-tooltip bottom v-if="$store.state.JSONschema.unsaved[this.uri.id]">
@@ -68,8 +68,8 @@ export default {
   name: 'item',
   props: [
     'uri',
-    'bg',
     'itemFull',
+    'disableExpand',
   ],
   components: {
     item,
@@ -80,6 +80,7 @@ export default {
     ]),
     ...mapGetters('n3', [
       'getQuads',
+      'getQuadsByType',
       'getArcheTitle',
       'getUpdate',
       'getType',
@@ -106,30 +107,31 @@ export default {
       'deleteEdit',
     ]),
     getChildren(uri) {
-      let children = this.getQuads(
-        { predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
-          object: uri,
-        });
+      let children = this.getQuads({
+        predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
+        object: uri,
+      }).map(x => x.subject);
       // in case "absolute" URIs are being used...
       if (children.length === 0) {
-        const id = this.getQuads(
-          {
-            subject: uri,
-            predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier',
-          });
+        const id = this.getQuads({
+          subject: uri,
+          predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier',
+        });
         if (id.length > 0) {
-          children = this.getQuads(
-            { predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
-              object: id[0].object.id,
-            });
+          children = this.getQuads({
+            predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf',
+            object: id[0].object.id,
+          }).map(x => x.subject);
         }
       }
       if (children.length > 0) {
-        let idx = children.length - 1;
-        while (idx + 1) {
-          this.children.push(children[idx].subject);
-          idx -= 1;
+        if (this.disableExpand) {
+          children = children.filter((x) => {
+            const resources = this.getQuadsByType('Resource').map(y => y.subject.id);
+            return resources.includes(x.id);
+          });
         }
+        this.children = children;
       }
     },
     update() {
@@ -257,9 +259,6 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-}
-.greyBg {
-  background-color: #EEE;
 }
 .selected {
   background-color: #80CBC4;

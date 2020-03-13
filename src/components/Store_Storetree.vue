@@ -15,8 +15,14 @@
           >
         </v-autocomplete>
         <v-card v-if="collections">
-          <v-flex xs12 v-for="(item, i) in collections" :key="i" >
-            <item @input="$emit('input', passThroughItem)"  v-model="passThroughItem" :uri="item.subject" :itemFull="item" :bg="!i%2"></item>
+          <v-flex xs12>
+            <v-checkbox v-model="rootTree" label="Disable root Tree"></v-checkbox>
+          </v-flex>
+          <v-flex xs12 v-if="!rootTree" v-for="(item, i) in collections" :key="i">
+            <item @input="$emit('input', passThroughItem)" :disableExpand="false" v-model="passThroughItem" :uri="item.subject" :itemFull="item"></item>
+          </v-flex>
+          <v-flex xs12 v-else v-for="(item, i) in collectionNames" :key="JSON.stringify(item)">
+            <item @input="$emit('input', passThroughItem)" :disableExpand="true" v-model="passThroughItem" :uri="item.subject" :itemFull="item"></item>
           </v-flex>
         </v-card>
       </v-expansion-panel-content>
@@ -101,6 +107,7 @@ export default {
       publications: [],
       resources: [],
       passThroughItem: {},
+      rootTree: false,
     };
   },
   name: 'storetree',
@@ -122,6 +129,7 @@ export default {
     getUpdate(oldV, newV) {
       this.$info('getUpdate', oldV, newV);
       this.collections = {};
+      this.collectionNames = {};
       this.projects = {};
       this.persons = {};
       this.places = {};
@@ -148,7 +156,7 @@ export default {
       'setSchema',
     ]),
     setCollections() {
-      this.collectionNames = this.getAllCollections().map(v => v.subject.value);
+      // this.collectionNames = this.getAllCollections().map(v => v.subject.value);
     },
     // to be implemented
     SetAsRootCollection(subject) {
@@ -183,7 +191,7 @@ export default {
     setRootCollections() {
       // all collections:
       const collections = this.getQuadsByType('Collection');
-      const projects = this.getQuadsByType('Project');
+      // const projects = this.getQuadsByType('Project'); // Why was this in there?
 
       // all isPartOf-property quads
       const partOfCollsSubjects = this.getQuads({ predicate: 'https://vocabs.acdh.oeaw.ac.at/schema#isPartOf' }).map(coll => coll.subject.value);
@@ -193,7 +201,7 @@ export default {
         filter out collections, which subjects appear neither in the
         partOfCollsSubjects or in the hasPartCollsObject.
       */
-      const collectionsWithoutPartOf = collections.filter(coll =>
+      return collections.filter(coll =>
         !partOfCollsSubjects.includes(coll.subject.value)
         && !hasPartCollsObject.includes(coll.object.value),
       );
@@ -206,11 +214,12 @@ export default {
         'collectionsWithoutPartOf', collectionsWithoutPartOf
       );
       */
-      return collectionsWithoutPartOf.concat(projects);
+      // return collectionsWithoutPartOf;
     },
     getRoot() {
       this.$info('getRoot()');
       this.collections = this.setRootCollections();
+      this.collectionNames = this.getQuadsByType('Collection');
       this.projects = this.getQuadsByType('Project');
       this.persons = this.getQuadsByType('Person');
       this.places = this.getQuadsByType('Place');
@@ -229,4 +238,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  div.v-input__control {
+    margin-right: 100px;
+  }
 </style>
