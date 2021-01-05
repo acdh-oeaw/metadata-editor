@@ -14,7 +14,7 @@
     "@formschema/native": "^1.1.1",
     "acdh-fundament-vuetify": "^1.1.1",
     "acdh-vue-n3": "^1.0.5",
-    "axios": "^0.19.1",
+    "axios": "^0.21.1",
     "debounce": "1.1.0",
     "npm": "^6.13.7",
     "rdf-translator": "2.0.0",
